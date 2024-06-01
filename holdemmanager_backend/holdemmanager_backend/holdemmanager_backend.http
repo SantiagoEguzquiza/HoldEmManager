@@ -1,0 +1,6 @@
+@holdemmanager_backend_HostAddress = http://localhost:5183
+
+GET {{holdemmanager_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

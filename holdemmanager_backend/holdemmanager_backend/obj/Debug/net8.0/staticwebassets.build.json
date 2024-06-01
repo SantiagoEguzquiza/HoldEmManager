@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Qs1kiWu1VKboRCc921QwuHouSOxC+jjntNJ/6hQkYWI=",
+  "Source": "holdemmanager_backend",
+  "BasePath": "_content/holdemmanager_backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
