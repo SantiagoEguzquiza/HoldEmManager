@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("holdemmanager_backend")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("holdemmanager_backend_app")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecea1481e9f1646c163a676281a9754e51dd10d3")]
-[assembly: System.Reflection.AssemblyProductAttribute("holdemmanager_backend")]
-[assembly: System.Reflection.AssemblyTitleAttribute("holdemmanager_backend")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a73a7b248dc4778345a7e02483fb4ef6211496a4")]
+[assembly: System.Reflection.AssemblyProductAttribute("holdemmanager_backend_app")]
+[assembly: System.Reflection.AssemblyTitleAttribute("holdemmanager_backend_app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
