@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\holdemmanager_backend.props" />
-</Project>
