@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../Models/Usuario.dart';
+import 'package:http/http.dart' as http;
 
 class ApiHandler {
   var baseUrl = Uri.parse('http://10.0.2.2:5183');
