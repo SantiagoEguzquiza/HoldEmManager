@@ -1,6 +1,6 @@
 {
-    "name": "holdemmanager_app_frontend",
-    "short_name": "holdemmanager_app_frontend",
+    "name": "holdemmanager_app",
+    "short_name": "holdemmanager_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

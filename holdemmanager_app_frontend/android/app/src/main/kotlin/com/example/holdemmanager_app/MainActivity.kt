@@ -1,4 +1,4 @@
-package com.example.holdemmanager_app_frontend
+package com.example.holdemmanager_app
 
 import io.flutter.embedding.android.FlutterActivity
 
