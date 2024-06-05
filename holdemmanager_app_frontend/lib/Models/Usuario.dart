@@ -1,28 +1,26 @@
 class Usuario {
-  int id;
-  String nombreUsuario;
+  int? id;
+  String email;
   String password;
 
   Usuario({
-    required this.id,
-    required this.nombreUsuario,
+    this.id,
+    required this.email,
     required this.password,
   });
 
-  // Método para crear una instancia de Usuario a partir de un JSON
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
       id: json['id'],
-      nombreUsuario: json['nombreUsuario'],
+      email: json['email'],
       password: json['password'],
     );
   }
 
-  // Método para convertir una instancia de Usuario a JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'nombreUsuario': nombreUsuario,
+      'email': email,
       'password': password,
     };
   }
