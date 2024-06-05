@@ -22,7 +22,7 @@ namespace BackEnd.Persistence.Repositories
 
         public async Task<bool> ValidateExistence(Usuario usuario)
         {
-            var validateExistence = await _context.Usuarios.AnyAsync(x => x.NombreUsuario == usuario.NombreUsuario);
+            var validateExistence = await _context.Usuarios.AnyAsync(x => x.Email == usuario.Email);
             return validateExistence;
         }
 

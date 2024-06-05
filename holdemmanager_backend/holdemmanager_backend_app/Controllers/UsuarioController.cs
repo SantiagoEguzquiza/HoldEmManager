@@ -35,7 +35,7 @@ namespace BackEnd.Controllers
                 if (validateExistence)
                 {
 
-                    return BadRequest(new { message = "El usuario " + usuario.NombreUsuario + " ya existe" });
+                    return BadRequest(new { message = "El email " + usuario.Email + " ya existe" });
 
                 }
 

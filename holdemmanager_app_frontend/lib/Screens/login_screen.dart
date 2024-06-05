@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:holdemmanager_app/Helpers/api_handler.dart';
+import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/register_screeen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
+import 'package:holdemmanager_app/Models/Usuario.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +17,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -22,9 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onFocusChange() {
-    setState(() {
-      // This will trigger a rebuild whenever the focus changes
-    });
+    setState(() {});
   }
 
   @override
@@ -33,6 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordFocusNode.removeListener(_onFocusChange);
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -49,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: double.infinity,
           child: Stack(
             children: [
-              cajanaranja(size),
+              imagen(size),
               iconopersona(),
               loginform(context),
             ],
@@ -92,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
+                      controller: _emailController,
                       focusNode: _emailFocusNode,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -112,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
+                      controller: _passwordController,
                       focusNode: _passwordFocusNode,
                       autocorrect: false,
                       obscureText: true,
@@ -144,9 +153,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
-                          // Do something when the form is valid
+                          final usuario = Usuario(
+                              id: 0,
+                              email: _emailController.text,
+                              password: _passwordController.text);
+
+                          bool success = await ApiHandler.login(usuario);
+                          if (success) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                            );
+                          } else {
+                            // Maneja el error de login aquí, por ejemplo, mostrando un mensaje
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'El email o la contraseña no son válidos',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                backgroundColor: Color.fromARGB(255, 255, 0, 0),
+                              ),
+                            );
+                          }
                         }
                       },
                     )
@@ -156,9 +191,19 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SizedBox(height: 50),
-          const Text(
-            'Crear una nueva cuenta',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RegisterScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              'Crear una nueva cuenta',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
@@ -179,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Container cajanaranja(Size size) {
+  Container imagen(Size size) {
     return Container(
       width: double.infinity,
       height: size.height * 0.4,
