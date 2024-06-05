@@ -21,7 +21,7 @@ namespace BackEnd.Utils
             var claims = new[]
             {
 
-              new Claim(JwtRegisteredClaimNames.Sub,userInfo.NombreUsuario),
+              new Claim(JwtRegisteredClaimNames.Sub,userInfo.Email),
               new Claim("idUsuario", userInfo.Id.ToString())
 
             };

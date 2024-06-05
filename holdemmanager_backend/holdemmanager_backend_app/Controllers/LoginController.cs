@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BackEnd.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -21,14 +21,13 @@ namespace BackEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Usuario usuario)
         {
-
             try
             {
-                usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
+                //usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
                 var user = await _loginService.ValidateUser(usuario);
                 if (user == null)
                 {
-                    return BadRequest(new {message = "Usuario o contraseña invalidos" });
+                    return BadRequest(new {message = "Email o contraseña invalidos" });
                 }
 
                 string tokenString = JwtConfigurator.GetToken(user, _config);
@@ -39,7 +38,6 @@ namespace BackEnd.Controllers
 
                 return BadRequest(ex);
             }
-
         }
     }
 }
