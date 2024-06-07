@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Home',
+          'Bienvenido, XxX',
           style: TextStyle(fontSize: 24),
         ),
       ),

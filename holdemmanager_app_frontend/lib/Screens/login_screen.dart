@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
+import 'package:holdemmanager_app/Helpers/result.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/register_screeen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
@@ -105,18 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
                         hintext: 'ejemplo@hotmail.com',
-                        labeltext: 'Correo electronico',
+                        labeltext: 'Correo electrónico',
                         icono: const Icon(Icons.alternate_email_rounded),
                       ),
-                      validator: (value) {
-                        if (!_emailFocusNode.hasFocus) return null;
-                        const String pattern =
-                            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                        final RegExp regExp = RegExp(pattern);
-                        return regExp.hasMatch(value ?? '')
-                            ? null
-                            : 'El valor ingresado no es un correo';
-                      },
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
@@ -129,12 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         labeltext: 'Contraseña',
                         icono: const Icon(Icons.lock_outline),
                       ),
-                      validator: (value) {
-                        if (!_passwordFocusNode.hasFocus) return null;
-                        return (value != null && value.length >= 6)
-                            ? null
-                            : 'La contraseña debe ser mayor o igual a los 6 caracteres';
-                      },
                     ),
                     const SizedBox(height: 30),
                     MaterialButton(
@@ -143,37 +129,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       disabledColor: Colors.grey,
                       color: Colors.orangeAccent,
-                      onPressed: (_emailController.text.isEmpty || _passwordController.text.isEmpty)
+                      onPressed: (_emailController.text.isEmpty ||
+                              _passwordController.text.isEmpty)
                           ? null
                           : () async {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                final usuario = Usuario(
-                                    id: 0,
-                                    email: _emailController.text,
-                                    password: _passwordController.text);
+                              final usuario = Usuario(
+                                  id: 0,
+                                  name: '.',
+                                  email: _emailController.text,
+                                  password: _passwordController.text);
 
-                                bool success = await ApiHandler.login(usuario);
-                                if (success) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'El email o la contraseña no son válidos',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
+                              Result success = await ApiHandler.login(usuario);
+                              if (success.valid) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      success.message,
+                                      style: const TextStyle(
+                                        color: Colors.white,
                                       ),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 255, 0, 0),
                                     ),
-                                  );
-                                }
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 0, 0),
+                                  ),
+                                );
                               }
                             },
                       child: Container(

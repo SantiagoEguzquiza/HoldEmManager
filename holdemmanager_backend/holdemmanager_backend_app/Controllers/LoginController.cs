@@ -23,15 +23,15 @@ namespace BackEnd.Controllers
         {
             try
             {
-                //usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
+                usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
                 var user = await _loginService.ValidateUser(usuario);
                 if (user == null)
                 {
-                    return BadRequest(new {message = "Email o contraseña invalidos" });
+                    return BadRequest("Email o contraseña invalidos");
                 }
 
                 string tokenString = JwtConfigurator.GetToken(user, _config);
-                return Ok(new {token = tokenString });
+                return Ok(new { token = tokenString });
             }
             catch (Exception ex)
             {

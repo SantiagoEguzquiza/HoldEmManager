@@ -35,14 +35,14 @@ namespace BackEnd.Controllers
                 if (validateExistence)
                 {
 
-                    return BadRequest(new { message = "El email " + usuario.Email + " ya existe" });
+                    return BadRequest($"El email {usuario.Email} ya existe");
 
                 }
 
                 usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
                 await _usuarioService.SaveUser(usuario);
 
-                return Ok(new { mesagge = "Usuario registrado con exito" });
+                return Ok("Usuario registrado con exito");
             }
             catch (Exception ex)
             {
