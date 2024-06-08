@@ -13,10 +13,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _userNameFocusNode = FocusNode();
-  final _passwordConfirmFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
+  
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userNameController = TextEditingController();
@@ -28,11 +25,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-
-    _userNameFocusNode.addListener(_onFocusChange);
-    _emailFocusNode.addListener(_onFocusChange);
-    _passwordFocusNode.addListener(_onFocusChange);
-    _passwordConfirmFocusNode.addListener(_onFocusChange);
   }
 
   void _onFocusChange() {
@@ -41,14 +33,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    _userNameFocusNode.removeListener(_onFocusChange);
-    _emailFocusNode.removeListener(_onFocusChange);
-    _passwordFocusNode.removeListener(_onFocusChange);
-    _passwordConfirmFocusNode.removeListener(_onFocusChange);
-    _userNameFocusNode.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
-    _passwordConfirmFocusNode.dispose();
     _userNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -121,7 +105,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _userNameController,
-                      focusNode: _userNameFocusNode,
                       keyboardType: TextInputType.name,
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
@@ -133,7 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _emailController,
-                      focusNode: _emailFocusNode,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
@@ -156,7 +138,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _passwordController,
-                      focusNode: _passwordFocusNode,
                       autocorrect: false,
                       obscureText: true,
                       decoration: InputDecorations.inputDecoration(
@@ -175,7 +156,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _passwordConfirmController,
-                      focusNode: _passwordConfirmFocusNode,
                       autocorrect: false,
                       obscureText: true,
                       decoration: InputDecorations.inputDecoration(

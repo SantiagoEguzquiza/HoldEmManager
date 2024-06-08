@@ -92,9 +92,10 @@ namespace BackEnd.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Usuario>> GetUsers()
+        [Route("{email}")]
+        public async Task<ActionResult<Usuario>> GetUserByEmail(string email)
         {
-            return await _dbContext.Usuarios.FirstOrDefaultAsync();
+            return await _dbContext.Usuarios.Where(u => u.Email == email).FirstOrDefaultAsync();
         }
 
     }

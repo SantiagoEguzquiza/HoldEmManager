@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/register_screeen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
@@ -24,9 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-
-    _emailFocusNode.addListener(_onFocusChange);
-    _passwordFocusNode.addListener(_onFocusChange);
   }
 
   void _onFocusChange() {
@@ -35,10 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailFocusNode.removeListener(_onFocusChange);
-    _passwordFocusNode.removeListener(_onFocusChange);
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
+
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -100,8 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
-                      controller: _emailController,
-                      focusNode: _emailFocusNode,
+                      controller: _emailController, 
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
@@ -113,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _passwordController,
-                      focusNode: _passwordFocusNode,
                       autocorrect: false,
                       obscureText: true,
                       decoration: InputDecorations.inputDecoration(
@@ -134,30 +126,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? null
                           : () async {
                               final usuario = Usuario(
-                                  id: 0,
-                                  name: '.',
-                                  email: _emailController.text,
-                                  password: _passwordController.text);
+                                id: 0,
+                                name: '.',
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              );
 
                               Result success = await ApiHandler.login(usuario);
                               if (success.valid) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
-                                  ),
-                                );
+                                Usuario usuario = await Usuario.getUsuarioPorEmail(_emailController.text);
+                                final SharedPreferences sharedPreferences =
+                                    await SharedPreferences.getInstance();
+                                sharedPreferences.setString(
+                                    'name', usuario.name!);
+                                sharedPreferences.setBool('isLoggedIn', true);
+                                Get.offAll(() => const HomeScreen());
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
                                       success.message,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 255, 0, 0),
+                                    backgroundColor: Colors.red,
                                   ),
                                 );
                               }
