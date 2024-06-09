@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
+import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/perfil_screen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
 
@@ -60,8 +61,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           height: double.infinity,
           child: Stack(
             children: [
-              imagen(size),
-              iconopersona(),
+              LoginRegisterHelper.imagen(size),
+              LoginRegisterHelper.iconopersona(),
               loginform(context),
             ],
           ),
@@ -178,7 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       disabledColor: Colors.grey,
-                      color: Colors.orangeAccent,
+                      color: const Color.fromARGB(255, 218, 139, 35),
                       onPressed: () async {
                         if (!_isFormValid()) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -210,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
+                                builder: (context) => const PerfilScreen(),
                               ),
                             );
                           } else {
@@ -244,42 +245,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  SafeArea iconopersona() {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(top: 30),
-        width: double.infinity,
-        child: const Icon(
-          Icons.person_pin,
-          color: Colors.white,
-          size: 100,
-        ),
-      ),
-    );
-  }
-
-  Container imagen(Size size) {
-    return Container(
-      width: double.infinity,
-      height: size.height * 0.4,
-      child: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/assets/images/image-poker.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.5),
           ),
         ],
       ),

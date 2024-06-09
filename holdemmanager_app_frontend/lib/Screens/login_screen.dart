@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
+import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/perfil_screen.dart';
 import 'package:holdemmanager_app/Screens/register_screeen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -32,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
           height: double.infinity,
           child: Stack(
             children: [
-              imagen(size),
-              iconopersona(),
+              LoginRegisterHelper.imagen(size),
+              LoginRegisterHelper.iconopersona(),
               loginform(context),
             ],
           ),
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
-                      controller: _emailController, 
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       disabledColor: Colors.grey,
-                      color: Colors.orangeAccent,
+                      color: const Color.fromARGB(255, 218, 139, 35),
                       onPressed: (_emailController.text.isEmpty ||
                               _passwordController.text.isEmpty)
                           ? null
@@ -134,13 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               Result success = await ApiHandler.login(usuario);
                               if (success.valid) {
-                                Usuario usuario = await Usuario.getUsuarioPorEmail(_emailController.text);
+                                Usuario usuario =
+                                    await Usuario.getUsuarioPorEmail(
+                                        _emailController.text);
                                 final SharedPreferences sharedPreferences =
                                     await SharedPreferences.getInstance();
                                 sharedPreferences.setString(
+                                    'email', usuario.email);
+                                sharedPreferences.setString(
                                     'name', usuario.name!);
                                 sharedPreferences.setBool('isLoggedIn', true);
-                                Get.offAll(() => const HomeScreen());
+                                Get.offAll(() => const PerfilScreen());
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -184,42 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
               'Crear una nueva cuenta',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  SafeArea iconopersona() {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(top: 30),
-        width: double.infinity,
-        child: const Icon(
-          Icons.person_pin,
-          color: Colors.white,
-          size: 100,
-        ),
-      ),
-    );
-  }
-
-  Container imagen(Size size) {
-    return Container(
-      width: double.infinity,
-      height: size.height * 0.4,
-      child: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/assets/images/image-poker.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.5),
           ),
         ],
       ),

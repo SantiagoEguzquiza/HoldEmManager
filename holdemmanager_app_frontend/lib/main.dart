@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/perfil_screen.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
+      home: isLoggedIn ? const PerfilScreen() : const LoginScreen(),
     );
   }
 }
