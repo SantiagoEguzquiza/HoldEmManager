@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
-import 'package:holdemmanager_app/Screens/perfil_screen.dart';
+import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
 
@@ -211,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const PerfilScreen(),
+                                builder: (context) => const HomeScreen(),
                               ),
                             );
                           } else {

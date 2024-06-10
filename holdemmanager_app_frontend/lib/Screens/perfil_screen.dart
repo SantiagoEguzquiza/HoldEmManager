@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holdemmanager_app/NavBar/nav_bar.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class PerfilScreen extends StatefulWidget {
   const PerfilScreen({Key? key}) : super(key: key);
@@ -16,16 +22,15 @@ class _PerfilScreenState extends State<PerfilScreen> {
   String finalName = '';
   String finalEmail = '';
   bool isLoading = true;
-  int _selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-  ];
+  int selectedIndex = 1;
+  Uint8List? image;
+  String? imagePath;
 
   @override
   void initState() {
     super.initState();
     getDatosValidacion();
+    loadImage();
   }
 
   Future<void> getDatosValidacion() async {
@@ -36,9 +41,98 @@ class _PerfilScreenState extends State<PerfilScreen> {
     setState(() {
       finalName = obtenerName ?? 'Invitado';
       finalEmail = obtenerEmail ?? 'invitado@example.com';
-
       isLoading = false;
     });
+  }
+
+  Future<void> loadImage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? savedImagePath =
+        prefs.getString('${finalEmail}_userImagePath');
+    if (savedImagePath != null) {
+      final File imageFile = File(savedImagePath);
+      final Uint8List compressedImage = await compressImage(imageFile);
+      setState(() {
+        imagePath = savedImagePath;
+        image = compressedImage;
+      });
+    }
+  }
+
+  Future<Uint8List> compressImage(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    Uint8List uint8List = Uint8List.fromList(imageBytes);
+
+    // Comprimir la imagen
+    List<int> compressedImage = await FlutterImageCompress.compressWithList(
+      uint8List,
+      quality: 10, // Ajusta la calidad según tus necesidades
+    );
+
+    return Uint8List.fromList(compressedImage);
+  }
+
+  Future<void> selectImage() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final XFile? file =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      final File imageFile = File(file.path);
+      final int maxSize = 1024 * 1024;
+      final int fileSize = await imageFile.length();
+
+      if (fileSize <= maxSize) {
+        final Uint8List imgBytes = await file.readAsBytes();
+        setState(() {
+          image = imgBytes;
+        });
+        saveImage(file);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "El tamaño de la imagen excede el límite de 1 MB.",
+              style: const TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+        print("El tamaño de la imagen excede el límite de 1 MB.");
+      }
+    } else {
+      print("No images Selected");
+    }
+  }
+
+  Future<void> saveImage(XFile file) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final String fileName = path.basename(file.path);
+      final String localPath =
+          path.join(directory.path, '${finalEmail}_$fileName');
+
+      final File imageFile = File(file.path);
+      final int maxSize = 1024 * 1024;
+      final int fileSize = await imageFile.length();
+
+      if (fileSize > maxSize) {
+        print('El tamaño de la imagen excede el límite de 1 MB.');
+        return;
+      }
+
+      final Uint8List compressedImage = await compressImage(imageFile);
+      await File(localPath).writeAsBytes(compressedImage);
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('${finalEmail}_userImagePath', localPath);
+
+      setState(() {
+        imagePath = localPath;
+      });
+    } catch (e) {
+      print("Error guardando la imagen: $e");
+    }
   }
 
   @override
@@ -70,6 +164,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
       drawerScrimColor: Colors.transparent,
       drawer: const BNavegacion(),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(
@@ -91,16 +186,15 @@ class _PerfilScreenState extends State<PerfilScreen> {
         selectedLabelStyle: const TextStyle(color: Colors.white),
         unselectedLabelStyle: const TextStyle(color: Colors.white70),
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
         onTap: (index) {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           }
           setState(() {
-            _selectedIndex = index;
+            selectedIndex = index;
           });
         },
       ),
@@ -151,14 +245,19 @@ class _PerfilScreenState extends State<PerfilScreen> {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        ClipOval(
-                          child: Image.asset(
-                            'lib/assets/images/default-user.png',
-                            width: 128,
-                            height: 128,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                        image != null
+                            ? CircleAvatar(
+                                radius: 64,
+                                backgroundImage: MemoryImage(image!),
+                              )
+                            : ClipOval(
+                                child: Image.asset(
+                                  'lib/assets/images/default-user.png',
+                                  width: 128,
+                                  height: 128,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                         Positioned(
                           bottom: 0,
                           right: 5,
@@ -175,7 +274,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                             ),
                             child: IconButton(
                               padding: const EdgeInsets.only(left: 2),
-                              onPressed: () {},
+                              onPressed: selectImage,
                               icon: const Icon(Icons.add_a_photo,
                                   color: Color.fromARGB(255, 27, 27, 27)),
                             ),
@@ -190,6 +289,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                             await SharedPreferences.getInstance();
                         sharedPreferences.remove('isLoggedIn');
                         sharedPreferences.remove('name');
+                        sharedPreferences.remove('email');
                         Get.offAll(() => const LoginScreen());
                       },
                       style: ElevatedButton.styleFrom(
