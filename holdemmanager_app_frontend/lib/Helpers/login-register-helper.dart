@@ -36,4 +36,101 @@ class LoginRegisterHelper {
       ),
     );
   }
+
+  static void mostrarSelectorLenguaje(
+    BuildContext context,
+    Map<String, dynamic> translations,
+    Locale locale,
+    Function(Locale) onLocaleSelected,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+          contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.language),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  translations[locale.toString()]?['selectLanguage'] ??
+                      'Select Language',
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 16),
+
+              crearOpcionLenguaje(
+                context,
+                const Locale('en', 'US'),
+                'lib/assets/images/ingles.jpg',
+                translations[locale.toString()]?['english'] ?? 'Inglés',
+                onLocaleSelected,
+              ),
+              SizedBox(height: 16),
+
+              crearOpcionLenguaje(
+                context,
+                const Locale('es', 'ES'),
+                'lib/assets/images/español.jpg',
+                translations[locale.toString()]?['spanish'] ?? 'Español',
+                onLocaleSelected,
+              ),
+              SizedBox(height: 16),
+
+              crearOpcionLenguaje(
+                context,
+                const Locale('pt', 'BR'),
+                'lib/assets/images/portugues.jpg',
+                translations[locale.toString()]?['portuguese'] ?? 'Portugués',
+                onLocaleSelected,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static Widget crearOpcionLenguaje(
+    BuildContext context,
+    Locale locale,
+    String rutaImagen,
+    String nombreIdioma,
+    Function(Locale) onLocaleSelected,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        onLocaleSelected(locale);
+        Navigator.of(context).pop();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          children: [
+            Image.asset(
+              rutaImagen,
+              width: 24,
+              height: 24,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              nombreIdioma,
+              style:
+                  const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -1,36 +1,50 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
+import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BNavegacion extends StatefulWidget {
-  const BNavegacion({Key? key}) : super(key: key);
+class SideBar extends StatefulWidget {
+  const SideBar({super.key});
 
   @override
-  State<BNavegacion> createState() => _BNavegacionState();
+  State<SideBar> createState() => _SideBarState();
 }
 
-class _BNavegacionState extends State<BNavegacion> {
+class _SideBarState extends State<SideBar> implements LanguageHelper {
   late SharedPreferences preferencias;
   late String nombreUsuario = '';
   late String emailUsuario = '';
   late String imagenUsuario = '';
+  late Map<String, dynamic> finalTranslations = {};
+  final TranslationService translationService = TranslationService();
+  late Locale finalLocale = const Locale('en', 'US');
 
   @override
   void initState() {
     super.initState();
-    getPreferencias();
+    cargarLocaleYTranslations();
+    translationService.addListener(this);
+  }
+
+  @override
+  void dispose() {
+    translationService.removeListener(this);
+    super.dispose();
   }
 
   Future<void> getPreferencias() async {
     preferencias = await SharedPreferences.getInstance();
-    setState(() {
-      nombreUsuario =
-          preferencias.getString('name') ?? 'Nombre no disponible';
-      emailUsuario =
-          preferencias.getString('email') ?? 'Correo no disponible';
-      imagenUsuario = preferencias.getString('${emailUsuario}_userImagePath') ?? '';
-    });
+
+    nombreUsuario = preferencias.getString('name') 
+    ?? finalTranslations[finalLocale.toString()]?['nameNotFound'] ?? 'Nombre no disponible';
+
+    emailUsuario = preferencias.getString('email') 
+    ?? finalTranslations[finalLocale.toString()]?['emailNotFound'] ?? 'Correo no disponible';
+    imagenUsuario = preferencias.getString('${emailUsuario}_userImagePath') ?? '';
   }
 
   Widget crearUsuarioImagen() {
@@ -87,46 +101,85 @@ class _BNavegacionState extends State<BNavegacion> {
             ),
             ListTile(
               leading: const Icon(Icons.map, color: Colors.orangeAccent),
-              title: const Text('Mapa del Evento'),
+              title: Text(finalTranslations[finalLocale.toString()]?['map'] ?? 'Mapa del Evento'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.ad_units_rounded,
                   color: Colors.orangeAccent),
-              title: const Text('Foro de Noticias'),
+              title: Text(finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'Foro de Noticias'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.help_sharp, color: Colors.orangeAccent),
-              title: const Text('Recursos Educativos'),
+              title: Text(finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+                  'Recursos Educativos'),
               onTap: () {},
             ),
             ListTile(
               leading:
                   const Icon(Icons.event_available, color: Colors.orangeAccent),
-              title: const Text('Torneos'),
+              title: Text(finalTranslations[finalLocale.toString()]?['tournaments'] ?? 'Torneos'),
               onTap: () {},
             ),
             ListTile(
               leading:
                   const Icon(Icons.people_sharp, color: Colors.orangeAccent),
-              title: const Text('Foro de Discusión'),
+              title: Text(
+                  finalTranslations[finalLocale.toString()]?['discussionForum'] ?? 'Foro de Discusión'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.comment, color: Colors.orangeAccent),
-              title: const Text('Comentarios'),
+              title: Text(finalTranslations[finalLocale.toString()]?['comments'] ?? 'Comentarios'),
               onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.language, color: Colors.orangeAccent),
+              title: Text(
+                  finalTranslations[finalLocale.toString()]?['changeLanguage'] ?? 'Cambiar Idioma'),
+              onTap: () {
+                LoginRegisterHelper.mostrarSelectorLenguaje(
+                  context,
+                  finalTranslations,
+                  finalLocale,
+                  (selectedLocale) {
+                    setState(() {
+                      finalLocale = selectedLocale;
+                      Get.updateLocale(selectedLocale);
+                      translationService.setLocale(selectedLocale, context);
+                    });
+                  },
+                );
+              },
             ),
             ListTile(
               leading:
                   const Icon(Icons.exit_to_app, color: Colors.orangeAccent),
-              title: const Text('Cerrar Sesión'),
+              title:
+                  Text(finalTranslations[finalLocale.toString()]?['closeSession'] ?? 'Cerrar Sesión'),
               onTap: () {},
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void actualizarLenguaje(Locale locale) {
+    cargarLocaleYTranslations();
+  }
+
+  Future<void> cargarLocaleYTranslations() async {
+    final Locale? locale = await translationService.getLocale();
+    final Map<String, dynamic> translations =
+        await translationService.getTranslations();
+
+    setState(() {
+      finalTranslations = translations;
+      finalLocale = locale ?? const Locale('en', 'US');
+    });
+    getPreferencias();
   }
 }

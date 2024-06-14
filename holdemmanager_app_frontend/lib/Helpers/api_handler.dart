@@ -27,26 +27,4 @@ class ApiHandler {
       return result;
     }
   }
-
-  static Future<Result> register(Usuario usuario) async {
-    var urlApi = ('/Usuario');
-    var apiUrl = baseUrl.resolve(urlApi);
-
-    var response = await http.post(
-      apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(usuario.toJson()),
-    );
-
-    Result result = new Result(valid: false, message: response.body);
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      result.valid = true;
-      return result;
-    } else {
-      return result;
-    }
-  }
 }

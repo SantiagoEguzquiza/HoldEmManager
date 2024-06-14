@@ -1,40 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/Helpers/result.dart';
+import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:holdemmanager_app/Services/TranslationService.dart';
+import 'package:holdemmanager_app/Models/Usuario.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
-import 'package:holdemmanager_app/Helpers/result.dart';
 import 'package:holdemmanager_app/Screens/perfil_screen.dart';
-import 'package:holdemmanager_app/Screens/register_screeen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
-import 'package:holdemmanager_app/Models/Usuario.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
+  final formKey = GlobalKey<FormState>();
+  late Map<String, dynamic> finalTranslations = {};
+  final TranslationService translationService = TranslationService();
+  late Locale finalLocale = const Locale('en', 'US');
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-  }
-
-  void _onFocusChange() {
-    setState(() {});
+    cargarLocaleYTranslations();
+    translationService.addListener(this);
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    translationService.removeListener(this);
     super.dispose();
   }
 
@@ -53,7 +56,25 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               LoginRegisterHelper.imagen(size),
               LoginRegisterHelper.iconopersona(),
-              loginform(context),
+              incioSesionform(context),
+              Positioned(
+                top: 50,
+                right: 20,
+                child: IconButton(
+                  onPressed: () {
+                    LoginRegisterHelper.mostrarSelectorLenguaje(
+                      context, finalTranslations, finalLocale, (selectedLocale) {
+                        setState(() {
+                          finalLocale = selectedLocale;
+                          Get.updateLocale(selectedLocale);
+                          translationService.setLocale(selectedLocale, context);
+                        });
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.language, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
@@ -61,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  SingleChildScrollView loginform(BuildContext context) {
+  SingleChildScrollView incioSesionform(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -83,34 +104,34 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: IntrinsicHeight(
               child: Form(
-                key: _formKey,
+                key: formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      'Inicio de Sesión',
+                      finalTranslations[finalLocale.toString()]?['login'] ?? 'Login',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
-                        hintext: 'ejemplo@hotmail.com',
-                        labeltext: 'Correo electrónico',
-                        icono: const Icon(Icons.alternate_email_rounded),
+                        hintext: finalTranslations[finalLocale.toString()]?['exampleNumber'] ?? '',
+                        labeltext: finalTranslations[finalLocale.toString()]?['playerNumber'] ?? 'Player Number',
+                        icono: const Icon(Icons.person_2_outlined),
                       ),
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
-                      controller: _passwordController,
+                      controller: passwordController,
                       autocorrect: false,
                       obscureText: true,
                       decoration: InputDecorations.inputDecoration(
                         hintext: '********',
-                        labeltext: 'Contraseña',
+                        labeltext: finalTranslations[finalLocale.toString()]?['password'] ?? 'Password',
                         icono: const Icon(Icons.lock_outline),
                       ),
                     ),
@@ -121,37 +142,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       disabledColor: Colors.grey,
                       color: const Color.fromARGB(255, 218, 139, 35),
-                      onPressed: (_emailController.text.isEmpty ||
-                              _passwordController.text.isEmpty)
+                      onPressed: (emailController.text.isEmpty || passwordController.text.isEmpty)
                           ? null
                           : () async {
                               final usuario = Usuario(
                                 id: 0,
                                 name: '.',
-                                email: _emailController.text,
-                                password: _passwordController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
                               );
 
                               Result success = await ApiHandler.login(usuario);
                               if (success.valid) {
-                                Usuario usuario =
-                                    await Usuario.getUsuarioPorEmail(
-                                        _emailController.text);
-                                final SharedPreferences sharedPreferences =
-                                    await SharedPreferences.getInstance();
-                                sharedPreferences.setString(
-                                    'email', usuario.email);
-                                sharedPreferences.setString(
-                                    'name', usuario.name!);
+                                Usuario usuario = await Usuario.getUsuarioPorEmail(emailController.text);
+                                final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                                sharedPreferences.setString('email', usuario.email);
+                                sharedPreferences.setString('name', usuario.name!);
                                 sharedPreferences.setBool('isLoggedIn', true);
+
                                 Get.offAll(() => const PerfilScreen());
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
                                       success.message,
-                                      style:
-                                          const TextStyle(color: Colors.white),
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                     backgroundColor: Colors.red,
                                   ),
@@ -159,16 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 80,
-                          vertical: 15,
-                        ),
-                        child: const Text(
-                          'Ingresar',
-                          style: TextStyle(color: Colors.white),
+                        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                        child: Text(
+                          finalTranslations[finalLocale.toString()]?['signIn'] ?? 'Sign In',
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -180,17 +192,32 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const RegisterScreen(),
+                  builder: (context) => const HomeScreen(),
                 ),
               );
             },
-            child: const Text(
-              'Crear una nueva cuenta',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            child: Text(
+              finalTranslations[finalLocale.toString()]?['invitedUser'] ?? 'Ingresar como invitado',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> cargarLocaleYTranslations() async {
+    final Locale? locale = await translationService.getLocale();
+    final Map<String, dynamic> translations = await translationService.getTranslations();
+
+    setState(() {
+      finalTranslations = translations;
+      finalLocale = locale ?? const Locale('en', 'US');
+    });
+  }
+
+  @override
+  void actualizarLenguaje(Locale locale) {
+    cargarLocaleYTranslations();
   }
 }
