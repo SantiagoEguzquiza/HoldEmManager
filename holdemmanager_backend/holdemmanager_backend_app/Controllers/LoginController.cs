@@ -27,7 +27,7 @@ namespace BackEnd.Controllers
                 var user = await _loginService.ValidateUser(usuario);
                 if (user == null)
                 {
-                    return BadRequest("Email o contraseña invalidos");
+                    return BadRequest("Numero de jugador o contraseña invalidos");
                 }
 
                 string tokenString = JwtConfigurator.GetToken(user, _config);
