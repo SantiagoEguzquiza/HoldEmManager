@@ -30,6 +30,7 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
 
+// Se inicializan la traduccion, se cargan los datos y se agrega a la lista observer
   @override
   void initState() {
     super.initState();
@@ -46,6 +47,7 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
 
   // Datos del Usuario
   Future<void> cargarDatos() async {
+    // Carga todos los datos y imagen de perfil del SharedPreferences
     await PerfilHelper.getDatosValidacion();
     await PerfilHelper.cargarImagen(context);
 
@@ -119,7 +121,7 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                       )
                     else
                       Text(
-                            finalName ??
+                        finalName ??
                             (finalTranslations[finalLocale.toString()]
                                     ?['nameNotFound'] ??
                                 'Nombre no disponible'),
@@ -129,9 +131,10 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                       ),
                     const SizedBox(height: 15),
                     Text(
-                      finalEmail ?? (finalTranslations[finalLocale.toString()]
-                                    ?['emailNotFound'] ??
-                                'Email no disponible'),
+                      finalEmail ??
+                          (finalTranslations[finalLocale.toString()]
+                                  ?['emailNotFound'] ??
+                              'Email no disponible'),
                       style: const TextStyle(fontSize: 17, color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
@@ -170,14 +173,31 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                             child: IconButton(
                               padding: const EdgeInsets.only(left: 2),
                               onPressed: () async {
+                                String resultado =
+                                    await PerfilHelper.seleccionarImagen(
+                                        context);
                                 if (finalEmail != null) {
-                                  await PerfilHelper.seleccionarImagen(context);
+                                  if (resultado == 'imageSaved') {
+                                    Message.mostrarMensajeCorrecto(
+                                        finalTranslations[finalLocale
+                                            .toString()]?['imageSaved'],
+                                        context);
+                                  } else if (resultado ==
+                                      'imageSize') {
+                                    Message.mostrarMensajeError(
+                                        finalTranslations[finalLocale
+                                            .toString()]?['imageSize'],
+                                        context);
+                                  }
                                   setState(() {
                                     image = PerfilHelper.image;
                                     imagePath = PerfilHelper.imagePath;
                                   });
-                                }else{
-                                  ErrorMessage.mostrarMensajeError(finalTranslations[finalLocale.toString()]?['imageValidate'], context);
+                                } else {
+                                  Message.mostrarMensajeError(
+                                      finalTranslations[finalLocale.toString()]
+                                          ?['imageValidate'],
+                                      context);
                                 }
                               },
                               icon: const Icon(Icons.add_a_photo,
@@ -195,6 +215,8 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                         sharedPreferences.remove('isLoggedIn');
                         sharedPreferences.remove('name');
                         sharedPreferences.remove('email');
+                        sharedPreferences.remove('${finalEmail}_userImagePath');
+                        sharedPreferences.remove('playerNumber');
                         Get.offAll(() => const LoginScreen());
                       },
                       style: ElevatedButton.styleFrom(
@@ -202,7 +224,9 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                             const Color.fromARGB(255, 218, 139, 35),
                       ),
                       child: Text(
-                        finalTranslations[finalLocale.toString()]?['closeSession'] ?? 'Cerrar Sesión',
+                        finalTranslations[finalLocale.toString()]
+                                ?['closeSession'] ??
+                            'Cerrar Sesión',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

@@ -22,7 +22,7 @@ namespace BackEnd.Utils
             {
 
               new Claim(JwtRegisteredClaimNames.Sub,userInfo.Email),
-              new Claim("idUsuario", userInfo.Id.ToString())
+              new Claim("numberPlayer", userInfo.NumberPlayer.ToString())
 
             };
 
@@ -39,14 +39,14 @@ namespace BackEnd.Utils
 
         }
 
-        public static int GetTokenIdUsuario(ClaimsIdentity identity) {
+        public static int GetTokenNumberPlayer(ClaimsIdentity identity) {
 
             if (identity != null) { 
             
                 IEnumerable<Claim> claims = identity.Claims;
                 foreach (var claim in claims) {
 
-                    if (claim.Type == "idUsuario") { 
+                    if (claim.Type == "numberPlayer") { 
                     
                         return int.Parse(claim.Value);
                     

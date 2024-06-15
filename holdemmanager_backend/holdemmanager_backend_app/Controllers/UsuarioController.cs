@@ -28,15 +28,12 @@ namespace BackEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Usuario usuario)
         {
-
             try
             {
                 var validateExistence = await _usuarioService.ValidateExistence(usuario);
                 if (validateExistence)
                 {
-
-                    return BadRequest($"El email {usuario.Email} ya existe");
-
+                    return BadRequest($"El número de jugador {usuario.NumberPlayer} ya existe");
                 }
 
                 usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
@@ -62,9 +59,9 @@ namespace BackEnd.Controllers
             {
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
 
-                int idUsuario = JwtConfigurator.GetTokenIdUsuario(identity);
+                int numberPlayer = JwtConfigurator.GetTokenNumberPlayer(identity);
                 string passwordEncriptado = Encriptar.EncriptarPassword(cambiarPassword.passwordAnterior);
-                var usuario = await _usuarioService.ValidatePassword(idUsuario, passwordEncriptado);
+                var usuario = await _usuarioService.ValidatePassword(numberPlayer, passwordEncriptado);
 
                 if (usuario == null)
                 {
@@ -76,7 +73,7 @@ namespace BackEnd.Controllers
                 {
 
                     usuario.Password = Encriptar.EncriptarPassword(cambiarPassword.nuevaPassword);
-                    await _usuarioService.UpdatePassword(usuario);
+                    await _usuarioService.UpdateUsuario(usuario);
                     return Ok(new { message = "La password fue actualizada con exito" });
 
                 }
@@ -91,11 +88,24 @@ namespace BackEnd.Controllers
 
         }
 
-        [HttpGet]
-        [Route("{email}")]
-        public async Task<ActionResult<Usuario>> GetUserByEmail(string email)
+        [HttpGet("{numeroJugador}")]
+        public async Task<ActionResult<Usuario>> GetUsuarioPorNumeroJugador(int numeroJugador)
         {
-            return await _dbContext.Usuarios.Where(u => u.Email == email).FirstOrDefaultAsync();
+            return await _dbContext.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
+        }
+
+        [HttpPut("{imageUrl}/{numeroJugador}")]
+        public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
+        {
+            var usuario = await _dbContext.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
+            if (usuario == null) {
+                return BadRequest("No existe el usuario");
+            }
+
+            usuario.ImageUrl = imageUrl;
+            await _usuarioService.UpdateUsuario(usuario);
+
+            return Ok("Imagen guardada con exito");
         }
 
     }

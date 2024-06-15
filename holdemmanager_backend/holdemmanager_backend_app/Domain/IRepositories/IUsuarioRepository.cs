@@ -7,8 +7,9 @@ namespace BackEnd.Domain.IRepositories
 
         Task SaveUser(Usuario usuario);
         Task<bool> ValidateExistence(Usuario usuario);
-        Task<Usuario> ValidatePassword(int idUsuario, string passwordAnterior);
-        Task UpdatePassword(Usuario usuario);
+        Task<Usuario> ValidatePassword(int numberPlayer, string passwordAnterior);
+        Task UpdateUsuario(Usuario usuario);
+
 
 
     }

@@ -23,14 +23,14 @@ namespace BackEnd.Service
             return await _usuarioRepository.ValidateExistence(usuario);
         }
 
-        public async Task<Usuario> ValidatePassword(int idUsuario, string passwordAnterior)
+        public async Task<Usuario> ValidatePassword(int numberPlayer, string passwordAnterior)
         {
-            return await _usuarioRepository.ValidatePassword(idUsuario, passwordAnterior);
+            return await _usuarioRepository.ValidatePassword(numberPlayer, passwordAnterior);
         }
 
-        public async Task UpdatePassword(Usuario usuario)
+        public async Task UpdateUsuario(Usuario usuario)
         {
-            await _usuarioRepository.UpdatePassword(usuario);
+            await _usuarioRepository.UpdateUsuario(usuario);
         }
     }
 }

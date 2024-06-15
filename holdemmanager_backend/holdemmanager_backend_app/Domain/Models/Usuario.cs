@@ -7,6 +7,9 @@ namespace BackEnd.Domain.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        public int NumberPlayer { get; set; }
         [Required]
         public string Name { get; set; }    
 
@@ -15,5 +18,6 @@ namespace BackEnd.Domain.Models
 
         [Required]
         public string Password { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
