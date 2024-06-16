@@ -1,0 +1,15 @@
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.AssemblyInfoInputs.cache
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.AssemblyInfo.cs
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.csproj.CoreCompileInputs.cache
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.sourcelink.json
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\bin\Debug\net8.0\holdemmanager_backend_web.deps.json
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\bin\Debug\net8.0\holdemmanager_backend_web.runtimeconfig.json
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\bin\Debug\net8.0\holdemmanager_backend_web.dll
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\bin\Debug\net8.0\holdemmanager_backend_web.pdb
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.csproj.AssemblyReference.cache
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.dll
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\refint\holdemmanager_backend_web.dll
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.pdb
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\holdemmanager_backend_web.genruntimeconfig.cache
+C:\Users\rodri\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\obj\Debug\net8.0\ref\holdemmanager_backend_web.dll

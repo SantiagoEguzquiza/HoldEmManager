@@ -1578,13 +1578,31 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "Microsoft.Extensions.Configuration.Binder": "8.0.1"
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1",
+          "Swashbuckle.AspNetCore": "6.4.0"
         },
         "compile": {
           "bin/placeholder/holdemmanager_backend_app.dll": {}
         },
         "runtime": {
           "bin/placeholder/holdemmanager_backend_app.dll": {}
+        }
+      },
+      "holdemmanager_backend_web/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1",
+          "Swashbuckle.AspNetCore": "6.4.0"
+        },
+        "compile": {
+          "bin/placeholder/holdemmanager_backend_web.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/holdemmanager_backend_web.dll": {}
         }
       }
     }
@@ -4312,6 +4330,11 @@
       "type": "project",
       "path": "../holdemmanager_backend_app/holdemmanager_backend_app.csproj",
       "msbuildProject": "../holdemmanager_backend_app/holdemmanager_backend_app.csproj"
+    },
+    "holdemmanager_backend_web/1.0.0": {
+      "type": "project",
+      "path": "../holdemmanager_backend_web/holdemmanager_backend_web.csproj",
+      "msbuildProject": "../holdemmanager_backend_web/holdemmanager_backend_web.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4322,7 +4345,8 @@
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.6",
       "Microsoft.Extensions.Configuration.Binder >= 8.0.1",
       "Swashbuckle.AspNetCore >= 6.4.0",
-      "holdemmanager_backend_app >= 1.0.0"
+      "holdemmanager_backend_app >= 1.0.0",
+      "holdemmanager_backend_web >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4355,6 +4379,9 @@
           "projectReferences": {
             "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
               "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj"
+            },
+            "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
+              "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
             }
           }
         }

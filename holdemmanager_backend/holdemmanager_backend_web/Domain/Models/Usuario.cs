@@ -1,0 +1,23 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace holdemmanager_backend_web.Domain.Models
+{
+    public class Usuario
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int NumberPlayer { get; set; }
+        [Required]
+        public string Name { get; set; }    
+
+        [Required]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+        public string ImageUrl { get; set; }
+    }
+}
