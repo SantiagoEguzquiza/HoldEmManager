@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:get/get.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
+import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
-import 'package:holdemmanager_app/Helpers/ErrorMessage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,13 +16,15 @@ class PerfilHelper {
   static late bool isLoading;
   static late String? imagePath;
   static late Uint8List? image;
+  static late bool isLoggedIn = false;
 
   static Future<void> getDatosValidacion() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final obtenerName = sharedPreferences.getString('name');
     final obtenerEmail = sharedPreferences.getString('email');
     final obtenerNumeroJugador = sharedPreferences.getInt('numberPlayer');
+    final obtenerJugadorLogged = sharedPreferences.getBool('isLoggedIn');
+    isLoggedIn = obtenerJugadorLogged ?? false;
     finalName = obtenerName ?? '';
     finalEmail = obtenerEmail ?? '';
     numeroJugador = obtenerNumeroJugador ?? 0;
@@ -33,12 +36,10 @@ class PerfilHelper {
 
     final String? savedImagePath =
         prefs.getString('${finalEmail}_userImagePath');
-    print(savedImagePath);
     if (savedImagePath != null) {
       final File imageFile = File(savedImagePath);
       if (await imageFile.exists()) {
         final Uint8List imageBytes = await imageFile.readAsBytes();
-        print(savedImagePath);
         imagePath = savedImagePath;
         image = imageBytes;
       }
@@ -89,8 +90,18 @@ class PerfilHelper {
       valorBool = await Usuario.setImageUrl(localPath, numeroJugador);
       return valorBool;
     } catch (e) {
-      print("Error guardando la imagen: $e");
       return valorBool;
     }
+  }
+
+  static Future<void> cerrarSesion() async {
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove('isLoggedIn');
+    sharedPreferences.remove('name');
+    sharedPreferences.remove('email');
+    sharedPreferences.remove('${finalEmail}_userImagePath');
+    sharedPreferences.remove('playerNumber');
+    sharedPreferences.remove('jwt_token');
+    Get.offAll(() => const LoginScreen());
   }
 }

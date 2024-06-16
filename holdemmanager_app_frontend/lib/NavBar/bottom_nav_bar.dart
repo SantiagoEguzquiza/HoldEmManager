@@ -4,10 +4,10 @@ import 'package:holdemmanager_app/Services/TranslationService.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final int currentIndex;
   final ValueChanged<int> onTap;

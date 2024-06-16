@@ -1,6 +1,6 @@
 {
   "en_US": {
-    "login": "Login",
+    "login": "Log In",
     "selectLanguage": "Select Language",
     "english": "English",
     "spanish": "Spanish",
@@ -41,7 +41,17 @@
     "closeSession": "Close Session",
     "imageValidate": "You cannot assign a profile photo as a guest",
     "imageSaved": "Image saved successfully",
-    "imageSize": "Image size exceeds 1MB limit"
+    "imageSize": "Image size exceeds 1MB limit",
+    "serverError": "Server Error: Try again later",
+    "passwordUpdated": "Password updated successfully",
+    "passwordError": "The previous password is not valid",
+    "playerUserInvalid": "Invalid player number or password",
+    "previousPassword" : "Previous Password",
+    "newPassword" : "New Password",
+    "repeatNewPassword": "Confirm new password",
+    "accept": "Accept",
+    "changePassword": "Change Password",
+    "passwordsEquals": "Enter a password you have not used before"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -85,7 +95,18 @@
     "closeSession": "Cerrar Sesión",
     "imageValidate": "No puedes asignar foto de perfil como invitado",
     "imageSaved": "Imagen guardada con éxito",
-    "imageSize": "El tamaño de la imagen excede el límite de 1 MB"
+    "imageSize": "El tamaño de la imagen excede el límite de 1 MB",
+    "serverError": "Error en el servidor, inténtelo de nuevo mas tarde",
+    "passwordUpdated": "Contraseña actualizada exitosamente",
+    "passwordError": "La contraseña anterior no es válida",
+    "playerUserInvalid": "Número de jugador o contraseña invalido",
+    "previousPassword" : "Contraseña anterior",
+    "newPassword" : "Nueva contraseña",
+    "repeatNewPassword": "Confirmar nueva contraseña",
+    "accept": "Aceptar",
+    "changePassword": "Cambiar Contraseña",
+    "passwordsEquals": "Coloca una contraseña que no hayas usado antes"
+
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -129,6 +150,16 @@
     "closeSession": "Encerrar Sessão",
     "imageValidate": "Você não pode atribuir uma foto de perfil como convidado",
     "imageSaved": "Imagem salva com sucesso",
-    "imageSize": "O tamanho da imagem excede o limite de 1 MB"
+    "imageSize": "O tamanho da imagem excede o limite de 1 MB",
+    "serverError": "Erro no servidor, tente novamente mais tarde",
+    "passwordUpdated": "Senha atualizada com sucesso",
+    "passwordError": "A senha antiga não é válida",
+    "playerUserInvalid": "Número de jogador ou senha inválida",
+    "previousPassword" : "Senha Antiga",
+    "newPassword" : "Nova senha",
+    "repeatNewPassword": "Confirme a nova senha",
+    "accept": "Aceitar",
+    "changePassword": "Alterar a senha",
+    "passwordsEquals" : "Digite uma senha que você não usou antes"
   }
 }

@@ -41,7 +41,7 @@ class Usuario {
   }
 
   static Future<Usuario> getUsuarioPorNumeroJugador(int numeroJugador) async {
-    final String apiUrl = 'http://10.0.2.2:5183/Usuario/$numeroJugador';
+    final String apiUrl = '${ApiHandler.baseUrl}/Usuario/$numeroJugador';
     Usuario usuario = Usuario(numberPlayer: -1, password: '');
 
     try {

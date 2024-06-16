@@ -20,7 +20,7 @@ class Message {
           message,
           style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 9, 143, 64),
+        backgroundColor: const Color.fromARGB(255, 9, 143, 64),
       ),
     );
   }

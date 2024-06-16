@@ -96,7 +96,7 @@ class TranslationService {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                          WidgetStateProperty.all<Color>(Colors.orangeAccent),
                     ),
                     child: Text(
                       _translations[_locale.toString()]?['cancel'] ?? 'Cancel',
@@ -111,7 +111,7 @@ class TranslationService {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                          WidgetStateProperty.all<Color>(Colors.orangeAccent),
                     ),
                     child: Text(
                       _translations[_locale.toString()]?['restart'] ??
@@ -177,7 +177,7 @@ class TranslationService {
     }
   }
 
-  List<LanguageHelper> _listeners = [];
+  final List<LanguageHelper> _listeners = [];
 
   void addListener(LanguageHelper widget) {
     _listeners.add(widget);

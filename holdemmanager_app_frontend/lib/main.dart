@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:holdemmanager_app/Screens/perfil_screen.dart';
+import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +15,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
 
-  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isLoggedIn ? const PerfilScreen() : const LoginScreen(),
+      home: isLoggedIn ? const ProfileScreen() : const LoginScreen(),
     );
   }
 }

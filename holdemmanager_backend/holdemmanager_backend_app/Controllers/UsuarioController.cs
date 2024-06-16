@@ -50,9 +50,9 @@ namespace BackEnd.Controllers
 
         }
 
-        [Route("CambiarPassword")]
+        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut]
+        [HttpPut("CambiarPassword")]
         public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordDTO cambiarPassword)
         {
             try

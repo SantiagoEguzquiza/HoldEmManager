@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
+import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +16,7 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> implements LanguageHelper {
+  bool isLoggedIn = false;
   late SharedPreferences preferencias;
   late String nombreUsuario = '';
   late String emailUsuario = '';
@@ -39,12 +41,18 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
   Future<void> getPreferencias() async {
     preferencias = await SharedPreferences.getInstance();
 
-    nombreUsuario = preferencias.getString('name') 
-    ?? finalTranslations[finalLocale.toString()]?['nameNotFound'] ?? 'Nombre no disponible';
+    nombreUsuario = preferencias.getString('name') ??
+        finalTranslations[finalLocale.toString()]?['nameNotFound'] ??
+        'Nombre no disponible';
 
-    emailUsuario = preferencias.getString('email') 
-    ?? finalTranslations[finalLocale.toString()]?['emailNotFound'] ?? 'Correo no disponible';
-    imagenUsuario = preferencias.getString('${emailUsuario}_userImagePath') ?? '';
+    emailUsuario = preferencias.getString('email') ??
+        finalTranslations[finalLocale.toString()]?['emailNotFound'] ??
+        'Correo no disponible';
+
+    imagenUsuario =
+        preferencias.getString('${emailUsuario}_userImagePath') ?? '';
+
+    isLoggedIn = preferencias.getBool('isLoggedIn') ?? false;
   }
 
   Widget crearUsuarioImagen() {
@@ -101,43 +109,53 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
             ),
             ListTile(
               leading: const Icon(Icons.map, color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]?['map'] ?? 'Mapa del Evento'),
+              title: Text(finalTranslations[finalLocale.toString()]?['map'] ??
+                  'Mapa del Evento'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.ad_units_rounded,
                   color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'Foro de Noticias'),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['newsForum'] ??
+                  'Foro de Noticias'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.help_sharp, color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['educationalResources'] ??
                   'Recursos Educativos'),
               onTap: () {},
             ),
             ListTile(
               leading:
                   const Icon(Icons.event_available, color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]?['tournaments'] ?? 'Torneos'),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['tournaments'] ??
+                  'Torneos'),
               onTap: () {},
             ),
             ListTile(
               leading:
                   const Icon(Icons.people_sharp, color: Colors.orangeAccent),
-              title: Text(
-                  finalTranslations[finalLocale.toString()]?['discussionForum'] ?? 'Foro de Discusión'),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['discussionForum'] ??
+                  'Foro de Discusión'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.comment, color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]?['comments'] ?? 'Comentarios'),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['comments'] ??
+                  'Comentarios'),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.language, color: Colors.orangeAccent),
-              title: Text(
-                  finalTranslations[finalLocale.toString()]?['changeLanguage'] ?? 'Cambiar Idioma'),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['changeLanguage'] ??
+                  'Cambiar Idioma'),
               onTap: () {
                 LoginRegisterHelper.mostrarSelectorLenguaje(
                   context,
@@ -156,9 +174,16 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
             ListTile(
               leading:
                   const Icon(Icons.exit_to_app, color: Colors.orangeAccent),
-              title:
-                  Text(finalTranslations[finalLocale.toString()]?['closeSession'] ?? 'Cerrar Sesión'),
-              onTap: () {},
+              title: Text(
+                !isLoggedIn
+                  ? (finalTranslations[finalLocale.toString()]?['login'] ??
+                      'Iniciar Sesión')
+                  : (finalTranslations[finalLocale.toString()]
+                          ?['closeSession'] ??
+                      'Cerrar Sesión')),
+              onTap: () {
+                PerfilHelper.cerrarSesion();
+              },
             ),
           ],
         ),

@@ -1,27 +1,27 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:holdemmanager_app/Helpers/ErrorMessage.dart';
+import 'package:holdemmanager_app/Helpers/message.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/change_password.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
-import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class PerfilScreen extends StatefulWidget {
-  const PerfilScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<PerfilScreen> createState() => _PerfilScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
+class _ProfileScreenState extends State<ProfileScreen>
+    implements LanguageHelper {
   String? finalName;
   String? finalEmail;
+  bool isLoggedIn = false;
   bool isLoading = true;
   int selectedIndex = 1;
   Uint8List? image;
@@ -52,13 +52,17 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
     await PerfilHelper.cargarImagen(context);
 
     setState(() {
-      finalEmail = PerfilHelper.finalEmail;
-      if (finalEmail == '') {
+      // Si el logged es nulo, entonces el usuario entro como invitado, entonces setteamos todos los campos nullos
+      isLoggedIn = PerfilHelper.isLoggedIn;
+
+      if (!isLoggedIn) {
         finalName = null;
         finalEmail = null;
         isLoading = PerfilHelper.isLoading;
         image = null;
         imagePath = null;
+
+        // Si el logged es verdadero entonces setteamos todos los campos para mostrarlos
       } else {
         finalName = PerfilHelper.finalName;
         finalEmail = PerfilHelper.finalEmail;
@@ -173,17 +177,17 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                             child: IconButton(
                               padding: const EdgeInsets.only(left: 2),
                               onPressed: () async {
-                                String resultado =
-                                    await PerfilHelper.seleccionarImagen(
-                                        context);
                                 if (finalEmail != null) {
+                                  String resultado =
+                                      await PerfilHelper.seleccionarImagen(
+                                          context);
+
                                   if (resultado == 'imageSaved') {
                                     Message.mostrarMensajeCorrecto(
                                         finalTranslations[finalLocale
                                             .toString()]?['imageSaved'],
                                         context);
-                                  } else if (resultado ==
-                                      'imageSize') {
+                                  } else if (resultado == 'imageSize') {
                                     Message.mostrarMensajeError(
                                         finalTranslations[finalLocale
                                             .toString()]?['imageSize'],
@@ -207,29 +211,63 @@ class _PerfilScreenState extends State<PerfilScreen> implements LanguageHelper {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final SharedPreferences sharedPreferences =
-                            await SharedPreferences.getInstance();
-                        sharedPreferences.remove('isLoggedIn');
-                        sharedPreferences.remove('name');
-                        sharedPreferences.remove('email');
-                        sharedPreferences.remove('${finalEmail}_userImagePath');
-                        sharedPreferences.remove('playerNumber');
-                        Get.offAll(() => const LoginScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 218, 139, 35),
-                      ),
-                      child: Text(
-                        finalTranslations[finalLocale.toString()]
-                                ?['closeSession'] ??
-                            'Cerrar Sesión',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 100,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      PerfilHelper.cerrarSesion();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 218, 139, 35),
+                                    ),
+                                    child: Text(
+                                      !isLoggedIn
+                                          ? (finalTranslations[finalLocale
+                                                  .toString()]?['login'] ??
+                                              'Iniciar Sesión')
+                                          : (finalTranslations[
+                                                      finalLocale.toString()]
+                                                  ?['closeSession'] ??
+                                              'Cerrar Sesión'),
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  isLoggedIn
+                                      ? ElevatedButton(
+                                          onPressed: () async {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ChangePasswordScreen()));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 218, 139, 35),
+                                          ),
+                                          child: Text(
+                                            (finalTranslations[
+                                                        finalLocale.toString()]
+                                                    ?['changePassword'] ??
+                                                'Cambiar Contraseña'),
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                        )
+                                      : Container(),
+                                ])
+                          ]),
+                    )
                   ],
                 ),
               ),

@@ -67,7 +67,7 @@ class LoginRegisterHelper {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 16),
+            const  SizedBox(height: 16),
 
               crearOpcionLenguaje(
                 context,
@@ -76,7 +76,7 @@ class LoginRegisterHelper {
                 translations[locale.toString()]?['english'] ?? 'Inglés',
                 onLocaleSelected,
               ),
-              SizedBox(height: 16),
+             const SizedBox(height: 16),
 
               crearOpcionLenguaje(
                 context,
@@ -85,7 +85,7 @@ class LoginRegisterHelper {
                 translations[locale.toString()]?['spanish'] ?? 'Español',
                 onLocaleSelected,
               ),
-              SizedBox(height: 16),
+            const  SizedBox(height: 16),
 
               crearOpcionLenguaje(
                 context,
