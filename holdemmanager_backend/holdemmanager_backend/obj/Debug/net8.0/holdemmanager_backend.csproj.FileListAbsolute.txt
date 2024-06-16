@@ -122,7 +122,6 @@ D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.AssemblyInfoInputs.cache
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.AssemblyInfo.cs
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.csproj.CoreCompileInputs.cache
-D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.MvcApplicationPartsAssemblyInfo.cs
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.MvcApplicationPartsAssemblyInfo.cache
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.sourcelink.json
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\staticwebassets.build.json
@@ -139,3 +138,6 @@ D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.pdb
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.genruntimeconfig.cache
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\ref\holdemmanager_backend.dll
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.MvcApplicationPartsAssemblyInfo.cs
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\holdemmanager_backend_web.dll
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\holdemmanager_backend_web.pdb

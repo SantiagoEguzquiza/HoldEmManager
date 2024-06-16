@@ -1,4 +1,4 @@
-﻿namespace BackEnd.DTO
+﻿namespace holdemmanager_backend_app.DTO
 {
     public class CambiarPasswordDTO
     {

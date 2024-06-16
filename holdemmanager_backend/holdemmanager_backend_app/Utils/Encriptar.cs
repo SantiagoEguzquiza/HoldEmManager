@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace BackEnd.Utils
+namespace holdemmanager_backend_app.Utils
 {
     public static class Encriptar
     {

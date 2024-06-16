@@ -27,7 +27,7 @@ class CambiarPassworDTO {
   }
 
   static Future<Result> cambiarPassword(CambiarPassworDTO passwordDto) async {
-    final String apiUrl = '${ApiHandler.baseUrl}/Usuario/CambiarPassword';
+    final String apiUrl = '${ApiHandler.baseUrl}/UsuarioApp/CambiarPassword';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('jwt_token') ?? '';
 

@@ -9,11 +9,13 @@
       "holdemmanager_backend/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.6",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Swashbuckle.AspNetCore": "6.4.0",
-          "holdemmanager_backend_app": "1.0.0"
+          "holdemmanager_backend_app": "1.0.0",
+          "holdemmanager_backend_web": "1.0.0"
         },
         "runtime": {
           "holdemmanager_backend.dll": {}
@@ -918,6 +920,17 @@
         "runtime": {
           "holdemmanager_backend_app.dll": {}
         }
+      },
+      "holdemmanager_backend_web/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1"
+        },
+        "runtime": {
+          "holdemmanager_backend_web.dll": {}
+        }
       }
     }
   },
@@ -1481,6 +1494,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "holdemmanager_backend_app/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "holdemmanager_backend_web/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

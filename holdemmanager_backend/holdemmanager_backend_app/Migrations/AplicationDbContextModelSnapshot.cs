@@ -9,7 +9,7 @@ using holdemmanager_backend_app.Persistence;
 
 namespace holdemmanager_backend_app.Migrations
 {
-    [DbContext(typeof(AplicationDbContext))]
+    [DbContext(typeof(AplicationDbContextApp))]
     partial class AplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace holdemmanager_backend_app.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BackEnd.Domain.Models.Usuario", b =>
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

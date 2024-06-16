@@ -10,7 +10,7 @@ class ApiHandler {
 
   static Future<Result> login(Usuario usuario) async {
     try {
-      var urlApi = ('/Login');
+      var urlApi = ('/LoginApp');
       var apiUrl = baseUrl.resolve(urlApi);
 
       var response = await http

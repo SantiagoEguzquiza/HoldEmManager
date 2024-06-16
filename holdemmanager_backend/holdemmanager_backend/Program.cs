@@ -1,12 +1,17 @@
-using BackEnd.Domain.IRepositories;
-using BackEnd.Domain.IServices;
-using BackEnd.Persistence.Repositories;
-using BackEnd.Service;
-using holdemmanager_backend_app.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using holdemmanager_backend_app.Domain.IRepositories;
+using holdemmanager_backend_app.Domain.IServices;
+using holdemmanager_backend_app.Persistence.Repositories;
+using holdemmanager_backend_app.Service;
+using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_web.Domain.IRepositories;
+using holdemmanager_backend_web.Persistence.Repositories;
+using holdemmanager_backend_web.Domain.IServices;
+using holdemmanager_backend_web.Service;
+using holdemmanager_backend_web.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +21,26 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var connectionString = builder.Configuration.GetConnectionString("Conexion");
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<ILoginService, LoginService>();
+var connectionStringApp = builder.Configuration.GetConnectionString("ConexionApp");
+var connectionStringWeb = builder.Configuration.GetConnectionString("ConexionWeb");
 
-builder.Services.AddDbContext<AplicationDbContext>(options =>
+builder.Services.AddScoped<IUsuarioRepositoryApp, UsuarioRepositoryApp>();
+builder.Services.AddScoped<IUsuarioServiceApp, UsuarioServiceApp>();
+builder.Services.AddScoped<ILoginRepositoryApp, LoginRepositoryApp>();
+builder.Services.AddScoped<ILoginServiceApp, LoginServiceApp>();
+
+builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
+builder.Services.AddScoped<IUsuarioServiceWeb, UsuarioServiceWeb>();
+builder.Services.AddScoped<ILoginRepositoryWeb, LoginRepositoryWeb>();
+builder.Services.AddScoped<ILoginServiceWeb, LoginServiceWeb>();
+
+builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionStringApp);
+});
+builder.Services.AddDbContext<AplicationDbContextWeb>(options =>
+{
+    options.UseSqlServer(connectionStringWeb);
 });
 
 // Cors

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BackEnd.Domain.Models
+namespace holdemmanager_backend_app.Domain.Models
 {
     public class Usuario
     {

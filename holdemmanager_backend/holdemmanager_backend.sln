@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holdemmanager_backend", "holdemmanager_backend\holdemmanager_backend.csproj", "{43D8F808-42B4-4527-AD51-759DA5358462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend", "holdemmanager_backend\holdemmanager_backend.csproj", "{43D8F808-42B4-4527-AD51-759DA5358462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holdemmanager_backend_app", "holdemmanager_backend_app\holdemmanager_backend_app.csproj", "{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend_app", "holdemmanager_backend_app\holdemmanager_backend_app.csproj", "{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend_web", "C:\Users\rodri\OneDrive\Escritorio\holdemmanager_backend_web\holdemmanager_backend_web.csproj", "{D468B368-08B8-4D85-8EFC-ADF736A46A56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D468B368-08B8-4D85-8EFC-ADF736A46A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D468B368-08B8-4D85-8EFC-ADF736A46A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D468B368-08B8-4D85-8EFC-ADF736A46A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D468B368-08B8-4D85-8EFC-ADF736A46A56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

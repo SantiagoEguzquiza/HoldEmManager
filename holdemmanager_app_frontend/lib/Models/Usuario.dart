@@ -41,7 +41,7 @@ class Usuario {
   }
 
   static Future<Usuario> getUsuarioPorNumeroJugador(int numeroJugador) async {
-    final String apiUrl = '${ApiHandler.baseUrl}/Usuario/$numeroJugador';
+    final String apiUrl = '${ApiHandler.baseUrl}/UsuarioApp/$numeroJugador';
     Usuario usuario = Usuario(numberPlayer: -1, password: '');
 
     try {
@@ -64,7 +64,7 @@ class Usuario {
   static Future<bool> setImageUrl(String imageUrl, int numeroJugador) async {
     String imageUrlEnCode = Uri.encodeComponent(imageUrl);
     final String apiUrl =
-        "${ApiHandler.baseUrl}/Usuario/$imageUrlEnCode/$numeroJugador";
+        "${ApiHandler.baseUrl}/UsuarioApp/$imageUrlEnCode/$numeroJugador";
 
     try {
       final response = await http.put(Uri.parse(apiUrl));

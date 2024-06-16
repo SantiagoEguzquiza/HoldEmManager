@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\holdemmanager_backend_app\holdemmanager_backend_app.csproj" />
+    <ProjectReference Include="C:\Users\rodri\OneDrive\Escritorio\holdemmanager_backend_web\holdemmanager_backend_web.csproj" />
   </ItemGroup>
 
 </Project>

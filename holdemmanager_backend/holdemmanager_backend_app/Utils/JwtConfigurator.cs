@@ -1,11 +1,11 @@
-﻿using BackEnd.Domain.Models;
+﻿using holdemmanager_backend_app.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BackEnd.Utils
+namespace holdemmanager_backend_app.Utils
 {
     public class JwtConfigurator
     {
