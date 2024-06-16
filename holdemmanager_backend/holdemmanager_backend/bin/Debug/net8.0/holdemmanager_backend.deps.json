@@ -926,7 +926,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "Microsoft.Extensions.Configuration.Binder": "8.0.1"
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1",
+          "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
           "holdemmanager_backend_web.dll": {}

@@ -1594,7 +1594,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "Microsoft.Extensions.Configuration.Binder": "8.0.1"
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1",
+          "Swashbuckle.AspNetCore": "6.4.0"
         },
         "compile": {
           "bin/placeholder/holdemmanager_backend_web.dll": {}
@@ -4331,8 +4332,8 @@
     },
     "holdemmanager_backend_web/1.0.0": {
       "type": "project",
-      "path": "C:\\Users\\rodri\\OneDrive\\Escritorio\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
-      "msbuildProject": "C:\\Users\\rodri\\OneDrive\\Escritorio\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
+      "path": "../../../holdemmanager_backend_web/holdemmanager_backend_web.csproj",
+      "msbuildProject": "../../../holdemmanager_backend_web/holdemmanager_backend_web.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4353,11 +4354,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
+      "projectUniqueName": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
       "projectName": "holdemmanager_backend",
-      "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
+      "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
       "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-      "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\obj\\",
+      "outputPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4375,11 +4376,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
+              "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj"
+            },
             "C:\\Users\\rodri\\OneDrive\\Escritorio\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
               "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
-            },
-            "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
-              "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj"
             }
           }
         }
