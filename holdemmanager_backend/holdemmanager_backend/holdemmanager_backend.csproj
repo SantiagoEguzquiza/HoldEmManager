@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\holdemmanager_backend_app\holdemmanager_backend_app.csproj" />
-    <ProjectReference Include="C:\Users\rodri\OneDrive\Escritorio\holdemmanager_backend_web\holdemmanager_backend_web.csproj" />
   </ItemGroup>
 
 </Project>
