@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BGLc/Xi+dpY=",
+  "dgSpecHash": "nr757w9ZXgQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
+  "projectFilePath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rodri\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\rodri\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

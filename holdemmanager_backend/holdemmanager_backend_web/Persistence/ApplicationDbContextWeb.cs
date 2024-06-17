@@ -5,7 +5,7 @@ namespace holdemmanager_backend_web.Persistence
 {
     public class AplicationDbContextWeb : DbContext
     {
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioWeb> Usuarios { get; set; }
         public AplicationDbContextWeb(DbContextOptions<AplicationDbContextWeb> options) : base(options)
         {
         }

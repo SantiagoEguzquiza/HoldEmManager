@@ -12,27 +12,27 @@ namespace holdemmanager_backend_web.Persistence.Repositories
             this._context = context;
         }
 
-        public async Task SaveUser(Usuario usuario)
+        public async Task SaveUser(UsuarioWeb usuario)
         {
             _context.Add(usuario);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateUsuario(Usuario usuario)
+        public async Task UpdateUsuario(UsuarioWeb usuario)
         {
             _context.Update(usuario);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> ValidateExistence(Usuario usuario)
+        public async Task<bool> ValidateExistence(UsuarioWeb usuario)
         {
-            var validateExistence = await _context.Usuarios.AnyAsync(x => x.NumberPlayer == usuario.NumberPlayer);
+            var validateExistence = await _context.Usuarios.AnyAsync(x => x.NombreUsuario == usuario.NombreUsuario);
             return validateExistence;
         }
 
-        public async Task<Usuario> ValidatePassword(int numberoJugador, string passwordAnterior)
+        public async Task<UsuarioWeb> ValidatePassword(string nombreUsuario, string passwordAnterior)
         {
-            var usuario = await _context.Usuarios.Where(x => x.NumberPlayer == numberoJugador && x.Password == passwordAnterior).FirstOrDefaultAsync();
+            var usuario = await _context.Usuarios.Where(x => x.NombreUsuario == nombreUsuario && x.Password == passwordAnterior).FirstOrDefaultAsync();
             return usuario;
         }
     }

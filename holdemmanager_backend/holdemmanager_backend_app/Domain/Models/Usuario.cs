@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace holdemmanager_backend_app.Domain.Models
 {
-    public class Usuario
+    public class UsuarioApp
     {
         [Key]
         public int Id { get; set; }

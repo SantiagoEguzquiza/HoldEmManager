@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {}
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+        "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
         "projectName": "holdemmanager_backend_app",
-        "projectPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+        "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
         "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rodri\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
+        "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",

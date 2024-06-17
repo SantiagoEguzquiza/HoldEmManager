@@ -9,7 +9,7 @@ namespace holdemmanager_backend_web.Utils
 {
     public class JwtConfigurator
     {
-        public static string GetToken(Usuario userInfo, IConfiguration config)
+        public static string GetToken(UsuarioWeb userInfo, IConfiguration config)
         {
             string SecretKey = config["Jwt:SecretKey"];
             string Issuer = config["Jwt:Issuer"];
@@ -20,12 +20,10 @@ namespace holdemmanager_backend_web.Utils
 
             var claims = new[]
             {
-
-              new Claim(JwtRegisteredClaimNames.Sub,userInfo.Email),
-              new Claim("numberPlayer", userInfo.NumberPlayer.ToString())
-
+              new Claim(JwtRegisteredClaimNames.Sub,userInfo.NombreUsuario),
+              new Claim("idUsuario", userInfo.Id.ToString())
             };
-
+            
             var token = new JwtSecurityToken(
                 issuer: Issuer,
                 audience: Audience,
@@ -46,7 +44,7 @@ namespace holdemmanager_backend_web.Utils
                 IEnumerable<Claim> claims = identity.Claims;
                 foreach (var claim in claims) {
 
-                    if (claim.Type == "numberPlayer") { 
+                    if (claim.Type == "idUsuario") { 
                     
                         return int.Parse(claim.Value);
                     

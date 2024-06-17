@@ -9,7 +9,7 @@ namespace holdemmanager_backend_app.Utils
 {
     public class JwtConfigurator
     {
-        public static string GetToken(Usuario userInfo, IConfiguration config)
+        public static string GetToken(UsuarioApp userInfo, IConfiguration config)
         {
             string SecretKey = config["Jwt:SecretKey"];
             string Issuer = config["Jwt:Issuer"];

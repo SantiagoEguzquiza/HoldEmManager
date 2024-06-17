@@ -4,9 +4,9 @@ namespace holdemmanager_backend_app.Domain.IServices
 {
     public interface IUsuarioServiceApp
     {
-        Task SaveUser(Usuario usuario);
-        Task<bool> ValidateExistence(Usuario usuario);
-        Task<Usuario> ValidatePassword(int numberPlayer, string passwordAnterior);
-        Task UpdateUsuario(Usuario usuario);
+        Task SaveUser(UsuarioApp usuario);
+        Task<bool> ValidateExistence(UsuarioApp usuario);
+        Task<UsuarioApp> ValidatePassword(int numberPlayer, string passwordAnterior);
+        Task UpdateUsuario(UsuarioApp usuario);
     }
 }

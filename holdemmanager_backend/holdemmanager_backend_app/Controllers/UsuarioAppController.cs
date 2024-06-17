@@ -26,31 +26,31 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Usuario usuario)
+        public async Task<IActionResult> Post([FromBody] UsuarioApp usuario)
         {
             try
             {
-                var validateExistence = await _usuarioService.ValidateExistence(usuario);
-                if (validateExistence)
+                var usuarioExistente = await _usuarioService.ValidateExistence(usuario);
+                if (usuarioExistente)
                 {
-                    return BadRequest($"El número de jugador {usuario.NumberPlayer} ya existe");
+                    return BadRequest(new { message = $"El numero de usuario {usuario.NumberPlayer} ya existe" });
                 }
 
                 usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
+
+
                 await _usuarioService.SaveUser(usuario);
 
-                return Ok("Usuario registrado con exito");
+
+                return Ok(new { message = "Usuario registrado con éxito" });
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message);
-
+                return StatusCode(500, new { message = "Ocurrió un error al registrar el usuario", details = ex.Message });
             }
-
         }
 
-        
+
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("CambiarPassword")]
         public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordDTO cambiarPassword)
@@ -89,7 +89,7 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         [HttpGet("{numeroJugador}")]
-        public async Task<ActionResult<Usuario>> GetUsuarioPorNumeroJugador(int numeroJugador)
+        public async Task<ActionResult<UsuarioApp>> GetUsuarioPorNumeroJugador(int numeroJugador)
         {
             return await _dbContext.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
         }

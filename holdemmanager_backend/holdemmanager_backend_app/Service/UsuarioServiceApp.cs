@@ -13,22 +13,22 @@ namespace holdemmanager_backend_app.Service
 
             _usuarioRepository = usuarioRepository;
         }
-        public async Task SaveUser(Usuario usuario)
+        public async Task SaveUser(UsuarioApp usuario)
         {
             await _usuarioRepository.SaveUser(usuario);
         }
 
-        public async Task<bool> ValidateExistence(Usuario usuario)
+        public async Task<bool> ValidateExistence(UsuarioApp usuario)
         {
             return await _usuarioRepository.ValidateExistence(usuario);
         }
 
-        public async Task<Usuario> ValidatePassword(int numberPlayer, string passwordAnterior)
+        public async Task<UsuarioApp> ValidatePassword(int numberPlayer, string passwordAnterior)
         {
             return await _usuarioRepository.ValidatePassword(numberPlayer, passwordAnterior);
         }
 
-        public async Task UpdateUsuario(Usuario usuario)
+        public async Task UpdateUsuario(UsuarioApp usuario)
         {
             await _usuarioRepository.UpdateUsuario(usuario);
         }

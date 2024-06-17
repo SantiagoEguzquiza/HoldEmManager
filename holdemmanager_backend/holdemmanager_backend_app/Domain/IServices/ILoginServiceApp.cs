@@ -4,6 +4,6 @@ namespace holdemmanager_backend_app.Domain.IServices
 {
     public interface ILoginServiceApp
     {
-        Task<Usuario> ValidateUser(Usuario usuario);
+        Task<UsuarioApp> ValidateUser(UsuarioApp usuario);
     }
 }

@@ -25,32 +25,9 @@ namespace holdemmanager_backend_web.Controllers
             _dbContext = dbContext;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] Usuario usuario)
-        //{
-        //    try
-        //    {
-        //        var validateExistence = await _usuarioService.ValidateExistence(usuario);
-        //        if (validateExistence)
-        //        {
-        //            return BadRequest($"El número de jugador {usuario.NumberPlayer} ya existe");
-        //        }
-
-        //        usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
-        //        await _usuarioService.SaveUser(usuario);
-
-        //        return Ok("Usuario registrado con exito");
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return BadRequest(ex.Message);
-
-        //    }
-
-        //}
-
         
+
+
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         //[HttpPut("CambiarPassword")]
         //public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordDTO cambiarPassword)

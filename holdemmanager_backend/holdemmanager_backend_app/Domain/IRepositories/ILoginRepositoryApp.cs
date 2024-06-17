@@ -4,7 +4,7 @@ namespace holdemmanager_backend_app.Domain.IRepositories
 {
     public interface ILoginRepositoryApp
     {
-        Task<Usuario> ValidateUser(Usuario usuario);
+        Task<UsuarioApp> ValidateUser(UsuarioApp usuario);
 
     }
 }

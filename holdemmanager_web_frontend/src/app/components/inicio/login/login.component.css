@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h3 {
+    font-size: 2em;
+    color: #2e2e2e;
+    font-weight: 700;
+}
+
+.btn-login {
+    background-color: #F05F44;
+    border-color: #F05F44;
+}
