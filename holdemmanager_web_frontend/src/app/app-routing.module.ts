@@ -1,20 +1,29 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/inicio/register/register.component';
-import { LoginComponent } from './components/inicio/login/login.component';
-import { InicioComponent } from './components/inicio/inicio.component';
-import { CambiarPasswordComponent } from './components/cambiar-password/cambiar-password.component';
+import { RegisterPlayerComponent } from './components/dashboard/player-register/player-register.component';
+import { LoginComponent } from './components/sesion/login/login.component';
+import { SesionComponent } from './components/sesion/sesion.component';
+import { CambiarPasswordComponent } from './components/dashboard/cambiar-password/cambiar-password.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/dashboard/home/home.component';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/inicio/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/sesion/login', pathMatch: 'full' },
   {
-    path: 'inicio', component: InicioComponent, children: [
-      { path: 'register', component: RegisterComponent },
+    path: 'sesion', component: SesionComponent, children: [
       { path: 'login', component: LoginComponent },
     ]
   },
-  { path: 'cambiar-password', component: CambiarPasswordComponent }
+  {
+    path: 'dashboard', component: DashboardComponent, children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'register-player', component: RegisterPlayerComponent },
+      { path: 'cambiar-password', component: CambiarPasswordComponent }
+    ]
+  },
+  
 ];
 
 @NgModule({

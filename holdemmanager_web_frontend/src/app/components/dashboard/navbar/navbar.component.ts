@@ -10,15 +10,12 @@ import { LoginService } from 'src/app/service/login.service';
 export class NavbarComponent {
 
   constructor(private loginService: LoginService, private router: Router) {
-
-
-
   }
 
   logOut(): void {
 
     this.loginService.removeLocaStorage();
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/sesion/login']);
 
   }
 

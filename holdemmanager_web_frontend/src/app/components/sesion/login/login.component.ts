@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuarioApp } from '../../../models/usuario';
 import { ToastrService } from 'ngx-toastr';
 import { Route, Router } from '@angular/router';
 import { LoginService } from 'src/app/service/login.service';
+import { UsuarioWeb } from 'src/app/models/usuarioWeb';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private toastr: ToastrService, private router: Router, private loginService: LoginService) {
 
     this.login = this.fb.group({
-      usuario: ['', Validators.required],
+      nombreUsuario: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -27,22 +27,21 @@ export class LoginComponent implements OnInit {
   }
 
   log(): void {
-    // // const usuario: UsuarioApp = {
+    const usuario: UsuarioWeb = {
+      nombreUsuario: this.login.value.nombreUsuario,
+      password: this.login.value.password
+    }
+    this.loading = true;
+    this.loginService.login(usuario).subscribe(data => {
 
-    // //   // nombreUsuario: this.login.value.usuario,
-    // //   // password: this.login.value.password
-    // // }
-    // this.loading = true;
-    // this.loginService.login(usuario).subscribe(data => {
+      this.loading = false;
+      this.loginService.setLocalStorage(data.token)
+      this.router.navigate(['/dashboard']);
 
-    //   this.loading = false;
-    //   this.loginService.setLocalStorage(data.token)
-    //   this.router.navigate(['/dashboard']);
-
-    // }, error => {
-    //   this.loading = false;
-    //   this.toastr.error(error.error.message, 'Error');
-    //   this.login.reset();
-    // })
+    }, error => {
+      this.loading = false;
+      this.toastr.error(error.error.message ?? 'El servidor no se encuentra disponible', 'Error');
+      this.login.reset();
+    });
   }
 }

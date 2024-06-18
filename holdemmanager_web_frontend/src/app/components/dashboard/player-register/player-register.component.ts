@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UsuarioApp } from 'src/app/models/usuario';
+import { UsuarioApp } from '../../../models/usuarioApp';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-player-register',
+  templateUrl: './player-register.component.html',
+  styleUrls: ['./player-register.component.css']
 })
-export class RegisterComponent {
+export class RegisterPlayerComponent {
   register: FormGroup;
   loading = false;
 
@@ -37,7 +37,6 @@ export class RegisterComponent {
       email: this.register.value.email,
       password: this.register.value.password,
       imageUrl: "."
-
     };
 
     this.loading = true;

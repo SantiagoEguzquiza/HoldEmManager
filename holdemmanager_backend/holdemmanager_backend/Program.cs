@@ -43,6 +43,7 @@ builder.Services.AddDbContext<AplicationDbContextWeb>(options =>
     options.UseSqlServer(connectionStringWeb);
 });
 
+
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebapp",
                                             builder => builder.AllowAnyOrigin()
@@ -77,9 +78,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AplicationDbContextWeb>();
+    DefaultUsers.create(context);
+}
 
 app.Run();
