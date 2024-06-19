@@ -15,19 +15,20 @@ import { AddTokenInterceptor } from '../app/helpers/add-token.interceptor';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/sesion/login/login.component';
 import { RegisterPlayerComponent } from './components/dashboard/player-register/player-register.component';
-import { CambiarPasswordComponent } from './components/dashboard/cambiar-password/cambiar-password.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { LoginService } from './service/login.service';
+import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterPlayerComponent,
-    CambiarPasswordComponent,
     NavbarComponent,
     LoadingComponent,
     DashboardComponent,
@@ -42,7 +43,11 @@ import { HomeComponent } from './components/dashboard/home/home.component';
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
+    AuthGuard,
+    AuthRedirectGuard,
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
