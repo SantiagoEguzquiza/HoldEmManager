@@ -13,10 +13,7 @@ export class NavbarComponent {
   }
 
   logOut(): void {
-
     this.loginService.removeLocaStorage();
     this.router.navigate(['/sesion/login']);
-
   }
-
 }
