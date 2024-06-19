@@ -15,6 +15,6 @@ namespace holdemmanager_backend_web.Domain.Models
         public string Password { get; set; }
 
         [ForeignKey("Id")]
-        public List<Torneos> ListaTorneos { get; set; }
+        public List<Torneos>? ListaTorneos { get; set; }
     }
 }
