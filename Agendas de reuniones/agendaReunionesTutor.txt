@@ -1,0 +1,53 @@
+reunion 27/05: comenzó 19:00
+
+asistieron Lautaro Santiago y tutor Martin
+
+actividades: 
+- revision del anteproyecto entregado el 24/05
+- charla sobre futuras tareas, como el armado de la base de datos y estudio del lenguaje
+
+tareas: 
+- prioridad: armar diagrama de clases para prox lunes, asi la primera semana de junio armamos la base
+- prioridad: estudiar lenguaje
+- secundario: ver posibilidades de la API que usaremos
+
+-----------------------------------------------------------------------------------------------------------------------
+reunion 03/06: comenzó 19:00
+
+asistieron Lautaro Santiago Rodrigo y tutor Martin
+
+actividades:
+- revision del avance de la aplicacion hasta dia de hoy 
+
+tareas:
+- base de datos para app
+- seguir aprendiendo flutter
+- incluir para la documentacion de futuras entregas: el por que de flutter (a pedido de enjoy)
+-----------------------------------------------------------------------------------------------------------------------
+reunion 10/06: comenzó 19:10
+
+asistieron Lautaro Santiago Rodrigo y tutor Martin
+
+actividades:
+- revision del avance de la aplicacion hasta dia de hoy, charla sobre futuras tareas 
+
+tareas:
+- base de datos obligatoriamente armada para siguiente reunion
+- armar lista/cronograma de proximos metodos de la api para trabajar a partir del lunes 17
+- seguir aprendiendo flutter
+-----------------------------------------------------------------------------------------------------------------------
+reunion 17/6: comenzó 19:10
+
+asistieron Rodrigo Lautaro y tutor Martin
+
+actividades:
+- revision del diagrama de la base y correcciones/charlas de posibles cambios
+- charla sobre los metodos de la api a crear en proximos dias 
+
+tareas: 
+- actualizar diagrama de grant (project)
+- dividir trabajos entre los integrantes (roles)
+- armar sprints 
+- pautas: si o si base de datos (no diagrama), hacer mas metodos de la api para poder proseguir con la app
+- definir metodo de trabajo (funcionalidad o dividirse entre app, web y api)
+-----------------------------------------------------------------------------------------------------------------------
