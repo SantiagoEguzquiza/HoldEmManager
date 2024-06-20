@@ -12,6 +12,7 @@ using holdemmanager_backend_web.Persistence.Repositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Service;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
 builder.Services.AddScoped<IUsuarioServiceWeb, UsuarioServiceWeb>();
 builder.Services.AddScoped<ILoginRepositoryWeb, LoginRepositoryWeb>();
 builder.Services.AddScoped<ILoginServiceWeb, LoginServiceWeb>();
+builder.Services.AddScoped<IRecursosEducativosRepositoryWeb, RecursosEducativosRepositoryWeb>();
+builder.Services.AddScoped<IRecursosEducativosServiceWeb, RecursosEducativosServiceWeb>();
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {
