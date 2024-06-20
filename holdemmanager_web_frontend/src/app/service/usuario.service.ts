@@ -9,14 +9,20 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
   myAppUrl: string;
-  myApiUrl: string;
+  myApiUrlApp: string;
+  myApiUrlWeb: string;
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = '/UsuarioApp';
+    this.myApiUrlApp = '/UsuarioApp';
+    this.myApiUrlWeb = '/UsuarioWeb';
   }
 
-  saveUser(usuario: UsuarioApp): Observable<any> {    
-    return this.http.post(this.myAppUrl+this.myApiUrl,usuario);
+  saveUser(usuario: UsuarioApp): Observable<any> {
+    return this.http.post(this.myAppUrl + this.myApiUrlApp, usuario);
+  }
+
+  getUsuario(): Observable<any> {
+    return this.http.get(this.myAppUrl + this.myApiUrlWeb + '/GetUsuario');
   }
 }

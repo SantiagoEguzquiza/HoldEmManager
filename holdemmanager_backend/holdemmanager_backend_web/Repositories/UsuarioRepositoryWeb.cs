@@ -35,5 +35,11 @@ namespace holdemmanager_backend_web.Persistence.Repositories
             var usuario = await _context.Usuarios.Where(x => x.NombreUsuario == nombreUsuario && x.Password == passwordAnterior).FirstOrDefaultAsync();
             return usuario;
         }
+
+        public async Task<UsuarioWeb> GetUsuario(int idUsuario)
+        {
+            var usuario = await _context.Usuarios.Where(u => u.Id == idUsuario).FirstOrDefaultAsync();
+            return usuario;
+        }
     }
 }

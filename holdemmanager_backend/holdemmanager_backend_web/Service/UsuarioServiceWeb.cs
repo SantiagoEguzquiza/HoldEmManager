@@ -1,6 +1,6 @@
-﻿using holdemmanager_backend_web.Domain.Models;
-using holdemmanager_backend_web.Domain.IRepositories;
+﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
+using holdemmanager_backend_web.Domain.Models;
 
 namespace holdemmanager_backend_web.Service
 {
@@ -31,6 +31,11 @@ namespace holdemmanager_backend_web.Service
         public async Task UpdateUsuario(UsuarioWeb usuario)
         {
             await _usuarioRepository.UpdateUsuario(usuario);
+        }
+
+        public async Task<UsuarioWeb> GetUsuario(int idUsuario)
+        {
+            return await _usuarioRepository.GetUsuario(idUsuario);
         }
     }
 }

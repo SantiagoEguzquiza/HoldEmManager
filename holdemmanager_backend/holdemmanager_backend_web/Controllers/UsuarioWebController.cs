@@ -25,65 +25,27 @@ namespace holdemmanager_backend_web.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpGet("GetUsuario")]
+        public async Task<ActionResult<UsuarioWeb>> GetUsuarioLoggeado()
         
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
 
+                int idUsuario = JwtConfigurator.GetTokenIdUsuario(identity);
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[HttpPut("CambiarPassword")]
-        //public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordDTO cambiarPassword)
-        //{
-        //    try
-        //    {
-        //        var identity = HttpContext.User.Identity as ClaimsIdentity;
+                if (idUsuario == null) {
+                    return BadRequest("No se pudo encontrar el usuario");
+                }
 
-        //        int numberPlayer = JwtConfigurator.GetTokenNumberPlayer(identity);
-        //        string passwordEncriptado = Encriptar.EncriptarPassword(cambiarPassword.passwordAnterior);
-        //        var usuario = await _usuarioService.ValidatePassword(numberPlayer, passwordEncriptado);
-
-        //        if (usuario == null)
-        //        {
-
-        //            return BadRequest(new { message = "Password incorrecta" });
-
-        //        }
-        //        else
-        //        {
-
-        //            usuario.Password = Encriptar.EncriptarPassword(cambiarPassword.nuevaPassword);
-        //            await _usuarioService.UpdateUsuario(usuario);
-        //            return Ok(new { message = "La password fue actualizada con exito" });
-
-        //        }
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return BadRequest(ex.Message);
-        //    }
-
-        //}
-
-        //[HttpGet("{numeroJugador}")]
-        //public async Task<ActionResult<Usuario>> GetUsuarioPorNumeroJugador(int numeroJugador)
-        //{
-        //    return await _dbContext.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
-        //}
-
-        //[HttpPut("{imageUrl}/{numeroJugador}")]
-        //public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
-        //{
-        //    var usuario = await _dbContext.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
-        //    if (usuario == null) {
-        //        return BadRequest("No existe el usuario");
-        //    }
-
-        //    usuario.ImageUrl = imageUrl;
-        //    await _usuarioService.UpdateUsuario(usuario);
-
-        //    return Ok("Imagen guardada con exito");
-        //}
+                return await _usuarioService.GetUsuario(idUsuario);
+            }
+            catch (Exception ex) { 
+                return BadRequest(ex.Message);  
+            }
+           
+        }
 
     }
 }

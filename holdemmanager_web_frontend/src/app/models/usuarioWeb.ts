@@ -1,4 +1,5 @@
-import { Torneos } from "./Torneos";
+import { RolesEnum } from "./roles";
+import { Torneos } from "./torneos";
 
 export class UsuarioWeb {
 
@@ -6,4 +7,5 @@ export class UsuarioWeb {
     nombreUsuario!: string;
     password!: string;
     listaTorneos?: Torneos[];
+    rol?: RolesEnum
 }

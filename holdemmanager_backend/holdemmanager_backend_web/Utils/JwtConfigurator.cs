@@ -37,7 +37,7 @@ namespace holdemmanager_backend_web.Utils
 
         }
 
-        public static int GetTokenNumberPlayer(ClaimsIdentity identity) {
+        public static int GetTokenIdUsuario(ClaimsIdentity identity) {
 
             if (identity != null) { 
             

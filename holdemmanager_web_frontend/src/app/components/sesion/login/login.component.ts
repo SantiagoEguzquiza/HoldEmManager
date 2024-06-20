@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     const usuario: UsuarioWeb = {
       nombreUsuario: this.login.value.nombreUsuario,
       password: this.login.value.password,
-      
     }
     this.loading = true;
     this.loginService.login(usuario).subscribe(data => {

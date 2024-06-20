@@ -16,5 +16,7 @@ namespace holdemmanager_backend_web.Domain.Models
 
         [ForeignKey("Id")]
         public List<Torneos>? ListaTorneos { get; set; }
+
+        public RolesEnum Rol { get; set; }
     }
 }

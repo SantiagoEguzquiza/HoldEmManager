@@ -25,7 +25,7 @@ import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     RegisterPlayerComponent,
@@ -33,8 +33,8 @@ import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
     LoadingComponent,
     DashboardComponent,
     SesionComponent,
-    HomeComponent
-  ],
+    HomeComponent,
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

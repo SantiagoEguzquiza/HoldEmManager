@@ -6,6 +6,9 @@
     list-style: none;
     box-sizing: border-box;
 }
+.logo{
+    cursor: pointer;
+}
 
 header {
     background: #272727;

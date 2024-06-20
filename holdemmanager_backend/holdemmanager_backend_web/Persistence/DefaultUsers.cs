@@ -16,9 +16,8 @@ namespace holdemmanager_backend_web.Persistence
         {
             if (_context.Usuarios.Any()) { return; }
 
-            _context.Usuarios.Add(new UsuarioWeb { NombreUsuario = "PokerAdmin", Password = Encriptar.EncriptarPassword("poker123") });
-            _context.Usuarios.Add(new UsuarioWeb { NombreUsuario = "CajasAdmin", Password = Encriptar.EncriptarPassword("cajas123") });
-            _context.Usuarios.Add(new UsuarioWeb { NombreUsuario = "PrensaAdmin", Password = Encriptar.EncriptarPassword("prensa123") });
+            _context.Usuarios.Add(new UsuarioWeb { NombreUsuario = "PokerAdmin", Password = Encriptar.EncriptarPassword("poker123"), Rol = RolesEnum.ADMINISTRACION});
+            _context.Usuarios.Add(new UsuarioWeb { NombreUsuario = "PrensaAdmin", Password = Encriptar.EncriptarPassword("prensa123"), Rol = RolesEnum.PRENSA});
 
             _context.SaveChanges();
 
