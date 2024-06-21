@@ -1,0 +1,17 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h3 {
+    font-size: 2em;
+    color: #2e2e2e;
+    font-weight: 700;
+}
+
+.btn-reg {
+    background-color: #F05f44;
+    border-color: #F05f44;
+}

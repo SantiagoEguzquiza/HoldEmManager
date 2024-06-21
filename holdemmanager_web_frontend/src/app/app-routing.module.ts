@@ -7,6 +7,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
+import { RecursosRegisterComponent } from './components/dashboard/recursos-register/recursos-register.component';
 
 // Guards
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'register-player', component: RegisterPlayerComponent },
+      { path: 'recursos-register', component: RecursosRegisterComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

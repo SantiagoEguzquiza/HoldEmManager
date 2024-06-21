@@ -2,6 +2,8 @@
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,22 +47,30 @@ namespace holdemmanager_backend_web.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("No se encontraron datos que coincidan con el id.");
+                return BadRequest(new { message = "No se encontraron datos que coincidan con el id." });
             }
         }
 
         // agregar un recurso
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        public async Task<IActionResult> AddRecurso(RecursosEducativos recurso)
+        public async Task<IActionResult> AddRecurso([FromBody] RecursosEducativos recurso)
         {
-            if (recurso == null)
+            try
             {
-                return BadRequest("El recurso no puede ser nulo.");
+                if (recurso == null)
+                {
+                    return BadRequest(new { message = "El recurso no puede ser nulo." });
+                }
+
+                await _recursosEducativosService.AddRecurso(recurso);
+
+                return Ok(new { message = "Recurso agregado exitosamente." });
             }
-
-            await _recursosEducativosService.AddRecurso(recurso);
-
-            return Ok("Recurso agregado exitosamente."); 
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // actualizar un recurso
@@ -69,17 +79,17 @@ namespace holdemmanager_backend_web.Controllers
         {
             if (recurso == null || id != recurso.Id)
             {
-                return BadRequest("ID del recurso no coincide o el recurso es nulo.");
+                return BadRequest(new { message = "ID del recurso no coincide o el recurso es nulo." });
             }
 
             try
             {
                 await _recursosEducativosService.UpdateRecurso(recurso);
-                return Ok("Recurso agregado exitosamente.");
+                return Ok(new { message = "Recurso agregado exitosamente." });
             }
             catch (Exception)
             {
-                return BadRequest("Recurso no encontrado");
+                return BadRequest(new { message = "Recurso no encontrado" });
             }
         }
 
@@ -88,26 +98,26 @@ namespace holdemmanager_backend_web.Controllers
         public async Task<IActionResult> DeleteRecurso(int id)
         {
             try
-            {        
+            {
                 var recurso = await _recursosEducativosService.GetRecursoById(id);
                 if (recurso == null)
                 {
-                    return BadRequest("El recurso no existe.");
+                    return BadRequest(new { message = "El recurso no existe." });
                 }
-   
+
                 var deleteResult = await _recursosEducativosService.DeleteRecurso(id);
                 if (deleteResult)
                 {
-                    return Ok("Recurso eliminado exitosamente.");
+                    return Ok(new { message = "Recurso eliminado exitosamente." });
                 }
                 else
                 {
-                    return BadRequest("No se pudo eliminar el recurso.");
+                    return BadRequest(new { message = "No se pudo eliminar el recurso." });
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest($"Ocurrió un error al intentar eliminar el recurso: {ex.Message}");
+                return BadRequest(new { message = $"Ocurrió un error al intentar eliminar el recurso: {ex.Message}" });
             }
         }
     }

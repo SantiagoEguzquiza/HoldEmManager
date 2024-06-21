@@ -23,6 +23,7 @@ import { HomeComponent } from './components/dashboard/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
+import { RecursosRegisterComponent } from './components/dashboard/recursos-register/recursos-register.component';
 
 @NgModule({
   declarations: [	
@@ -34,6 +35,7 @@ import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
     DashboardComponent,
     SesionComponent,
     HomeComponent,
+    RecursosRegisterComponent
    ],
   imports: [
     BrowserModule,
