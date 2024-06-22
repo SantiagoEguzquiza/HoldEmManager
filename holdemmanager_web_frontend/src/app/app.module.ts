@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 //Modules
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
@@ -26,6 +26,9 @@ import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { RecursosRegisterComponent } from './components/dashboard/recursos-register/recursos-register.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
+import { RecursosEditDeleteComponent } from './components/dashboard/recursos-edit-delete/recursos-edit-delete.component';
+import { RecursosEditComponent } from './components/recursos-edit/recursos-edit.component';
+
 
 @NgModule({
   declarations: [	
@@ -39,6 +42,8 @@ import { MapaInteractivoComponent } from './components/dashboard/mapa-interactiv
     HomeComponent,
     RecursosRegisterComponent,
     MapaInteractivoComponent,
+    RecursosEditDeleteComponent,
+    RecursosEditComponent
    ],
   imports: [
     BrowserModule,
@@ -47,7 +52,9 @@ import { MapaInteractivoComponent } from './components/dashboard/mapa-interactiv
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
     AuthGuard,

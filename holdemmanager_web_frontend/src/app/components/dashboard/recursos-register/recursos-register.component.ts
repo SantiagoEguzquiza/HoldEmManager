@@ -17,39 +17,17 @@ export class RecursosRegisterComponent {
   constructor(private fb: FormBuilder, private recursosService: RecursosService, private router: Router, private toastr: ToastrService) {
 
     this.register = this.fb.group({
-      mensaje: ['', Validators.required],
+      titulo: ['', [Validators.required]],
+      mensaje: ['', [Validators.required]],
       urlimagen: ['']
     })
   }
 
-
-
-  // crearRecurso(): void {
-  //   const recurso: RecursosEducativos = {
-
-  //     mensaje: this.register.value.mensaje,
-  //     urlimagen: this.register.value.urlimagen,
-  //   };
-
-  //   this.loading = true;
-  //   this.recursosService.saveRecurso(recurso).subscribe((data) => {
-  //     console.log(data);
-  //     this.toastr.success('El recurso fue agregado con exito!', 'Recurso Agregado!');
-  //     this.router.navigate(['/dashboard/home']);
-  //     this.loading = false;
-
-
-  //   }, error => {
-
-  //     this.loading = false;
-  //     this.register.reset;
-  //     this.toastr.error(error.error.message, 'Error!');
-  //     console.log(error);
-
-  //   });
+  ngOnInit(): void { }
 
   crearRecurso(): void {
     const recurso: RecursosEducativos = {
+      titulo: this.register.value.titulo,
       mensaje: this.register.value.mensaje,
       urlimagen: this.register.value.urlimagen,
     };
@@ -64,7 +42,7 @@ export class RecursosRegisterComponent {
       },
       (error) => {
         this.loading = false;
-        this.register.reset(); // Llamar al método reset correctamente
+        this.register.reset(); 
         this.toastr.error(error.error.message, 'Error!');
         console.log(error);
       }
