@@ -32,6 +32,35 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("TorneosUsuarioWeb");
                 });
 
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Contacto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InfoCasino")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroTelefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contactos");
+                });
+
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.ForoNoticias", b =>
                 {
                     b.Property<int>("Id")

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card text-center" style="padding: 20px;">
+        <h3>Lista de Contactos</h3>
+        <app-loading *ngIf="loading"></app-loading>
+        <table class="table table-striped" *ngIf="!loading && contactos && contactos.length > 0">
+          <thead>
+            <tr>
+              <th>Direccion</th>
+              <th>Informacion</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contactos">
+              <td>{{ contact.direccion }}</td>
+              <td>{{ contact.infocasino }}</td>
+              <td>{{ contact.email }}</td>
+              <td>{{ contact.numerotelefono }} </td>
+              <td>
+                <button class="custom-btn btn btn-primary btn-sm" (click)="editarContacto(contact)">
+                  <i class="fas fa-pen"></i>
+                </button>
+                <button class="custom-btn btn btn-danger btn-sm" (click)="eliminarContacto(contact.id!)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!loading && (!contactos || contactos.length === 0)">
+          <p>No hay contactos disponibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

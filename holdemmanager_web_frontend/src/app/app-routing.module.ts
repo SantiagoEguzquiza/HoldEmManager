@@ -11,6 +11,10 @@ import { RecursosRegisterComponent } from './components/dashboard/recursos-regis
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 import { RecursosEditDeleteComponent } from './components/dashboard/recursos-edit-delete/recursos-edit-delete.component';
 import { RecursosEditComponent } from './components/recursos-edit/recursos-edit.component';
+import { ContactoRegisterComponent } from './components/dashboard/contacto-register/contacto-register.component';
+import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit-delete/contactos-edit-delete.component';
+import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
+
 
 // Guards
 const routes: Routes = [
@@ -30,7 +34,11 @@ const routes: Routes = [
       { path: 'mapa', component: MapaInteractivoComponent},
       { path: 'recursos-edit-delete', component: RecursosEditDeleteComponent},
       { path: 'recursos-edit', component: RecursosEditComponent},
-      { path: 'recursos-edit/:id', component: RecursosEditComponent }
+      { path: 'recursos-edit/:id', component: RecursosEditComponent },
+      { path: 'contacto-register', component: ContactoRegisterComponent},
+      { path: 'contacto-edit-delete', component: ContactosEditDeleteComponent},
+      { path: 'contactos-edit', component: ContactosEditComponent},
+      { path: 'contactos-edit/:id', component: ContactosEditComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

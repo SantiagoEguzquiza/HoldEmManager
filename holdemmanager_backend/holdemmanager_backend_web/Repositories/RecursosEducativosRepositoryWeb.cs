@@ -48,8 +48,8 @@ namespace holdemmanager_backend_web.Repositories
 
         public async Task<bool> DeleteRecurso(int id)
         {
-            var recurso = await _context.RecursosEducativos.Where(x=>x.Id == id).FirstOrDefaultAsync();
-     
+            var recurso = await _context.RecursosEducativos.Where(x => x.Id == id).FirstOrDefaultAsync();
+
             if (recurso != null)
             {
                 _context.RecursosEducativos.Remove(recurso);

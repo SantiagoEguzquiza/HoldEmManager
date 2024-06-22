@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class RecursosService {
   myAppUrl: string;
-  //myApiUrlApp: string;
   myApiUrlWeb: string;
 
   constructor(private http: HttpClient) {

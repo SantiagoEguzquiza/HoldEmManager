@@ -28,6 +28,9 @@ import { RecursosRegisterComponent } from './components/dashboard/recursos-regis
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 import { RecursosEditDeleteComponent } from './components/dashboard/recursos-edit-delete/recursos-edit-delete.component';
 import { RecursosEditComponent } from './components/recursos-edit/recursos-edit.component';
+import { ContactoRegisterComponent } from './components/dashboard/contacto-register/contacto-register.component';
+import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit-delete/contactos-edit-delete.component';
+import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { RecursosEditComponent } from './components/recursos-edit/recursos-edit.
     RecursosRegisterComponent,
     MapaInteractivoComponent,
     RecursosEditDeleteComponent,
-    RecursosEditComponent
+    RecursosEditComponent,
+    ContactoRegisterComponent,
+    ContactosEditDeleteComponent,
+    ContactosEditComponent
    ],
   imports: [
     BrowserModule,

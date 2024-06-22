@@ -52,7 +52,6 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         // agregar un recurso
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddRecurso([FromBody] RecursosEducativos recurso)
         {

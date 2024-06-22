@@ -23,7 +23,8 @@
         <div class="card-content">
             <p><strong>Contacto</strong></p>
         </div>
-        <a href="#">Administrar datos de contacto</a>
+        <a routerLink="/dashboard/contacto-register">Agregar datos de contacto</a>
+        <a routerLink="/dashboard/contacto-edit-delete">Administrar datos de contacto</a>
     </div>
     <div *ngIf="usuario.rol == 1" class="card" routerLink="/dashboard/prensa">
         <p><strong>Administración de Prensa</strong></p>

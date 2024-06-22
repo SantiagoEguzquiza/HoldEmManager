@@ -36,6 +36,8 @@ builder.Services.AddScoped<ILoginRepositoryWeb, LoginRepositoryWeb>();
 builder.Services.AddScoped<ILoginServiceWeb, LoginServiceWeb>();
 builder.Services.AddScoped<IRecursosEducativosRepositoryWeb, RecursosEducativosRepositoryWeb>();
 builder.Services.AddScoped<IRecursosEducativosServiceWeb, RecursosEducativosServiceWeb>();
+builder.Services.AddScoped<IContactoRepositoryWeb, ContactoRepositoryWeb>();
+builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {
