@@ -25,10 +25,10 @@ export class MapaInteractivoComponent {
   ];
 
   items: PlanoItem[] = [
-    { type: 'mesa', label: 'Mesa 1', x: 100, y: 200, rotation: 0 },
-    { type: 'mesa', label: 'Mesa 2', x: 150, y: 250, rotation: 0 },
-    { type: 'barra', label: 'Barra', x: 300, y: 100, rotation: 0 },
-    { type: 'banio', label: 'Baños', x: 200, y: 300, rotation: 0 },
+    { type: 'mesa', label: 'Mesa 1', x: 670, y: 250, rotation: 0 },
+    { type: 'mesa', label: 'Mesa 2', x: 670, y: 350, rotation: 0 },
+    { type: 'barra', label: 'Barra', x: 499, y: 340, rotation: 90 },
+    { type: 'banio', label: 'Baños', x: 410, y: 520, rotation: 0 },
     { type: 'caja', label: 'Cajas', x: 250, y: 300, rotation: 0 },
     { type: 'recHumanos', label: 'Recursos Humanos', x: 100, y: 300, rotation: 0 }
   ];

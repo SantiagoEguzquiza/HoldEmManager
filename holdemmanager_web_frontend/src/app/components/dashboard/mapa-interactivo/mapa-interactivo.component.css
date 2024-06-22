@@ -1,3 +1,5 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 * {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -39,7 +41,6 @@
     text-align: center;
     user-select: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s ease;
 }
 
 .item:active {
@@ -57,7 +58,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 /* Estilo para la barra de bebidas */
@@ -67,10 +67,20 @@
     color: white;
 }
 
+.caja{
+    background-color: rgb(152, 240, 152);
+    width: 10%;
+}
+
 /* Estilo para los baños */
-.bano {
-    background-color: lightcoral;
-    border: 1px solid #dc3545;
+.banio {
+    background-color: rgb(118, 173, 245);
+    width: 10%;
+}
+
+.recHumanos {
+    background-color: rgb(226, 225, 139);
+    width: 20%;
 }
 
 /* Botón para exportar a imagen */
