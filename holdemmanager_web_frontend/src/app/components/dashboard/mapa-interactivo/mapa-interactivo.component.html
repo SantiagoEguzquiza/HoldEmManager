@@ -3,8 +3,8 @@
     <img src="../../../../assets/images/plano.png" alt="Plano" class="plano" />
 
     <div *ngFor="let item of items" [ngStyle]="{
-         'left.px': item.x,
-         'top.px': item.y,
+         'left.%': item.x,
+         'top.%': item.y,
          'transform': 'rotate(' + item.rotation + 'deg)'
        }" class="item" [ngClass]="item.type" (mousedown)="startDrag($event, item)"
       (contextmenu)="startRotate($event, item); false;">

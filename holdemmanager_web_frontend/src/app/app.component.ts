@@ -7,20 +7,5 @@ import { LoginService } from './service/login.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'holdemmanager_web_frontend';
-
-  constructor(private usuarioService: LoginService) {}
-
-  ngOnInit() {
-    window.addEventListener('beforeunload', this.beforeUnloadHandler.bind(this));
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler.bind(this));
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  beforeUnloadHandler(event: any) {
-    this.usuarioService.removeLocaStorage();
-  }
+  
 }

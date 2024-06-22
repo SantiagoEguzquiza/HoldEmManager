@@ -1,11 +1,11 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, HostListener } from '@angular/core';
 import html2canvas from 'html2canvas';
 
 interface PlanoItem {
-  type: 'mesa' | 'barra' | 'banio'| 'caja'| 'recHumanos';
+  type: 'mesa' | 'barra' | 'banio'| 'caja'| 'marketing';
   label: string;
-  x: number;
-  y: number;
+  x: number;  // En porcentaje
+  y: number;  // En porcentaje
   rotation: number;
 }
 
@@ -16,39 +16,38 @@ interface PlanoItem {
 })
 export class MapaInteractivoComponent {
   itemsOriginales: PlanoItem[] = [
-    { type: 'mesa', label: 'Mesa 1', x: 100, y: 200, rotation: 0 },
-    { type: 'mesa', label: 'Mesa 2', x: 150, y: 250, rotation: 0 },
-    { type: 'barra', label: 'Barra', x: 300, y: 100, rotation: 0 },
-    { type: 'banio', label: 'Baños', x: 200, y: 300, rotation: 0 },
-    { type: 'caja', label: 'Cajas', x: 250, y: 300, rotation: 0 },
-    { type: 'recHumanos', label: 'Recursos Humanos', x: 100, y: 300, rotation: 0 }
+    { type: 'mesa', label: 'Mesa 1', x: 67, y: 25, rotation: 0 },
+    { type: 'mesa', label: 'Mesa 2', x: 67, y: 35, rotation: 0 },
+    { type: 'barra', label: 'Barra', x: 49.9, y: 34, rotation: 90 },
+    { type: 'banio', label: 'Baños', x: 41, y: 52, rotation: 0 },
+    { type: 'caja', label: 'Cajas', x: 25, y: 30, rotation: 0 },
+    { type: 'marketing', label: 'Marketing', x: 10, y: 30, rotation: 0 }
   ];
 
-  items: PlanoItem[] = [
-    { type: 'mesa', label: 'Mesa 1', x: 670, y: 250, rotation: 0 },
-    { type: 'mesa', label: 'Mesa 2', x: 670, y: 350, rotation: 0 },
-    { type: 'barra', label: 'Barra', x: 499, y: 340, rotation: 90 },
-    { type: 'banio', label: 'Baños', x: 410, y: 520, rotation: 0 },
-    { type: 'caja', label: 'Cajas', x: 250, y: 300, rotation: 0 },
-    { type: 'recHumanos', label: 'Recursos Humanos', x: 100, y: 300, rotation: 0 }
-  ];
+  items: PlanoItem[] = [...this.itemsOriginales];
 
+  private currentItemDragging: PlanoItem | null = null;
   private mouseMoveListener: (() => void) | null = null;
   private mouseUpListener: (() => void) | null = null;
-  private contextMenuListener: (() => void) | null = null;
   private leftMouseDown = false;
-  private currentItemDragging: PlanoItem | null = null;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
+  @HostListener('window:resize')
+  onResize() {
+    this.updateItemPositions();
+  }
+
   startDrag(event: MouseEvent, item: PlanoItem) {
     event.preventDefault();
+    const container = this.el.nativeElement.querySelector('#plano-container');
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
     const startX = event.clientX;
     const startY = event.clientY;
-    const initX = item.x;
-    const initY = item.y;
+    const initX = (item.x / 100) * containerWidth;
+    const initY = (item.y / 100) * containerHeight;
 
-    // Verificar si ya hay un item moviéndose
     if (this.currentItemDragging) {
       return;
     }
@@ -56,20 +55,16 @@ export class MapaInteractivoComponent {
     this.leftMouseDown = true;
     this.currentItemDragging = item;
 
-    // Eliminar el listener de contextmenu si existe para evitar conflictos
-    if (this.contextMenuListener) {
-      this.contextMenuListener();
-      this.contextMenuListener = null;
-    }
-
     const mouseMove = (moveEvent: MouseEvent) => {
       if (!this.leftMouseDown || !this.currentItemDragging) {
         return;
       }
       const dx = moveEvent.clientX - startX;
       const dy = moveEvent.clientY - startY;
-      this.currentItemDragging.x = initX + dx;
-      this.currentItemDragging.y = initY + dy;
+      const newX = initX + dx;
+      const newY = initY + dy;
+      this.currentItemDragging.x = (newX / containerWidth) * 100;
+      this.currentItemDragging.y = (newY / containerHeight) * 100;
     };
 
     const mouseUp = () => {
@@ -118,10 +113,22 @@ export class MapaInteractivoComponent {
   }
 
   resetItems() {
-    this.items = this.itemsOriginales.map(item => ({
-      ...item,
-      rotation: 0
-    }));
+    this.items = [...this.itemsOriginales];
+    this.updateItemPositions();
   }
 
+  updateItemPositions() {
+    const container = this.el.nativeElement.querySelector('#plano-container');
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+
+    this.items.forEach(item => {
+      const itemElement = this.el.nativeElement.querySelector(`.${item.label}`);
+      if (itemElement) {
+        this.renderer.setStyle(itemElement, 'left', `${item.x}%`);
+        this.renderer.setStyle(itemElement, 'top', `${item.y}%`);
+        this.renderer.setStyle(itemElement, 'transform', `rotate(${item.rotation}deg)`);
+      }
+    });
+  }
 }
