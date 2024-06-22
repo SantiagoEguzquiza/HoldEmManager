@@ -5,8 +5,24 @@
             <p><strong>Administración de Torneos</strong></p>
         </div>
         <a href="#">Registrar Torneo</a>
+    </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+        <div class="card-content">
+            <p><strong>Mapa Del Evento</strong></p>
+        </div>
         <a routerLink="/dashboard/mapa">Crear Mapa del Evento</a>
-        <a href="#" routerLink="/dashboard/recursos-register">Recursos Educativos</a>
+    </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+        <div class="card-content">
+            <p><strong>Recursos Educativos</strong></p>
+        </div>
+        <a href="#" routerLink="/dashboard/recursos-register">Administrar recursos educativos</a>
+    </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+        <div class="card-content">
+            <p><strong>Contacto</strong></p>
+        </div>
+        <a href="#">Administrar datos de contacto</a>
     </div>
     <div *ngIf="usuario.rol == 1" class="card" routerLink="/dashboard/prensa">
         <p><strong>Administración de Prensa</strong></p>

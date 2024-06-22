@@ -68,6 +68,10 @@ namespace holdemmanager_backend_web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("URLImagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
