@@ -1,0 +1,100 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal para el plano */
+.container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 100px);
+    flex-direction: column;
+}
+
+.plano-container {
+    position: relative;
+    width: 100%;
+    border: 1px solid #ccc;
+    background: #be6060;
+    overflow: hidden;
+    margin-top: 5%;
+    height: 80%;
+}
+
+/* Imagen del plano */
+.plano {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Estilo base para los elementos superpuestos */
+.item {
+    position: absolute;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #666;
+    border-radius: 5px;
+    cursor: grab;
+    font-size: 14px;
+    text-align: center;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s ease;
+}
+
+.item:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+}
+
+/* Estilo para las mesas */
+.mesa {
+    color: white;
+    background-color: rgb(51, 50, 50);
+    border-radius: 50px;
+    width: 10%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* Estilo para la barra de bebidas */
+.barra {
+    background-color: rgb(130, 131, 130);
+    width: 10%;
+    color: white;
+}
+
+/* Estilo para los baños */
+.bano {
+    background-color: lightcoral;
+    border: 1px solid #dc3545;
+}
+
+/* Botón para exportar a imagen */
+a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+/* Cambio de color al pasar el ratón por encima del botón */
+button:hover {
+    background-color: #0056b3;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+}

@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import { CommonModule } from '@angular/common';
 
 //Interceptors
 import { AddTokenInterceptor } from '../app/helpers/add-token.interceptor';
@@ -24,6 +25,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { RecursosRegisterComponent } from './components/dashboard/recursos-register/recursos-register.component';
+import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 
 @NgModule({
   declarations: [	
@@ -35,11 +37,13 @@ import { RecursosRegisterComponent } from './components/dashboard/recursos-regis
     DashboardComponent,
     SesionComponent,
     HomeComponent,
-    RecursosRegisterComponent
+    RecursosRegisterComponent,
+    MapaInteractivoComponent,
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

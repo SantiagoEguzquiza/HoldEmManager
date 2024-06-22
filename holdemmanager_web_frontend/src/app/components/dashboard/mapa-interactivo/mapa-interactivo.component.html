@@ -1,3 +1,21 @@
-<p>
-  mapa-interactivo works!
-</p>
+<div class="container">
+  <div class="plano-container" id="plano-container">
+    <img src="../../../../assets/images/plano.png" alt="Plano" class="plano" />
+
+    <div *ngFor="let item of items" [ngStyle]="{
+         'left.px': item.x,
+         'top.px': item.y,
+         'transform': 'rotate(' + item.rotation + 'deg)'
+       }" class="item" [ngClass]="item.type" (mousedown)="startDrag($event, item)"
+      (contextmenu)="startRotate($event, item); false;">
+      <div class="mesa-content">
+        {{ item.label }}
+      </div>
+    </div>
+
+  </div>
+  <div class="buttons">
+    <a href="javascript:void(0)" (click)="exportAsImage()">Guardar Mapa</a>
+    <a href="javascript:void(0)" (click)="resetItems()">Reiniciar</a>
+  </div>
+</div>
