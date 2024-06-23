@@ -29,7 +29,7 @@ export class RecursosRegisterComponent {
     const recurso: RecursosEducativos = {
       titulo: this.register.value.titulo,
       mensaje: this.register.value.mensaje,
-      urlimagen: this.register.value.urlimagen,
+      URLImagen: this.register.value.urlimagen,
     };
 
     this.loading = true;
