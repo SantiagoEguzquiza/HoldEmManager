@@ -28,9 +28,9 @@ export class ContactoRegisterComponent{
 
   crearContacto(): void {
     const contacto: Contactos = {
-      infocasino: this.register.value.infocasino,
+      infoCasino: this.register.value.infocasino,
       direccion: this.register.value.direccion,
-      numerotelefono: this.register.value.numerotelefono,
+      numeroTelefono: this.register.value.numerotelefono,
       email: this.register.value.email
     };
 

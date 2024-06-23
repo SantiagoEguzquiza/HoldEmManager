@@ -1,7 +1,7 @@
 export class Contactos{
     id?: number;
-    infocasino!: string;
+    infoCasino!: string;
     direccion!: string;
-    numerotelefono!: string;
+    numeroTelefono!: string;
     email!: string;
 }

@@ -24,6 +24,7 @@ export class ContactosEditDeleteComponent implements OnInit {
     this.contactosService.obtenerContactos().subscribe(
       (data) => {
         console.log('Contactos recibidos', data);
+        console.log(data);
         this.contactos = data;
         this.loading = false;
       },
