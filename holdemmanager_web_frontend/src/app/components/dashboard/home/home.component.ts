@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UsuarioWeb } from 'src/app/models/usuarioWeb';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
@@ -7,22 +9,22 @@ import { UsuarioService } from 'src/app/service/usuario.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   loading = false;
   usuario: UsuarioWeb;
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(private usuarioService: UsuarioService, private toastr: ToastrService, private router: Router) {
     this.usuario = new UsuarioWeb();
-  }
-
-  ngOnInit() {
     this.getUsuario();
   }
 
   getUsuario(): void {
     this.loading = true;
     this.usuarioService.getUsuario().subscribe(data => {
+      if (data == null) {
+        localStorage.removeItem('token');
+      }
       this.usuario = data;
       this.loading = false;
     });

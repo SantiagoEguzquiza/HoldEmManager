@@ -22,7 +22,7 @@ export class UsuarioService {
     return this.http.post(this.myAppUrl + this.myApiUrlApp, usuario);
   }
 
-  getUsuario(): Observable<any> {
+  getUsuario(): Observable<any> {    
     return this.http.get(this.myAppUrl + this.myApiUrlWeb + '/GetUsuario');
   }
 }

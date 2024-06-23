@@ -27,7 +27,6 @@ namespace holdemmanager_backend_web.Controllers
 
         [HttpGet("GetUsuario")]
         public async Task<ActionResult<UsuarioWeb>> GetUsuarioLoggeado()
-        
         {
             try
             {
