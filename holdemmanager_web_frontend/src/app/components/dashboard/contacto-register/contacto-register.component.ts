@@ -19,8 +19,8 @@ export class ContactoRegisterComponent{
     this.register = this.fb.group({
       infocasino: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
-      numerotelefono: ['', [Validators.required]],
-      email: ['', [Validators.required]]
+      numerotelefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      email: ['', [Validators.required, Validators.email]]
     })
   }
 

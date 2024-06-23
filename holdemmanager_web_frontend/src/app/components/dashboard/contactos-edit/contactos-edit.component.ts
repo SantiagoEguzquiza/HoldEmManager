@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { RecursosEducativos } from 'src/app/models/recursos';
-import { RecursosService } from 'src/app/service/recursos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contactos } from 'src/app/models/contactos';
 import { ContactoService } from 'src/app/service/contacto.service';
@@ -20,10 +18,10 @@ export class ContactosEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private contactosService: ContactoService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) {
     this.editForm = this.fb.group({
-      infocasino: ['', Validators.required],
-      direccion: ['', Validators.required],
-      email: ['', Validators.required],
-      numerotelefono: ['', Validators.required]
+      infoCasino: ['', [Validators.required]],
+      direccion: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      numeroTelefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]]
     })
   }
 
