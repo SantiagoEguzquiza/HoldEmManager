@@ -16,13 +16,15 @@
         <div class="card-content">
             <p><strong>Recursos Educativos</strong></p>
         </div>
-        <a href="#" routerLink="/dashboard/recursos-register">Administrar recursos educativos</a>
+        <a routerLink="/dashboard/recursos-register">Agregar recursos educativos</a>
+        <a routerLink="/dashboard/recursos-edit-delete">Administrar recursos educativos</a>
     </div>
     <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
         <div class="card-content">
             <p><strong>Contacto</strong></p>
         </div>
-        <a href="#">Administrar datos de contacto</a>
+        <a routerLink="/dashboard/contacto-register">Agregar datos de contacto</a>
+        <a routerLink="/dashboard/contacto-edit-delete">Administrar datos de contacto</a>
     </div>
     <div *ngIf="usuario.rol == 1" class="card" routerLink="/dashboard/prensa">
         <p><strong>Administración de Prensa</strong></p>

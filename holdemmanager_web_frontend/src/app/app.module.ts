@@ -26,7 +26,13 @@ import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { RecursosRegisterComponent } from './components/dashboard/recursos-register/recursos-register.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
-import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
+import { RecursosEditDeleteComponent } from './components/dashboard/recursos-edit-delete/recursos-edit-delete.component';
+import { RecursosEditComponent } from './components/dashboard/recursos-edit/recursos-edit.component';
+import { ContactoRegisterComponent } from './components/dashboard/contacto-register/contacto-register.component';
+import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit-delete/contactos-edit-delete.component';
+import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 @NgModule({
   declarations: [	
@@ -40,7 +46,11 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
     HomeComponent,
     RecursosRegisterComponent,
     MapaInteractivoComponent,
-    CreateItemComponent
+    RecursosEditDeleteComponent,
+    RecursosEditComponent,
+    ContactoRegisterComponent,
+    ContactosEditDeleteComponent,
+    ContactosEditComponent
    ],
   imports: [
     BrowserModule,
@@ -50,7 +60,9 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot(),
+    SweetAlert2Module.forRoot(),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
     AuthGuard,

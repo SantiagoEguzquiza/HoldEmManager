@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card text-center" style="padding: 20px;">
+        <h3>Lista de Recursos</h3>
+        <app-loading *ngIf="loading"></app-loading>
+        <table class="table table-striped" *ngIf="!loading && recursos && recursos.length > 0">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Contenido</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let recurso of recursos">
+              <td>{{ recurso.titulo }}</td>
+              <td>{{ recurso.mensaje }}</td>
+              <td><img [src]="recurso.URLImagen" alt="Imagen" class="img-fluid" style="max-width: 100px;"></td>
+              <td>
+                <button class="custom-btn btn btn-primary btn-sm" (click)="editarRecurso(recurso)">
+                  <i class="fas fa-pen"></i>
+                </button>
+                <button class="custom-btn btn btn-danger btn-sm" (click)="eliminarRecurso(recurso.id!)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!loading && (!recursos || recursos.length === 0)">
+          <p>No hay recursos disponibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

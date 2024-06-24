@@ -10,6 +10,8 @@ namespace holdemmanager_backend_web.Persistence
         public DbSet<ForoNoticias> ForoNoticias { get; set; }
         public DbSet<RecursosEducativos> RecursosEducativos { get; set; }
 
+        public DbSet<Contacto> Contactos { get; set; }
+
         public AplicationDbContextWeb(DbContextOptions<AplicationDbContextWeb> options) : base(options)
         {
         }
