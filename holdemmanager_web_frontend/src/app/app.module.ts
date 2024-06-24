@@ -32,6 +32,7 @@ import { ContactoRegisterComponent } from './components/dashboard/contacto-regis
 import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit-delete/contactos-edit-delete.component';
 import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     RecursosEditComponent,
     ContactoRegisterComponent,
     ContactosEditDeleteComponent,
-    ContactosEditComponent
+    ContactosEditComponent,
+    CreateItemComponent
    ],
   imports: [
     BrowserModule,
