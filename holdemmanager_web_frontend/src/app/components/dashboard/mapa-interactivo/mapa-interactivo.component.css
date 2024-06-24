@@ -1,5 +1,22 @@
-/* Contenedor principal para el plano */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.dark-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: none;
+}
+
+.container .dark-background {
+    display: block;
+}
+
 .container {
+    position: relative;
     display: flex;
     width: 100%;
     height: calc(100vh - 100px);
@@ -10,20 +27,21 @@
     position: relative;
     width: 100%;
     border: 1px solid #ccc;
-    background: #be6060;
     overflow: hidden;
     margin-top: 5%;
     height: 80%;
 }
 
-/* Imagen del plano */
+i {
+    font-size: 1.2rem;
+}
+
 .plano {
     width: 100%;
     height: 100%;
     display: block;
 }
 
-/* Estilo base para los elementos superpuestos */
 .item {
     position: absolute;
     padding: 5px 10px;
@@ -35,7 +53,6 @@
     text-align: center;
     user-select: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s ease;
 }
 
 .item:active {
@@ -43,7 +60,6 @@
     transform: scale(1.05);
 }
 
-/* Estilo para las mesas */
 .mesa {
     color: white;
     background-color: rgb(51, 50, 50);
@@ -55,7 +71,6 @@
     justify-content: center;
 }
 
-/* Estilo para la barra de bebidas */
 .barra {
     background-color: rgb(130, 131, 130);
     width: 10%;
@@ -67,7 +82,6 @@
     width: 10%;
 }
 
-/* Estilo para los baños */
 .banio {
     background-color: rgb(118, 173, 245);
     width: 10%;
@@ -75,26 +89,29 @@
 
 .marketing {
     background-color: rgb(226, 225, 139);
-    width: 20%;
+    width: 12%;
 }
 
-/* Botón para exportar a imagen */
 a {
     display: block;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: rgb(255, 120, 30);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
 }
 
-/* Cambio de color al pasar el ratón por encima del botón */
-button:hover {
-    background-color: #0056b3;
+a:hover {
+    background-color: #f1a27d;
 }
 
 .buttons {

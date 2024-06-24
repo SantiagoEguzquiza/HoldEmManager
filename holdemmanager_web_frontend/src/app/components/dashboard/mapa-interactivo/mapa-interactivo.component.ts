@@ -1,11 +1,11 @@
-import { Component, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, ElementRef, Renderer2, HostListener, AfterViewInit } from '@angular/core';
 import html2canvas from 'html2canvas';
 
 interface PlanoItem {
-  type: 'mesa' | 'barra' | 'banio'| 'caja'| 'marketing';
+  type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing';
   label: string;
-  x: number;  // En porcentaje
-  y: number;  // En porcentaje
+  x: number;
+  y: number;
   rotation: number;
 }
 
@@ -14,31 +14,36 @@ interface PlanoItem {
   templateUrl: './mapa-interactivo.component.html',
   styleUrls: ['./mapa-interactivo.component.css']
 })
-export class MapaInteractivoComponent {
+export class MapaInteractivoComponent implements AfterViewInit {
+  isCreateItem = false;
+  newItemType: PlanoItem['type'] = 'mesa';
+
   itemsOriginales: PlanoItem[] = [
-    { type: 'mesa', label: 'Mesa 1', x: 67, y: 25, rotation: 0 },
-    { type: 'mesa', label: 'Mesa 2', x: 67, y: 35, rotation: 0 },
-    { type: 'barra', label: 'Barra', x: 49.9, y: 34, rotation: 90 },
-    { type: 'banio', label: 'Baños', x: 41, y: 52, rotation: 0 },
-    { type: 'caja', label: 'Cajas', x: 25, y: 30, rotation: 0 },
-    { type: 'marketing', label: 'Marketing', x: 10, y: 30, rotation: 0 }
+    { type: 'barra', label: 'Barra', x: 55.5, y: 60, rotation: 90 },
+    { type: 'banio', label: 'Baños', x: 46, y: 91.5, rotation: 0 },
+    { type: 'caja', label: 'Cajas', x: 50, y: 2, rotation: 0 },
+    { type: 'marketing', label: 'Marketing', x: 37, y: 2, rotation: 0 }
   ];
 
-  items: PlanoItem[] = [...this.itemsOriginales];
+  items: PlanoItem[] = JSON.parse(JSON.stringify(this.itemsOriginales));
 
   private currentItemDragging: PlanoItem | null = null;
-  private mouseMoveListener: (() => void) | null = null;
-  private mouseUpListener: (() => void) | null = null;
+  private mouseMovimientoListener: (() => void) | null = null;
+  private mouseArribaListener: (() => void) | null = null;
   private leftMouseDown = false;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private renderer: Renderer2, private el: ElementRef) { }
+
+  ngAfterViewInit() {
+    this.actualizarItemsPosicion();
+  }
 
   @HostListener('window:resize')
   onResize() {
-    this.updateItemPositions();
+    this.actualizarItemsPosicion();
   }
 
-  startDrag(event: MouseEvent, item: PlanoItem) {
+  empezarArrastrar(event: MouseEvent, item: PlanoItem) {
     event.preventDefault();
     const container = this.el.nativeElement.querySelector('#plano-container');
     const containerWidth = container.offsetWidth;
@@ -55,7 +60,7 @@ export class MapaInteractivoComponent {
     this.leftMouseDown = true;
     this.currentItemDragging = item;
 
-    const mouseMove = (moveEvent: MouseEvent) => {
+    const mouseMovimiento = (moveEvent: MouseEvent) => {
       if (!this.leftMouseDown || !this.currentItemDragging) {
         return;
       }
@@ -67,23 +72,23 @@ export class MapaInteractivoComponent {
       this.currentItemDragging.y = (newY / containerHeight) * 100;
     };
 
-    const mouseUp = () => {
+    const mouseArriba = () => {
       this.leftMouseDown = false;
       this.currentItemDragging = null;
 
-      if (this.mouseMoveListener) {
-        this.mouseMoveListener();
+      if (this.mouseMovimientoListener) {
+        this.mouseMovimientoListener();
       }
-      if (this.mouseUpListener) {
-        this.mouseUpListener();
+      if (this.mouseArribaListener) {
+        this.mouseArribaListener();
       }
     };
 
-    this.mouseMoveListener = this.renderer.listen('window', 'mousemove', mouseMove);
-    this.mouseUpListener = this.renderer.listen('window', 'mouseup', mouseUp);
+    this.mouseMovimientoListener = this.renderer.listen('window', 'mousemove', mouseMovimiento);
+    this.mouseArribaListener = this.renderer.listen('window', 'mouseup', mouseArriba);
   }
 
-  startRotate(event: MouseEvent, item: PlanoItem) {
+  empezarRotar(event: MouseEvent, item: PlanoItem) {
     event.preventDefault();
     if (this.leftMouseDown || this.currentItemDragging) {
       return;
@@ -96,28 +101,58 @@ export class MapaInteractivoComponent {
     }
   }
 
-  handleContextMenu(event: MouseEvent) {
+  manejarContextMenu(event: MouseEvent) {
     if (this.leftMouseDown || this.currentItemDragging) {
       event.preventDefault();
     }
   }
 
-  exportAsImage() {
+  exportarImagen() {
     const container = this.el.nativeElement.querySelector('#plano-container');
-    html2canvas(container).then((canvas) => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = 'plano-torneo.png';
-      link.click();
-    });
+
+    this.actualizarItemsPosicion();
+
+    setTimeout(() => {
+      html2canvas(container, {
+        useCORS: true,
+        allowTaint: true
+      }).then((canvas) => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'plano-torneo.png';
+        link.click();
+      });
+    }, 100);
   }
 
-  resetItems() {
-    this.items = [...this.itemsOriginales];
-    this.updateItemPositions();
+  reinicarItems() {
+    this.items = JSON.parse(JSON.stringify(this.itemsOriginales));
+    this.actualizarItemsPosicion();
   }
 
-  updateItemPositions() {
+  nuevoItem() {
+    this.isCreateItem = true;
+    this.actualizarItemsPosicion();
+  }
+
+  guardarNuevoItem(nuevoItem: PlanoItem) {
+    const item: PlanoItem = {
+      type: nuevoItem.type,
+      label: nuevoItem.label,
+      x: 10,
+      y: 10,
+      rotation: 0
+    };
+
+    this.items.push(item);
+    this.isCreateItem = false;
+  }
+
+  cancelarNuevoItem() {
+    this.isCreateItem = false;
+  }
+
+  actualizarItemsPosicion() {
     const container = this.el.nativeElement.querySelector('#plano-container');
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
@@ -128,6 +163,11 @@ export class MapaInteractivoComponent {
         this.renderer.setStyle(itemElement, 'left', `${item.x}%`);
         this.renderer.setStyle(itemElement, 'top', `${item.y}%`);
         this.renderer.setStyle(itemElement, 'transform', `rotate(${item.rotation}deg)`);
+        if (item.rotation % 180 !== 0) {
+          this.renderer.setStyle(itemElement, 'writing-mode', 'vertical-rl');
+        } else {
+          this.renderer.removeStyle(itemElement, 'writing-mode');
+        }
       }
     });
   }

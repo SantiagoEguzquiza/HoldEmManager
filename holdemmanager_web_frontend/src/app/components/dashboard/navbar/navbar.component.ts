@@ -12,6 +12,14 @@ export class NavbarComponent {
   constructor(private loginService: LoginService, private router: Router) {
   }
 
+  isJugadoresActive(): boolean {
+    return this.router.url === '/dashboard/register-player';
+  }
+
+  isHomeActive(): boolean {
+    return this.router.url === '/dashboard/home';
+  }
+
   logOut(): void {
     this.loginService.removeLocaStorage();
     this.router.navigate(['/sesion/login']);

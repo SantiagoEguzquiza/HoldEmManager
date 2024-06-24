@@ -24,6 +24,7 @@ export class HomeComponent {
     this.usuarioService.getUsuario().subscribe(data => {
       if (data == null) {
         localStorage.removeItem('token');
+        this.router.navigate(['/sesion/login']);
       }
       this.usuario = data;
       this.loading = false;
