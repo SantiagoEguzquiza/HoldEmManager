@@ -17,6 +17,10 @@ h3 {
     border-color: #F05f44;
 }
 
-.btn-reg:hover{
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.btn-reg:hover {
     background-color: #aa3f2d;
 }
