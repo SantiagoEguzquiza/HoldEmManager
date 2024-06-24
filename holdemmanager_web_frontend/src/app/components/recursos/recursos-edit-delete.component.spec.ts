@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RecursosEditDeleteComponent } from './recursos-edit-delete.component';
+import { RecursosEditDeleteComponent } from '../../../recursos/recursos-edit-delete.component';
 
 describe('RecursosEditDeleteComponent', () => {
   let component: RecursosEditDeleteComponent;
