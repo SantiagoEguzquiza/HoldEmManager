@@ -108,5 +108,19 @@ namespace holdemmanager_backend_app.Controllers
             return Ok("Imagen guardada con exito");
         }
 
+        [HttpDelete("{numeroJugador}")]
+        public async Task<IActionResult> Delete(int numeroJugador)
+        {
+            try
+            {
+                await _usuarioService.DeleteUser(numeroJugador);
+                return Ok(new { message = "Usuario eliminado con éxito" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al eliminar el usuario", details = ex.Message });
+            }
+        }
+
     }
 }

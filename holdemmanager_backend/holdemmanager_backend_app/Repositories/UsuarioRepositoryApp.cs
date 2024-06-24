@@ -36,5 +36,15 @@ namespace holdemmanager_backend_app.Persistence.Repositories
             var usuario = await _context.Usuarios.Where(x => x.NumberPlayer == numberoJugador && x.Password == passwordAnterior).FirstOrDefaultAsync();
             return usuario;
         }
+
+        public async Task DeleteUser(int numeroJugador)
+        {
+            var usuario = await _context.Usuarios.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
+            if (usuario != null)
+            {
+                _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

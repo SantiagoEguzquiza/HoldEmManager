@@ -4304,19 +4304,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rodri\\.nuget\\packages\\": {}
+    "C:\\Users\\santi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+      "projectUniqueName": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
       "projectName": "holdemmanager_backend_app",
-      "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
-      "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-      "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
+      "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
