@@ -9,6 +9,7 @@ namespace holdemmanager_backend_app.Domain.IRepositories
         Task<bool> ValidateExistence(UsuarioApp usuario);
         Task<UsuarioApp> ValidatePassword(int numberPlayer, string passwordAnterior);
         Task UpdateUsuario(UsuarioApp usuario);
+        Task DeleteUser(int id);
 
 
 
