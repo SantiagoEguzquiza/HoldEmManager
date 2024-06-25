@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UsuarioApp } from '../../../../models/usuarioApp';
+import { Jugador } from '../../../../models/jugador';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class CreatePlayerComponent {
 
   registrarUsuario(): void {
 
-    const usuario: UsuarioApp = {
+    const usuario: Jugador = {
 
       id: 0,
       name: this.register.value.name,

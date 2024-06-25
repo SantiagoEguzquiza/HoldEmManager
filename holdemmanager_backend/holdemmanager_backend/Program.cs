@@ -25,8 +25,8 @@ builder.Services.AddSwaggerGen();
 var connectionStringApp = builder.Configuration.GetConnectionString("ConexionApp");
 var connectionStringWeb = builder.Configuration.GetConnectionString("ConexionWeb");
 
-builder.Services.AddScoped<IUsuarioRepositoryApp, UsuarioRepositoryApp>();
-builder.Services.AddScoped<IUsuarioServiceApp, UsuarioServiceApp>();
+builder.Services.AddScoped<IJugadorRepositoryApp, JugadorRepositoryApp>();
+builder.Services.AddScoped<IJugadorServiceApp, JugadorServiceApp>();
 builder.Services.AddScoped<ILoginRepositoryApp, LoginRepositoryApp>();
 builder.Services.AddScoped<ILoginServiceApp, LoginServiceApp>();
 

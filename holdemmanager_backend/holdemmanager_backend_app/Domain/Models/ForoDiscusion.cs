@@ -11,7 +11,7 @@ namespace holdemmanager_backend_app.Domain.Models
     public class ForoDiscusion
     {
         [ForeignKey("Id")]
-        public UsuarioApp idUsuario { get; set; }
+        public Jugador idUsuario { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }

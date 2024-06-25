@@ -19,7 +19,7 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UsuarioApp usuario)
+        public async Task<IActionResult> Post([FromBody] Jugador usuario)
         {
             try
             {

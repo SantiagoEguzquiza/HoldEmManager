@@ -12,9 +12,9 @@ namespace holdemmanager_backend_app.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<UsuarioApp> ValidateUser(UsuarioApp usuario)
+        public async Task<Jugador> ValidateUser(Jugador usuario)
         {
-            var user = await _context.Usuarios.Where(x => x.NumberPlayer == usuario.NumberPlayer && x.Password == usuario.Password).FirstOrDefaultAsync();
+            var user = await _context.Jugadores.Where(x => x.NumberPlayer == usuario.NumberPlayer && x.Password == usuario.Password).FirstOrDefaultAsync();
             return user;
         }
     }

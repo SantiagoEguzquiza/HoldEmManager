@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UsuarioApp } from '../models/usuarioApp';
+import { Jugador } from '../models/jugador';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -14,11 +14,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrlApp = '/UsuarioApp';
+    this.myApiUrlApp = '/JugadorApp';
     this.myApiUrlWeb = '/UsuarioWeb';
   }
 
-  saveUser(usuario: UsuarioApp): Observable<any> {
+  saveUser(usuario: Jugador): Observable<any> {
     return this.http.post(this.myAppUrl + this.myApiUrlApp, usuario);
   }
 

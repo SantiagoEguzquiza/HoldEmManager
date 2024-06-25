@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PlayerEditDeleteComponent } from './players.component';
+import { PlayersComponent } from './players.component';
 
 describe('PlayerEditDeleteComponent', () => {
-  let component: PlayerEditDeleteComponent;
-  let fixture: ComponentFixture<PlayerEditDeleteComponent>;
+  let component: PlayersComponent;
+  let fixture: ComponentFixture<PlayersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerEditDeleteComponent ]
+      declarations: [ PlayersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlayerEditDeleteComponent);
+    fixture = TestBed.createComponent(PlayersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

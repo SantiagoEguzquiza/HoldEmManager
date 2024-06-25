@@ -56,24 +56,7 @@ namespace holdemmanager_backend_app.Migrations
                     b.ToTable("ForoDiscusiones");
                 });
 
-            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Mapa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("URLImagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mapa");
-                });
-
-            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.UsuarioApp", b =>
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,12 +85,29 @@ namespace holdemmanager_backend_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Jugadores");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Mapa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("URLImagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Mapa");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
-                    b.HasOne("holdemmanager_backend_app.Domain.Models.UsuarioApp", "idUsuario")
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "idUsuario")
                         .WithMany()
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -118,7 +118,7 @@ namespace holdemmanager_backend_app.Migrations
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>
                 {
-                    b.HasOne("holdemmanager_backend_app.Domain.Models.UsuarioApp", "idUsuario")
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "idUsuario")
                         .WithMany()
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)

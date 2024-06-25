@@ -13,7 +13,7 @@ namespace holdemmanager_backend_app.Service
             _loginRepository = loginRepository;
         }
 
-        public async Task<UsuarioApp> ValidateUser(UsuarioApp usuario)
+        public async Task<Jugador> ValidateUser(Jugador usuario)
         {
             return await _loginRepository.ValidateUser(usuario);
         }
