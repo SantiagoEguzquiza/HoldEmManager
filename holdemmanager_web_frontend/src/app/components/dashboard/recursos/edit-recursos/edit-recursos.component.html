@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row" style="width:100%;">
       <div class="col-lg-6 offset-lg-3">
+        <div class="loading" style="width: 100%; display: flex; justify-content: center;">
+            <app-loading *ngIf="loading"></app-loading>
+        </div>
           <div class="card text-center" style="padding: 20px;">
               <h3>Editar Recurso</h3>
-              <app-loading *ngIf="loading"></app-loading>
               <form [formGroup]="editForm" (ngSubmit)="guardarCambios()" style="padding-top: 10px;">
                   <div class="form-group" style="text-align: start;">
                       <input type="text" class="form-control" placeholder="Título del recurso" formControlName="titulo">

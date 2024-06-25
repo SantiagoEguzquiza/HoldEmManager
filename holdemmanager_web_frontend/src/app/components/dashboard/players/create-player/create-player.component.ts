@@ -6,7 +6,7 @@ import { UsuarioApp } from '../../../../models/usuarioApp';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
-  selector: 'app-player-register',
+  selector: 'app-create-player',
   templateUrl: './create-player.component.html',
   styleUrls: ['./create-player.component.css']
 })

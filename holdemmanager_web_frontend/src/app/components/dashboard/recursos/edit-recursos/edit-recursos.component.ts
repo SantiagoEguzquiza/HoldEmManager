@@ -6,7 +6,7 @@ import { RecursosService } from 'src/app/service/recursos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-recursos-edit',
+  selector: 'app-edit-recurso',
   templateUrl: './edit-recursos.component.html',
   styleUrls: ['./edit-recursos.component.css']
 })

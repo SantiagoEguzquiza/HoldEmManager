@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-recursos-edit-delete',
+  selector: 'app-recursos',
   templateUrl: './recursos.component.html',
   styleUrls: ['./recursos.component.css']
 })
