@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contactos-edit-delete',
-  templateUrl: './contactos-edit-delete.component.html',
-  styleUrls: ['./contactos-edit-delete.component.css']
+  templateUrl: './contactos.component.html',
+  styleUrls: ['./contactos.component.css']
 })
-export class ContactosEditDeleteComponent implements OnInit {
+export class ContactosComponent implements OnInit {
   contactos: Contactos[] = [];
   loading = false;
 
@@ -69,7 +69,7 @@ export class ContactosEditDeleteComponent implements OnInit {
   }
 
   editarContacto(contacto: Contactos): void {
-    this.router.navigate(['/dashboard/contactos-edit', contacto.id]);
+    this.router.navigate(['/dashboard/edit-contacto', contacto.id]);
   }
 
 }

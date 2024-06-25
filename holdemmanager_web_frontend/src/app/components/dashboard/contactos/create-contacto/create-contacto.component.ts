@@ -7,10 +7,10 @@ import { ContactoService } from 'src/app/service/contacto.service';
 
 @Component({
   selector: 'app-contacto-register',
-  templateUrl: './contacto-register.component.html',
-  styleUrls: ['./contacto-register.component.css']
+  templateUrl: './create-contacto.component.html',
+  styleUrls: ['./create-contacto.component.css']
 })
-export class ContactoRegisterComponent{
+export class CreateContactoComponent{
   register: FormGroup;
   loading = false;
 

@@ -7,10 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recursos-register',
-  templateUrl: './recursos-register.component.html',
-  styleUrls: ['./recursos-register.component.css']
+  templateUrl: './create-recursos.component.html',
+  styleUrls: ['./create-recursos.component.css']
 })
-export class RecursosRegisterComponent {
+export class CreateRecursoComponent {
   register: FormGroup;
   loading = false;
 

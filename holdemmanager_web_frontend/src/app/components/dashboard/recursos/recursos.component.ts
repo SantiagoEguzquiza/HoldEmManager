@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-recursos-edit-delete',
-  templateUrl: './recursos-edit-delete.component.html',
-  styleUrls: ['./recursos-edit-delete.component.css']
+  templateUrl: './recursos.component.html',
+  styleUrls: ['./recursos.component.css']
 })
-export class RecursosEditDeleteComponent implements OnInit {
+export class RecursosComponent implements OnInit {
   recursos: RecursosEducativos[] = [];
   loading = false;
 
@@ -67,7 +67,7 @@ export class RecursosEditDeleteComponent implements OnInit {
   }
 
   editarRecurso(recurso: RecursosEducativos): void {
-    this.router.navigate(['/dashboard/recursos-edit', recurso.id]);
+    this.router.navigate(['/dashboard/edit-recurso', recurso.id]);
   }
 
 }

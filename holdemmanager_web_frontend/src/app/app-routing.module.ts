@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterPlayerComponent } from './components/dashboard/player-register/player-register.component';
+import { CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
 import { LoginComponent } from './components/sesion/login/login.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
-import { RecursosRegisterComponent } from './components/recursos/create-recurso/recursos-register.component';
+import { CreateRecursoComponent } from './components/dashboard/recursos/create-recurso/create-recursos.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
-import { RecursosEditDeleteComponent } from './components/recursos/recursos-edit-delete.component';
-import { RecursosEditComponent } from './components/dashboard/recursos-edit/recursos-edit.component';
-import { ContactoRegisterComponent } from './components/dashboard/create-contacto/contacto-register.component';
-import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit/contactos-edit-delete/contactos-edit-delete.component';
-import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
-
+import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
+import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
+import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
+import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
+import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
 
 // Guards
 const routes: Routes = [
@@ -29,16 +28,14 @@ const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'register-player', component: RegisterPlayerComponent },
-      { path: 'recursos-register', component: RecursosRegisterComponent},
+      { path: 'create-player', component: CreatePlayerComponent },
+      { path: 'create-recurso', component: CreateRecursoComponent},
       { path: 'mapa', component: MapaInteractivoComponent},
-      { path: 'recursos-edit-delete', component: RecursosEditDeleteComponent},
-      { path: 'recursos-edit', component: RecursosEditComponent},
-      { path: 'recursos-edit/:id', component: RecursosEditComponent },
-      { path: 'contacto-register', component: ContactoRegisterComponent},
-      { path: 'contacto-edit-delete', component: ContactosEditDeleteComponent},
-      { path: 'contactos-edit', component: ContactosEditComponent},
-      { path: 'contactos-edit/:id', component: ContactosEditComponent}
+      { path: 'recursos', component: RecursosComponent},
+      { path: 'edit-recurso/:id', component: EditRecursosComponent },
+      { path: 'create-contacto', component: CreateContactoComponent},
+      { path: 'contactos', component: ContactosComponent},
+      { path: 'edit-contacto/:id', component: EditContactoComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

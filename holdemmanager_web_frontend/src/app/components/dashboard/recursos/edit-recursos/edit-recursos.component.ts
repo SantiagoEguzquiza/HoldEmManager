@@ -7,10 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recursos-edit',
-  templateUrl: './recursos-edit.component.html',
-  styleUrls: ['./recursos-edit.component.css']
+  templateUrl: './edit-recursos.component.html',
+  styleUrls: ['./edit-recursos.component.css']
 })
-export class RecursosEditComponent implements OnInit {
+export class EditRecursosComponent implements OnInit {
 
   recurso: RecursosEducativos | undefined;
   editForm: FormGroup;

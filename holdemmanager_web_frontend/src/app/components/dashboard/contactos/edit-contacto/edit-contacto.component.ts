@@ -7,10 +7,10 @@ import { ContactoService } from 'src/app/service/contacto.service';
 
 @Component({
   selector: 'app-contactos-edit',
-  templateUrl: './contactos-edit.component.html',
-  styleUrls: ['./contactos-edit.component.css']
+  templateUrl: './edit-contacto.component.html',
+  styleUrls: ['./edit-contacto.component.css']
 })
-export class ContactosEditComponent implements OnInit {
+export class EditContactoComponent implements OnInit {
 
   contacto: Contactos | undefined;
   editForm: FormGroup;

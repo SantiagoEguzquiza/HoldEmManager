@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RecursosEditDeleteComponent } from '../../../recursos/recursos-edit-delete.component';
+import { RecursosEditComponent } from './edit-recursos.component';
 
-describe('RecursosEditDeleteComponent', () => {
-  let component: RecursosEditDeleteComponent;
-  let fixture: ComponentFixture<RecursosEditDeleteComponent>;
+describe('RecursosEditComponent', () => {
+  let component: RecursosEditComponent;
+  let fixture: ComponentFixture<RecursosEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecursosEditDeleteComponent ]
+      declarations: [ RecursosEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecursosEditDeleteComponent);
+    fixture = TestBed.createComponent(RecursosEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

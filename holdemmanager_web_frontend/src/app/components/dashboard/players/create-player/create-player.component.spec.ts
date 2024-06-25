@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegisterPlayerComponent } from './player-register.component';
+import { RegisterPlayerComponent } from './create-player.component';
 
 describe('RegisterComponent', () => {
   let component: RegisterPlayerComponent;

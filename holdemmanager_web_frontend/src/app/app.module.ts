@@ -15,7 +15,6 @@ import { AddTokenInterceptor } from '../app/helpers/add-token.interceptor';
 //Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/sesion/login/login.component';
-import { RegisterPlayerComponent } from './components/dashboard/player-register/player-register.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -24,34 +23,35 @@ import { HomeComponent } from './components/dashboard/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { LoginService } from './service/login.service';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
-import { RecursosRegisterComponent } from './components/recursos/create-recurso/recursos-register.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
-import { RecursosEditDeleteComponent } from './components/recursos/recursos-edit-delete.component';
-import { RecursosEditComponent } from './components/dashboard/recursos-edit/recursos-edit.component';
-import { ContactoRegisterComponent } from './components/dashboard/create-contacto/contacto-register.component';
-import { ContactosEditDeleteComponent } from './components/dashboard/contactos-edit/contactos-edit-delete/contactos-edit-delete.component';
-import { ContactosEditComponent } from './components/dashboard/contactos-edit/contactos-edit.component';
+import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
+import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
+import { CreateRecursoComponent } from './components/dashboard/recursos/create-recurso/create-recursos.component';
+import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
+import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
+import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
+import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
 
 
 @NgModule({
   declarations: [	
     AppComponent,
     LoginComponent,
-    RegisterPlayerComponent,
+    CreatePlayerComponent,
     NavbarComponent,
     LoadingComponent,
     DashboardComponent,
     SesionComponent,
     HomeComponent,
-    RecursosRegisterComponent,
+    CreateRecursoComponent,
     MapaInteractivoComponent,
-    RecursosEditDeleteComponent,
-    RecursosEditComponent,
-    ContactoRegisterComponent,
-    ContactosEditDeleteComponent,
-    ContactosEditComponent,
+    RecursosComponent,
+    EditRecursosComponent,
+    CreateContactoComponent,
+    ContactosComponent,
+    EditContactoComponent,
     CreateItemComponent
    ],
   imports: [

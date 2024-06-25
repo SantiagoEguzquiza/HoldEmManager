@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UsuarioApp } from '../../../models/usuarioApp';
+import { UsuarioApp } from '../../../../models/usuarioApp';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
   selector: 'app-player-register',
-  templateUrl: './player-register.component.html',
-  styleUrls: ['./player-register.component.css']
+  templateUrl: './create-player.component.html',
+  styleUrls: ['./create-player.component.css']
 })
-export class RegisterPlayerComponent {
+export class CreatePlayerComponent {
   register: FormGroup;
   loading = false;
 
