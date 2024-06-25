@@ -1,9 +1,11 @@
 <div class="container">
     <div class="row" style="width:100%;">
         <div class="col-lg-6 offset-lg-3">
+            <div class="loading" style="width: 100%; display: flex; justify-content: center;">
+                <app-loading *ngIf="loading"></app-loading>
+              </div>
             <div class="card text-center" style="padding: 20px;">
                 <h3>Agregar contacto</h3>
-                <app-loading *ngIf="loading"></app-loading>
                 <form [formGroup]="register" (ngSubmit)="crearContacto()" style="padding-top: 10px;">
                     <div class="form-group" style="text-align: start;">
                         <textarea class="form-control" placeholder="Informacion del casino" formControlName="infocasino"

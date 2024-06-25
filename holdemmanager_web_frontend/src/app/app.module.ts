@@ -9,10 +9,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
 
-//Interceptors
+// nterceptors
 import { AddTokenInterceptor } from '../app/helpers/add-token.interceptor';
 
-//Componentes
+// Guards
+import { AuthGuard } from './helpers/auth.guard';
+import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
+
+// Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/sesion/login/login.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
@@ -20,35 +24,40 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
-import { AuthGuard } from './helpers/auth.guard';
 import { LoginService } from './service/login.service';
-import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
+// Recursos
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
-import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
 import { CreateRecursoComponent } from './components/dashboard/recursos/create-recurso/create-recursos.component';
 import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
+// Players
+import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
+// Contactos
 import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
 import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
+
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
+    // Players
     CreatePlayerComponent,
     NavbarComponent,
     LoadingComponent,
     DashboardComponent,
     SesionComponent,
     HomeComponent,
-    CreateRecursoComponent,
-    MapaInteractivoComponent,
+    // Recursos
     RecursosComponent,
+    CreateRecursoComponent,
     EditRecursosComponent,
+    MapaInteractivoComponent,
+    // Contactos
     CreateContactoComponent,
     ContactosComponent,
     EditContactoComponent,

@@ -6,7 +6,7 @@ import { ContactoService } from 'src/app/service/contacto.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-contactos-edit-delete',
+  selector: 'app-contactos',
   templateUrl: './contactos.component.html',
   styleUrls: ['./contactos.component.css']
 })

@@ -6,7 +6,7 @@ import { Contactos } from 'src/app/models/contactos';
 import { ContactoService } from 'src/app/service/contacto.service';
 
 @Component({
-  selector: 'app-contactos-edit',
+  selector: 'app-edit-contacto',
   templateUrl: './edit-contacto.component.html',
   styleUrls: ['./edit-contacto.component.css']
 })
