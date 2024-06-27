@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 
 class RecursosEducativosPage extends StatefulWidget {
@@ -6,21 +8,51 @@ class RecursosEducativosPage extends StatefulWidget {
   _RecursosEducativos createState() => _RecursosEducativos();
 }
 
-class _RecursosEducativos extends State<RecursosEducativosPage> {
+class _RecursosEducativos extends State<RecursosEducativosPage>
+    implements LanguageHelper {
   ApiService apiService = ApiService();
   late Future<List<dynamic>> recursos;
+  late Map<String, dynamic> finalTranslations = {};
+  final TranslationService translationService = TranslationService();
+  late Locale finalLocale = const Locale('en', 'US');
 
   @override
   void initState() {
     super.initState();
+    cargarLocaleYTranslations();
+    translationService.addListener(this); // Añade this como listener
     recursos = apiService.obtenerRecursosEducativos();
+  }
+
+  @override
+  void dispose() {
+    translationService.removeListener(this); // Remueve this como listener
+    super.dispose();
+  }
+
+  @override
+  void actualizarLenguaje(Locale locale) {
+    cargarLocaleYTranslations();
+  }
+
+  Future<void> cargarLocaleYTranslations() async {
+    final Locale? locale = await translationService.getLocale();
+    final Map<String, dynamic> translations =
+        await translationService.getTranslations();
+
+    setState(() {
+      finalTranslations = translations;
+      finalLocale = locale ?? const Locale('en', 'US');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recursos Educativos'),
+        title: Text(finalTranslations[finalLocale.toString()]
+                ?['educationalResources'] ??
+            'Recursos Educativos'),
         backgroundColor: Colors.orangeAccent,
       ),
       body: FutureBuilder<List<dynamic>>(
@@ -58,23 +90,26 @@ class _RecursosEducativos extends State<RecursosEducativosPage> {
                           children: [
                             const SizedBox(
                                 height: 8), // espacio entre elementos
-                            RichText(
-                              text: TextSpan(
-                                style: const TextStyle(
-                                    fontSize: 16, color: Colors.black87),
-                                children: [
-                                  const TextSpan(
-                                    text: 'Mensaje: ',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.message_rounded, // Icono de mensaje
+                                  color: Colors.orangeAccent,
+                                ),
+                                const SizedBox(
+                                    width:
+                                        8), // Espacio entre el ícono y el texto
+                                Expanded(
+                                  child: Text(
+                                    recurso['mensaje'] ??
+                                        'No hay mensaje asignado.',
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Colors.black87),
                                   ),
-                                  TextSpan(
-                                    text:
-                                        '${recurso['mensaje'] ?? 'No hay mensaje asignado.'}',
-                                  ),
-                                ],
-                              ),
-                            )
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

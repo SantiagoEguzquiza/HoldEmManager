@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 
 class ContactoPage extends StatefulWidget {
@@ -6,14 +8,41 @@ class ContactoPage extends StatefulWidget {
   _ContactoPage createState() => _ContactoPage();
 }
 
-class _ContactoPage extends State<ContactoPage> {
+class _ContactoPage extends State<ContactoPage> implements LanguageHelper {
   ApiService apiService = ApiService();
   late Future<List<dynamic>> contactos;
+  late Map<String, dynamic> finalTranslations = {};
+  final TranslationService translationService = TranslationService();
+  late Locale finalLocale = const Locale('en', 'US');
 
   @override
   void initState() {
     super.initState();
+    cargarLocaleYTranslations();
+    translationService.addListener(this); // Añade this como listener
     contactos = apiService.obtenerContactos();
+  }
+
+  @override
+  void dispose() {
+    translationService.removeListener(this); // Remueve this como listener
+    super.dispose();
+  }
+
+  @override
+  void actualizarLenguaje(Locale locale) {
+    cargarLocaleYTranslations();
+  }
+
+  Future<void> cargarLocaleYTranslations() async {
+    final Locale? locale = await translationService.getLocale();
+    final Map<String, dynamic> translations =
+        await translationService.getTranslations();
+
+    setState(() {
+      finalTranslations = translations;
+      finalLocale = locale ?? const Locale('en', 'US');
+    });
   }
 
   // @override
@@ -125,7 +154,8 @@ class _ContactoPage extends State<ContactoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contacto'),
+        title: Text(finalTranslations[finalLocale.toString()]?['contact'] ??
+            'Contacto'),
         backgroundColor: Colors.orangeAccent,
       ),
       body: FutureBuilder<List<dynamic>>(
@@ -151,7 +181,7 @@ class _ContactoPage extends State<ContactoPage> {
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16), // padding interno
                     title: Text(
-                      contacto['infoCasino'] ?? 'No InfoCasino',
+                      contacto['direccion'] ?? 'No hay dirección asignada',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
@@ -160,11 +190,53 @@ class _ContactoPage extends State<ContactoPage> {
                         const SizedBox(
                             height:
                                 8), // espacio entre el título y la información
-                        Text(
-                            'Dirección: ${contacto['direccion'] ?? 'No Dirección'}'),
-                        Text(
-                            'Teléfono: ${contacto['numeroTelefono'] ?? 'No Teléfono'}'),
-                        Text('Email: ${contacto['email'] ?? 'No Email'}'),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.info_outline,
+                                color: Colors.orangeAccent),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                contacto['infoCasino'] ??
+                                    'No hay información del casino asignada',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black87),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.phone, color: Colors.orangeAccent),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                contacto['numeroTelefono'] ??
+                                    'No hay teléfono asignado.',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black87),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.email, color: Colors.orangeAccent),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                contacto['email'] ?? 'No hay email asignado.',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black87),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
