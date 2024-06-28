@@ -14,12 +14,13 @@ class PerfilHelper {
   static late String finalEmail;
   static late int numeroJugador = 0;
   static late bool isLoading;
-  static late String? imagePath;
-  static late Uint8List? image;
+  static String? imagePath;
+  static Uint8List? image;
   static late bool isLoggedIn = false;
 
   static Future<void> getDatosValidacion() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     final obtenerName = sharedPreferences.getString('name');
     final obtenerEmail = sharedPreferences.getString('email');
     final obtenerNumeroJugador = sharedPreferences.getInt('numberPlayer');
@@ -95,7 +96,8 @@ class PerfilHelper {
   }
 
   static Future<void> cerrarSesion() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     sharedPreferences.remove('isLoggedIn');
     sharedPreferences.remove('name');
     sharedPreferences.remove('email');
