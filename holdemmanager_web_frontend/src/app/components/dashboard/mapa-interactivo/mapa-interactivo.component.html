@@ -1,24 +1,29 @@
 <div class="container" style="display: flex; justify-content: center; align-items: center;">
   <div class="dark-background" *ngIf="isCreateItem"></div>
-  <app-create-item *ngIf="isCreateItem" (guardar)="guardarNuevoItem($event)" (cancelar)="cancelarNuevoItem()" style="position: absolute; z-index: 2;"></app-create-item>
+  <app-create-item *ngIf="isCreateItem" (guardar)="guardarNuevoItem($event)" (cancelar)="cancelarNuevoItem()"
+    style="position: absolute; z-index: 2;"></app-create-item>
+
   <div class="plano-container" id="plano-container">
-    <div class="background-layer" #backgroundLayer>
-      <div *ngFor="let item of items" [ngStyle]="{
-           'left.%': item.x,
-           'top.%': item.y,
-           'transform': 'rotate(' + item.rotation + 'deg)'
-         }" class="item" [ngClass]="item.type" (mousedown)="empezarArrastrar($event, item)"
-        (contextmenu)="empezarRotar($event, item)">
-        <div class="mesa-content">
+    <div class="background-layer">
+      <div *ngFor="let item of itemsFiltrados" [ngClass]="item.type" [ngStyle]="{
+        'left.%': item.x,
+        'top.%': item.y,
+        'transform': 'rotate(' + item.rotation + 'deg)'
+      }" class="item" (mousedown)="empezarArrastrar($event, item)" (contextmenu)="empezarRotar($event, item)">
+        <div class="item-content">
           {{ item.label }}
         </div>
       </div>
     </div>
-    <img src="../../../../assets/images/plano.png" alt="Plano" class="plano" />
+    <img [src]="currentPlano.imagen" alt="Plano" class="plano" />
   </div>
+
   <div class="buttons">
     <a href="javascript:void(0)" (click)="exportarImagen()"><i class="bi bi-save"></i>Guardar Mapa</a>
     <a href="javascript:void(0)" (click)="reinicarItems()"><i class="bi bi-arrow-repeat"></i>Reiniciar</a>
     <a href="javascript:void(0)" (click)="nuevoItem()"><i class="bi bi-plus-square-fill"></i>Agregar Nuevo</a>
+    <select class="planos" (change)="cambiarPlano($event)">
+      <option *ngFor="let plano of planos" [value]="plano.id">{{ plano.nombre }}</option>
+    </select>
   </div>
 </div>
