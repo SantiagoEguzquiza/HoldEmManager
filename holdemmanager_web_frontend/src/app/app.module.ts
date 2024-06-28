@@ -72,7 +72,9 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
     ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right', 
+    }),
     SweetAlert2Module.forRoot(),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },

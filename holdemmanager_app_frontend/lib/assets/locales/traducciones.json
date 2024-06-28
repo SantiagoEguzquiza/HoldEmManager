@@ -51,7 +51,8 @@
     "repeatNewPassword": "Confirm new password",
     "accept": "Accept",
     "changePassword": "Change Password",
-    "passwordsEquals": "Enter a password you have not used before"
+    "passwordsEquals": "Enter a password you have not used before",
+    "contact": "Contact"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -105,7 +106,8 @@
     "repeatNewPassword": "Confirmar nueva contraseña",
     "accept": "Aceptar",
     "changePassword": "Cambiar Contraseña",
-    "passwordsEquals": "Coloca una contraseña que no hayas usado antes"
+    "passwordsEquals": "Coloca una contraseña que no hayas usado antes",
+    "contact": "Contacto"
 
   },
   "pt_BR": {
@@ -160,6 +162,7 @@
     "repeatNewPassword": "Confirme a nova senha",
     "accept": "Aceitar",
     "changePassword": "Alterar a senha",
-    "passwordsEquals" : "Digite uma senha que você não usou antes"
+    "passwordsEquals" : "Digite uma senha que você não usou antes",
+    "contact": "Contato"
   }
 }

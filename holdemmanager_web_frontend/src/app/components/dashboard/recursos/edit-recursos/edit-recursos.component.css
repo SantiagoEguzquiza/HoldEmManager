@@ -1,8 +1,26 @@
 .container{
-    width: 100%;
     height: calc(100vh - 100px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+h3 {
+    font-size: 1.7em;
+    color: #2e2e2e;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+
+.btn-reg {
+    background-color: orange;
+    border-color: orange;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.btn-reg:hover {
+    background-color: darkorange;
+}

@@ -13,8 +13,8 @@ h3 {
 }
 
 .btn-reg {
-    background-color: #F05f44;
-    border-color: #F05f44;
+    background-color: orange;
+    border-color: orange;
 }
 
 .card {
@@ -22,5 +22,5 @@ h3 {
 }
 
 .btn-reg:hover {
-    background-color: #aa3f2d;
+    background-color: darkorange;
 }
