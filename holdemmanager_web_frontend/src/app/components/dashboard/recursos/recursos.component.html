@@ -17,8 +17,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let recurso of recursos">
-              <td>{{ recurso.titulo }}</td>
-              <td>{{ recurso.mensaje }}</td>
+              <td class="truncate">{{ recurso.titulo }}</td>
+              <td class="truncate">{{ recurso.mensaje }}</td>
               <td><img [src]="recurso.URLImagen" alt="Imagen" class="img-fluid" style="max-width: 100px;"></td>
               <td>
                 <button class="custom-btn btn btn-primary btn-sm" (click)="editarRecurso(recurso)">

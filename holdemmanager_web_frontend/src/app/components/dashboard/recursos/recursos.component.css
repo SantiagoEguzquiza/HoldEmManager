@@ -43,3 +43,10 @@
 .swal2-confirm-button {
   border: none !important;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Ajusta este valor según tus necesidades */
+}
