@@ -27,7 +27,7 @@ export class CreateItemComponent {
   @Output() guardar = new EventEmitter<PlanoItem>();
   @Output() cancelar = new EventEmitter<void>();
 
-  tiposItems: { tipo: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'espaciador' | 'infotorneos', nombre: string }[] = [
+  tiposItems: { tipo: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'espaciador' | 'infotorneos'| 'barbero'| 'entretenimiento', nombre: string }[] = [
     { tipo: 'mesa', nombre: 'Mesa' },
     { tipo: 'barra', nombre: 'Barra' },
     { tipo: 'banio', nombre: 'Baño' },
@@ -35,7 +35,9 @@ export class CreateItemComponent {
     { tipo: 'marketing', nombre: 'Marketing' },
     { tipo: 'agua', nombre: 'Agua' },
     { tipo: 'espaciador', nombre: 'Espaciador' },
-    { tipo: 'infotorneos', nombre: 'Información Torneos' }
+    { tipo: 'infotorneos', nombre: 'Información Torneos' },
+    { tipo: 'barbero', nombre: 'Barbero' },
+    { tipo: 'entretenimiento', nombre: 'Entretenimiento' }
   ];
 
   guardarItem() {

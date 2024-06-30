@@ -97,6 +97,28 @@ i {
     color: white;
 }
 
+.entretenimiento{
+    background-color: rgb(105, 72, 80);
+    width: 15%;
+    color: white;
+}
+
+.salatorneo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+    width: 30%;
+    height: 30%;
+    color: rgb(0, 0, 0);
+}
+
+.barbero{
+    background-color: rgb(83, 139, 135);
+    width: 10%;
+    color: white;
+}
+
 .espaciador{
     background-color: rgb(0, 0, 0);
     width: 64%;

@@ -2,7 +2,7 @@ import { Component, ElementRef, Renderer2, HostListener, AfterViewInit } from '@
 import html2canvas from 'html2canvas';
 
 interface PlanoItem {
-  type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador' ;
+  type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador'| 'barbero'| 'entretenimiento'| 'salatorneo' ;
   label: string;
   x: number;
   y: number;
@@ -25,6 +25,7 @@ interface Plano {
 export class MapaInteractivoComponent implements AfterViewInit {
   currentPlanoId: number = 1;
   isCreateItem = false;
+  isHelp = false;
   newItemType: PlanoItem['type'] = 'mesa';
 
   planos: Plano[] = [
@@ -43,16 +44,19 @@ export class MapaInteractivoComponent implements AfterViewInit {
   ];
 
   itemsOriginales: PlanoItem[] = [
-    { type: 'barra', label: 'Barra', x: 55.5, y: 60, rotation: 90, plano: 1 },
-    { type: 'banio', label: 'Baños', x: 46, y: 91.5, rotation: 0, plano: 1 },
-    { type: 'caja', label: 'Cajas', x: 50, y: 2, rotation: 0, plano: 1 },
-    { type: 'marketing', label: 'Marketing', x: 37, y: 2, rotation: 0, plano: 1 },
+    { type: 'barra', label: 'Barra', x: 36.4, y: 40, rotation: -90, plano: 1 },
+    { type: 'banio', label: 'Baños', x: 52, y: 2, rotation: 0, plano: 1 },
+    { type: 'caja', label: 'Cajas', x: 36.4, y: 80, rotation: -90, plano: 1 },
+    { type: 'marketing', label: 'Marketing', x: 35.4, y: 60, rotation: -90, plano: 1 },
     { type: 'infotorneos', label: 'Información Torneos', x: 88.2, y: 87, rotation: 0, plano: 2 },
     { type: 'prensa', label: 'Prensa', x: 91, y: 20, rotation: 90, plano: 2 },
     { type: 'agua', label: '', x: 31, y: 2, rotation: 0, plano: 2 },
     { type: 'agua', label: '', x: 61, y: 2, rotation: 0, plano: 2 },
     { type: 'agua', label: '', x: 31, y: 93, rotation: 0, plano: 2 },
     { type: 'agua', label: '', x: 61, y: 93, rotation: 0, plano: 2 },
+    { type: 'salatorneo', label: 'Sala de Torneo', x: 66, y: 50, rotation: 90, plano: 1 },
+    { type: 'barbero', label: 'Barbero', x: 55.5, y: 50, rotation: 90, plano: 1 },
+    { type: 'entretenimiento', label: 'Entretenimiento', x: 53, y: 70, rotation: 90, plano: 1 },
     ...this.crearMesasManuales()
   ];
 
@@ -159,6 +163,10 @@ export class MapaInteractivoComponent implements AfterViewInit {
     this.isCreateItem = true;
   }
 
+  help(){
+    this.isHelp = true;
+  }
+
   guardarNuevoItem(nuevoItem: PlanoItem) {
     const item: PlanoItem = {
       ...nuevoItem,
@@ -175,6 +183,10 @@ export class MapaInteractivoComponent implements AfterViewInit {
 
   cancelarNuevoItem() {
     this.isCreateItem = false;
+  }
+  
+  atrasItem() {
+    this.isHelp = false;
   }
 
   actualizarItemsPosicion() {

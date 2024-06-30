@@ -25,6 +25,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
 import { LoginService } from './service/login.service';
+// Mapa
+import { HelpComponent } from './components/dashboard/mapa-interactivo/help/help.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 // Recursos
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
@@ -39,7 +41,6 @@ import { EditContactoComponent } from './components/dashboard/contactos/edit-con
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
-import { POSITION, position } from 'html2canvas/dist/types/css/property-descriptors/position';
 
 
 @NgModule({
@@ -57,12 +58,15 @@ import { POSITION, position } from 'html2canvas/dist/types/css/property-descript
     RecursosComponent,
     CreateRecursoComponent,
     EditRecursosComponent,
+    // Mapa
+    HelpComponent,
     MapaInteractivoComponent,
+    CreateItemComponent,
     // Contactos
     CreateContactoComponent,
     ContactosComponent,
     EditContactoComponent,
-    CreateItemComponent
+    
   ],
   imports: [
     BrowserModule,
