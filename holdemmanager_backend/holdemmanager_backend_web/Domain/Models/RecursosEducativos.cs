@@ -19,5 +19,7 @@ namespace holdemmanager_backend_web.Domain.Models
         public string Mensaje { get; set; }
 
         public string URLImagen { get; set; }
+
+        public string URLVideo { get; set; }
     }
 }

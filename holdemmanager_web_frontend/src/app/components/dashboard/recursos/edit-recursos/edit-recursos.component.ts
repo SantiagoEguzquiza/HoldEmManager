@@ -21,7 +21,8 @@ export class EditRecursosComponent implements OnInit {
     this.editForm = this.fb.group({
       titulo: ['', Validators.required],
       mensaje: ['', Validators.required],
-      urlimagen: ['']
+      urlImagen: [''],
+      urlVideo: ['']
     })
   }
 
@@ -31,6 +32,7 @@ export class EditRecursosComponent implements OnInit {
       this.loading = true;
       this.recursosService.obtenerRecursoPorId(Number(id)).subscribe(
         data => {
+          console.log(data);
           this.recurso = data;
           this.editForm.patchValue(data);
           this.loading = false;
@@ -64,6 +66,6 @@ export class EditRecursosComponent implements OnInit {
 
   cancelarEdicion(): void {
     this.toastr.info('Edicion cancelada');
-    this.router.navigate(['/dashboard/recursos-edit-delete']);
+    this.router.navigate(['/dashboard/recursos']);
   }
 }

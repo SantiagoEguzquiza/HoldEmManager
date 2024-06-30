@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecursosEducativosPage extends StatefulWidget {
   @override
@@ -46,6 +47,84 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
     });
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text(finalTranslations[finalLocale.toString()]
+  //               ?['educationalResources'] ??
+  //           'Recursos Educativos'),
+  //       backgroundColor: Colors.orangeAccent,
+  //     ),
+  //     body: FutureBuilder<List<dynamic>>(
+  //       // lista recursos
+  //       future: recursos,
+  //       builder: (context, snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.waiting) {
+  //           return const Center(child: CircularProgressIndicator());
+  //         } else if (snapshot.hasError) {
+  //           return Center(child: Text('Error: ${snapshot.error}'));
+  //         } else {
+  //           if (!snapshot.hasData || snapshot.data!.isEmpty) {
+  //             return const Center(
+  //                 child: Text('No hay recursos educativos disponibles'));
+  //           }
+
+  //           return ListView.builder(
+  //             itemCount: snapshot.data!.length,
+  //             itemBuilder: (context, index) {
+  //               var recurso = snapshot.data![index];
+  //               return ExpansionTile(
+  //                 title: Text(
+  //                   recurso['titulo'] ?? 'No hay título asignado.',
+  //                   style: const TextStyle(fontWeight: FontWeight.bold),
+  //                 ),
+  //                 children: [
+  //                   Align(
+  //                     alignment:
+  //                         AlignmentDirectional.topStart, // contenido a la izq
+  //                     child: Padding(
+  //                       padding: const EdgeInsets.all(16.0),
+  //                       child: Column(
+  //                         crossAxisAlignment:
+  //                             CrossAxisAlignment.start, //texto a la izq
+  //                         children: [
+  //                           const SizedBox(
+  //                               height: 8), // espacio entre elementos
+  //                           Row(
+  //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //                             children: [
+  //                               const Icon(
+  //                                 Icons.message_rounded, // Icono de mensaje
+  //                                 color: Colors.orangeAccent,
+  //                               ),
+  //                               const SizedBox(
+  //                                   width:
+  //                                       8), // Espacio entre el ícono y el texto
+  //                               Expanded(
+  //                                 child: Text(
+  //                                   recurso['mensaje'] ??
+  //                                       'No hay mensaje asignado.',
+  //                                   style: const TextStyle(
+  //                                       fontSize: 16, color: Colors.black87),
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               );
+  //             },
+  //           );
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +135,6 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
         backgroundColor: Colors.orangeAccent,
       ),
       body: FutureBuilder<List<dynamic>>(
-        // lista recursos
         future: recursos,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,26 +158,21 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                   ),
                   children: [
                     Align(
-                      alignment:
-                          AlignmentDirectional.topStart, // contenido a la izq
+                      alignment: AlignmentDirectional.topStart,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start, //texto a la izq
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                                height: 8), // espacio entre elementos
+                            const SizedBox(height: 8),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
-                                  Icons.message_rounded, // Icono de mensaje
+                                  Icons.message_rounded,
                                   color: Colors.orangeAccent,
                                 ),
-                                const SizedBox(
-                                    width:
-                                        8), // Espacio entre el ícono y el texto
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     recurso['mensaje'] ??
@@ -110,6 +183,36 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 16),
+                            if (recurso['urlVideo'] != null &&
+                                recurso['urlVideo'].isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Video Educativo:',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final url = recurso['urlVideo'];
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'No se pudo abrir el video $url';
+                                      }
+                                    },
+                                    child: Text(
+                                      recurso['urlVideo'],
+                                      style: const TextStyle(
+                                          fontSize: 16, color: Colors.black87),
+                                    ),
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ),
