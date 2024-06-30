@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace holdemmanager_backend_app.Controllers
@@ -38,6 +39,7 @@ namespace holdemmanager_backend_app.Controllers
 
                 usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
 
+                usuario.ImageUrl = null;
 
                 await _usuarioService.SaveUser(usuario);
 
@@ -98,14 +100,21 @@ namespace holdemmanager_backend_app.Controllers
         public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
         {
             var usuario = await _dbContext.Jugadores.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
-            if (usuario == null) {
+            if (usuario == null)
+            {
                 return BadRequest("No existe el usuario");
             }
 
             usuario.ImageUrl = imageUrl;
             await _usuarioService.UpdateUsuario(usuario);
-
-            return Ok("Imagen guardada con exito");
+            if (imageUrl != "null" )
+            {
+                return Ok("Imagen guardada con exito");
+            }
+            else
+            {
+                return Ok("Imagen eliminada con exito");
+            }
         }
 
         [HttpDelete("{numeroJugador}")]

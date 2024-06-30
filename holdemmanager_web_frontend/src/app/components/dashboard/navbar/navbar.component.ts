@@ -13,7 +13,7 @@ export class NavbarComponent {
   }
 
   isJugadoresActive(): boolean {
-    return this.router.url === '/dashboard/register-player';
+    return this.router.url === '/dashboard/create-player';
   }
 
   isHomeActive(): boolean {
