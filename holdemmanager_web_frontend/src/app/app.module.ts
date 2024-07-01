@@ -32,6 +32,8 @@ import { CreateRecursoComponent } from './components/dashboard/recursos/create-r
 import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
 // Players
 import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
+import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
+import { PlayersComponent } from './components/dashboard/players/players.component';
 // Contactos
 import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
@@ -39,6 +41,8 @@ import { EditContactoComponent } from './components/dashboard/contactos/edit-con
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
+import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
+
 
 
 @NgModule({
@@ -52,6 +56,8 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
     DashboardComponent,
     SesionComponent,
     HomeComponent,
+    EditPlayerComponent,
+    PlayersComponent,
     // Recursos
     RecursosComponent,
     CreateRecursoComponent,
@@ -69,10 +75,9 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({positionClass : 'toast-bottom-right'}),
     HttpClientModule,
     FormsModule,
-    ToastrModule.forRoot(),
     SweetAlert2Module.forRoot(),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },

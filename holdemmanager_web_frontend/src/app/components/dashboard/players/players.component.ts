@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Jugador } from 'src/app/models/jugador';
+import { PlayersService } from 'src/app/service/players.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-players',
@@ -7,9 +12,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit {
 
-  constructor() { }
+  jugadores: Jugador[] = [];
+  loading = false;
+
+  constructor(private playersService: PlayersService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
+
+
+  editarJugador(jugador: Jugador): void {
+    this.router.navigate(['/dashboard/edit-recurso', jugador.id]);
+  }
+
 
 }

@@ -10,6 +10,7 @@ namespace holdemmanager_backend_app.Domain.IRepositories
         Task<Jugador> ValidatePassword(int numberPlayer, string passwordAnterior);
         Task UpdateUsuario(Jugador usuario);
         Task DeleteUser(int id);
+        Task UpdateUser(int numeroJugador, Jugador jugadorActualizado);
 
 
 

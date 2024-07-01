@@ -37,5 +37,11 @@ namespace holdemmanager_backend_app.Service
         {
             await _usuarioRepository.DeleteUser(numeroJugador);
         }
+
+        public async Task UpdateUser(int numeroJugador, Jugador jugadorActualizado)
+        {
+            await _usuarioRepository.UpdateUser(numeroJugador, jugadorActualizado);
+        }
+
     }
 }
