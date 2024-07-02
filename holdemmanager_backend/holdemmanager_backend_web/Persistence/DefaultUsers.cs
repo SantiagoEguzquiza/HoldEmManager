@@ -1,12 +1,5 @@
 ﻿using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Utils;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Persistence
 {

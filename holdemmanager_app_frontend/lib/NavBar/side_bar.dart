@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
+import 'package:holdemmanager_app/Screens/contacto.dart';
+import 'package:holdemmanager_app/Screens/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,7 +57,12 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
   }
 
   Widget crearUsuarioImagen() {
-    if (imagenUsuario.isNotEmpty) {
+    if (imagenUsuario == "null") {
+      return const CircleAvatar(
+        radius: 45,
+        backgroundImage: AssetImage('lib/assets/images/default-user.png'),
+      );
+    } else if (imagenUsuario.isNotEmpty) {
       return CircleAvatar(
         radius: 45,
         backgroundImage: FileImage(File(imagenUsuario)),
@@ -126,7 +132,26 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
               title: Text(finalTranslations[finalLocale.toString()]
                       ?['educationalResources'] ??
                   'Recursos Educativos'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RecursosEducativosPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading:
+                  const Icon(Icons.contact_page, color: Colors.orangeAccent),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['contact'] ??
+                  'Contacto'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ContactoPage()),
+                );
+              },
             ),
             ListTile(
               leading:
@@ -174,8 +199,7 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
             ListTile(
               leading:
                   const Icon(Icons.exit_to_app, color: Colors.orangeAccent),
-              title: Text(
-                !isLoggedIn
+              title: Text(!isLoggedIn
                   ? (finalTranslations[finalLocale.toString()]?['login'] ??
                       'Iniciar Sesión')
                   : (finalTranslations[finalLocale.toString()]

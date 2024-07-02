@@ -115,20 +115,26 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      finalTranslations[finalLocale.toString()]?['login'] ?? 'Login',
+                      finalTranslations[finalLocale.toString()]?['login'] ??
+                          'Login',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: playerNumberController,
-                      keyboardType: const TextInputType.numberWithOptions(signed: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(signed: true),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'^-?\d*$'))
                       ],
                       autocorrect: false,
                       decoration: InputDecorations.inputDecoration(
-                        hintext: finalTranslations[finalLocale.toString()]?['exampleNumber'] ?? '',
-                        labeltext: finalTranslations[finalLocale.toString()]?['playerNumber'] ?? 'Player Number',
+                        hintext: finalTranslations[finalLocale.toString()]
+                                ?['exampleNumber'] ??
+                            '',
+                        labeltext: finalTranslations[finalLocale.toString()]
+                                ?['playerNumber'] ??
+                            'Player Number',
                         icono: const Icon(Icons.person_2_outlined),
                       ),
                     ),
@@ -139,14 +145,17 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
                       obscureText: true,
                       decoration: InputDecorations.inputDecoration(
                         hintext: '********',
-                        labeltext: finalTranslations[finalLocale.toString()]?['password'] ?? 'Password',
+                        labeltext: finalTranslations[finalLocale.toString()]
+                                ?['password'] ??
+                            'Password',
                         icono: const Icon(Icons.lock_outline),
                       ),
                     ),
                     const SizedBox(height: 30),
                     isLoading
                         ? const CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.orange),
                           )
                         : MaterialButton(
                             shape: RoundedRectangleBorder(
@@ -163,36 +172,55 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
                                     });
                                     final usuario = Usuario(
                                       id: -1,
-                                      numberPlayer: int.parse(playerNumberController.text),
+                                      numberPlayer: int.parse(
+                                          playerNumberController.text),
                                       name: '.',
                                       email: '.',
                                       password: passwordController.text,
                                       imageUrl: '.',
                                     );
 
-                                    Result success = await ApiHandler.login(usuario);
+                                    Result success =
+                                        await ApiHandler.login(usuario);
 
                                     if (success.valid) {
-                                      Usuario usuario = await Usuario.getUsuarioPorNumeroJugador(
-                                          int.parse(playerNumberController.text));
-                                      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                                      sharedPreferences.setInt('numberPlayer', usuario.numberPlayer);
-                                      sharedPreferences.setString('email', usuario.email!);
-                                      sharedPreferences.setString('name', usuario.name!);
-                                      sharedPreferences.setBool('isLoggedIn', true);
-                                      sharedPreferences.setString('${usuario.email}_userImagePath', usuario.imageUrl!);
+                                      Usuario usuario = await Usuario
+                                          .getUsuarioPorNumeroJugador(int.parse(
+                                              playerNumberController.text));
+                                      final SharedPreferences
+                                          sharedPreferences =
+                                          await SharedPreferences.getInstance();
+                                      sharedPreferences.setInt(
+                                          'numberPlayer', usuario.numberPlayer);
+                                      sharedPreferences.setString(
+                                          'email', usuario.email!);
+                                      sharedPreferences.setString(
+                                          'name', usuario.name!);
+                                      sharedPreferences.setBool(
+                                          'isLoggedIn', true);
+                                      if (!(usuario.imageUrl == null)) {
+                                        sharedPreferences.setString(
+                                            '${usuario.email}_userImagePath',
+                                            usuario.imageUrl!);
+                                      }
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      Get.offAll(() => const ProfileScreen());
+                                      Get.offAll(() => const HomeScreen());
                                     } else {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
-                                          content: Text(finalTranslations[finalLocale.toString()]?[success.message] ?? 'Error en el servidor, inténtelo de nuevo mas tarde',
-                                            style: const TextStyle(color: Colors.white),
+                                          content: Text(
+                                            finalTranslations[
+                                                        finalLocale.toString()]
+                                                    ?[success.message] ??
+                                                'Error en el servidor, inténtelo de nuevo mas tarde',
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                           ),
                                           backgroundColor: Colors.red,
                                         ),
@@ -200,9 +228,12 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
                                     }
                                   },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 80, vertical: 15),
                               child: Text(
-                                finalTranslations[finalLocale.toString()]?['signIn'] ?? 'Sign In',
+                                finalTranslations[finalLocale.toString()]
+                                        ?['signIn'] ??
+                                    'Sign In',
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
@@ -223,7 +254,8 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
               );
             },
             child: Text(
-              finalTranslations[finalLocale.toString()]?['invitedUser'] ?? 'Ingresar como invitado',
+              finalTranslations[finalLocale.toString()]?['invitedUser'] ??
+                  'Ingresar como invitado',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -234,7 +266,8 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
 
   Future<void> cargarLocaleYTranslations() async {
     final Locale? locale = await translationService.getLocale();
-    final Map<String, dynamic> translations = await translationService.getTranslations();
+    final Map<String, dynamic> translations =
+        await translationService.getTranslations();
 
     setState(() {
       finalTranslations = translations;

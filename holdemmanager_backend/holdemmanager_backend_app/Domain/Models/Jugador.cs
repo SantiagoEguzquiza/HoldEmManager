@@ -19,6 +19,6 @@ namespace holdemmanager_backend_app.Domain.Models
 
         [Required]
         public string Password { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

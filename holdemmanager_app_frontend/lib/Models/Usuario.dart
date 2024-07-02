@@ -41,7 +41,7 @@ class Usuario {
   }
 
   static Future<Usuario> getUsuarioPorNumeroJugador(int numeroJugador) async {
-    final String apiUrl = '${ApiHandler.baseUrl}/UsuarioApp/$numeroJugador';
+    final String apiUrl = '${ApiHandler.baseUrl}/JugadorApp/$numeroJugador';
     Usuario usuario = Usuario(numberPlayer: -1, password: '');
 
     try {
@@ -50,7 +50,9 @@ class Usuario {
       if (response.statusCode == 200) {
         Map<String, dynamic> usuarioJson = jsonDecode(response.body);
         Usuario usuario = Usuario.fromJson(usuarioJson);
-        usuario.imageUrl = Uri.decodeComponent(usuario.imageUrl!);
+        if (!(usuario.imageUrl == null)) {
+          usuario.imageUrl = Uri.decodeComponent(usuario.imageUrl!);
+        }
         return usuario;
       }
       return usuario;
@@ -61,14 +63,17 @@ class Usuario {
     }
   }
 
-  static Future<bool> setImageUrl(String imageUrl, int numeroJugador) async {
-    String imageUrlEnCode = Uri.encodeComponent(imageUrl);
+  static Future<bool> setImageUrl(String? imageUrl, int numeroJugador) async {
+    String? imageUrlEnCode = null;
+    if (imageUrl != null) {
+      imageUrlEnCode = Uri.encodeComponent(imageUrl!);
+    }
     final String apiUrl =
-        "${ApiHandler.baseUrl}/UsuarioApp/$imageUrlEnCode/$numeroJugador";
+        "${ApiHandler.baseUrl}/JugadorApp/$imageUrlEnCode/$numeroJugador";
 
     try {
       final response = await http.put(Uri.parse(apiUrl));
-
+      print(response.body);
       if (response.statusCode == 200) {
         return true;
       }

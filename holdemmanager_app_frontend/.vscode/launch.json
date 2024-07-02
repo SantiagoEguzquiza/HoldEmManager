@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
+<<<<<<< HEAD
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
@@ -15,6 +16,23 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
+=======
+            "name": "holdemmanager_app_frontend",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "holdemmanager_app_frontend (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "holdemmanager_app_frontend (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+>>>>>>> e44d653ec4e74cfe7258086405243224cb70f5bb
         }
     ]
 }

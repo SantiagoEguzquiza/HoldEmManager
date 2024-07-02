@@ -25,6 +25,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { HomeComponent } from './components/dashboard/home/home.component';
 import { LoginService } from './service/login.service';
+// Mapa
+import { HelpComponent } from './components/dashboard/mapa-interactivo/help/help.component';
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 // Recursos
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
@@ -62,13 +64,16 @@ import { position } from 'html2canvas/dist/types/css/property-descriptors/positi
     RecursosComponent,
     CreateRecursoComponent,
     EditRecursosComponent,
+    // Mapa
+    HelpComponent,
     MapaInteractivoComponent,
+    CreateItemComponent,
     // Contactos
     CreateContactoComponent,
     ContactosComponent,
     EditContactoComponent,
-    CreateItemComponent
-   ],
+    
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
