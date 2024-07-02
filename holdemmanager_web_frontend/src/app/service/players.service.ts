@@ -22,6 +22,10 @@ export class PlayersService {
     return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
   }
 
+  obtenerJugadores(): Observable<Jugador[]> {
+    return this.http.get<Jugador[]>(this.myAppUrl + this.myApiUrlWeb);
+  }
+
   eliminarJugador(id: number): Observable<any> {
     return this.http.delete(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
   }

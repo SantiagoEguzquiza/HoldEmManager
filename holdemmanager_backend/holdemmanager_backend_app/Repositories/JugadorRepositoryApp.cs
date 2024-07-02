@@ -14,6 +14,16 @@ namespace holdemmanager_backend_app.Persistence.Repositories
             this._context = context;
         }
 
+        public async Task<IEnumerable<Jugador>> GetAllJugadores()
+        {
+            return await _context.Jugadores.ToListAsync();
+        }
+
+        public async Task<Jugador> GetJugadorById(int id)
+        {
+            return await _context.Jugadores.FindAsync(id);
+        }
+
         public async Task SaveUser(Jugador usuario)
         {
             _context.Add(usuario);
@@ -63,5 +73,7 @@ namespace holdemmanager_backend_app.Persistence.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        
     }
 }

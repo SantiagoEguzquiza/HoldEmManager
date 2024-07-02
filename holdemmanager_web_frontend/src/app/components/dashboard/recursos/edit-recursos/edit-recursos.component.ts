@@ -16,13 +16,20 @@ export class EditRecursosComponent implements OnInit {
   editForm: FormGroup;
   loading = false;
 
-  constructor(private route: ActivatedRoute, private recursosService: RecursosService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) 
-  {
+  constructor(
+    private route: ActivatedRoute,
+    private recursosService: RecursosService,
+    private toastr: ToastrService,
+    private router: Router,
+    private fb: FormBuilder) 
+    
+    {
     this.editForm = this.fb.group({
       titulo: ['', Validators.required],
       mensaje: ['', Validators.required],
       urlimagen: ['']
     })
+
   }
 
   ngOnInit(): void {
@@ -42,7 +49,7 @@ export class EditRecursosComponent implements OnInit {
       );
     }
   }
-  
+
   guardarCambios(): void {
     if (this.recurso?.id) {
       const updatedRecurso = { ...this.recurso, ...this.editForm.value };

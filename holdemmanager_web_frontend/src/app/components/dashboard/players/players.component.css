@@ -1,0 +1,45 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.custom-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0.5rem 1rem;
+    color: black;
+  }
+  
+  .custom-btn:hover {
+    background-color: orange;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  .custom-btn i {
+    margin-right: 5px;
+  }
+  
+  .custom-btn .fas {
+    font-size: 1rem;
+  }
+  
+  .container-fluid {
+    padding: 20px;
+  }
+  
+  .custom-btn {
+    margin: 0 5px;
+  }
+  
+  .img-fluid {
+    max-height: 100px;
+    width: auto;
+  }
+  
+  .swal2-cancel-button {
+    color: #000 !important;
+    border: none !important;
+  }
+  
+  .swal2-confirm-button {
+    border: none !important;
+  }

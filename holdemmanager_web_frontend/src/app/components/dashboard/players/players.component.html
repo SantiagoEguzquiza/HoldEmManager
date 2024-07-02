@@ -1,7 +1,10 @@
 <div class="loading" style="width: 100%; display: flex; justify-content: center;">
   <app-loading *ngIf="loading"></app-loading>
 </div>
+
+
 <div class="container-fluid" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); margin-top: 20px;">
+  <button (click)="agregarJugador()">Agregar Jugador</button>
   <div class="row">
     <div class="col-12">
       <div class="card text-center" style="padding: 20px;">
@@ -9,26 +12,22 @@
         <table class="table table-striped" *ngIf="!loading && jugadores && jugadores.length > 0">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>numberPlayer</th>
-              <th>name</th>
-              <th>email</th>
-              <th>Imagen</th>
+              <th>Numero Jugador</th>
+              <th>Nombre</th>
+              <th>Email</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let jugador of jugadores">
-              <td>{{ jugador.id }}</td>
               <td>{{ jugador.numberPlayer }}</td>
               <td>{{ jugador.name }}</td>
-              <td>{{ jugador.email }}</td>
-              <td><img [src]="jugador.imageUrl" alt="Imagen" class="img-fluid" style="max-width: 100px;"></td>
+              <td>{{ jugador.email }}</td>             
               <td>
-                <button class="custom-btn btn btn-primary btn-sm" (click)="editarRecurso(recurso)">
+                <button class="custom-btn btn btn-primary btn-sm" (click)="editarJugador(jugador)">
                   <i class="fas fa-pen"></i>
                 </button>
-                <button class="custom-btn btn btn-danger btn-sm" (click)="eliminarRecurso(recurso.id!)">
+                <button class="custom-btn btn btn-danger btn-sm" (click)="eliminarJugador(jugador.numberPlayer)">
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </td>
@@ -42,5 +41,3 @@
     </div>
   </div>
 </div>
-
-

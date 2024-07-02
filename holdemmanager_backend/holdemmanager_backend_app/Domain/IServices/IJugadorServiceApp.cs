@@ -4,6 +4,8 @@ namespace holdemmanager_backend_app.Domain.IServices
 {
     public interface IJugadorServiceApp
     {
+        Task<IEnumerable<Jugador>> GetAllJugadores();
+        Task<Jugador> GetRecursoById(int id);
         Task SaveUser(Jugador usuario);
         Task<bool> ValidateExistence(Jugador usuario);
         Task<Jugador> ValidatePassword(int numberPlayer, string passwordAnterior);
