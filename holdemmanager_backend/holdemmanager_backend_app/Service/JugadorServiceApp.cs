@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace holdemmanager_backend_app.Service
 {
@@ -36,6 +37,21 @@ namespace holdemmanager_backend_app.Service
         public async Task DeleteUser(int numeroJugador)
         {
             await _usuarioRepository.DeleteUser(numeroJugador);
+        }
+
+        public async Task UpdateUser(int numeroJugador, Jugador jugadorActualizado)
+        {
+            await _usuarioRepository.UpdateUser(numeroJugador, jugadorActualizado);
+        }
+
+        public async Task<IEnumerable<Jugador>> GetAllJugadores()
+        {
+            return await _usuarioRepository.GetAllJugadores();
+        }
+
+        public async Task<Jugador> GetRecursoById(int id)
+        {
+           return await _usuarioRepository.GetJugadorById(id);
         }
     }
 }

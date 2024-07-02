@@ -46,8 +46,8 @@ export class CreatePlayerComponent {
 
     this.loading = true;
     this.usuarioService.saveUser(usuario).subscribe(() => {
-      this.toastr.success(`El jugador ${usuario.numberPlayer} fue registrado con éxito!`, 'Usuario Registrado!');
-      this.router.navigate(['/inicio/login']);
+      this.toastr.success('El jugador ' + usuario.numberPlayer + ' fue registrado con exito!', 'Usuario Registrado!');
+      this.router.navigate(['/dashboard/players']);
       this.loading = false;
     }, error => {
       this.loading = false;

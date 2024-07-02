@@ -19,6 +19,8 @@ import { EditContactoComponent } from './components/dashboard/contactos/edit-con
 // Guards
 import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
+import { PlayersComponent } from './components/dashboard/players/players.component';
+import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sesion/login', pathMatch: 'full' },
@@ -32,7 +34,9 @@ const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'players', component: PlayersComponent },
       { path: 'create-player', component: CreatePlayerComponent },
+      { path: 'edit-player/:id', component: EditPlayerComponent },
       { path: 'recursos', component: RecursosComponent},
       { path: 'edit-recurso/:id', component: EditRecursosComponent },
       { path: 'create-recurso', component: CreateRecursoComponent},

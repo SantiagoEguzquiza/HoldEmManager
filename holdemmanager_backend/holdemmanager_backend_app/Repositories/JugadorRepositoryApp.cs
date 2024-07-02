@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_app.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace holdemmanager_backend_app.Persistence.Repositories
@@ -11,6 +12,16 @@ namespace holdemmanager_backend_app.Persistence.Repositories
         public JugadorRepositoryApp(AplicationDbContextApp context)
         {
             this._context = context;
+        }
+
+        public async Task<IEnumerable<Jugador>> GetAllJugadores()
+        {
+            return await _context.Jugadores.ToListAsync();
+        }
+
+        public async Task<Jugador> GetJugadorById(int id)
+        {
+            return await _context.Jugadores.FindAsync(id);
         }
 
         public async Task SaveUser(Jugador usuario)
@@ -46,5 +57,23 @@ namespace holdemmanager_backend_app.Persistence.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task UpdateUser(int id, Jugador usuarioActualizado)
+        {
+            var usuario = await _context.Jugadores.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (usuario != null)
+            {
+                usuario.NumberPlayer = usuarioActualizado.NumberPlayer;
+                usuario.Name = usuarioActualizado.Name ?? usuario.Name;
+                usuario.Email = usuarioActualizado.Email ?? usuario.Email;
+                usuario.Password = usuarioActualizado.Password != null ? Encriptar.EncriptarPassword(usuarioActualizado.Password) : usuario.Password;
+                usuario.ImageUrl = usuarioActualizado.ImageUrl ?? usuario.ImageUrl;
+
+                _context.Jugadores.Update(usuario);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        
     }
 }

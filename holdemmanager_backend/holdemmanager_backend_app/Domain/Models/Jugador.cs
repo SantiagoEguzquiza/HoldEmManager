@@ -10,6 +10,7 @@ namespace holdemmanager_backend_app.Domain.Models
 
         [Required]
         public int NumberPlayer { get; set; }
+
         [Required]
         public string Name { get; set; }    
 
