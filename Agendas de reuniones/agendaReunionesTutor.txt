@@ -51,3 +51,13 @@ tareas:
 - pautas: si o si base de datos (no diagrama), hacer mas metodos de la api para poder proseguir con la app
 - definir metodo de trabajo (funcionalidad o dividirse entre app, web y api)
 -----------------------------------------------------------------------------------------------------------------------
+reunion 2/7: comenzó 19:00
+
+asistieron Rodrigo Lautaro Santiago y tutor Martin
+
+actividades:
+- revision del avance del sprint hasta dia de hoy
+
+tareas: 
+- definir proximo sprint y comunicarlo al profesor
+-----------------------------------------------------------------------------------------------------------------------
