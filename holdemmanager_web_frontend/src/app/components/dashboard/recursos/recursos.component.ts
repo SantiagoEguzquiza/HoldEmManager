@@ -24,6 +24,7 @@ export class RecursosComponent implements OnInit {
     this.loading = true;
     this.recursosService.obtenerRecursos().subscribe(
       (data) => {
+        console.log(data);
         this.recursos = data;
         this.loading = false;
       },

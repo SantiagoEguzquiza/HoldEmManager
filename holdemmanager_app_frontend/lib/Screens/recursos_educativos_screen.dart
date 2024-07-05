@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecursosEducativosPage extends StatefulWidget {
   @override
@@ -50,13 +51,13 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(finalTranslations[finalLocale.toString()]
-                ?['educationalResources'] ??
-            'Recursos Educativos'),
+        title: Text(
+          finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+              'Recursos Educativos',
+        ),
         backgroundColor: Colors.orangeAccent,
       ),
       body: FutureBuilder<List<dynamic>>(
-        // lista recursos
         future: recursos,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,26 +81,21 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                   ),
                   children: [
                     Align(
-                      alignment:
-                          AlignmentDirectional.topStart, // contenido a la izq
+                      alignment: AlignmentDirectional.topStart,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start, //texto a la izq
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                                height: 8), // espacio entre elementos
+                            const SizedBox(height: 16),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
-                                  Icons.message_rounded, // Icono de mensaje
+                                  Icons.message_rounded,
                                   color: Colors.orangeAccent,
                                 ),
-                                const SizedBox(
-                                    width:
-                                        8), // Espacio entre el ícono y el texto
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     recurso['mensaje'] ??
@@ -110,6 +106,74 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                                 ),
                               ],
                             ),
+                            if (recurso['urlImagen'] != null &&
+                                recurso['urlImagen'].isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 8),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _mostrarImagenAmpliada(
+                                          recurso['urlImagen']);
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(
+                                          Icons.image,
+                                          color: Colors.orangeAccent,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          'Ver imagen',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            const SizedBox(height: 16),
+                            if (recurso['urlVideo'] != null &&
+                                recurso['urlVideo'].isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.videocam,
+                                        color: Colors.orangeAccent,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final url = recurso['urlVideo'];
+                                          if (await canLaunch(url)) {
+                                            await launch(url);
+                                          } else {
+                                            throw 'No se pudo abrir el video $url';
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Ver video',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ),
@@ -121,6 +185,28 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
           }
         },
       ),
+    );
+  }
+
+  void _mostrarImagenAmpliada(String? imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedBox(
+              width: double.infinity,
+              child: Image.network(
+                imageUrl ?? '',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

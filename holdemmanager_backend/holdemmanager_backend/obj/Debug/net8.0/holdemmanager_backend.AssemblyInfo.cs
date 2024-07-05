@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("holdemmanager_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59af5bfe981eda64ba8c8279d451cf5512cd9a5d")]
+=======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+306dfcb3a22c4e3b83f483cda00e00194b22ae8d")]
+>>>>>>> 8fc328cf2bbae4689b9c31f8318967ab488bfd05
 [assembly: System.Reflection.AssemblyProductAttribute("holdemmanager_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("holdemmanager_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

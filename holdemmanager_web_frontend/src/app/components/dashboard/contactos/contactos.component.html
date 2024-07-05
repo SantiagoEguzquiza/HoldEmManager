@@ -19,10 +19,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let contact of contactos">
-              <td>{{ contact.direccion }}</td>
-              <td>{{ contact.infoCasino }}</td>
-              <td>{{ contact.email }}</td>
-              <td>{{ contact.numeroTelefono }} </td>
+              <td class="truncate">{{ contact.direccion }}</td>
+              <td class="truncate">{{ contact.infoCasino }}</td>
+              <td class="truncate">{{ contact.email }}</td>
+              <td class="truncate">{{ contact.numeroTelefono }} </td>
               <td>
                 <button class="custom-btn btn btn-primary btn-sm" (click)="editarContacto(contact)">
                   <i class="fas fa-pen"></i>

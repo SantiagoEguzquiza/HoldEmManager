@@ -19,7 +19,8 @@ export class CreateRecursoComponent {
     this.register = this.fb.group({
       titulo: ['', [Validators.required]],
       mensaje: ['', [Validators.required]],
-      urlimagen: ['']
+      urlimagen: [''],
+      urlvideo: ['']
     })
   }
 
@@ -29,7 +30,8 @@ export class CreateRecursoComponent {
     const recurso: RecursosEducativos = {
       titulo: this.register.value.titulo,
       mensaje: this.register.value.mensaje,
-      URLImagen: this.register.value.urlimagen,
+      urlImagen: this.register.value.urlimagen,
+      urlVideo: this.register.value.urlvideo
     };
 
     this.loading = true;
