@@ -34,7 +34,6 @@ class PerfilHelper {
 
   static Future<void> cargarImagen(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final String? savedImagePath =
         prefs.getString('${finalEmail}_userImagePath');
     if (savedImagePath != null) {
@@ -92,6 +91,19 @@ class PerfilHelper {
       return valorBool;
     } catch (e) {
       return valorBool;
+    }
+  }
+
+  static Future<String> eliminarImagen() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('${finalEmail}_userImagePath');
+    image = null;
+    imagePath = null;
+    bool borrado = await Usuario.setImageUrl(null, numeroJugador);
+    if (borrado) {
+      return 'imageDeleted';
+    } else {
+      return 'imageDeletedError';
     }
   }
 

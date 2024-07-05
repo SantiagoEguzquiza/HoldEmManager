@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+<<<<<<< HEAD
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\..\\holdemmanager_web_frontend\\src\\app\\components\\dashboard\\mapa-interactivo\\mapa-interactivo.component.ts",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+=======
             "name": "holdemmanager_app_frontend",
             "request": "launch",
             "type": "dart"
@@ -20,6 +32,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+>>>>>>> e44d653ec4e74cfe7258086405243224cb70f5bb
         }
     ]
 }

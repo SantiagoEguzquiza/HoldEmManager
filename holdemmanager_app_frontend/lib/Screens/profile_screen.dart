@@ -6,9 +6,10 @@ import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
-import 'package:holdemmanager_app/Screens/change_password.dart';
+import 'package:holdemmanager_app/Screens/change_password_screen.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -30,7 +31,6 @@ class _ProfileScreenState extends State<ProfileScreen>
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
 
-// Se inicializan la traduccion, se cargan los datos y se agrega a la lista observer
   @override
   void initState() {
     super.initState();
@@ -45,24 +45,18 @@ class _ProfileScreenState extends State<ProfileScreen>
     super.dispose();
   }
 
-  // Datos del Usuario
   Future<void> cargarDatos() async {
-    // Carga todos los datos y imagen de perfil del SharedPreferences
     await PerfilHelper.getDatosValidacion();
     await PerfilHelper.cargarImagen(context);
 
     setState(() {
-      // Si el logged es nulo, entonces el usuario entro como invitado, entonces setteamos todos los campos nullos
       isLoggedIn = PerfilHelper.isLoggedIn;
-
       if (!isLoggedIn) {
         finalName = null;
         finalEmail = null;
         isLoading = PerfilHelper.isLoading;
         image = null;
         imagePath = null;
-
-        // Si el logged es verdadero entonces setteamos todos los campos para mostrarlos
       } else {
         finalName = PerfilHelper.finalName;
         finalEmail = PerfilHelper.finalEmail;
@@ -161,11 +155,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                             ),
                           ),
                         Positioned(
-                          bottom: 0,
-                          right: 5,
+                          top: 88,
+                          right: 80,
                           child: Container(
                             width: 35,
-                            height: 43,
+                            height: 40,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.white,
@@ -179,34 +173,84 @@ class _ProfileScreenState extends State<ProfileScreen>
                               onPressed: () async {
                                 if (finalEmail != null) {
                                   String resultado =
-                                      await PerfilHelper.seleccionarImagen(
-                                          context);
-
-                                  if (resultado == 'imageSaved') {
+                                      await PerfilHelper.eliminarImagen();
+                                  if (resultado == 'imageDeleted') {
                                     Message.mostrarMensajeCorrecto(
-                                        finalTranslations[finalLocale
-                                            .toString()]?['imageSaved'],
+                                        finalTranslations[
+                                            finalLocale.toString()]?[resultado],
                                         context);
-                                  } else if (resultado == 'imageSize') {
+                                    setState(() {
+                                      image = null;
+                                      imagePath = null;
+                                    });
+                                  } else if (resultado == 'imageDeletedError') {
                                     Message.mostrarMensajeError(
-                                        finalTranslations[finalLocale
-                                            .toString()]?['imageSize'],
+                                        finalTranslations[
+                                            finalLocale.toString()]?[resultado],
                                         context);
                                   }
-                                  setState(() {
-                                    image = PerfilHelper.image;
-                                    imagePath = PerfilHelper.imagePath;
-                                  });
                                 } else {
                                   Message.mostrarMensajeError(
                                       finalTranslations[finalLocale.toString()]
-                                          ?['imageValidate'],
+                                          ?['imageValidateDeleted'],
                                       context);
                                 }
                               },
-                              icon: const Icon(Icons.add_a_photo,
+                              icon: const Icon(Icons.delete,
                                   color: Color.fromARGB(255, 27, 27, 27)),
                             ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 5,
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 35,
+                                height: 43,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: IconButton(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  onPressed: () async {
+                                    if (finalEmail != null) {
+                                      String resultado =
+                                          await PerfilHelper.seleccionarImagen(
+                                              context);
+                                      if (resultado == 'imageSaved') {
+                                        Message.mostrarMensajeCorrecto(
+                                            finalTranslations[finalLocale
+                                                .toString()]?['imageSaved'],
+                                            context);
+                                      } else if (resultado == 'imageSize') {
+                                        Message.mostrarMensajeError(
+                                            finalTranslations[finalLocale
+                                                .toString()]?['imageSize'],
+                                            context);
+                                      }
+                                      setState(() {
+                                        image = PerfilHelper.image;
+                                        imagePath = PerfilHelper.imagePath;
+                                      });
+                                    } else {
+                                      Message.mostrarMensajeError(
+                                          finalTranslations[finalLocale
+                                              .toString()]?['imageValidate'],
+                                          context);
+                                    }
+                                  },
+                                  icon: const Icon(Icons.add_a_photo,
+                                      color: Color.fromARGB(255, 27, 27, 27)),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

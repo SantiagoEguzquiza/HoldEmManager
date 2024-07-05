@@ -1,32 +1,31 @@
 <div class="container">
     <app-loading *ngIf="loading"></app-loading>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+    <div *ngIf="usuario.rol == 0" class="card-torneo">
         <div class="card-content">
             <p><strong>Administración de Torneos</strong></p>
         </div>
         <a href="#">Registrar Torneo</a>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
-        <div class="card-content">
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/mapa">
+        <div class="card-content-map">
             <p><strong>Mapa Del Evento</strong></p>
         </div>
-        <a routerLink="/dashboard/mapa">Crear Mapa del Evento</a>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+    <div *ngIf="usuario.rol == 0" class="card-torneo">
         <div class="card-content">
             <p><strong>Recursos Educativos</strong></p>
         </div>
         <a routerLink="/dashboard/create-recurso">Agregar recursos educativos</a>
         <a routerLink="/dashboard/recursos">Administrar recursos educativos</a>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
+    <div *ngIf="usuario.rol == 0" class="card-torneo">
         <div class="card-content">
             <p><strong>Contacto</strong></p>
         </div>
         <a routerLink="/dashboard/create-contacto">Agregar datos de contacto</a>
         <a routerLink="/dashboard/contactos">Administrar datos de contacto</a>
     </div>
-    <div *ngIf="usuario.rol == 1" class="card" routerLink="/dashboard/prensa">
+    <div *ngIf="usuario.rol == 1" class="card">
         <p><strong>Administración de Prensa</strong></p>
     </div>
 </div>

@@ -28,8 +28,8 @@
     width: 100%;
     border: 1px solid #ccc;
     overflow: hidden;
-    margin-top: 5%;
-    height: 80%;
+    margin-top: 3%;
+    height: 85%;
 }
 
 i {
@@ -64,17 +64,64 @@ i {
     color: white;
     background-color: rgb(51, 50, 50);
     border-radius: 50px;
-    width: 10%;
-    height: 10%;
+    width: 9%;
+    height: 8%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.infotorneos{
+    background-color: rgb(168, 201, 168);
+    width: 10%;
+    color: white;
 }
 
 .barra {
     background-color: rgb(130, 131, 130);
     width: 10%;
     color: white;
+}
+
+.agua{
+    background-color: rgb(144, 212, 212);
+    width: 1%;
+    height: 4%;
+    border-radius: 1000px;
+    color: white;
+}
+
+.prensa{
+    background-color: rgb(189, 152, 214);
+    width: 12%;
+    color: white;
+}
+
+.entretenimiento{
+    background-color: rgb(105, 72, 80);
+    width: 15%;
+    color: white;
+}
+
+.salatorneo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+    width: 30%;
+    height: 30%;
+    color: rgb(0, 0, 0);
+}
+
+.barbero{
+    background-color: rgb(83, 139, 135);
+    width: 10%;
+    color: white;
+}
+
+.espaciador{
+    background-color: rgb(0, 0, 0);
+    width: 64%;
 }
 
 .caja {
@@ -120,3 +167,22 @@ a:hover {
     margin-top: 20px;
     gap: 20px;
 }
+
+.planos{
+    background-color: rgb(255, 120, 30);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 10px;
+}
+
+option{
+    color: black;
+    background-color: white;
+}
+
+option:hover{
+    color: white;
+    background-color: #ff5100;
+}
+

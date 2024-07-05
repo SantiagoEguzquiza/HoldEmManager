@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace holdemmanager_backend_app.Controllers
@@ -38,6 +39,7 @@ namespace holdemmanager_backend_app.Controllers
 
                 usuario.Password = Encriptar.EncriptarPassword(usuario.Password);
 
+                usuario.ImageUrl = null;
 
                 await _usuarioService.SaveUser(usuario);
 
@@ -88,24 +90,56 @@ namespace holdemmanager_backend_app.Controllers
 
         }
 
-        [HttpGet("{numeroJugador}")]
-        public async Task<ActionResult<Jugador>> GetUsuarioPorNumeroJugador(int numeroJugador)
+      
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id)
         {
-            return await _dbContext.Jugadores.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
+            try
+                        {
+                var jugador = await _dbContext.Jugadores.Where(u => u.NumberPlayer == id).FirstOrDefaultAsync();
+                return Ok(jugador);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "No se encontraron datos que coincidan con el id." });
+            }
         }
+
 
         [HttpPut("{imageUrl}/{numeroJugador}")]
         public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
         {
             var usuario = await _dbContext.Jugadores.Where(u => u.NumberPlayer == numeroJugador).FirstOrDefaultAsync();
-            if (usuario == null) {
+            if (usuario == null)
+            {
                 return BadRequest("No existe el usuario");
             }
 
             usuario.ImageUrl = imageUrl;
             await _usuarioService.UpdateUsuario(usuario);
+            if (imageUrl != "null" )
+            {
+                return Ok("Imagen guardada con exito");
+            }
+            else
+            {
+                return Ok("Imagen eliminada con exito");
+            }
+        }
 
-            return Ok("Imagen guardada con exito");
+        [HttpPut("UpdateUser/{numeroJugador}")]
+        public async Task<IActionResult> UpdateUser(int numeroJugador, [FromBody] Jugador jugadorActualizado)
+        {
+            try
+            {
+                await _usuarioService.UpdateUser(numeroJugador, jugadorActualizado);
+                return Ok(new { message = "Usuario actualizado con éxito" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al actualizar el usuario", details = ex.Message });
+            }
         }
 
         [HttpDelete("{numeroJugador}")]
@@ -120,6 +154,14 @@ namespace holdemmanager_backend_app.Controllers
             {
                 return StatusCode(500, new { message = "Ocurrió un error al eliminar el usuario", details = ex.Message });
             }
+        }
+
+        // obtener todos los jugadores
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Jugador>>> GetAllRecursos()
+        {
+            var jugadores = await _usuarioService.GetAllJugadores();
+            return Ok(jugadores);
         }
 
     }

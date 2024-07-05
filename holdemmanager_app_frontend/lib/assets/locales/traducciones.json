@@ -52,7 +52,10 @@
     "accept": "Accept",
     "changePassword": "Change Password",
     "passwordsEquals": "Enter a password you have not used before",
-    "contact": "Contact"
+    "contact": "Contact",
+    "imageDeleted": "Profile photo successfully deleted",
+    "imageDeletedError": "Error deleting profile photo",
+    "imageValidateDeleted": "You cannot delete a profile photo as a guest"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -94,7 +97,7 @@
     "comments": "Comentarios",
     "changeLanguage": "Cambiar Idioma",
     "closeSession": "Cerrar Sesión",
-    "imageValidate": "No puedes asignar foto de perfil como invitado",
+    "imageValidate": "No puedes asignar la foto de perfil como invitado",
     "imageSaved": "Imagen guardada con éxito",
     "imageSize": "El tamaño de la imagen excede el límite de 1 MB",
     "serverError": "Error en el servidor, inténtelo de nuevo mas tarde",
@@ -107,8 +110,10 @@
     "accept": "Aceptar",
     "changePassword": "Cambiar Contraseña",
     "passwordsEquals": "Coloca una contraseña que no hayas usado antes",
-    "contact": "Contacto"
-
+    "contact": "Contacto",
+    "imageDeleted": "Foto de perfil borrada con exito",
+    "imageDeletedError": "Error al eliminar la foto de perfil",
+    "imageValidateDeleted": "No puedes eliminar la foto de perfil como invitado"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -163,6 +168,9 @@
     "accept": "Aceitar",
     "changePassword": "Alterar a senha",
     "passwordsEquals" : "Digite uma senha que você não usou antes",
-    "contact": "Contato"
+    "contact": "Contato",
+    "imageDeleted": "Foto do perfil excluída com sucesso",
+    "imageDeletedError": "Erro ao excluir a foto do perfil",
+    "imageValidateDeleted": "Você não pode excluir a foto do perfil como convidado"
   }
 }
