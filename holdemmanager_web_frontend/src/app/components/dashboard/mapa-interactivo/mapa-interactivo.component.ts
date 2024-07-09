@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, HostListener, AfterViewInit } from '@angular/core';
 import html2canvas from 'html2canvas';
 
+
 interface PlanoItem {
   type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador'| 'barbero'| 'entretenimiento'| 'salatorneo' ;
   label: string;
