@@ -38,6 +38,8 @@ builder.Services.AddScoped<IRecursosEducativosRepositoryWeb, RecursosEducativosR
 builder.Services.AddScoped<IRecursosEducativosServiceWeb, RecursosEducativosServiceWeb>();
 builder.Services.AddScoped<IContactoRepositoryWeb, ContactoRepositoryWeb>();
 builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
+builder.Services.AddScoped<INoticiasRepositoryWeb, NoticiasRepositoryWeb>();
+builder.Services.AddScoped<INoticiasServiceWeb, NoticiasServiceWeb>();
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {

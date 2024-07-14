@@ -42,7 +42,7 @@ namespace holdemmanager_backend_web.Repositories
 
         public async Task UpdateRecurso(RecursosEducativos recurso)
         {
-            _context.Update(recurso);
+            _context.RecursosEducativos.Update(recurso);
             await _context.SaveChangesAsync();
         }
 
