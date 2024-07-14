@@ -1,0 +1,44 @@
+.create-noticia-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btn {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .cancelar {
+    background-color: rgb(101, 103, 104);
+    color: #fff;
+  }
+  
+  .cancelar:hover{
+    background-color: rgb(64, 64, 65);
+  }
+  
+  .aceptar{
+    background-color: rgb(255,125,30);
+    border: none;
+    color: #fff;
+  }
+  
+  .aceptar:hover{
+    background-color: rgb(180, 84, 15);
+  }
