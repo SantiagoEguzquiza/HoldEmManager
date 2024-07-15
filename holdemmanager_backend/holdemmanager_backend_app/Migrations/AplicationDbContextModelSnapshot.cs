@@ -89,15 +89,18 @@ namespace holdemmanager_backend_app.Migrations
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Mapa", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
-                    b.Property<string>("URLImagen")
+                    b.Property<byte[]>("Plano")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("PlanoId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

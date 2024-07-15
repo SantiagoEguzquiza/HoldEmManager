@@ -18,7 +18,7 @@ dependencies:
   get: 4.6.6
   flutter_locales: 2.0.0
   restart_app: 1.2.1
-
+  carousel_slider: ^4.0.0
 
   cupertino_icons: ^1.0.6
   image_picker: ^1.1.2

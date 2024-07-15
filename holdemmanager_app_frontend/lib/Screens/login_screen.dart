@@ -9,7 +9,6 @@ import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
 import 'package:holdemmanager_app/Helpers/api_handler.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
-import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
 
 class LoginScreen extends StatefulWidget {

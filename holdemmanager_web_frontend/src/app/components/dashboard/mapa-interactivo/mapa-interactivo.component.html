@@ -6,15 +6,22 @@
 
   <div class="plano-container" id="plano-container">
     <div class="background-layer">
-      <div *ngFor="let item of itemsFiltrados" [ngClass]="item.type" [ngStyle]="{
+      <div *ngFor="let item of itemsFiltrados" 
+     [ngClass]="item.type" 
+     [ngStyle]="{
         'left.%': item.x,
         'top.%': item.y,
-        'transform': 'rotate(' + item.rotation + 'deg)'
-      }" class="item" (mousedown)="empezarArrastrar($event, item)" (contextmenu)="empezarRotar($event, item)">
-        <div class="item-content">
-          {{ item.label }}
-        </div>
-      </div>
+        'transform': 'rotate(' + item.rotation + 'deg)',
+        'width.px': item.width,
+        'height.px': item.height
+      }" 
+     class="item" 
+     (mousedown)="empezarArrastrar($event, item)" 
+     (contextmenu)="empezarRotar($event, item)">
+    <div class="item-content">
+        {{ item.label }}
+    </div>
+</div>
     </div>
     <img [src]="currentPlano.imagen" alt="Plano" class="plano" />
   </div>

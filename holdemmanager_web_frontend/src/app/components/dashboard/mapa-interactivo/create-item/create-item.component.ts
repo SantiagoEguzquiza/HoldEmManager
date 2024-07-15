@@ -7,6 +7,8 @@ interface PlanoItem {
   y: number;
   rotation: number;
   plano: number;
+  width: number;
+  height: number;
 }
 
 @Component({
@@ -22,6 +24,8 @@ export class CreateItemComponent {
     y: 0,
     rotation: 0,
     plano: 1,
+    width: 100,
+    height: 100
   };
 
   @Output() guardar = new EventEmitter<PlanoItem>();

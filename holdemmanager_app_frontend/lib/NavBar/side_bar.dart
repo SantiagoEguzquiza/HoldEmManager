@@ -5,6 +5,7 @@ import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/Screens/contacto.dart';
+import 'package:holdemmanager_app/Screens/map_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -117,7 +118,12 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
               leading: const Icon(Icons.map, color: Colors.orangeAccent),
               title: Text(finalTranslations[finalLocale.toString()]?['map'] ??
                   'Mapa del Evento'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MapScreen()),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.ad_units_rounded,

@@ -55,7 +55,7 @@ export class PlayersComponent implements OnInit {
         this.playersService.eliminarJugador(id).subscribe(
           () => {
             this.toastr.success('Jugador eliminado correctamente', 'Éxito');
-            this.obtenerJugadores(); // para que se actualice la lista después de borrarlos
+            this.obtenerJugadores();
           },
           (error) => {
             this.loading = false;

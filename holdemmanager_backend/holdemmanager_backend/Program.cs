@@ -13,6 +13,7 @@ using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Service;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Repositories;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,8 @@ builder.Services.AddScoped<IJugadorRepositoryApp, JugadorRepositoryApp>();
 builder.Services.AddScoped<IJugadorServiceApp, JugadorServiceApp>();
 builder.Services.AddScoped<ILoginRepositoryApp, LoginRepositoryApp>();
 builder.Services.AddScoped<ILoginServiceApp, LoginServiceApp>();
+builder.Services.AddScoped<IMapaRepositoryApp, MapaRepositoryApp>();
+builder.Services.AddScoped<IMapaServiceApp, MapaServiceApp>();
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
 builder.Services.AddScoped<IUsuarioServiceWeb, UsuarioServiceWeb>();
@@ -47,7 +50,6 @@ builder.Services.AddDbContext<AplicationDbContextWeb>(options =>
 {
     options.UseSqlServer(connectionStringWeb);
 });
-
 
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebapp",
