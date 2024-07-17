@@ -6,7 +6,11 @@
 
   <div class="dark-background" *ngIf="isCreateNoticia"></div>
   <div *ngIf="isCreateNoticia" class="centered-container">
-    <app-create-noticia (guardar)="guardarNuevaNoticia($event)" (cancelar)="cancelarNuevaNoticia()"></app-create-noticia>
+    <app-create-noticia 
+      [noticia]="noticiaActual"
+      (guardar)="guardarNuevaNoticia($event)" 
+      (cancelar)="cancelarNuevaNoticia()">
+    </app-create-noticia>
   </div>
 
   <div class="buttons" style="padding-bottom: 20px;">
@@ -26,14 +30,16 @@
               <th>Fecha</th>
               <th>Mensaje</th>
               <th>URL de la imagen</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let noticia of noticias">
               <td class="truncate">{{ noticia.titulo }}</td>
               <td class="truncate">{{ noticia.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="truncate">{{ noticia.mensaje }}</td>   
-              <td class="truncate">{{ noticia.URLImagen }}</td>           
+              <td class="truncate">{{ noticia.mensaje }}</td>  
+              <td><img [src]="noticia.urlImagen" alt="Imagen" class="img-fluid"></td> 
+                       
               <td>
                 <button class="custom-btn btn btn-primary btn-sm" (click)="editarNoticia(noticia)">
                   <i class="fas fa-pen"></i>

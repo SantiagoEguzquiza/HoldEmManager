@@ -4,5 +4,5 @@ export class Noticias{
     titulo!: string;
     fecha!: Date;
     mensaje!: string;
-    URLImagen?: string;
+    urlImagen?: string;
 }

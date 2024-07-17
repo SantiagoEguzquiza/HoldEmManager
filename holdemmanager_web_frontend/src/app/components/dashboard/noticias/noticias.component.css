@@ -66,14 +66,14 @@
   gap: 5px;
 }
 
-.aceptar{
+.aceptar {
   background-color: #008f39;
   border: none;
   color: #fff;
-  
+
 }
 
-.aceptar:hover{
+.aceptar:hover {
   background-color: #006400;
 }
 
@@ -93,5 +93,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px; 
+  max-width: 150px;
+}
+
+.img-fluid {
+  max-height: 100px;
+  width: auto;
+  max-width: 100px;
 }
