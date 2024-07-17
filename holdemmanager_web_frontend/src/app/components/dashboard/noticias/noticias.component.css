@@ -88,3 +88,10 @@
   left: 0;
   z-index: 1;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; 
+}

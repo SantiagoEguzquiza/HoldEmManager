@@ -30,10 +30,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let noticia of noticias">
-              <td>{{ noticia.titulo }}</td>
-              <td>{{ noticia.fecha }}</td>
-              <td>{{ noticia.mensaje }}</td>   
-              <td>{{ noticia.URLImagen }}</td>           
+              <td class="truncate">{{ noticia.titulo }}</td>
+              <td class="truncate">{{ noticia.fecha | date:'dd/MM/yyyy' }}</td>
+              <td class="truncate">{{ noticia.mensaje }}</td>   
+              <td class="truncate">{{ noticia.URLImagen }}</td>           
               <td>
                 <button class="custom-btn btn btn-primary btn-sm" (click)="editarNoticia(noticia)">
                   <i class="fas fa-pen"></i>

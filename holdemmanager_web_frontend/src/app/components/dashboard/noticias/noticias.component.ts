@@ -81,7 +81,7 @@ export class NoticiasComponent{
   }
 
   editarNoticia(noticia: Noticias): void {
-    //this.router.navigate(['/dashboard/edit-player', noticia.id]);
+    
   }
 
   guardarNuevaNoticia(nuevaNoticia: auxNoticia) {
