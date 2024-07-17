@@ -114,6 +114,7 @@
     "imageDeleted": "Foto de perfil borrada con exito",
     "imageDeletedError": "Error al eliminar la foto de perfil",
     "imageValidateDeleted": "No puedes eliminar la foto de perfil como invitado"
+    
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -172,5 +173,6 @@
     "imageDeleted": "Foto do perfil excluída com sucesso",
     "imageDeletedError": "Erro ao excluir a foto do perfil",
     "imageValidateDeleted": "Você não pode excluir a foto do perfil como convidado"
+    
   }
 }

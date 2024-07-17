@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
-class RecursosEducativosPage extends StatefulWidget {
-  const RecursosEducativosPage({super.key});
+class NoticiasPage extends StatefulWidget {
+  const NoticiasPage({super.key});
 
   @override
-  _RecursosEducativos createState() => _RecursosEducativos();
+  _Noticias createState() => _Noticias();
 }
 
-class _RecursosEducativos extends State<RecursosEducativosPage>
-    implements LanguageHelper {
+class _Noticias extends State<NoticiasPage> implements LanguageHelper {
   ApiService apiService = ApiService();
-  late Future<List<dynamic>> recursos;
+  late Future<List<dynamic>> noticias;
   late Map<String, dynamic> finalTranslations = {};
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
@@ -24,7 +23,7 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
     super.initState();
     cargarLocaleYTranslations();
     translationService.addListener(this); // Añade this como listener
-    recursos = apiService.obtenerRecursosEducativos();
+    noticias = apiService.obtenerNoticias();
   }
 
   @override
@@ -54,13 +53,12 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          finalTranslations[finalLocale.toString()]?['educationalResources'] ??
-              'Recursos Educativos',
+          finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'Noticias',
         ),
         backgroundColor: Colors.orangeAccent,
       ),
       body: FutureBuilder<List<dynamic>>(
-        future: recursos,
+        future: noticias,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -68,17 +66,22 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(
-                  child: Text('No hay recursos educativos disponibles'));
+              return const Center(child: Text('No hay noticias disponibles'));
             }
 
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                var recurso = snapshot.data![index];
+                var noticia = snapshot.data![index];
+                var fechaFormateada = '';
+                if (noticia['fecha'] != null) {
+                  var fecha = DateTime.parse(noticia['fecha']);
+                  fechaFormateada = DateFormat('dd/MM/yyyy').format(fecha);
+                }
+
                 return ExpansionTile(
                   title: Text(
-                    recurso['titulo'] ?? 'No hay título asignado.',
+                    noticia['titulo'] ?? 'No hay título asignado.',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   children: [
@@ -94,13 +97,33 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: Colors.orangeAccent,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    fechaFormateada.isNotEmpty
+                                        ? fechaFormateada
+                                        : 'No hay fecha asignada.',
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Colors.black87),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(
                                   Icons.message_rounded,
                                   color: Colors.orangeAccent,
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
-                                    recurso['mensaje'] ??
+                                    noticia['mensaje'] ??
                                         'No hay mensaje asignado.',
                                     style: const TextStyle(
                                         fontSize: 16, color: Colors.black87),
@@ -108,8 +131,8 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                                 ),
                               ],
                             ),
-                            if (recurso['urlImagen'] != null &&
-                                recurso['urlImagen'].isNotEmpty)
+                            if (noticia['urlImagen'] != null &&
+                                noticia['urlImagen'].isNotEmpty)
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -117,7 +140,7 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                                   GestureDetector(
                                     onTap: () {
                                       _mostrarImagenAmpliada(
-                                          recurso['urlImagen']);
+                                          noticia['urlImagen']);
                                     },
                                     child: const Row(
                                       children: [
@@ -137,42 +160,6 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            const SizedBox(height: 16),
-                            if (recurso['urlVideo'] != null &&
-                                recurso['urlVideo'].isNotEmpty)
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.videocam,
-                                        color: Colors.orangeAccent,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          final url = recurso['urlVideo'];
-                                          if (await canLaunch(url)) {
-                                            await launch(url);
-                                          } else {
-                                            throw 'No se pudo abrir el video $url';
-                                          }
-                                        },
-                                        child: const Text(
-                                          'Ver video',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.blue,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),

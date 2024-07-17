@@ -6,7 +6,7 @@ import { NoticiasService } from 'src/app/service/noticias.service';
 import { Noticias } from 'src/app/models/noticias';
 
 interface auxNoticia {
-  id?: number;
+  id: number;
   titulo: string;
   fecha: Date;
   mensaje: string;
@@ -89,6 +89,7 @@ export class NoticiasComponent{
     this.noticiasService.agregarNoticia(nuevaNoticia).subscribe(
       (data) => {
         this.noticias.push(data);
+        console.log(nuevaNoticia);
         this.toastr.success('Noticia agregada exitosamente');
         this.isCreateNoticia = false;
         this.obtenerNoticias();
