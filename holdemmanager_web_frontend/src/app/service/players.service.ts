@@ -18,6 +18,10 @@ export class PlayersService {
     this.myApiUrlWeb = '/JugadorApp';
   }
 
+  agregarJugador(usuario: Jugador): Observable<any> {
+    return this.http.post(this.myAppUrl + this.myApiUrlWeb, usuario);
+  }
+
   obtenerPlayerPorId(id: number): Observable<Jugador> {
     return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
   }

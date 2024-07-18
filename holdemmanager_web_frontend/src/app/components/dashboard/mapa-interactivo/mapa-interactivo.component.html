@@ -2,7 +2,7 @@
   <div class="dark-background" *ngIf="isCreateItem"></div>
   <app-create-item *ngIf="isCreateItem" (guardar)="guardarNuevoItem($event)" (cancelar)="cancelarNuevoItem()"
     style="position: absolute; z-index: 2;"></app-create-item>
-    <app-help style="position: absolute; z-index: 3;" (atras)="atrasItem()" *ngIf="isHelp"></app-help>
+  <app-help style="position: absolute; z-index: 3;" (atras)="atrasItem()" *ngIf="isHelp"></app-help>
 
   <div class="plano-container" id="plano-container">
     <div class="background-layer">

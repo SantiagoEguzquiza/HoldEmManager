@@ -5,6 +5,15 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
+interface auxJugador {
+  id: number;
+  numberPlayer: number;
+  name: string;
+  email: string;
+  password: string;
+  imageUrl?: string;
+}
+
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',
@@ -12,6 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class PlayersComponent implements OnInit {
 
+  isCreateJugador = false;
   jugadores: Jugador[] = [];
   loading = false;
 
@@ -67,12 +77,35 @@ export class PlayersComponent implements OnInit {
     });
   }
 
-  agregarJugador(){
-
-    this.router.navigate(['/dashboard/create-player']);
+  agregarJugador() {
+    this.isCreateJugador = true;
   }
 
   editarJugador(jugador: Jugador): void {
     this.router.navigate(['/dashboard/edit-player', jugador.id]);
   }
+
+
+  guardarNuevoJugador(nuevoJugador: auxJugador) {
+
+    this.playersService.agregarJugador(nuevoJugador).subscribe(
+      (data) => {
+        this.jugadores.push(data);
+        this.toastr.success('Jugador agregado exitosamente');
+        this.isCreateJugador = false;
+        this.obtenerJugadores();
+      },
+      (error) => {
+        this.toastr.error('Error al agregar jugador', 'Error');
+        console.error(error);
+      }
+    );
+
+  }
+
+  cancelarNuevoJugador() {
+    this.isCreateJugador = false;
+  }
+
+  
 }

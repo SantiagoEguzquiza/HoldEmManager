@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MapaHelper } from 'src/app/helpers/mapaHelper';
 import { MapaService } from 'src/app/service/mapa.service';
 
+
 interface PlanoItem {
   type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador' | 'barbero' | 'entretenimiento' | 'salatorneo';
   label: string;
