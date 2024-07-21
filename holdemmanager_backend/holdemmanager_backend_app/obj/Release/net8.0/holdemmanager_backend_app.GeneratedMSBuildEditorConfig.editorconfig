@@ -8,10 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = holdemmanager_backend_app
-<<<<<<< HEAD
 build_property.ProjectDir = D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\
-=======
-build_property.ProjectDir = C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\
->>>>>>> e3fb47b9cbe6db284aa69f9509a3809069321594
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

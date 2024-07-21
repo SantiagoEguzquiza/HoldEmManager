@@ -20,11 +20,13 @@ namespace holdemmanager_backend_app.Controllers
     {
         private readonly IMapaServiceApp _mapaService;
         private readonly AplicationDbContextApp _dbContext;
-        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService)
+        private readonly GoogleDriveHelper _googleDriveHelper;
+        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService, GoogleDriveHelper googleDriveHelper)
         {
 
             _mapaService = mapaService;
             _dbContext = dbContext;
+            _googleDriveHelper = googleDriveHelper;
         }
 
         [HttpPost]
@@ -50,8 +52,6 @@ namespace holdemmanager_backend_app.Controllers
                 {
                     return BadRequest(new { message = "Error al guardar el plano." });
                 }
-
-
 
                 await _mapaService.SavePlano(plano);
 

@@ -14,6 +14,7 @@ using holdemmanager_backend_web.Service;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Repositories;
 using Microsoft.AspNetCore.Http.Features;
+using holdemmanager_backend_app.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,9 @@ builder.Services.AddScoped<IRecursosEducativosRepositoryWeb, RecursosEducativosR
 builder.Services.AddScoped<IRecursosEducativosServiceWeb, RecursosEducativosServiceWeb>();
 builder.Services.AddScoped<IContactoRepositoryWeb, ContactoRepositoryWeb>();
 builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
+
+builder.Services.AddSingleton<GoogleDriveHelper>();
+
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {
