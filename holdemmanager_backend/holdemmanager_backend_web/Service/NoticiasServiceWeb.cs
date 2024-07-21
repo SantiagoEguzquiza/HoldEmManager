@@ -20,7 +20,7 @@ namespace holdemmanager_backend_web.Service
 
         public async Task AddNoticia(Noticias noticia)
         {
-            await _noticiasRepository.UpdateNoticia(noticia);
+            await _noticiasRepository.AddNoticia(noticia);
         }
 
         public async Task<bool> DeleteNoticia(int id)

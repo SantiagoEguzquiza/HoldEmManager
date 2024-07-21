@@ -5,6 +5,9 @@ namespace holdemmanager_backend_app.Domain.Models
 {
     public class Feedback
     {
+        [Key]
+        public int Id { get; set; }
+
         [ForeignKey("Id")]
         public Jugador idUsuario { get; set; }
 
