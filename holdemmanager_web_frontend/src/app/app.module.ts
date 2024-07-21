@@ -44,6 +44,8 @@ import { EditContactoComponent } from './components/dashboard/contactos/edit-con
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
+import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
+import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
 
 
 
@@ -72,6 +74,9 @@ import { position } from 'html2canvas/dist/types/css/property-descriptors/positi
     CreateContactoComponent,
     ContactosComponent,
     EditContactoComponent,
+    //Noticias
+    NoticiasComponent,
+    CreateNoticiaComponent,
     
   ],
   imports: [

@@ -17,7 +17,6 @@ export class RecursosService {
   }
 
   saveRecurso(recurso: RecursosEducativos): Observable<any> {
-    console.log(recurso);
     return this.http.post(this.myAppUrl + this.myApiUrlWeb, recurso);
   }
 

@@ -25,7 +25,10 @@
         <a routerLink="/dashboard/create-contacto">Agregar datos de contacto</a>
         <a routerLink="/dashboard/contactos">Administrar datos de contacto</a>
     </div>
-    <div *ngIf="usuario.rol == 1" class="card">
-        <p><strong>Administración de Prensa</strong></p>
+    <div *ngIf="usuario.rol == 1" class="card-torneo" routerLink="/dashboard/noticias">
+        <!-- <p><strong>Administración de Prensa</strong></p> -->
+        <div class="card-content-map">
+            <p><strong>Administración De Prensa</strong></p>
+        </div>
     </div>
 </div>

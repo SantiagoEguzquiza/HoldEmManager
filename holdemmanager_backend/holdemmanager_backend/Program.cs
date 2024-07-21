@@ -13,8 +13,12 @@ using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Service;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Repositories;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Http.Features;
 using holdemmanager_backend_app.Utils;
+=======
+using holdemmanager_backend_app.Repositories;
+>>>>>>> 0952d68d5c14b2167f2196c77db56a5a01f12484
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +35,13 @@ builder.Services.AddScoped<IJugadorRepositoryApp, JugadorRepositoryApp>();
 builder.Services.AddScoped<IJugadorServiceApp, JugadorServiceApp>();
 builder.Services.AddScoped<ILoginRepositoryApp, LoginRepositoryApp>();
 builder.Services.AddScoped<ILoginServiceApp, LoginServiceApp>();
+<<<<<<< HEAD
 builder.Services.AddScoped<IMapaRepositoryApp, MapaRepositoryApp>();
 builder.Services.AddScoped<IMapaServiceApp, MapaServiceApp>();
+=======
+builder.Services.AddScoped<IFeedbackRepositoryApp, FeedbackRepositoryApp>();
+builder.Services.AddScoped<IFeedbackServiceApp, FeedbackServiceApp>();
+>>>>>>> 0952d68d5c14b2167f2196c77db56a5a01f12484
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
 builder.Services.AddScoped<IUsuarioServiceWeb, UsuarioServiceWeb>();
@@ -42,6 +51,8 @@ builder.Services.AddScoped<IRecursosEducativosRepositoryWeb, RecursosEducativosR
 builder.Services.AddScoped<IRecursosEducativosServiceWeb, RecursosEducativosServiceWeb>();
 builder.Services.AddScoped<IContactoRepositoryWeb, ContactoRepositoryWeb>();
 builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
+builder.Services.AddScoped<INoticiasRepositoryWeb, NoticiasRepositoryWeb>();
+builder.Services.AddScoped<INoticiasServiceWeb, NoticiasServiceWeb>();
 
 builder.Services.AddSingleton<GoogleDriveHelper>();
 

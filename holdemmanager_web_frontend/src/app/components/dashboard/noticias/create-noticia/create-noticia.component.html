@@ -1,0 +1,25 @@
+<div class="create-noticia-container">
+  <h3>{{ noticia ? 'Editar noticia' : 'Agregar nueva noticia' }}</h3>
+  <form (ngSubmit)="guardarNoticia()">
+    <div class="form-group">
+      <label for="titulo">Titulo</label>
+      <input type="text" id="titulo" [(ngModel)]="nuevaNoticia.titulo" name="titulo" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" [(ngModel)]="nuevaNoticia.fecha" name="fecha" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="mensaje">Contenido</label>
+      <textarea id="mensaje" [(ngModel)]="nuevaNoticia.mensaje" name="mensaje" required class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="URLImagen">URL de Imagen:</label>
+      <input type="text" id="URLImagen" [(ngModel)]="nuevaNoticia.urlImagen" name="URLImagen" class="form-control">
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar"><i class="bi bi-save"></i> Guardar</button>
+      <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
+    </div>
+  </form>
+</div>

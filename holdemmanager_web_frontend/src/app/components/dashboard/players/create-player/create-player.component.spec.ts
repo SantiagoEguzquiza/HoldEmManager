@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegisterPlayerComponent } from './create-player.component';
+import { CreatePlayerComponent } from './create-player.component';
 
 describe('RegisterComponent', () => {
-  let component: RegisterPlayerComponent;
-  let fixture: ComponentFixture<RegisterPlayerComponent>;
+  let component: CreatePlayerComponent;
+  let fixture: ComponentFixture<CreatePlayerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RegisterPlayerComponent]
+      declarations: [CreatePlayerComponent]
     });
-    fixture = TestBed.createComponent(RegisterPlayerComponent);
+    fixture = TestBed.createComponent(CreatePlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

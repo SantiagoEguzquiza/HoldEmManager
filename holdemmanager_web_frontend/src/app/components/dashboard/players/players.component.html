@@ -9,16 +9,21 @@
     <app-create-player (guardar)="guardarNuevoJugador($event)" (cancelar)="cancelarNuevoJugador()"></app-create-player>
   </div>
 
-  <div class="buttons" style="padding-bottom: 20px;">
-    <button class="btn aceptar" href="javascript:void(0)" (click)="agregarJugador()">
-      <i class="bi bi-plus-square-fill"></i>Agregar Jugador
-    </button>  
-  </div>
-  
+
+
   <div class="row">
     <div class="col-12">
-      <div class="card text-center" style="padding: 20px;">
-        <h3>Lista de Jugadores</h3>
+      <div class="card text-center" style="padding: 1rem;">
+        <div class="header-container">
+          <h3>Lista de Jugadores</h3>
+          <div class="buttons">
+            <a class="btn aceptar" href="javascript:void(0)" (click)="agregarJugador()">
+              <i class="bi bi-plus-square-fill"></i> Agregar Jugador
+            </a>
+          </div>
+        </div>
+        
+
         <table class="table table-striped" *ngIf="!loading && jugadores && jugadores.length > 0">
           <thead>
             <tr>
@@ -32,7 +37,7 @@
             <tr *ngFor="let jugador of jugadores">
               <td>{{ jugador.numberPlayer }}</td>
               <td>{{ jugador.name }}</td>
-              <td>{{ jugador.email }}</td>             
+              <td>{{ jugador.email }}</td>
               <td>
                 <button class="custom-btn btn btn-primary btn-sm" (click)="editarJugador(jugador)">
                   <i class="fas fa-pen"></i>
