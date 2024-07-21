@@ -5,6 +5,8 @@ import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RecursosEducativosPage extends StatefulWidget {
+  const RecursosEducativosPage({super.key});
+
   @override
   _RecursosEducativos createState() => _RecursosEducativos();
 }

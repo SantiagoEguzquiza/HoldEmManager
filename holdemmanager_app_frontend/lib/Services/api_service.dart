@@ -23,4 +23,13 @@ class ApiService {
       throw Exception('Error al cargar contactos');
     }
   }
+
+  Future<List<dynamic>> obtenerNoticias() async {
+    final response = await http.get(Uri.parse('$baseUrl/NoticiasWeb'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar noticias');
+    }
+  }
 }

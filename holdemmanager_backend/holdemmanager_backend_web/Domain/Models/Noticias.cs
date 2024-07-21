@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Domain.Models
 {
-    public class ForoNoticias
+    public class Noticias
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        public string Titulo { get; set; }
 
         public DateTime Fecha { get; set; }
 
