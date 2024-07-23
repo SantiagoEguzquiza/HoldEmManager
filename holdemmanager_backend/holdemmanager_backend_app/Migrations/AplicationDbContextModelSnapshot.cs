@@ -25,16 +25,24 @@ namespace holdemmanager_backend_app.Migrations
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mensaje")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdUsuario");
 
                     b.ToTable("Feedback");
                 });
@@ -106,13 +114,13 @@ namespace holdemmanager_backend_app.Migrations
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
-                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "idUsuario")
-                        .WithMany()
-                        .HasForeignKey("Id")
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Usuario")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("idUsuario");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>
@@ -124,6 +132,11 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }

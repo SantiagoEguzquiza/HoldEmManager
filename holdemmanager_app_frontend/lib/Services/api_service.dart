@@ -32,4 +32,23 @@ class ApiService {
       throw Exception('Error al cargar noticias');
     }
   }
+
+  Future<void> enviarFeedback(
+      String mensaje, int idUsuario, DateTime fecha) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/FeedbackApp'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'mensaje': mensaje,
+        'idUsuario': idUsuario,
+        'fecha': fecha.toIso8601String(),
+      }),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al enviar feedback');
+    }
+  }
 }

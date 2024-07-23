@@ -5,6 +5,7 @@ import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/Screens/contacto.dart';
+import 'package:holdemmanager_app/Screens/feedback_screen.dart';
 import 'package:holdemmanager_app/Screens/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -180,7 +181,12 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
               title: Text(finalTranslations[finalLocale.toString()]
                       ?['comments'] ??
                   'Comentarios'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FeedbackPage()),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.language, color: Colors.orangeAccent),
