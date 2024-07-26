@@ -35,20 +35,33 @@ class ApiService {
 
   Future<void> enviarFeedback(
       String mensaje, int idUsuario, DateTime fecha) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/FeedbackApp'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'mensaje': mensaje,
-        'idUsuario': idUsuario,
-        'fecha': fecha.toIso8601String(),
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/FeedbackApp'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'idUsuario': idUsuario,
+          'fecha': fecha.toIso8601String(),
+          'mensaje': mensaje,
+        }),
+      );
 
-    if (response.statusCode != 200) {
-      throw Exception('Error al enviar feedback');
+      // Imprimir la respuesta completa para depuración
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode != 200) {
+        final errorResponse = jsonDecode(response.body);
+        throw Exception(
+            'Error al enviar feedback: ${errorResponse['message']}');
+      }
+    } catch (e) {
+      // Manejo de errores detallado
+      print(
+          'Error al enviar feedback: $e'); // Añadir esta línea para registrar el error
+      throw Exception('Error al enviar feedback: $e');
     }
   }
 }

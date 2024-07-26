@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});
@@ -53,15 +54,23 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
       final DateTime now = DateTime.now();
 
       try {
-        await _apiService.enviarFeedback(
-            message, 1500, now); // Reemplazar con el ID del usuario autenticado
+        // Recuperar el ID del usuario desde SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int? userId = prefs.getInt('userId');
+
+        if (userId == null) {
+          throw Exception('Usuario no autenticado');
+        }
+
+        await _apiService.enviarFeedback(message, userId, now);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Comentario enviado exitosamente!')),
         );
         _feedbackController.clear();
       } catch (e) {
+        print('Error al enviar feedback');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error al enviar el comentario.')),
+          const SnackBar(content: Text('Error al enviar el comentario')),
         );
       }
     }

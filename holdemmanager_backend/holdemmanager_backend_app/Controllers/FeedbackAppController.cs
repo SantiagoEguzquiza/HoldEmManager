@@ -45,16 +45,22 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFeedback([FromBody] Feedback devolucion)
+        public async Task<IActionResult> AddFeedback([FromBody] Feedback feedback)
         {
             try
             {
-                if (devolucion == null)
+                if (feedback == null)
                 {
                     return BadRequest(new { message = "El feedback no puede ser nulo." });
                 }
 
-                await _feedbackService.AddFeedback(devolucion);
+                var usuarioExistente = await _dbContext.Jugadores.FindAsync(feedback.IdUsuario);
+                if (usuarioExistente == null)
+                {
+                    return BadRequest(new { message = "El usuario especificado no existe." });
+                }
+
+                await _feedbackService.AddFeedback(feedback);
 
                 return Ok(new { message = "Feedback agregado exitosamente." });
             }
@@ -64,17 +70,19 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
+
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFeedback(int id, Feedback devolucion)
+        public async Task<IActionResult> UpdateFeedback(int id, Feedback feedback)
         {
-            if (devolucion == null || id != devolucion.Id)
+            if (feedback == null || id != feedback.Id)
             {
                 return BadRequest(new { message = "ID del feedback no coincide o el feedback es nulo." });
             }
 
             try
             {
-                await _feedbackService.UpdateFeedback(devolucion);
+                await _feedbackService.UpdateFeedback(feedback);
                 return Ok(new { message = "Feedback actualizado exitosamente." });
             }
             catch (Exception)
@@ -110,4 +118,5 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
     }
+
 }

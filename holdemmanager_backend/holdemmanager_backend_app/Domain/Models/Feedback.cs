@@ -9,10 +9,7 @@ namespace holdemmanager_backend_app.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int IdUsuario { get; set; } 
-
-        [ForeignKey("IdUsuario")]
-        public Jugador Usuario { get; set; }
+        public int IdUsuario { get; set; }  // Clave foránea
 
         [Required]
         public DateTime Fecha { get; set; }
@@ -20,4 +17,5 @@ namespace holdemmanager_backend_app.Domain.Models
         [Required]
         public string Mensaje { get; set; }
     }
+
 }

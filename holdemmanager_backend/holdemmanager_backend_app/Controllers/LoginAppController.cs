@@ -31,7 +31,7 @@ namespace holdemmanager_backend_app.Controllers
                 }
 
                 string tokenString = JwtConfigurator.GetToken(user, _config);
-                return Ok(new { token = tokenString });
+                return Ok(new { token = tokenString, id=user.Id });
             }
             catch (Exception ex)
             {

@@ -114,13 +114,11 @@ namespace holdemmanager_backend_app.Migrations
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
-                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Usuario")
-                        .WithMany("Feedbacks")
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
+                        .WithMany()
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>
@@ -132,11 +130,6 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
-                });
-
-            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>
-                {
-                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }
