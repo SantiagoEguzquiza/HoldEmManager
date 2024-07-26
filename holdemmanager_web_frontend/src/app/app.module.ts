@@ -47,6 +47,7 @@ import { position } from 'html2canvas/dist/types/css/property-descriptors/positi
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
 import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
+import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback-popup/feedback-popup.component';
 
 
 
@@ -80,6 +81,7 @@ import { FeedbackComponent } from './components/dashboard/feedback/feedback.comp
     CreateNoticiaComponent,
     //Feedback
     FeedbackComponent,
+    FeedbackPopupComponent,
     
   ],
   imports: [

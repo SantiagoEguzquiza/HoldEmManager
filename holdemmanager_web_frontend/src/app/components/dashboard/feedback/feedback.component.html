@@ -35,3 +35,5 @@
     </div>
   </div>
 </div>
+
+<app-feedback-popup *ngIf="selectedFeedback" [feedback]="selectedFeedback" [jugador]="selectedUser" (cerrar)="cerrarPopup()"></app-feedback-popup>

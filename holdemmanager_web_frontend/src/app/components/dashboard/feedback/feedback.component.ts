@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Feedback } from 'src/app/models/feedback';
+import { Jugador } from 'src/app/models/jugador';
 import { FeedbackService } from 'src/app/service/feedback.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class FeedbackComponent implements OnInit {
 
   feedbacks: Feedback[] = [];
   loading = false;
+  selectedFeedback: Feedback | null = null;
+  selectedUser: Jugador | null = null;
 
   constructor(private feedbackService: FeedbackService, private router: Router, private toastr: ToastrService) { }
 
@@ -38,7 +41,22 @@ export class FeedbackComponent implements OnInit {
     );
   }
 
-  verUsuario(_t26: Feedback) {
-    throw new Error('Method not implemented.');
-    }
+  verUsuario(feedback: Feedback) {
+    this.selectedFeedback = feedback;
+    this.feedbackService.obtenerUsuario(feedback.idUsuario).subscribe(
+      (usuario) => {
+        console.log(usuario);
+        this.selectedUser = usuario;
+      },
+      (error) => {
+        console.error('Error al obtener usuario', error);
+        this.toastr.error('Error al obtener el usuario', 'Error');
+      }
+    );
+  }
+
+  cerrarPopup() {
+    this.selectedFeedback = null;
+    this.selectedUser = null;
+  }
 }
