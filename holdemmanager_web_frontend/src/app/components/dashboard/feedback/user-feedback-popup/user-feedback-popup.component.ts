@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Feedback } from 'src/app/models/feedback';
+import { User } from 'src/app/models/user'; // Asegúrate de tener un modelo de usuario
 
 @Component({
   selector: 'app-user-feedback-popup',
@@ -6,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-feedback-popup.component.css']
 })
 export class UserFeedbackPopupComponent implements OnInit {
+  @Input() feedback: Feedback | undefined;
+  @Input() usuario: User | undefined;
 
-  constructor() { }
+  //constructor(public activeModal: NgbActiveModal) {}
 
-  ngOnInit() {
+  ngOnInit(): void {}
+
+  close() {
+    //this.activeModal.dismiss();
   }
-
 }
