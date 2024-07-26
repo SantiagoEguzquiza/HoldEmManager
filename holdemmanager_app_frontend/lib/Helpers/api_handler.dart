@@ -44,9 +44,6 @@ class ApiHandler {
     try {
       Map<String, dynamic> messageJson = jsonDecode(message);
 
-      print(messageJson);
-      print('object');
-
       String token = messageJson['token'];
       int userId = messageJson['id'];
 

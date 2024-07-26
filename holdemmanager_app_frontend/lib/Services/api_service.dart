@@ -48,20 +48,13 @@ class ApiService {
         }),
       );
 
-      // Imprimir la respuesta completa para depuración
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-
       if (response.statusCode != 200) {
         final errorResponse = jsonDecode(response.body);
         throw Exception(
             'Error al enviar feedback: ${errorResponse['message']}');
       }
     } catch (e) {
-      // Manejo de errores detallado
-      print(
-          'Error al enviar feedback: $e'); // Añadir esta línea para registrar el error
-      throw Exception('Error al enviar feedback: $e');
+      print('Error al enviar feedback: $e');
     }
   }
 }

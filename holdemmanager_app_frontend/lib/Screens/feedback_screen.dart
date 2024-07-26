@@ -68,7 +68,6 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
         );
         _feedbackController.clear();
       } catch (e) {
-        print('Error al enviar feedback');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Error al enviar el comentario')),
         );
@@ -79,7 +78,13 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Enviar comentario')),
+      appBar: AppBar(
+        title: Text(
+          finalTranslations[finalLocale.toString()]?['comments'] ??
+              'Comentarios',
+        ),
+        backgroundColor: Colors.orangeAccent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -88,20 +93,31 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
             children: [
               TextFormField(
                 controller: _feedbackController,
-                decoration:
-                    const InputDecoration(labelText: 'Escribe tu comentario'),
+                decoration: const InputDecoration(
+                  labelText: 'Escribe tu comentario',
+                  alignLabelWithHint: true,
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingresa un comentario';
                   }
                   return null;
                 },
-                maxLines: 5,
+                maxLines: 50,
+                minLines: 2,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitFeedback,
-                child: const Text('Enviar Feedback'),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.orangeAccent),
+                ),
+                child: const Text(
+                  'Enviar feedback',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),
