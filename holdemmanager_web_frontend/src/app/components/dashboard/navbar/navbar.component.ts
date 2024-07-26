@@ -19,6 +19,10 @@ export class NavbarComponent {
     this.getUsuario();
   }
 
+  isComentariosActive():boolean{
+    return this.router.url === '/dashboard/feedback';
+  }
+
   isJugadoresActive(): boolean {
     return this.router.url === '/dashboard/players';
   }

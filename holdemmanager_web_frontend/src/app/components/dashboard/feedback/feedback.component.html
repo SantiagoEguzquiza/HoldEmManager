@@ -1,0 +1,37 @@
+<div class="loading" style="width: 100%; display: flex; justify-content: center;">
+  <app-loading *ngIf="loading"></app-loading>
+</div>
+<div class="container-fluid" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); margin-top: 20px;">
+  <div class="row">
+    <div class="col-12">
+      <div class="card text-center" style="padding: 20px;">
+        <h3>Lista de comentarios</h3>
+        <app-loading *ngIf="loading"></app-loading>
+        <table class="table table-striped" *ngIf="!loading && feedbacks && feedbacks.length > 0">
+          <thead>
+            <tr>
+              <th>Mensaje</th>
+              <th>Fecha</th>
+              <th>Usuario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comentario of feedbacks">
+              <td class="truncate">{{ comentario.mensaje }}</td>
+              <td class="truncate">{{ comentario.fecha | date:'dd/MM/yyyy' }}</td>
+             
+              <td>
+                <button class="custom-btn btn btn-primary btn-sm" (click)="verUsuario(comentario)">
+                  <i class="fa-solid fa-circle-info"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!loading && (!feedbacks || feedbacks.length === 0)">
+          <p>No hay comentarios disponibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

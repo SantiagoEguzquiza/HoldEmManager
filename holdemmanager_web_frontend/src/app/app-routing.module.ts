@@ -22,6 +22,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { PlayersComponent } from './components/dashboard/players/players.component';
 import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
+import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
 
 
 const routes: Routes = [
@@ -46,7 +47,8 @@ const routes: Routes = [
       { path: 'create-contacto', component: CreateContactoComponent},
       { path: 'edit-contacto/:id', component: EditContactoComponent},
       { path: 'mapa', component: MapaInteractivoComponent},
-      { path: 'noticias', component: NoticiasComponent}
+      { path: 'noticias', component: NoticiasComponent},
+      { path: 'feedback', component:FeedbackComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

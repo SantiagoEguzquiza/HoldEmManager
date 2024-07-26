@@ -46,6 +46,7 @@ import { CreateItemComponent } from './components/dashboard/mapa-interactivo/cre
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
+import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
 
 
 
@@ -77,6 +78,8 @@ import { CreateNoticiaComponent } from './components/dashboard/noticias/create-n
     //Noticias
     NoticiasComponent,
     CreateNoticiaComponent,
+    //Feedback
+    FeedbackComponent,
     
   ],
   imports: [
