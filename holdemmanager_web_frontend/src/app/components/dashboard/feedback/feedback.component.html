@@ -21,9 +21,9 @@
               <td class="truncate">{{ comentario.fecha | date:'dd/MM/yyyy' }}</td>
              
               <td>
-                <button class="custom-btn btn btn-primary btn-sm" (click)="verUsuario(comentario)">
+                <a class="custom-btn" (click)="verUsuario(comentario)">
                   <i class="fa-solid fa-circle-info"></i>
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
