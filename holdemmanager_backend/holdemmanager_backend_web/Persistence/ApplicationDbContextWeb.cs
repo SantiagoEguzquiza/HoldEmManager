@@ -7,10 +7,10 @@ namespace holdemmanager_backend_web.Persistence
     {
         public DbSet<UsuarioWeb> Usuarios { get; set; }
         public DbSet<Torneos> Torneos { get; set; }
-        public DbSet<Noticias> ForoNoticias { get; set; }
+        public DbSet<Noticia> ForoNoticias { get; set; }
         public DbSet<RecursosEducativos> RecursosEducativos { get; set; }
 
-        public DbSet<Noticias> Noticias { get; set; }
+        public DbSet<Noticia> Noticias { get; set; }
 
         public DbSet<Contacto> Contactos { get; set; }
 

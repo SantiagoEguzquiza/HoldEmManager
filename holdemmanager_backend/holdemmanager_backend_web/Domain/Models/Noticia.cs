@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace holdemmanager_backend_web.Domain.Models
 {
-    public class Noticias
+    public class Noticia
     {
         [Key]
         public int Id { get; set; }
@@ -20,6 +15,6 @@ namespace holdemmanager_backend_web.Domain.Models
         [Required]
         public string Mensaje { get; set; }
 
-        public string URLImagen { get; set; }
+        public string? IdImagen { get; set; }
     }
 }

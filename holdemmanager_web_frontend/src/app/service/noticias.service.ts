@@ -1,40 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Noticias } from '../models/noticias';
+import { Noticia } from '../models/noticias';
+import { environment } from 'src/environments/environment.development';
+import { PagedResult } from '../helpers/pagedResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoticiasService {
+  private myAppUrl = environment.endpoint;
+  private myApiUrlWeb = '/NoticiasWeb';
 
-  myAppUrl: string;
-  myApiUrlWeb: string;
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.endpoint;
-    this.myApiUrlWeb = '/NoticiasWeb';
+  obtenerNoticias(page: number, pageSize: number): Observable<PagedResult<Noticia>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<PagedResult<Noticia>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
-  agregarNoticia(noticia: Noticias): Observable<any> {
-    return this.http.post(this.myAppUrl + this.myApiUrlWeb, noticia);
+  eliminarNoticia(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
   }
 
-  obtenerNoticias(): Observable<Noticias[]> {
-    return this.http.get<Noticias[]>(this.myAppUrl + this.myApiUrlWeb);
+  agregarNoticia(noticia: Noticia): Observable<Noticia> {
+    return this.http.post<Noticia>(this.myAppUrl + this.myApiUrlWeb, noticia);
   }
 
-  obtenerNoticiaPorId(id: number): Observable<Noticias> {
-    return this.http.get<Noticias>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
-  }
-
-  actualizarNoticia(noticia: Noticias): Observable<Noticias> {
-    return this.http.put<Noticias>(`${this.myAppUrl + this.myApiUrlWeb}/${noticia.id}`, noticia);
-  }
-
-  eliminarNoticia(id: number): Observable<any> {
-    return this.http.delete(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
+  actualizarNoticia(noticia: Noticia): Observable<Noticia> {
+    return this.http.put<Noticia>(`${this.myAppUrl + this.myApiUrlWeb}/${noticia.id}`, noticia);
   }
 }

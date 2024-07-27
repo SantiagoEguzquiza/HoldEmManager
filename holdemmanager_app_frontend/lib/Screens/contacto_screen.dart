@@ -21,13 +21,13 @@ class _ContactoPage extends State<ContactoPage> implements LanguageHelper {
   void initState() {
     super.initState();
     cargarLocaleYTranslations();
-    translationService.addListener(this); // Añade this como listener
+    translationService.addListener(this);
     contactos = apiService.obtenerContactos();
   }
 
   @override
   void dispose() {
-    translationService.removeListener(this); // Remueve this como listener
+    translationService.removeListener(this);
     super.dispose();
   }
 
@@ -59,12 +59,13 @@ class _ContactoPage extends State<ContactoPage> implements LanguageHelper {
         future: contactos,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.orange));
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No hay datos disponibles'));
+              return Center(child: Text(finalTranslations[finalLocale.toString()]?['noData'] ??
+            'No data available'));
             }
 
             return ListView.builder(
@@ -72,11 +73,11 @@ class _ContactoPage extends State<ContactoPage> implements LanguageHelper {
               itemBuilder: (context, index) {
                 final contacto = snapshot.data?[index];
                 return Card(
-                  elevation: 4, // agregar sombra al cuadrante
+                  elevation: 4,
                   margin: const EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 16), // margen interno
+                      vertical: 8, horizontal: 16),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.all(16), // padding interno
+                    contentPadding: const EdgeInsets.all(16),
                     title: Text(
                       contacto['direccion'] ?? 'No hay dirección asignada',
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -86,7 +87,7 @@ class _ContactoPage extends State<ContactoPage> implements LanguageHelper {
                       children: [
                         const SizedBox(
                             height:
-                                8), // espacio entre el título y la información
+                                8),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

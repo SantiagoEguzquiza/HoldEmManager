@@ -20,8 +20,8 @@ namespace holdemmanager_backend_app.Controllers
     {
         private readonly IMapaServiceApp _mapaService;
         private readonly AplicationDbContextApp _dbContext;
-        private readonly GoogleDriveHelper _googleDriveHelper;
-        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService, GoogleDriveHelper googleDriveHelper)
+        private readonly GoogleDriveHelperApp _googleDriveHelper;
+        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService, GoogleDriveHelperApp googleDriveHelper)
         {
 
             _mapaService = mapaService;

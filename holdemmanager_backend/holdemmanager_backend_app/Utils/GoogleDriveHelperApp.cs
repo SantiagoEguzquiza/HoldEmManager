@@ -4,7 +4,7 @@ using Google.Apis.Services;
 
 namespace holdemmanager_backend_app.Utils
 {
-    public class GoogleDriveHelper
+    public class GoogleDriveHelperApp
     {
         static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
         static string ApplicationName = "HoldemManager";
@@ -12,7 +12,7 @@ namespace holdemmanager_backend_app.Utils
 
         private readonly DriveService _service;
 
-        public GoogleDriveHelper()
+        public GoogleDriveHelperApp()
         {
             string credentialsPath = "credentials.json";
 

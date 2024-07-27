@@ -1,12 +1,10 @@
-﻿using holdemmanager_backend_web.Domain.IServices;
+﻿using holdemmanager_backend_app.Utils;
+using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace holdemmanager_backend_web.Controllers
 {
@@ -16,28 +14,42 @@ namespace holdemmanager_backend_web.Controllers
     {
         private readonly INoticiasServiceWeb _noticiasService;
         private readonly AplicationDbContextWeb _dbContext;
+        private readonly FirebaseStorageHelper _firebaseStorageHelper;
 
-        public NoticiasWebController(AplicationDbContextWeb dbContext, INoticiasServiceWeb noticiasService)
+        public NoticiasWebController(AplicationDbContextWeb dbContext, INoticiasServiceWeb noticiasService, FirebaseStorageHelper firebaseStorageHelper)
         {
             _noticiasService = noticiasService;
             _dbContext = dbContext;
+            _firebaseStorageHelper = firebaseStorageHelper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Noticias>>> GetAllNoticias()
+        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias(int page, int pageSize)
         {
-            var recursos = await _noticiasService.GetAllNoticias();
-            return Ok(recursos);
+            var noticias = await _noticiasService.GetAllNoticias(page, pageSize);
+            return Ok(noticias);
         }
 
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias()
+        {
+            var noticias = await _noticiasService.GetAllNoticias();
+            return Ok(noticias);
+        }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Noticias>> GetNoticiaById(int id)
+        public async Task<ActionResult<Noticia>> GetNoticiaById(int id)
         {
             try
             {
-                var recurso = await _noticiasService.GetNoticiaById(id);
-                return Ok(recurso);
+                var noticia = await _noticiasService.GetNoticiaById(id);
+
+                if (noticia == null)
+                {
+                    return NotFound(new { message = "No se encontraron datos que coincidan con el id." });
+                }
+
+                return Ok(noticia);
             }
             catch (Exception)
             {
@@ -47,16 +59,40 @@ namespace holdemmanager_backend_web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddNoticia([FromBody] Noticias noticia)
+        public async Task<IActionResult> AddNoticia([FromBody] Noticia noticiaHelper)
         {
             try
             {
-                if (noticia == null)
+                if (noticiaHelper == null)
                 {
                     return BadRequest(new { message = "La noticia no puede ser nula." });
                 }
+                string? downloadUrl = null;
 
-                await _noticiasService.AddNoticia(noticia);
+                if (!noticiaHelper.IdImagen.IsNullOrEmpty())
+                {
+                    byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
+                    var stream = new MemoryStream(imagenBytes);
+
+                    downloadUrl = await _firebaseStorageHelper.SubirStorage(stream);
+                }
+
+                try
+                {
+
+                    Noticia noticia = new Noticia
+                    {
+                        Fecha = noticiaHelper.Fecha,
+                        Mensaje = noticiaHelper.Mensaje,
+                        Titulo = noticiaHelper.Titulo,
+                        IdImagen = downloadUrl
+                    };
+                    await _noticiasService.AddNoticia(noticia);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { message = "Error al subir el archivo a Google Drive", details = ex.Message });
+                }
 
                 return Ok(new { message = "Noticia agregada exitosamente." });
             }
@@ -68,21 +104,47 @@ namespace holdemmanager_backend_web.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateNoticia(int id, Noticias noticia)
+        public async Task<IActionResult> UpdateNoticia(int id, Noticia noticiaHelper)
         {
-            if (noticia == null || id != noticia.Id)
+            if (noticiaHelper == null || id != noticiaHelper.Id)
             {
                 return BadRequest(new { message = "ID de la noticia no coincide o la noticia es nula." });
             }
 
             try
             {
-                await _noticiasService.UpdateNoticia(noticia);
-                return Ok(new { message = "Noticia agregada exitosamente." });
+                var noticiaExistente = await _noticiasService.GetNoticiaById(id);
+                if (noticiaExistente == null)
+                {
+                    return NotFound(new { message = "Noticia no encontrada" });
+                }
+
+                string? downloadUrl = noticiaExistente.IdImagen;
+
+                if (!noticiaHelper.IdImagen.IsNullOrEmpty())
+                {
+                    byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
+                    var stream = new MemoryStream(imagenBytes);
+
+                    downloadUrl = await _firebaseStorageHelper.SubirStorage(stream);
+
+                    if (!string.IsNullOrEmpty(noticiaExistente.IdImagen))
+                    {
+                        await _firebaseStorageHelper.EliminarImagen(noticiaExistente.IdImagen);
+                    }
+                }
+
+                noticiaExistente.Fecha = noticiaHelper.Fecha;
+                noticiaExistente.Mensaje = noticiaHelper.Mensaje;
+                noticiaExistente.Titulo = noticiaHelper.Titulo;
+                noticiaExistente.IdImagen = downloadUrl;
+
+                await _noticiasService.UpdateNoticia(noticiaExistente);
+                return Ok(new { message = "Noticia actualizada exitosamente." });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Noticia no encontrada" });
+                return StatusCode(500, new { message = "Error al actualizar la noticia", details = ex.Message });
             }
         }
 

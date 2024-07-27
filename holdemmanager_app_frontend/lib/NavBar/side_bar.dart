@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
-import 'package:holdemmanager_app/Screens/contacto.dart';
+import 'package:holdemmanager_app/Screens/contacto_screen.dart';
 import 'package:holdemmanager_app/Screens/map_screen.dart';
-import 'package:holdemmanager_app/Screens/noticias_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -135,7 +135,7 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const NoticiasPage()),
+                  MaterialPageRoute(builder: (context) => const NoticiasScreen()),
                 );
               },
             ),

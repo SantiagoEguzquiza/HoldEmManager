@@ -6,6 +6,9 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-group {
@@ -41,4 +44,33 @@
 
 .aceptar:hover {
   background-color: rgb(180, 84, 15);
+}
+
+.img-container {
+  transform: translate(-50%, -50%);
+  position: relative;
+  left: 50%;
+  margin-top: 8%;
+}
+
+.upload-box{
+  font-size: 16px;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  outline: none;
+}
+
+::-webkit-file-upload-button{
+  color: white;
+  background: rgb(180, 84, 15);
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+::-webkit-file-upload-button:hover{
+  background: rgb(190, 114, 59);
 }

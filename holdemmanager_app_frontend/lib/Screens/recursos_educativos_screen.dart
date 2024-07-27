@@ -23,13 +23,13 @@ class _RecursosEducativos extends State<RecursosEducativosPage>
   void initState() {
     super.initState();
     cargarLocaleYTranslations();
-    translationService.addListener(this); // Añade this como listener
+    translationService.addListener(this);
     recursos = apiService.obtenerRecursosEducativos();
   }
 
   @override
   void dispose() {
-    translationService.removeListener(this); // Remueve this como listener
+    translationService.removeListener(this);
     super.dispose();
   }
 

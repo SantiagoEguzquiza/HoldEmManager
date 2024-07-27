@@ -9,7 +9,7 @@ import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  const MapScreen({super.key});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -49,13 +49,11 @@ class _MapScreenState extends State<MapScreen> implements LanguageHelper {
         setState(() {
           _isLoading = false;
         });
-        print('No se encontraron suficientes mapas disponibles');
       }
     } catch (e) {
       setState(() {
         _isLoading = false;
       });
-      print('Error al cargar mapas: $e');
     }
   }
 
