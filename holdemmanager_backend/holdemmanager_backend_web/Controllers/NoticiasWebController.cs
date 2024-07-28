@@ -30,13 +30,6 @@ namespace holdemmanager_backend_web.Controllers
             return Ok(noticias);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias()
-        {
-            var noticias = await _noticiasService.GetAllNoticias();
-            return Ok(noticias);
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Noticia>> GetNoticiaById(int id)
         {
@@ -74,7 +67,7 @@ namespace holdemmanager_backend_web.Controllers
                     byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
                     var stream = new MemoryStream(imagenBytes);
 
-                    downloadUrl = await _firebaseStorageHelper.SubirStorage(stream);
+                    downloadUrl = await _firebaseStorageHelper.SubirStorageNoticia(stream);
                 }
 
                 try
@@ -91,7 +84,7 @@ namespace holdemmanager_backend_web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, new { message = "Error al subir el archivo a Google Drive", details = ex.Message });
+                    return StatusCode(500, new { message = "Error al subir el archivo", details = ex.Message });
                 }
 
                 return Ok(new { message = "Noticia agregada exitosamente." });
@@ -126,11 +119,11 @@ namespace holdemmanager_backend_web.Controllers
                     byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
                     var stream = new MemoryStream(imagenBytes);
 
-                    downloadUrl = await _firebaseStorageHelper.SubirStorage(stream);
+                    downloadUrl = await _firebaseStorageHelper.SubirStorageNoticia(stream);
 
                     if (!string.IsNullOrEmpty(noticiaExistente.IdImagen))
                     {
-                        await _firebaseStorageHelper.EliminarImagen(noticiaExistente.IdImagen);
+                        await _firebaseStorageHelper.EliminarImagenNoticia(noticiaExistente.IdImagen);
                     }
                 }
 
@@ -158,6 +151,11 @@ namespace holdemmanager_backend_web.Controllers
                 if (noticia == null)
                 {
                     return BadRequest(new { message = "La noticia no existe." });
+                }
+
+                if (!string.IsNullOrEmpty(noticia.IdImagen))
+                {
+                    await _firebaseStorageHelper.EliminarImagenNoticia(noticia.IdImagen);
                 }
 
                 var deleteResult = await _noticiasService.DeleteNoticia(id);

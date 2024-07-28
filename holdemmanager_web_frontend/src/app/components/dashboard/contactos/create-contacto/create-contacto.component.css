@@ -1,8 +1,5 @@
 .container{
     height: calc(100vh - 100px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 h3 {
@@ -13,11 +10,16 @@ h3 {
 }
 
 .btn-reg {
-    background-color: orange;
-    border-color: orange;
+    background-color: rgb(180, 84, 15);;
+    border: rgb(180, 84, 15);;
+}
+
+.btn{
+    border: none;
 }
 
 .card {
+    margin-top: 15%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 

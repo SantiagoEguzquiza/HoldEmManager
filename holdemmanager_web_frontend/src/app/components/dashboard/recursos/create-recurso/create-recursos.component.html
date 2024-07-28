@@ -11,32 +11,40 @@
                         <input type="text" class="form-control" placeholder="Titulo del recurso"
                             formControlName="titulo">
                         <span class="text-danger ml-2"
-                            *ngIf="register.get('titulo')?.hasError('required') && register.get('titulo')?.touched">El
-                            titulo del recurso <strong>es requerido</strong></span>
+                            *ngIf="register.get('titulo')?.hasError('required') && register.get('titulo')?.touched">
+                            El titulo del recurso <strong>es requerido</strong>
+                        </span>
                     </div>
                     <div class="form-group" style="text-align: start;">
                         <textarea class="form-control" placeholder="Contenido del recurso" formControlName="mensaje"
                             rows="5"></textarea>
                         <span class="text-danger ml-2"
-                            *ngIf="register.get('mensaje')?.hasError('required') && register.get('mensaje')?.touched">El
-                            contenido del recurso <strong>es requerido</strong></span>
+                            *ngIf="register.get('mensaje')?.hasError('required') && register.get('mensaje')?.touched">
+                            El contenido del recurso <strong>es requerido</strong>
+                        </span>
                     </div>
                     <div class="form-group" style="text-align: start;">
-                        <input type="text" class="form-control" placeholder="URL de la imagen"
-                            formControlName="urlimagen">
+                        <label for="URLImagen">Video (opcional)</label>
+                        <input type="text" class="form-control" placeholder="URL del video" formControlName="urlvideo">
+                        <span class="text-danger ml-2"
+                            *ngIf="register.get('urlvideo')?.hasError('youtubeUrl') && register.get('urlvideo')?.touched">
+                            Tiene que ser una URL de Youtube valída.
+                        </span>
                     </div>
                     <div class="form-group" style="text-align: start;">
-                        <input type="text" class="form-control" placeholder="URL del video"
-                            formControlName="urlvideo">
+                        <label for="URLImagen">Imagen (opcional)</label>
+                        <div class="img-container">
+                            <input type="file" class="upload-box" id="URLImagen" (change)="imagenSeleccionada($event)">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary mr-2 btn-reg" type="submit"
+                        <button class="btn mr-2 btn-reg" type="submit"
                             [disabled]="register.invalid">Aceptar</button>
                         <button class="btn btn-secondary" routerLink="/inicio/login">Volver</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
+    <br>
 </div>

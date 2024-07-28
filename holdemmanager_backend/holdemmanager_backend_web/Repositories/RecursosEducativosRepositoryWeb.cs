@@ -2,6 +2,7 @@
 using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,25 @@ namespace holdemmanager_backend_web.Repositories
         {
             this._context = context;
         }
-        public async Task<IEnumerable<RecursosEducativos>> GetAllRecursos()
+        public async Task<PagedResult<RecursosEducativos>> GetAllRecursos(int page, int pageSize)
         {
-            return await _context.RecursosEducativos.ToListAsync();
+            var recursos = await _context.RecursosEducativos
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = recursos.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                recursos.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<RecursosEducativos>
+            {
+                Items = recursos,
+                HasNextPage = hasNextPage
+            };
         }
 
         public async Task<RecursosEducativos> GetRecursoById(int id)

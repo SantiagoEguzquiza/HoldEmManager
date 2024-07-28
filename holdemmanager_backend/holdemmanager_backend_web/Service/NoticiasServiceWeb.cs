@@ -1,13 +1,7 @@
-﻿using holdemmanager_backend_app.Utils;
-using holdemmanager_backend_web.Domain.IRepositories;
+﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Service
 {
@@ -34,11 +28,6 @@ namespace holdemmanager_backend_web.Service
         public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize)
         {
             return await _noticiasRepository.GetAllNoticias(page, pageSize);
-        }
-
-        public async Task<List<Noticia>> GetAllNoticias()
-        {
-            return await _noticiasRepository.GetAllNoticias();
         }
 
         public async Task<Noticia> GetNoticiaById(int id)

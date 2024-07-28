@@ -12,7 +12,6 @@ namespace holdemmanager_backend_web.Domain.IRepositories
     public interface INoticiasRepositoryWeb
     {
         Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize);
-        Task<List<Noticia>> GetAllNoticias();
         Task<Noticia> GetNoticiaById(int id);
         Task AddNoticia(Noticia noticia);
         Task UpdateNoticia(Noticia noticia);

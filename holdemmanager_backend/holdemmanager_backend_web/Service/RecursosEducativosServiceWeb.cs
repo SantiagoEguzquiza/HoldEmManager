@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,9 @@ namespace holdemmanager_backend_web.Service
             _recursosRepository = recursosRepository;
         }
 
-
-        public async Task<IEnumerable<RecursosEducativos>> GetAllRecursos()
+        public async Task<PagedResult<RecursosEducativos>> GetAllRecursos(int page, int pageSize)
         {
-            return await _recursosRepository.GetAllRecursos();
+            return await _recursosRepository.GetAllRecursos(page, pageSize);
         }
 
         public async Task<RecursosEducativos> GetRecursoById(int id)

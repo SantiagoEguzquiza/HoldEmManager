@@ -15,10 +15,48 @@ h3 {
 }
 
 .card {
-    margin-top: 25%;
+    margin-top: 15%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 .btn-reg:hover {
     background-color: darkorange;
 }
+
+.btn-reg:disabled {
+    background-color: darkorange;
+    border: none;
+}
+
+.btn{
+    border: none;
+}
+
+.img-container {
+    transform: translate(-50%, -50%);
+    position: relative;
+    left: 50%;
+    margin-top: 8%;
+  }
+  
+  .upload-box{
+    font-size: 16px;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    outline: none;
+  }
+  
+  ::-webkit-file-upload-button{
+    color: white;
+    background: rgb(180, 84, 15);
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  ::-webkit-file-upload-button:hover{
+    background: rgb(190, 114, 59);
+  }

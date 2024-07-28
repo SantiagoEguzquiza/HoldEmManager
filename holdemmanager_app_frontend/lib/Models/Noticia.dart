@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:holdemmanager_app/Helpers/api_handler.dart';
 import 'package:holdemmanager_app/Helpers/pagedResult.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +41,7 @@ class Noticia {
 
   static Future<PagedResult<Noticia>> obtenerNoticias(
       {required int page, required int pageSize}) async {
-    const String baseUrl = 'http://10.0.2.2:5183';
+    var baseUrl = ApiHandler.baseUrl;
     try {
       final response = await http
           .get(Uri.parse('$baseUrl/NoticiasWeb?page=$page&pageSize=$pageSize'))
@@ -50,12 +51,10 @@ class Noticia {
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
         return PagedResult.fromJson(jsonResponse, (data) => Noticia.fromJson(data));
       } else {
-        throw Exception('Server error');
+        throw Exception('noData');
       }
-    } on TimeoutException {
-      throw Exception('Timeout error');
     } catch (e) {
-      throw Exception('Unknown error');
+      throw Exception('serverError');
     }
   }
 }

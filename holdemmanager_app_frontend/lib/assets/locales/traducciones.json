@@ -58,7 +58,8 @@
     "imageValidateDeleted": "You cannot delete a profile photo as a guest",
     "planeTitle": "Room Plan",
     "fullPlane": "Tournament Plan",
-    "noData": "No data available"
+    "noData": "No data available",
+    "watchVideo": "Watch Video"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -119,7 +120,8 @@
     "imageValidateDeleted": "No puedes eliminar la foto de perfil como invitado",
     "planeTitle": "Plano de la Sala",
     "fullPlane": "Plano del Torneo",
-    "noData": "No hay datos disponibles"
+    "noData": "No hay datos disponibles",
+    "watchVideo": "Ver Video"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -180,6 +182,7 @@
     "imageValidateDeleted": "Você não pode excluir a foto do perfil como convidado",
     "planeTitle": "Planta do quarto",
     "fullPlane": "Plano de torneio",
-    "noData": "Não há dados disponíveis"
+    "noData": "Não há dados disponíveis",
+    "watchVideo": "Assista vídeo"
   }
 }

@@ -14,5 +14,15 @@ namespace holdemmanager_backend_app.Persistence
         public AplicationDbContextApp(DbContextOptions<AplicationDbContextApp> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Feedback>()
+                .HasOne<Jugador>()
+                .WithMany()
+                .HasForeignKey(f => f.IdUsuario)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
     }
 }

@@ -12,7 +12,7 @@ namespace holdemmanager_backend_app.Utils
         private string clave = "holdemmanager123";
         private string ruta = "holdemmanager-16a40.appspot.com";
 
-        public async Task<string> SubirStorage(Stream imagen)
+        public async Task<string> SubirImagenFirebase(Stream imagen, string directorio)
         {
             var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
             var a = await auth.SignInWithEmailAndPasswordAsync(email, clave);
@@ -28,8 +28,8 @@ namespace holdemmanager_backend_app.Utils
                     AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
                     ThrowOnCancel = true
                 })
-                .Child("Prensa_Img")
-                 .Child(uniqueFileName)
+                .Child(directorio)
+                .Child(uniqueFileName)
                 .PutAsync(imagen, cancellation.Token);
 
             var downloadURL = await task;
@@ -37,7 +37,17 @@ namespace holdemmanager_backend_app.Utils
             return downloadURL;
         }
 
-        public async Task EliminarImagen(string imageUrl)
+        public async Task<string> SubirStorageRecurso(Stream imagen)
+        {
+            return await SubirImagenFirebase(imagen, "Recurso_Img");
+        }
+
+        public async Task<string> SubirStorageNoticia(Stream imagen)
+        {
+            return await SubirImagenFirebase(imagen, "Noticia_Img");
+        }
+
+        public async Task EliminarImagen(string imageUrl, string directorio)
         {
             var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
             var a = await auth.SignInWithEmailAndPasswordAsync(email, clave);
@@ -54,9 +64,19 @@ namespace holdemmanager_backend_app.Utils
             var fileName = Path.GetFileName(uri.LocalPath);
 
             await firebaseStorage
-                .Child("Prensa_Img")
+                .Child(directorio)
                 .Child(fileName)
                 .DeleteAsync();
+        }
+
+        public async Task EliminarImagenNoticia(string imageUrl)
+        {
+            await EliminarImagen(imageUrl, "Noticia_Img");
+        }
+
+        public async Task EliminarImagenRecurso(string imageUrl)
+        {
+            await EliminarImagen(imageUrl, "Recurso_Img");
         }
     }
 }

@@ -105,11 +105,9 @@ namespace holdemmanager_backend_web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLImagen")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLVideo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

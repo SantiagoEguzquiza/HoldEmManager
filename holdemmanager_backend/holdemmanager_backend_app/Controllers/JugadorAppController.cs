@@ -95,8 +95,8 @@ namespace holdemmanager_backend_app.Controllers
         public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id)
         {
             try
-                        {
-                var jugador = await _dbContext.Jugadores.Where(u => u.NumberPlayer == id).FirstOrDefaultAsync();
+            {
+                var jugador = await _dbContext.Jugadores.Where(u => u.Id == id).FirstOrDefaultAsync();
                 return Ok(jugador);
             }
             catch (Exception)

@@ -15,10 +15,14 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6fc0212ed5af95aeaaaa1a28c5222ac488ea1ab")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+190975f475537f26968397ea2b760506dd507601")]
 >>>>>>> 0952d68d5c14b2167f2196c77db56a5a01f12484
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8a1d185b8a84e5156e2569309d20a150d521293")]
+>>>>>>> 711f21eb8aa4d2ff326e45bf28762fa55ea50c71
 [assembly: System.Reflection.AssemblyProductAttribute("holdemmanager_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("holdemmanager_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

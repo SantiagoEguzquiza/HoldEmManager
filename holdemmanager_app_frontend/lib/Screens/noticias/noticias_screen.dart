@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/pagedResult.dart';
@@ -5,6 +6,7 @@ import 'package:holdemmanager_app/Models/Noticia.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/noticias/detalle_noticia_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -119,17 +121,19 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
       drawer: const SideBar(),
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _selectedIndex,
+        currentIndex: 1,
         onTap: (index) {
-          if (index == 1) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          } else if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfileScreen()),
             );
           }
-          setState(() {
-            _selectedIndex = index;
-          });
         },
       ),
       body: Column(
@@ -139,8 +143,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
             margin: const EdgeInsets.only(bottom: 10.0),
             padding: const EdgeInsets.all(25.0),
             child: Text(
-              finalTranslations[finalLocale.toString()]?['newsForum'] ??
-                  'Noticias',
+              finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'NewsForum',
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

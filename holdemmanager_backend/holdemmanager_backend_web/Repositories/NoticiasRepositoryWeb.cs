@@ -80,10 +80,5 @@ namespace holdemmanager_backend_web.Repositories
                 HasNextPage = hasNextPage
             };
         }
-
-        public async Task<List<Noticia>> GetAllNoticias()
-        {
-            return await _context.Noticias.ToListAsync();
-        }
     }
 }

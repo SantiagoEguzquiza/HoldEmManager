@@ -27,7 +27,7 @@ class ApiHandler {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         result.valid = true;
-        guardarToken(result.message);
+        await guardarToken(result.message);
         return result;
       } else {
         return result;
@@ -45,9 +45,11 @@ class ApiHandler {
       Map<String, dynamic> messageJson = jsonDecode(message);
 
       String token = messageJson['token'];
+      int userId = messageJson['id'];
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt_token', token);
+      await prefs.setInt('userId', userId);
     } catch (e) {}
   }
 }
