@@ -14,9 +14,25 @@ namespace holdemmanager_backend_app.Persistence.Repositories
             this._context = context;
         }
 
-        public async Task<IEnumerable<Jugador>> GetAllJugadores()
+        public async Task<PagedResult<Jugador>> GetAllJugadores(int page, int pageSize)
         {
-            return await _context.Jugadores.ToListAsync();
+            var jugadores = await _context.Jugadores
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = jugadores.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                jugadores.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<Jugador>
+            {
+                Items = jugadores,
+                HasNextPage = hasNextPage
+            };
         }
 
         public async Task<Jugador> GetJugadorById(int id)

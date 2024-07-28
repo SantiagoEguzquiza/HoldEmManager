@@ -1,10 +1,11 @@
 ﻿using holdemmanager_backend_app.Domain.Models;
+using holdemmanager_backend_app.Utils;
 
 namespace holdemmanager_backend_app.Domain.IServices
 {
     public interface IJugadorServiceApp
     {
-        Task<IEnumerable<Jugador>> GetAllJugadores();
+        Task<PagedResult<Jugador>> GetAllJugadores(int page, int pageSize);
         Task<Jugador> GetRecursoById(int id);
         Task SaveUser(Jugador usuario);
         Task<bool> ValidateExistence(Jugador usuario);

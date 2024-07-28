@@ -10,7 +10,7 @@ h3 {
 }
 
 .btn-reg {
-    background-color: rgb(255, 120, 30);;
+    background-color: rgb(255, 120, 30);
     border-color: none;
 }
 
@@ -28,7 +28,7 @@ h3 {
     border: none;
 }
 
-.btn{
+.btn {
     border: none;
 }
 
@@ -37,17 +37,17 @@ h3 {
     position: relative;
     left: 50%;
     margin-top: 8%;
-  }
-  
-  .upload-box{
+}
+
+.upload-box {
     font-size: 16px;
     background: white;
     border-radius: 10px;
     width: 100%;
     outline: none;
-  }
-  
-  ::-webkit-file-upload-button{
+}
+
+::-webkit-file-upload-button {
     color: white;
     background: rgb(180, 84, 15);
     padding: 10px;
@@ -55,8 +55,8 @@ h3 {
     border-radius: 10px;
     outline: none;
     cursor: pointer;
-  }
-  
-  ::-webkit-file-upload-button:hover{
+}
+
+::-webkit-file-upload-button:hover {
     background: rgb(190, 114, 59);
-  }
+}

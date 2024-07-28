@@ -64,7 +64,7 @@ i {
   font-size: 1.2rem;
 }
 
-.aceptar {
+.agregar {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -77,7 +77,7 @@ i {
   text-decoration: none;
 }
 
-.aceptar:hover {
+.agregar:hover {
   background-color: #006400;
 }
 

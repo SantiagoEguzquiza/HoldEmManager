@@ -1,39 +1,32 @@
-<div class="container">
-  <div class="row" style="width:100%;">
-    <div class="col-lg-6 offset-lg-3" style="padding-top:20px ;">
-      <div class="loading" style="width: 100%; display: flex; justify-content: center;">
-        <app-loading *ngIf="loading"></app-loading>
-      </div>
-      <div class="card text-center" style="padding: 20px;">
-        <h3>Editar Jugador</h3>
-        <form [formGroup]="editForm" (ngSubmit)="guardarCambios()" style="padding-top: 10px;">
-          <div class="form-group" style="text-align: start;">
-            <input type="text" class="form-control" placeholder="Numero del jugador" formControlName="numero">
-            <span class="text-danger ml-2"
-              *ngIf="editForm.get('numero')?.hasError('required') && editForm.get('numero')?.touched">El numero del
-              jugador <strong>es requerido</strong></span>
-          </div>
-          <div class="form-group" style="text-align: start;">
-            <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
-            <span class="text-danger ml-2"
-              *ngIf="editForm.get('nombre')?.hasError('required') && editForm.get('nombre')?.touched">El nombre del
-              jugador <strong>es requerido</strong></span>
-          </div>
-          <div class="form-group" style="text-align: start;">
-            <input type="text" class="form-control" placeholder="Email" formControlName="email">
-            <span class="text-danger ml-2" *ngIf="editForm.get('email')?.hasError('required') && editForm.get('email')?.touched">El Email del Jugador <strong>es requerido</strong></span>
-            <span class="text-danger ml-2" *ngIf="editForm.get('email')?.hasError('email') && editForm.get('email')?.touched">El email <strong>no es válido</strong></span>
-        </div>
-          <div class="form-group" style="text-align: start;">
-            <input type="text" class="form-control" placeholder="URL de la imagen" formControlName="urlimagen">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary mr-2 btn-reg" type="submit" [disabled]="editForm.invalid">Guardar
-              Cambios</button>
-            <button class="btn btn-secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
-          </div>
-        </form>
+<div class="edit-player-container">
+  <h3 class="titulo">Editar jugador</h3>
+  <form [formGroup]="jugadorForm" (ngSubmit)="guardarJugador()">
+    <div class="form-group">
+      <label for="numberPlayer">Número de Jugador</label>
+      <input type="text" id="numberPlayer" formControlName="numberPlayer" class="form-control">
+      <div class="text-danger ml-2" *ngIf="numberPlayer?.invalid && (numberPlayer?.dirty || numberPlayer?.touched)">
+        <small *ngIf="numberPlayer?.errors?.['required']">Número de jugador es <strong>requerido.</strong></small>
+        <small *ngIf="numberPlayer?.errors?.['pattern']">Número de jugador debe ser un número <strong>válido.</strong></small>
       </div>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" id="name" formControlName="name" class="form-control">
+      <div class="text-danger ml-2" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <small *ngIf="name?.errors?.['required']">El nombre es <strong>requerido.</strong></small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" class="form-control">
+      <span class="text-danger ml-2" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <small *ngIf="email?.errors?.['required']">El email es <strong>requerido</strong> </small>
+        <small *ngIf="email?.errors?.['email']">El email debe ser <strong>válido.</strong></small>
+      </span>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar" [disabled]="jugadorForm.invalid">Guardar</button>
+      <button type="button" class="btn cancelar" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </form>
 </div>

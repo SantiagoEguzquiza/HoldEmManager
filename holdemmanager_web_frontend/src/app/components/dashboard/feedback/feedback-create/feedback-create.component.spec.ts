@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { FeedbackPopupComponent } from './feedback-popup.component';
+import { FeedbackPopupComponent } from './feedback-create.component';
 
 describe('FeedbackPopupComponent', () => {
   let component: FeedbackPopupComponent;

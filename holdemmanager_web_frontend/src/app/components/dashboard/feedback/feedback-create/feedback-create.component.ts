@@ -16,9 +16,9 @@ interface Jugador {
 }
 
 @Component({
-  selector: 'app-feedback-popup',
-  templateUrl: './feedback-popup.component.html',
-  styleUrls: ['./feedback-popup.component.css']
+  selector: 'app-feedback-create',
+  templateUrl: './feedback-create.component.html',
+  styleUrls: ['./feedback-create.component.css']
 })
 export class FeedbackPopupComponent implements OnChanges {
   @Input() feedback: Feedback | null = null;

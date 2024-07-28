@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
+using holdemmanager_backend_app.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace holdemmanager_backend_app.Service
@@ -44,9 +45,9 @@ namespace holdemmanager_backend_app.Service
             await _usuarioRepository.UpdateUser(numeroJugador, jugadorActualizado);
         }
 
-        public async Task<IEnumerable<Jugador>> GetAllJugadores()
+        public async Task<PagedResult<Jugador>> GetAllJugadores(int page, int pageSize)
         {
-            return await _usuarioRepository.GetAllJugadores();
+            return await _usuarioRepository.GetAllJugadores(page, pageSize);
         }
 
         public async Task<Jugador> GetRecursoById(int id)
