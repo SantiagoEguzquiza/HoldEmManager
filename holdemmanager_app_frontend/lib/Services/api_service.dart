@@ -23,4 +23,38 @@ class ApiService {
       throw Exception('Error al cargar contactos');
     }
   }
+
+  Future<List<dynamic>> obtenerNoticias() async {
+    final response = await http.get(Uri.parse('$baseUrl/NoticiasWeb'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar noticias');
+    }
+  }
+
+  Future<void> enviarFeedback(
+      String mensaje, int idUsuario, DateTime fecha) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/FeedbackApp'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'idUsuario': idUsuario,
+          'fecha': fecha.toIso8601String(),
+          'mensaje': mensaje,
+        }),
+      );
+
+      if (response.statusCode != 200) {
+        final errorResponse = jsonDecode(response.body);
+        throw Exception(
+            'Error al enviar feedback: ${errorResponse['message']}');
+      }
+    } catch (e) {
+      print('Error al enviar feedback: $e');
+    }
+  }
 }

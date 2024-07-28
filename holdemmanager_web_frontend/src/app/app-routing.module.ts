@@ -15,12 +15,15 @@ import { EditRecursosComponent } from './components/dashboard/recursos/edit-recu
 import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
 import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
-
+//Noticias
+import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 // Guards
 import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
 import { PlayersComponent } from './components/dashboard/players/players.component';
 import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
+import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/sesion/login', pathMatch: 'full' },
@@ -44,6 +47,8 @@ const routes: Routes = [
       { path: 'create-contacto', component: CreateContactoComponent},
       { path: 'edit-contacto/:id', component: EditContactoComponent},
       { path: 'mapa', component: MapaInteractivoComponent},
+      { path: 'noticias', component: NoticiasComponent},
+      { path: 'feedback', component:FeedbackComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

@@ -5,12 +5,17 @@ namespace holdemmanager_backend_app.Domain.Models
 {
     public class Feedback
     {
-        [ForeignKey("Id")]
-        public Jugador idUsuario { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public int IdUsuario { get; set; }  // Clave foránea
 
         [Required]
         public DateTime Fecha { get; set; }
+
         [Required]
         public string Mensaje { get; set; }
     }
+
 }

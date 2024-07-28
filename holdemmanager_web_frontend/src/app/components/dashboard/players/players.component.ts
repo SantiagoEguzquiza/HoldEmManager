@@ -85,9 +85,7 @@ export class PlayersComponent implements OnInit {
     this.router.navigate(['/dashboard/edit-player', jugador.id]);
   }
 
-
   guardarNuevoJugador(nuevoJugador: auxJugador) {
-
     this.playersService.agregarJugador(nuevoJugador).subscribe(
       (data) => {
         this.jugadores.push(data);
@@ -100,12 +98,10 @@ export class PlayersComponent implements OnInit {
         console.error(error);
       }
     );
-
   }
 
   cancelarNuevoJugador() {
     this.isCreateJugador = false;
   }
-
-  
+    
 }

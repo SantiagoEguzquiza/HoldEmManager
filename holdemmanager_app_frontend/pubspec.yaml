@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.0.20
+  intl: ^0.19.0
   shared_preferences: ^2.2.3
   get: 4.6.6
   flutter_locales: 2.0.0

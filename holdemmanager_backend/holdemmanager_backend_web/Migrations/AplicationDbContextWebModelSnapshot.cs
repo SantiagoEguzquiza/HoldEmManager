@@ -61,7 +61,7 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Contactos");
                 });
 
-            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.ForoNoticias", b =>
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Noticias", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,13 +76,17 @@ namespace holdemmanager_backend_web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("URLImagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ForoNoticias");
+                    b.ToTable("Noticias");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.RecursosEducativos", b =>
