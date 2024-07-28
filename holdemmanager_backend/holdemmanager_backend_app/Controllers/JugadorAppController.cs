@@ -93,7 +93,7 @@ namespace holdemmanager_backend_app.Controllers
       
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id)
+        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por numberPlayer
         {
             try
             {

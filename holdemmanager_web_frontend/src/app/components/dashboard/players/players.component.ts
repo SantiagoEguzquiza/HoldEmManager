@@ -1,18 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Jugador } from 'src/app/models/jugador';
 import { PlayersService } from 'src/app/service/players.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-
-interface auxJugador {
-  id: number;
-  numberPlayer: number;
-  name: string;
-  email: string;
-  password: string;
-  imageUrl?: string;
-}
+import { Jugador } from 'src/app/models/jugador';
 
 @Component({
   selector: 'app-players',
@@ -22,8 +13,10 @@ interface auxJugador {
 export class PlayersComponent implements OnInit {
 
   isCreateJugador = false;
+  isEditJugador = false;
   jugadores: Jugador[] = [];
   loading = false;
+  jugadorEditado!: Jugador;
 
   constructor(private playersService: PlayersService, private router: Router, private toastr: ToastrService) { }
 
@@ -34,7 +27,7 @@ export class PlayersComponent implements OnInit {
   obtenerJugadores(): void {
     this.loading = true;
     this.playersService.obtenerJugadores().subscribe(
-      (data) => {
+      (data: Jugador[]) => {
         this.jugadores = data;
         this.loading = false;
       },
@@ -82,12 +75,13 @@ export class PlayersComponent implements OnInit {
   }
 
   editarJugador(jugador: Jugador): void {
-    this.router.navigate(['/dashboard/edit-player', jugador.id]);
+    this.jugadorEditado = jugador;
+    this.isEditJugador = true;
   }
 
-  guardarNuevoJugador(nuevoJugador: auxJugador) {
+  guardarNuevoJugador(nuevoJugador: Jugador) {
     this.playersService.agregarJugador(nuevoJugador).subscribe(
-      (data) => {
+      (data: Jugador) => {
         this.jugadores.push(data);
         this.toastr.success('Jugador agregado exitosamente');
         this.isCreateJugador = false;
@@ -100,8 +94,32 @@ export class PlayersComponent implements OnInit {
     );
   }
 
+  guardarJugadorEditado(jugadorEditado: Jugador) {
+
+    if (this.jugadorEditado) {
+      this.playersService.actualizarJugador(jugadorEditado).subscribe(
+        (data: Jugador) => {
+          const index = this.jugadores.findIndex(j => j.id === this.jugadorEditado!.id);
+          if (index !== -1) {
+            this.jugadores[index] = data;
+          }
+          this.toastr.success('Jugador editado exitosamente');
+          this.isEditJugador = false;
+          this.obtenerJugadores();
+        },
+        (error) => {
+          this.toastr.error('Error al editar jugador', 'Error');
+          console.error(error);
+        }
+      );
+    }
+  }
+
   cancelarNuevoJugador() {
     this.isCreateJugador = false;
   }
-    
+
+  cancelarEditarJugador() {
+    this.isEditJugador = false;
+  }
 }

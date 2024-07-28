@@ -1,11 +1,21 @@
 .create-player-container {
-  max-width: 400px;
+  min-width: 400px;
+  max-width: 800px;
   margin: auto;
   padding: 20px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.titulo {
+
+  padding: 10px;
+  padding-bottom: 15px;
+  text-align: center;
+
 }
 
 .form-group {
@@ -34,7 +44,7 @@
 }
 
 .aceptar {
-  background-color: orange;
+  background-color: rgb(255, 120, 30);
   border: none;
   color: #fff;
 }

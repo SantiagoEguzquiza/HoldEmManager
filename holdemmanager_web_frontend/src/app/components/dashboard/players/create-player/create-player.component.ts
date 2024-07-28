@@ -1,14 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Jugador } from 'src/app/models/jugador';
 
-interface Jugador {
-  id: number;
-  numberPlayer: number;
-  name: string;
-  email: string;
-  password: string;
-  imageUrl?: string;
-}
+
 
 @Component({
   selector: 'app-create-player',

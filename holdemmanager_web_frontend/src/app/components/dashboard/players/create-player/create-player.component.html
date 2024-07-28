@@ -1,4 +1,5 @@
 <div class="create-player-container">
+  <h3 class="titulo">Agregar jugador</h3>
   <form [formGroup]="jugadorForm" (ngSubmit)="guardarJugador()">
     <div class="form-group">
       <label for="numberPlayer">Número de Jugador</label>
@@ -29,10 +30,6 @@
       <div class="text-danger ml-2" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
         <small *ngIf="password?.errors?.['required']">La contraseña es <strong>requerida.</strong></small>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="imageUrl">URL de Imagen</label>
-      <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control">
     </div>
     <div class="buttons">
       <button type="submit" class="btn aceptar" [disabled]="jugadorForm.invalid">Guardar</button>
