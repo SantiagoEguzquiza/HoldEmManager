@@ -1,8 +1,10 @@
 ﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Migrations;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,21 @@ namespace holdemmanager_backend_web.Controllers
         {
             var torneos = await _torneosService.GetAllTorneos(page, pageSize);
             return Ok(torneos);
+        }
+
+
+        [HttpGet("listadoCompleto")]
+        public async Task<ActionResult<List<Torneos>>> GetTodosLosTorneos()
+        {
+            try
+            {
+                var torneos = await _dbContext.Torneos.ToListAsync();
+                return Ok(torneos);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "No se pudieron obtener los torneos." });
+            }
         }
 
 

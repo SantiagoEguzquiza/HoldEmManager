@@ -51,4 +51,15 @@ class ApiService {
       print('Error al enviar feedback: $e');
     }
   }
+
+  Future<List<dynamic>> obtenerTorneos() async {
+    final response = await http
+        .get(Uri.parse('$baseUrl/TorneosWeb/listadoCompleto'))
+        .timeout(const Duration(seconds: 10));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar torneos');
+    }
+  }
 }

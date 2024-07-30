@@ -92,8 +92,8 @@ namespace holdemmanager_backend_app.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por numberPlayer
+        [HttpGet("id/{id:int}")]
+        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por id
         {
             try
             {
@@ -105,6 +105,22 @@ namespace holdemmanager_backend_app.Controllers
                 return BadRequest(new { message = "No se encontraron datos que coincidan con el id." });
             }
         }
+
+        [HttpGet("number/{numberPlayer:int}")]
+        public async Task<ActionResult<Jugador>> GetUsuarioPorNumberPlayer(int numberPlayer) //trae jugador por numberPlayer
+        {
+            try
+            {
+                var jugador = await _dbContext.Jugadores.Where(u => u.NumberPlayer == numberPlayer).FirstOrDefaultAsync();
+                return Ok(jugador);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "No se encontraron datos que coincidan con el numero de jugador." });
+            }
+        }
+
+
 
         [HttpPut("{imageUrl}/{numeroJugador}")]
         public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
