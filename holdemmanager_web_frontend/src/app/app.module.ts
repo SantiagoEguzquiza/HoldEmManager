@@ -40,14 +40,17 @@ import { PlayersComponent } from './components/dashboard/players/players.compone
 import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
 import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
+//Noticias
+import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
+import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
+//Feedback
+import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
+import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback-create/feedback-create.component';
+
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
-import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
-import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
-import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
-import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback-create/feedback-create.component';
 
 
 

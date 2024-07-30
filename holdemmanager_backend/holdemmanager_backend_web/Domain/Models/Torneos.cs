@@ -16,11 +16,14 @@ namespace holdemmanager_backend_web.Domain.Models
         [Required]
         public string Nombre { get; set; }
 
-        public DateTime Horario { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
 
+        [Required]
+        public string ModoJuego { get; set; }
+
+        [Required]
         public string Premios { get; set; }
 
-        [ForeignKey("Id")]
-        public List<UsuarioWeb> ListaJugadores { get; set; }
     }
 }

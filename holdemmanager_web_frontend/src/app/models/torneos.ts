@@ -4,7 +4,7 @@ export class Torneos {
 
     id?: number;
     nombre!: string;
-    horario!: Date;
+    fecha!: Date;
+    modoJuego!: string;
     premios!: string;
-    listaJugadores!: UsuarioWeb[];
 }

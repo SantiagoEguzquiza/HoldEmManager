@@ -48,7 +48,7 @@ const routes: Routes = [
       { path: 'edit-contacto/:id', component: EditContactoComponent},
       { path: 'mapa', component: MapaInteractivoComponent},
       { path: 'noticias', component: NoticiasComponent},
-      { path: 'feedback', component:FeedbackComponent}
+      { path: 'feedback', component: FeedbackComponent}
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}

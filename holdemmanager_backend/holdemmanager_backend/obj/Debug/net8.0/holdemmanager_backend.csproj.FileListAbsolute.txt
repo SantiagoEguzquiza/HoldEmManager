@@ -580,3 +580,13 @@ D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\credentials.json
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Firebase.Auth.dll
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Firebase.Storage.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\credentials.json
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Firebase.Auth.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Firebase.Storage.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Google.Apis.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Google.Apis.Drive.v3.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\System.Management.dll
+C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll

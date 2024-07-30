@@ -22,16 +22,6 @@ namespace holdemmanager_backend_web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TorneosUsuarioWeb", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TorneosUsuarioWeb");
-                });
-
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Contacto", b =>
                 {
                     b.Property<int>("Id")
@@ -118,13 +108,14 @@ namespace holdemmanager_backend_web.Migrations
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Torneos", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Horario")
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ModoJuego")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -163,19 +154,18 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("TorneosUsuarioWeb", b =>
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Torneos", b =>
                 {
-                    b.HasOne("holdemmanager_backend_web.Domain.Models.Torneos", null)
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("holdemmanager_backend_web.Domain.Models.UsuarioWeb", null)
-                        .WithMany()
+                        .WithMany("ListaTorneos")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.UsuarioWeb", b =>
+                {
+                    b.Navigation("ListaTorneos");
                 });
 #pragma warning restore 612, 618
         }
