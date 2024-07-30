@@ -108,6 +108,7 @@ namespace holdemmanager_backend_web.Migrations
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Torneos", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")

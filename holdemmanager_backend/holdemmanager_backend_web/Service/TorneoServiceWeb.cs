@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,9 @@ namespace holdemmanager_backend_web.Service
             return await _torneoRepository.DeleteTorneo(id);
         }
 
-        public async Task<IEnumerable<Torneos>> GetAllTorneos()
+        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize)
         {
-            return await _torneoRepository.GetAllTorneos();
+            return await _torneoRepository.GetAllTorneos(page,pageSize);
         }
 
         public async Task<Torneos> GetTorneoById(int id)

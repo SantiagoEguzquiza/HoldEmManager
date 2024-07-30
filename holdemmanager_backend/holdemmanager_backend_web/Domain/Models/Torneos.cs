@@ -11,6 +11,7 @@ namespace holdemmanager_backend_web.Domain.Models
     public class Torneos
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

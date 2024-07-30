@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,25 @@ namespace holdemmanager_backend_web.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Torneos>> GetAllTorneos()
+        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize)
         {
-            return await _context.Torneos.ToListAsync();
+            var torneos = await _context.Torneos
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = torneos.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                torneos.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<Torneos>
+            {
+                Items = torneos,
+                HasNextPage = hasNextPage
+            };
         }
 
         public async Task<Torneos> GetTorneoById(int id)

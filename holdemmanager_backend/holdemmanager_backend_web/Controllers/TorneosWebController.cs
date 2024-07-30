@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Torneos>>> GetAllTorneos()
+        public async Task<ActionResult<PagedResult<Torneos>>> GetAllTorneos(int page, int pageSize)
         {
-            var torneos = await _torneosService.GetAllTorneos();
+            var torneos = await _torneosService.GetAllTorneos(page, pageSize);
             return Ok(torneos);
         }
 

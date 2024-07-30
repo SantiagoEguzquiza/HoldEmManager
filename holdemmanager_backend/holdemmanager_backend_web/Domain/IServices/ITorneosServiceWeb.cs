@@ -1,4 +1,5 @@
 ﻿using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace holdemmanager_backend_web.Domain.IServices
 {
     public interface ITorneosServiceWeb
     {
-        Task<IEnumerable<Torneos>> GetAllTorneos();
+        Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize);
         Task<Torneos> GetTorneoById(int id);
         Task AddTorneo(Torneos torneo);
         Task UpdateTorneo(Torneos torneo);

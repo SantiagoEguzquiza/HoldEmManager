@@ -1,5 +1,3 @@
-import { UsuarioWeb } from "./usuarioWeb";
-
 export class Torneos {
 
     id?: number;

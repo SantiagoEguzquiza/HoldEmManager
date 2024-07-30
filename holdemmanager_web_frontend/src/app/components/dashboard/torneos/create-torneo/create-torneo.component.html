@@ -1,0 +1,41 @@
+<app-loading *ngIf="loading" style="display: flex; justify-content: center;"></app-loading>
+<div class="create-torneo-container">
+  <h3>{{ nuevoTorneo.id ? 'Editar torneo' : 'Agregar nuevo torneo' }}</h3>
+  <br>
+  <form (ngSubmit)="guardarTorneo()" #torneoForm="ngForm">
+    <div class="form-group">
+      <label for="titulo">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="nuevoTorneo.nombre" name="nombre" required class="form-control" #nombre="ngModel">
+      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="invalid-feedback">
+        El nombre es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" [(ngModel)]="formattedDate" name="fecha" required class="form-control" #fecha="ngModel">
+      <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="invalid-feedback">
+        La fecha es obligatoria.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="modoJuego">Modo de juego</label>
+      <textarea id="modoJuego" [(ngModel)]="nuevoTorneo.modoJuego" name="modoJuego" required class="form-control" #modoJuego="ngModel"></textarea>
+      <div *ngIf="modoJuego.invalid && (modoJuego.dirty || modoJuego.touched)" class="invalid-feedback">
+        El modo de juego es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="premios">Premios</label>
+      <textarea id="premios" [(ngModel)]="nuevoTorneo.premios" name="premios" required class="form-control" #premios="ngModel"></textarea>
+      <div *ngIf="premios.invalid && (premios.dirty || premios.touched)" class="invalid-feedback">
+        Los premios son obligatorios.
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar" [disabled]="torneoForm.invalid">
+        <i class="bi bi-save"></i> {{ 'Guardar'}}
+      </button>
+      <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
+    </div>
+  </form>
+</div>

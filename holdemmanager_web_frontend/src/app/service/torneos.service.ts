@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { Torneos } from '../models/torneos';
+import { PagedResult } from '../helpers/pagedResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TorneosService {
-  myAppUrl: string;
-  myApiUrlWeb: string;
+  private myAppUrl = environment.endpoint;
+  private myApiUrlWeb = '/TorneosWeb';
 
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.endpoint;
-    this.myApiUrlWeb = '/TorneosWeb';
-  }
+  constructor(private http: HttpClient) {}
 
   crearTorneo(torneo: Torneos): Observable<any> {
     return this.http.post(this.myAppUrl + this.myApiUrlWeb, torneo);
   }
 
-  obtenerTorneos(): Observable<Torneos[]> {
-    return this.http.get<Torneos[]>(this.myAppUrl + this.myApiUrlWeb);
+  obtenerTorneos(page: number, pageSize: number): Observable<PagedResult<Torneos>> {
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString());
+
+    return this.http.get<PagedResult<Torneos>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
   obtenerTorneoPorId(id: number): Observable<Torneos> {
