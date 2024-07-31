@@ -22,6 +22,6 @@ export class FeedbackService {
   }
 
   obtenerUsuario(id: number): Observable<Jugador> {
-    return this.http.get<Jugador>(`${this.myAppUrl}/JugadorApp/${id}`);
+    return this.http.get<Jugador>(`${this.myAppUrl}/JugadorApp/id/${id}`);
   }
 }
