@@ -2,9 +2,30 @@
 <div class="create-torneo-container">
   <h3>{{ nuevoTorneo.id ? 'Editar torneo' : 'Agregar nuevo torneo' }}</h3>
   <br>
-  <form (ngSubmit)="guardarTorneo()" #torneoForm="ngForm">
+  <form (ngSubmit)="guardarTorneo()" #torneoForm="ngForm" style="width: 100%;">
     <div class="form-group">
-      <label for="titulo">Nombre</label>
+      <label for="numeroRef">Número de referencia</label>
+      <input type="text" id="numeroRef" [(ngModel)]="nuevoTorneo.numeroRef" name="numeroRef" required class="form-control" #numeroRef="ngModel">
+      <div *ngIf="numeroRef.invalid && (numeroRef.dirty || numeroRef.touched)" class="invalid-feedback">
+        El número de referencia es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inicio">Hora de inicio</label>
+      <input type="text" id="inicio" [(ngModel)]="nuevoTorneo.inicio" name="inicio" required class="form-control" #inicio="ngModel">
+      <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)" class="invalid-feedback">
+        El horario de inicio es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cierre">Hora de cierre</label>
+      <input type="text" id="cierre" [(ngModel)]="nuevoTorneo.cierre" name="cierre" required class="form-control" #cierre="ngModel">
+      <div *ngIf="cierre.invalid && (cierre.dirty || cierre.touched)" class="invalid-feedback">
+        El horario de cierre es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="titulo">Evento</label>
       <input type="text" id="nombre" [(ngModel)]="nuevoTorneo.nombre" name="nombre" required class="form-control" #nombre="ngModel">
       <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="invalid-feedback">
         El nombre es obligatorio.
@@ -18,17 +39,24 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="modoJuego">Modo de juego</label>
-      <textarea id="modoJuego" [(ngModel)]="nuevoTorneo.modoJuego" name="modoJuego" required class="form-control" #modoJuego="ngModel"></textarea>
-      <div *ngIf="modoJuego.invalid && (modoJuego.dirty || modoJuego.touched)" class="invalid-feedback">
-        El modo de juego es obligatorio.
+      <label for="stack">Stack</label>
+      <textarea id="stack" [(ngModel)]="nuevoTorneo.stack" name="stack" required class="form-control" #stack="ngModel"></textarea>
+      <div *ngIf="stack.invalid && (stack.dirty || stack.touched)" class="invalid-feedback">
+        El stack es obligatorio.
       </div>
     </div>
     <div class="form-group">
-      <label for="premios">Premios</label>
-      <textarea id="premios" [(ngModel)]="nuevoTorneo.premios" name="premios" required class="form-control" #premios="ngModel"></textarea>
-      <div *ngIf="premios.invalid && (premios.dirty || premios.touched)" class="invalid-feedback">
-        Los premios son obligatorios.
+      <label for="niveles">Niveles</label>
+      <textarea id="niveles" [(ngModel)]="nuevoTorneo.niveles" name="niveles" required class="form-control" #niveles="ngModel"></textarea>
+      <div *ngIf="niveles.invalid && (niveles.dirty || niveles.touched)" class="invalid-feedback">
+        Los niveles son obligatorios.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="entrada">Entrada</label>
+      <textarea id="entrada" [(ngModel)]="nuevoTorneo.entrada" name="entrada" required class="form-control" #entrada="ngModel"></textarea>
+      <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)" class="invalid-feedback">
+        El costo de la entrada es obligatorio.
       </div>
     </div>
     <div class="buttons">

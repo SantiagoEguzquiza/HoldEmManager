@@ -1,8 +1,12 @@
 export class Torneos {
 
     id?: number;
+    numeroRef!: string;
+    inicio!: string;
+    cierre!: string;
     nombre!: string;
+    stack!: string;
+    niveles!: string;
     fecha!: Date;
-    modoJuego!: string;
-    premios!: string;
+    entrada!: string;
 }

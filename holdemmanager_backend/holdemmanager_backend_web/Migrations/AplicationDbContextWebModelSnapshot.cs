@@ -111,10 +111,22 @@ namespace holdemmanager_backend_web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Cierre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Entrada")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ModoJuego")
+                    b.Property<string>("Inicio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Niveles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -122,7 +134,11 @@ namespace holdemmanager_backend_web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Premios")
+                    b.Property<string>("Stack")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("numeroRef")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

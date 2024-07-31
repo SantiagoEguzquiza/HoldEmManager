@@ -25,19 +25,27 @@
         <table class="table table-striped" *ngIf="!loading && torneos && torneos.length > 0">
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>#</th>
+              <th>Inicio</th>
+              <th>Cierre</th>
+              <th>Evento</th>
+              <th>Stack</th>
+              <th>Niveles</th>
               <th>Fecha</th>
-              <th>Modo de juego</th>
-              <th>Premios</th>
+              <th>Entrada</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let torneo of torneos">
+              <td class="truncate">{{ torneo.numeroRef }}</td>
+              <td class="truncate">{{ torneo.inicio }}</td>
+              <td class="truncate">{{ torneo.cierre }}</td>
               <td class="truncate">{{ torneo.nombre }}</td>
+              <td class="truncate">{{ torneo.stack }}</td>
+              <td class="truncate">{{ torneo.niveles }}</td>
               <td class="truncate">{{ torneo.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="truncate">{{ torneo.modoJuego }}</td>  
-              <td class="truncate">{{ torneo.premios }}</td>  
+              <td class="truncate">{{ torneo.entrada }}</td>   
               <td>
                 <a class="custom-btn btn-sm" (click)="editarTorneo(torneo)">
                   <i class="fas fa-pen"></i>

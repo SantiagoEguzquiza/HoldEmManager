@@ -15,16 +15,27 @@ namespace holdemmanager_backend_web.Domain.Models
         public int Id { get; set; }
 
         [Required]
+        public string numeroRef { get; set; }
+
+        [Required]
+        public string Inicio { get; set; }
+
+        [Required]
+        public string Cierre { get; set; }
+
+        [Required]
         public string Nombre { get; set; }
+
+        [Required]
+        public string Stack { get; set; }
+
+        [Required]
+        public string Niveles { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }
 
         [Required]
-        public string ModoJuego { get; set; }
-
-        [Required]
-        public string Premios { get; set; }
-
+        public string Entrada { get; set; }
     }
 }
