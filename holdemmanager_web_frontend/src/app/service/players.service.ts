@@ -24,7 +24,7 @@ export class PlayersService {
   }
 
   obtenerPlayerPorId(id: number): Observable<Jugador> {
-    return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
+    return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/id/${id}`);
   }
 
   obtenerJugadores(page: number, pageSize: number): Observable<PagedResult<Jugador>> {

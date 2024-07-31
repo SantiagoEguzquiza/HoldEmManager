@@ -39,9 +39,12 @@ import { PlayersComponent } from './components/dashboard/players/players.compone
 import { CreateEditContactoComponent } from './components/dashboard/contactos/create-edit-contacto/create-edit-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
 
+
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
+import { TorneosComponent } from './components/dashboard/torneos/torneos.component';
+import { CreateTorneoComponent } from './components/dashboard/torneos/create-torneo/create-torneo.component';
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 import { CreateEditNoticiaComponent } from './components/dashboard/noticias/create-edit-noticia/create-edit-noticia.component';
 import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
@@ -78,7 +81,9 @@ import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedba
     //Feedback
     FeedbackComponent,
     FeedbackDetailsComponent,
-    
+    //Torneos
+    TorneosComponent,
+    CreateTorneoComponent
   ],
   imports: [
     BrowserModule,

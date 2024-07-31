@@ -14,19 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("holdemmanager_backend_web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6fc0212ed5af95aeaaaa1a28c5222ac488ea1ab")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e29a02c6bce2debe3017292256c1492a98c8009")]
->>>>>>> 0952d68d5c14b2167f2196c77db56a5a01f12484
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8a1d185b8a84e5156e2569309d20a150d521293")]
->>>>>>> 711f21eb8aa4d2ff326e45bf28762fa55ea50c71
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ecc2cbd8883b48feda422ccef5d6bee445fbed4")]
->>>>>>> d33c4d4c6a43b349c49f8253371a5349b8e8c4bf
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b339bf2f5a0462d73e538c3c764ce8f01e8c4c70")]
 [assembly: System.Reflection.AssemblyProductAttribute("holdemmanager_backend_web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("holdemmanager_backend_web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
