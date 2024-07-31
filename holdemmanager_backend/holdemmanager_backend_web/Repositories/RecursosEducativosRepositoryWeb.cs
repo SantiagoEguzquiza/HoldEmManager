@@ -19,7 +19,7 @@ namespace holdemmanager_backend_web.Repositories
         {
             this._context = context;
         }
-        public async Task<PagedResult<RecursosEducativos>> GetAllRecursos(int page, int pageSize)
+        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize)
         {
             var recursos = await _context.RecursosEducativos
                                  .Skip((page - 1) * pageSize)
@@ -33,14 +33,14 @@ namespace holdemmanager_backend_web.Repositories
                 recursos.RemoveAt(pageSize);
             }
 
-            return new PagedResult<RecursosEducativos>
+            return new PagedResult<RecursoEducativo>
             {
                 Items = recursos,
                 HasNextPage = hasNextPage
             };
         }
 
-        public async Task<RecursosEducativos> GetRecursoById(int id)
+        public async Task<RecursoEducativo> GetRecursoById(int id)
         {
             var recurso = await _context.RecursosEducativos.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (recurso == null)
@@ -51,13 +51,13 @@ namespace holdemmanager_backend_web.Repositories
             return recurso;
         }
 
-        public async Task AddRecurso(RecursosEducativos recurso)
+        public async Task AddRecurso(RecursoEducativo recurso)
         {
             _context.RecursosEducativos.Add(recurso);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateRecurso(RecursosEducativos recurso)
+        public async Task UpdateRecurso(RecursoEducativo recurso)
         {
             _context.RecursosEducativos.Update(recurso);
             await _context.SaveChangesAsync();

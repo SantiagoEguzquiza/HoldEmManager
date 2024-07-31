@@ -1,16 +1,8 @@
 ﻿using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
-using holdemmanager_backend_app.DTO;
 using holdemmanager_backend_app.Persistence;
 using holdemmanager_backend_app.Utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Numerics;
-using System.Security.Claims;
 
 namespace holdemmanager_backend_app.Controllers
 {
@@ -20,13 +12,11 @@ namespace holdemmanager_backend_app.Controllers
     {
         private readonly IMapaServiceApp _mapaService;
         private readonly AplicationDbContextApp _dbContext;
-        private readonly GoogleDriveHelperApp _googleDriveHelper;
-        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService, GoogleDriveHelperApp googleDriveHelper)
+        public MapaAppController(AplicationDbContextApp dbContext, IMapaServiceApp mapaService)
         {
 
             _mapaService = mapaService;
             _dbContext = dbContext;
-            _googleDriveHelper = googleDriveHelper;
         }
 
         [HttpPost]

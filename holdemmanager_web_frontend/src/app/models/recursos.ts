@@ -1,4 +1,4 @@
-export class RecursosEducativos {
+export class RecursoEducativo {
     id?: number;
     titulo!: string;
     mensaje!: string;

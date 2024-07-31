@@ -1,0 +1,43 @@
+<app-loading *ngIf="loading" style="display: flex; justify-content: center;"></app-loading>
+<div class="noticia-container">
+  <h3>{{ nuevaNoticia.id ? 'Editar noticia' : 'Agregar nueva noticia' }}</h3>
+  <br>
+  <form (ngSubmit)="guardarNoticia()" #noticiaForm="ngForm">
+    <div class="form-group">
+      <input type="text" id="titulo" placeholder="Título" [(ngModel)]="nuevaNoticia.titulo" name="titulo" required class="input" #titulo="ngModel">
+      <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="invalid">
+        El título <strong>es requerido</strong>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" [(ngModel)]="formattedDate" name="fecha" required class="input" #fecha="ngModel">
+      <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="invalid">
+        La fecha <strong>es requerida</strong>
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea id="mensaje" [(ngModel)]="nuevaNoticia.mensaje" placeholder="Contenido" name="mensaje" required class="input" #mensaje="ngModel"></textarea>
+      <div *ngIf="mensaje.invalid && (mensaje.dirty || mensaje.touched)" class="invalid">
+        El contenido <strong>es requerido</strong>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="URLImagen">Imagen (opcional)</label>
+      <div class="img-container" style="display: flex; align-items: center;">
+        <input type="file" class="upload-box" (change)="imagenSeleccionada($event)" />
+        <div class="delete-btn-container" style="flex-shrink: 0; margin-left: 10px;">
+          <button type="button" class="custom-btn btn-sm" (click)="eliminarImagen()" *ngIf="imageExists">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar" [disabled]="noticiaForm.invalid">
+        <i class="bi bi-save"></i> {{ 'Aceptar'}}
+      </button>
+      <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
+    </div>
+  </form>
+</div>

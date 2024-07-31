@@ -25,15 +25,15 @@ namespace holdemmanager_backend_web.Controllers
 
         // obtener todos los recursos educativos
         [HttpGet]
-        public async Task<ActionResult<PagedResult<RecursosEducativos>>> GetAllRecursos(int page, int pageSize)
+        public async Task<ActionResult<PagedResult<RecursoEducativo>>> GetAllRecursos(int page, int pageSize)
         {
-            var recursos = await _recursosEducativosService.GetAllRecursos(page,pageSize);
+            var recursos = await _recursosEducativosService.GetAllRecursos(page, pageSize);
             return Ok(recursos);
         }
 
         // obtener un recurso educativo con id como parametro
         [HttpGet("{id}")]
-        public async Task<ActionResult<RecursosEducativos>> GetRecursoById(int id)
+        public async Task<ActionResult<RecursoEducativo>> GetRecursoById(int id)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace holdemmanager_backend_web.Controllers
 
         // agregar un recurso
         [HttpPost]
-        public async Task<IActionResult> AddRecurso([FromBody] RecursosEducativos recurso)
+        public async Task<IActionResult> Post([FromBody] RecursoEducativo recurso)
         {
             try
             {
@@ -58,6 +58,10 @@ namespace holdemmanager_backend_web.Controllers
                 }
 
                 string? downloadUrl = null;
+
+                if (recurso.URLImagen == "DELETE") {
+                    recurso.URLImagen = null;
+                }
 
                 if (!recurso.URLImagen.IsNullOrEmpty())
                 {
@@ -70,7 +74,7 @@ namespace holdemmanager_backend_web.Controllers
                 try
                 {
 
-                    RecursosEducativos recursoNuevo = new RecursosEducativos
+                    RecursoEducativo recursoNuevo = new RecursoEducativo
                     {
                         Mensaje = recurso.Mensaje,
                         Titulo = recurso.Titulo,
@@ -94,23 +98,36 @@ namespace holdemmanager_backend_web.Controllers
 
         // actualizar un recurso
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecurso(int id, RecursosEducativos recurso)
+        public async Task<IActionResult> UpdateRecurso(RecursoEducativo recurso)
         {
-            if (recurso == null || id != recurso.Id)
+            if (recurso == null)
             {
-                return BadRequest(new { message = "ID del recurso no coincide o el recurso es nulo." });
+                return BadRequest(new { message = "El recurso es nulo." });
             }
 
             try
             {
-                var recursoExistente = await _recursosEducativosService.GetRecursoById(id);
+                string? newImageUrl = null;
+
+                var recursoExistente = await _recursosEducativosService.GetRecursoById(recurso.Id);
                 if (recursoExistente == null)
                 {
                     return NotFound(new { message = "Recurso no encontrado" });
                 }
 
-                string? newImageUrl = null;
-                if (!string.IsNullOrEmpty(recurso.URLImagen))
+                if (recurso.URLImagen == "UPDATE")
+                {
+                    newImageUrl = recursoExistente.URLImagen;
+                }
+                else if (recurso.URLImagen == "DELETE")
+                {
+                    if (!string.IsNullOrEmpty(recursoExistente.URLImagen))
+                    {
+                        await _firebaseStorageHelper.EliminarImagenRecurso(recursoExistente.URLImagen);
+                    }
+                    newImageUrl = null;
+                }
+                else if (!string.IsNullOrEmpty(recurso.URLImagen))
                 {
                     byte[] imagenBytes = Convert.FromBase64String(recurso.URLImagen);
                     var stream = new MemoryStream(imagenBytes);
@@ -119,13 +136,15 @@ namespace holdemmanager_backend_web.Controllers
                     {
                         await _firebaseStorageHelper.EliminarImagenRecurso(recursoExistente.URLImagen);
                     }
-
                     newImageUrl = await _firebaseStorageHelper.SubirStorageRecurso(stream);
                 }
 
-                recurso.URLImagen = newImageUrl;
+                recursoExistente.Titulo = recurso.Titulo;
+                recursoExistente.Mensaje = recurso.Mensaje;
+                recursoExistente.URLVideo = recurso.URLVideo;
+                recursoExistente.URLImagen = newImageUrl;
 
-                await _recursosEducativosService.UpdateRecurso(recurso);
+                await _recursosEducativosService.UpdateRecurso(recursoExistente);
 
                 return Ok(new { message = "Recurso actualizado exitosamente." });
             }

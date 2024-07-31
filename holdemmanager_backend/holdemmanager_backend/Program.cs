@@ -48,7 +48,6 @@ builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
 builder.Services.AddScoped<INoticiasRepositoryWeb, NoticiasRepositoryWeb>();
 builder.Services.AddScoped<INoticiasServiceWeb, NoticiasServiceWeb>();
 
-builder.Services.AddSingleton<GoogleDriveHelperApp>();
 builder.Services.AddSingleton<FirebaseStorageHelper>();
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>

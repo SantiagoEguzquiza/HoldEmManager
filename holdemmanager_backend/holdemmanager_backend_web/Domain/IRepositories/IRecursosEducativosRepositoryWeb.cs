@@ -10,10 +10,10 @@ namespace holdemmanager_backend_web.Domain.IRepositories
 {
     public interface IRecursosEducativosRepositoryWeb
     {
-        Task<PagedResult<RecursosEducativos>> GetAllRecursos(int page, int pageSize);
-        Task<RecursosEducativos> GetRecursoById(int id);
-        Task AddRecurso(RecursosEducativos recurso);
-        Task UpdateRecurso(RecursosEducativos recurso);
+        Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize);
+        Task<RecursoEducativo> GetRecursoById(int id);
+        Task AddRecurso(RecursoEducativo recurso);
+        Task UpdateRecurso(RecursoEducativo recurso);
         Task<bool> DeleteRecurso(int id);
     }
 }

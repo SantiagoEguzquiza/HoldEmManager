@@ -50,7 +50,7 @@ export class PlayersComponent implements OnInit {
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#f59f00',
+      confirmButtonColor: '#b4540f',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {

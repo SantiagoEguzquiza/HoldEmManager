@@ -8,13 +8,9 @@ import { MapaInteractivoComponent } from './components/dashboard/mapa-interactiv
 // Players
 import { CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
 // Recursos
-import { CreateRecursoComponent } from './components/dashboard/recursos/create-recurso/create-recursos.component';
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
-import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
 // Contactos
-import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
-import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
 //Noticias
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 // Guards
@@ -41,11 +37,7 @@ const routes: Routes = [
       { path: 'create-player', component: CreatePlayerComponent },
       { path: 'edit-player/:id', component: EditPlayerComponent },
       { path: 'recursos', component: RecursosComponent},
-      { path: 'edit-recurso/:id', component: EditRecursosComponent },
-      { path: 'create-recurso', component: CreateRecursoComponent},
       { path: 'contactos', component: ContactosComponent},
-      { path: 'create-contacto', component: CreateContactoComponent},
-      { path: 'edit-contacto/:id', component: EditContactoComponent},
       { path: 'mapa', component: MapaInteractivoComponent},
       { path: 'noticias', component: NoticiasComponent},
       { path: 'feedback', component:FeedbackComponent}

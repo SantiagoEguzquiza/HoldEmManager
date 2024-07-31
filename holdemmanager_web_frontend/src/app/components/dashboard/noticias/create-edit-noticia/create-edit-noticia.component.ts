@@ -2,15 +2,16 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCh
 import { Noticia } from 'src/app/models/noticias';
 
 @Component({
-  selector: 'app-create-noticia',
-  templateUrl: './create-noticia.component.html',
-  styleUrls: ['./create-noticia.component.css']
+  selector: 'app-create-edit-noticia',
+  templateUrl: './create-edit-noticia.component.html',
+  styleUrls: ['./create-edit-noticia.component.css']
 })
-export class CreateNoticiaComponent implements OnChanges {
-  @ViewChild('fileInput') fileInput?: ElementRef;
+export class CreateEditNoticiaComponent implements OnChanges {
+  @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
   loading = false;
-  selectedFile?: File;
   selectedFileName?: string;
+  imageExists = false;
+  imageFirst = false;
 
   @Input() noticia: Noticia | null = null;
   nuevaNoticia: Noticia = new Noticia();
@@ -20,9 +21,13 @@ export class CreateNoticiaComponent implements OnChanges {
   @Output() cancelar = new EventEmitter<void>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['noticia'] && changes['noticia'].currentValue !== null && changes['noticia'].currentValue !== undefined) {
+    if (changes['noticia'] && changes['noticia'].currentValue) {
       this.nuevaNoticia = { ...changes['noticia'].currentValue };
       this.formattedDate = this.formatoFecha(new Date(this.nuevaNoticia.fecha));
+      if (this.nuevaNoticia.idImagen) {
+        this.imageExists = true;
+        this.imageFirst = true;
+      }
     } else {
       this.nuevaNoticia = new Noticia();
       this.formattedDate = this.formatoFecha(new Date());
@@ -32,6 +37,9 @@ export class CreateNoticiaComponent implements OnChanges {
   guardarNoticia() {
     this.loading = true;
     this.nuevaNoticia.fecha = new Date(this.formattedDate);
+    if (this.nuevaNoticia.idImagen && this.imageFirst) {
+      this.nuevaNoticia.idImagen = 'UPDATE';
+    }
     this.guardar.emit(this.nuevaNoticia);
   }
 
@@ -46,27 +54,37 @@ export class CreateNoticiaComponent implements OnChanges {
     return `${year}-${month}-${day}`;
   }
 
-  imagenSeleccionada(event: any): void {
-    this.selectedFile = event.target.files[0];
-    this.selectedFileName = this.selectedFile ? this.selectedFile.name : '';
-
-    if (this.selectedFile) {
-      this.convertirAByte(this.selectedFile);
+  imagenSeleccionada(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFileName = file.name;
+      this.imageExists = true;
+      this.convertirAByte(file);
+      this.imageFirst = false;
     }
   }
 
   convertirAByte(file: File): void {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = () => {
       const image = reader.result as string;
       const base64Data = image.split(',')[1];
       this.nuevaNoticia.idImagen = base64Data;
     };
     reader.readAsDataURL(file);
-
   }
 
   triggerFileInput(): void {
-    this.fileInput!.nativeElement.click();
+    if (this.fileInput) {
+      this.fileInput.nativeElement.click();
+    }
+  }
+
+  eliminarImagen(): void {
+    this.imageExists = false;
+    this.selectedFileName = undefined;
+    this.nuevaNoticia.idImagen = 'DELETE';
+    this.imageFirst = false;
   }
 }

@@ -43,7 +43,7 @@ export class ContactosComponent implements OnInit {
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#f59f00', 
+      confirmButtonColor: '#b4540f', 
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
@@ -55,8 +55,8 @@ export class ContactosComponent implements OnInit {
         this.loading = true;
         this.contactosService.eliminarContacto(id).subscribe(
           () => {
-            this.toastr.success('Recurso eliminado correctamente', 'Éxito');
-            this.obtenerContactos(); // para que se actualice la lista después de borrarlos
+            this.toastr.success('Contacto eliminado correctamente', 'Éxito');
+            this.obtenerContactos();
           },
           (error) => {
             this.loading = false;

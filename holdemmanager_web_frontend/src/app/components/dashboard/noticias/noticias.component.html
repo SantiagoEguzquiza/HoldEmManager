@@ -4,19 +4,17 @@
 <div class="dark-background" *ngIf="isCreateNoticia"></div>
 <div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
   <div *ngIf="isCreateNoticia" class="centered-container">
-    <app-create-noticia 
+    <app-create-edit-noticia 
       [noticia]="noticiaActual"
       (guardar)="guardarNuevaNoticia($event)" 
       (cancelar)="cancelarNuevaNoticia()">
-    </app-create-noticia>
+    </app-create-edit-noticia>
   </div>
-
   <div class="buttons" style="padding-bottom: 20px;">
     <a class="agregar" href="javascript:void(0)" (click)="agregarNoticia()">
       <i class="bi bi-plus-square-fill"></i>Agregar Noticia
     </a>
   </div>
-  
   <div class="row">
     <div class="col-12">
       <div class="card text-center" style="padding: 20px;">

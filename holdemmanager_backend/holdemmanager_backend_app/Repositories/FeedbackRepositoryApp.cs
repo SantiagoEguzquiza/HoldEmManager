@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_app.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,25 @@ namespace holdemmanager_backend_app.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
+        public async Task<PagedResult<Feedback>> GetAllFeedbacks(int page, int pageSize)
         {
-            return await _context.Feedback.ToListAsync();
+            var feedbacks = await _context.Feedback
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = feedbacks.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                feedbacks.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<Feedback>
+            {
+                Items = feedbacks,
+                HasNextPage = hasNextPage
+            };
         }
 
         public async Task<Feedback> GetFeedbackById(int id)

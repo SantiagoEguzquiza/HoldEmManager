@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
+using holdemmanager_backend_app.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +12,34 @@ namespace holdemmanager_backend_app.Service
 {
     public class FeedbackServiceApp : IFeedbackServiceApp
     {
-        private readonly IFeedbackRepositoryApp _feedbackServiceApp;
+        private readonly IFeedbackRepositoryApp _feedbackRepositoryApp;
         public FeedbackServiceApp(IFeedbackRepositoryApp feedbackServiceApp)
         {
-            _feedbackServiceApp = feedbackServiceApp;   
+            _feedbackRepositoryApp = feedbackServiceApp;   
         }
         public async Task AddFeedback(Feedback feedback)
         {
-            await _feedbackServiceApp.AddFeedback(feedback);
+            await _feedbackRepositoryApp.AddFeedback(feedback);
         }
 
         public async Task<bool> DeleteFeedback(int id)
         {
-            return await _feedbackServiceApp.DeleteFeedback(id);
+            return await _feedbackRepositoryApp.DeleteFeedback(id);
         }
 
-        public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
+        public async Task<PagedResult<Feedback>> GetAllFeedbacks(int page, int pageSize)
         {
-            return await _feedbackServiceApp.GetAllFeedbacks();
+            return await _feedbackRepositoryApp.GetAllFeedbacks(page, pageSize);
         }
 
         public async Task<Feedback> GetFeedbackById(int id)
         {
-            return await _feedbackServiceApp.GetFeedbackById(id);
+            return await _feedbackRepositoryApp.GetFeedbackById(id);
         }
 
         public async Task UpdateFeedback(Feedback feedback)
         {
-            await _feedbackServiceApp.UpdateFeedback(feedback);
+            await _feedbackRepositoryApp.UpdateFeedback(feedback);
         }
     }
 }

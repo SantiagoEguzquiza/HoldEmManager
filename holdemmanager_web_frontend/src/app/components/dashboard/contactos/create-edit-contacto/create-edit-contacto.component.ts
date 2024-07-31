@@ -7,15 +7,14 @@ import { ContactoService } from 'src/app/service/contacto.service';
 
 @Component({
   selector: 'app-create-contacto',
-  templateUrl: './create-contacto.component.html',
-  styleUrls: ['./create-contacto.component.css']
+  templateUrl: './create-edit-contacto.component.html',
+  styleUrls: ['./create-edit-contacto.component.css']
 })
-export class CreateContactoComponent{
+export class CreateEditContactoComponent{
   register: FormGroup;
   loading = false;
 
   constructor(private fb: FormBuilder, private contactoService: ContactoService, private router: Router, private toastr: ToastrService) {
-
     this.register = this.fb.group({
       infocasino: ['', [Validators.required]],
       direccion: ['', [Validators.required]],

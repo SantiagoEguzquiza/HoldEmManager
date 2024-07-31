@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecursosEducativos } from 'src/app/models/recursos';
+import { RecursoEducativo } from 'src/app/models/recursos';
 import { RecursosService } from 'src/app/service/recursos.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,10 +11,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./recursos.component.css']
 })
 export class RecursosComponent implements OnInit {
-  recursos: RecursosEducativos[] = [];
+  isCreateRecurso = false;
+  recursos: RecursoEducativo[] = [];
+  recursoActual: RecursoEducativo | null = null;
   loading = false;
+  page = 1;
+  pageSize = 10;
+  hasNextPage = false;
 
-  constructor(private recursosService: RecursosService, private router: Router, private toastr: ToastrService) { }
+  constructor(private recursoService: RecursosService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.obtenerRecursos();
@@ -22,10 +27,10 @@ export class RecursosComponent implements OnInit {
 
   obtenerRecursos(): void {
     this.loading = true;
-    this.recursosService.obtenerRecursos().subscribe(
+    this.recursoService.obtenerRecursos(this.page, this.pageSize).subscribe(
       (data) => {
-        console.log(data);
-        this.recursos = data;
+        this.recursos = data.items;
+        this.hasNextPage = data.hasNextPage;
         this.loading = false;
       },
       (error) => {
@@ -36,26 +41,72 @@ export class RecursosComponent implements OnInit {
     );
   }
 
+  agregarRecurso() {
+    this.recursoActual = null;
+    this.isCreateRecurso = true;
+  }
+
+  editarRecurso(recurso: RecursoEducativo): void {
+    this.recursoActual = { ...recurso };
+    this.isCreateRecurso = true;
+  }
+
+  guardarNuevoRecurso(nuevoRecurso: RecursoEducativo) {
+    if (nuevoRecurso.id == null) {
+      nuevoRecurso.id = 0;
+    }
+    if (nuevoRecurso.id === 0 || nuevoRecurso.id === undefined) {
+      this.recursoService.agregarRecurso(nuevoRecurso).subscribe(
+        (data) => {
+          this.recursos.push(data);
+          this.toastr.success('Recurso agregado exitosamente');
+          this.isCreateRecurso = false;
+          this.obtenerRecursos();
+        },
+        (error) => {
+          this.toastr.error('Error al agregar recurso', 'Error');
+          console.error(error);
+        }
+      );
+    } else {
+      this.recursoService.actualizarRecurso(nuevoRecurso).subscribe(
+        (data) => {
+          const index = this.recursos.findIndex(n => n.id === data.id);
+          if (index !== -1) {
+            this.recursos[index] = data;
+          }
+          this.toastr.success('Recurso actualizada exitosamente');
+          this.isCreateRecurso = false;
+          this.obtenerRecursos();
+        },
+        (error) => {
+          this.toastr.error('Error al actualizar recurso', 'Error');
+          console.error(error);
+        }
+      );
+    }
+  }
+
   eliminarRecurso(id: number): void {
     Swal.fire({
       title: '¿Estás seguro de eliminar este recurso?',
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#f59f00', 
+      confirmButtonColor: '#b4540f',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
-        cancelButton: 'swal2-cancel-button', 
-        confirmButton: 'swal2-confirm-button' 
+        cancelButton: 'swal2-cancel-button',
+        confirmButton: 'swal2-confirm-button'
       }
     }).then((result) => {
       if (result.isConfirmed) {
         this.loading = true;
-        this.recursosService.eliminarRecurso(id).subscribe(
+        this.recursoService.eliminarRecurso(id).subscribe(
           () => {
             this.toastr.success('Recurso eliminado correctamente', 'Éxito');
-            this.obtenerRecursos(); // para que se actualice la lista después de borrarlos
+            this.obtenerRecursos();
           },
           (error) => {
             this.loading = false;
@@ -67,8 +118,14 @@ export class RecursosComponent implements OnInit {
     });
   }
 
-  editarRecurso(recurso: RecursosEducativos): void {
-    this.router.navigate(['/dashboard/edit-recurso', recurso.id]);
+  cancelarNuevoRecurso() {
+    this.isCreateRecurso = false;
   }
 
+  onPageChange(newPage: number) {
+    if (newPage > 0 && (newPage < this.page || this.hasNextPage)) {
+      this.page = newPage;
+      this.obtenerRecursos();
+    }
+  }
 }

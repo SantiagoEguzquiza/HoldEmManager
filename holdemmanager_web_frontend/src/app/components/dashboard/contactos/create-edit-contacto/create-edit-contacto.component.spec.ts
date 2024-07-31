@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CreateContactoComponent } from './create-contacto.component';
+import { CreateContactoComponent } from './create-edit-contacto.component';
 
 describe('ContactoRegisterComponent', () => {
   let component: CreateContactoComponent;

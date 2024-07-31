@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RecursosRegisterComponent } from './create-recursos.component';
+import { FeedbackDetailsComponent } from './feedback-details.component';
 
-describe('RecursosRegisterComponent', () => {
-  let component: RecursosRegisterComponent;
-  let fixture: ComponentFixture<RecursosRegisterComponent>;
+describe('FeedbackPopupComponent', () => {
+  let component: FeedbackDetailsComponent;
+  let fixture: ComponentFixture<FeedbackDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecursosRegisterComponent ]
+      declarations: [ FeedbackDetailsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecursosRegisterComponent);
+    fixture = TestBed.createComponent(FeedbackDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

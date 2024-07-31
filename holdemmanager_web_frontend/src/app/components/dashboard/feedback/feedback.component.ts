@@ -17,20 +17,24 @@ export class FeedbackComponent implements OnInit {
   selectedFeedback: Feedback | null = null;
   selectedUser: Jugador | null = null;
 
+  page = 1;
+  pageSize = 10;
+  hasNextPage = false;
+
   constructor(private feedbackService: FeedbackService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.obtenerFeedbacks();
   }
 
-
   obtenerFeedbacks() {
     this.loading = true;
-    this.feedbackService.obtenerFeedbacks().subscribe(
+    this.feedbackService.obtenerFeedbacks(this.page, this.pageSize).subscribe(
       (data) => {
         console.log('Feedbacks recibidos', data);
         console.log(data);
-        this.feedbacks = data;
+        this.feedbacks = data.items;
+        this.hasNextPage = data.hasNextPage;
         this.loading = false;
       },
       (error) => {
@@ -58,5 +62,12 @@ export class FeedbackComponent implements OnInit {
   cerrarPopup() {
     this.selectedFeedback = null;
     this.selectedUser = null;
+  }
+
+  onPageChange(newPage: number) {
+    if (newPage > 0 && (newPage < this.page || this.hasNextPage)) {
+      this.page = newPage;
+      this.obtenerFeedbacks();
+    }
   }
 }

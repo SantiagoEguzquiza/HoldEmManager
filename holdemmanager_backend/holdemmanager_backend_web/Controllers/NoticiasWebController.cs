@@ -62,6 +62,11 @@ namespace holdemmanager_backend_web.Controllers
                 }
                 string? downloadUrl = null;
 
+                if (noticiaHelper.IdImagen == "DELETE")
+                {
+                    noticiaHelper.IdImagen = null;
+                }
+
                 if (!noticiaHelper.IdImagen.IsNullOrEmpty())
                 {
                     byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
@@ -106,31 +111,42 @@ namespace holdemmanager_backend_web.Controllers
 
             try
             {
+                string? newImageUrl = null;
+
                 var noticiaExistente = await _noticiasService.GetNoticiaById(id);
                 if (noticiaExistente == null)
                 {
                     return NotFound(new { message = "Noticia no encontrada" });
                 }
 
-                string? downloadUrl = noticiaExistente.IdImagen;
-
-                if (!noticiaHelper.IdImagen.IsNullOrEmpty())
+                if (noticiaHelper.IdImagen == "UPDATE")
                 {
-                    byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
-                    var stream = new MemoryStream(imagenBytes);
-
-                    downloadUrl = await _firebaseStorageHelper.SubirStorageNoticia(stream);
-
+                    newImageUrl = noticiaExistente.IdImagen;
+                }
+                else if (noticiaHelper.IdImagen == "DELETE")
+                {
                     if (!string.IsNullOrEmpty(noticiaExistente.IdImagen))
                     {
                         await _firebaseStorageHelper.EliminarImagenNoticia(noticiaExistente.IdImagen);
                     }
+                    newImageUrl = null;
+                }
+                else if (!string.IsNullOrEmpty(noticiaHelper.IdImagen))
+                {
+                    byte[] imagenBytes = Convert.FromBase64String(noticiaHelper.IdImagen);
+                    var stream = new MemoryStream(imagenBytes);
+
+                    if (!string.IsNullOrEmpty(noticiaExistente.IdImagen))
+                    {
+                        await _firebaseStorageHelper.EliminarImagenNoticia(noticiaHelper.IdImagen);
+                    }
+                    newImageUrl = await _firebaseStorageHelper.SubirStorageNoticia(stream);
                 }
 
                 noticiaExistente.Fecha = noticiaHelper.Fecha;
                 noticiaExistente.Mensaje = noticiaHelper.Mensaje;
                 noticiaExistente.Titulo = noticiaHelper.Titulo;
-                noticiaExistente.IdImagen = downloadUrl;
+                noticiaExistente.IdImagen = newImageUrl;
 
                 await _noticiasService.UpdateNoticia(noticiaExistente);
                 return Ok(new { message = "Noticia actualizada exitosamente." });

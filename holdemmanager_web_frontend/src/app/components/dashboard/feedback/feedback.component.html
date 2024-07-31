@@ -1,12 +1,12 @@
 <div class="loading" style="width: 100%; display: flex; justify-content: center;">
   <app-loading *ngIf="loading"></app-loading>
 </div>
-<div class="container-fluid" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); margin-top: 20px;">
+<div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
   <div class="row">
     <div class="col-12">
       <div class="card text-center" style="padding: 20px;">
         <h3>Lista de comentarios</h3>
-        <app-loading *ngIf="loading"></app-loading>
+        <br>
         <table class="table table-striped" *ngIf="!loading && feedbacks && feedbacks.length > 0">
           <thead>
             <tr>
@@ -31,9 +31,13 @@
         <div *ngIf="!loading && (!feedbacks || feedbacks.length === 0)">
           <p>No hay comentarios disponibles.</p>
         </div>
+        <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && feedbacks && feedbacks.length > 0">
+          <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
+          <span style="margin-right: 20px; cursor:default">Página {{ page }}</span>
+          <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 <app-feedback-create *ngIf="selectedFeedback" [feedback]="selectedFeedback" [jugador]="selectedUser" (cerrar)="cerrarPopup()"></app-feedback-create>
