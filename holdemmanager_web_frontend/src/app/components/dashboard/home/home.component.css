@@ -71,6 +71,7 @@
     background-size: cover;
     background-position: center;
     transition: filter 0.3s;
+    text-align: center;
 }
 
 .card-torneo .card-content-list:hover{
