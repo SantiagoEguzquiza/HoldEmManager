@@ -7,5 +7,5 @@ export class UsuarioWeb {
     nombreUsuario!: string;
     password!: string;
     listaTorneos?: Torneos[];
-    rol?: RolesEnum
+    rol?: RolesEnum;
 }

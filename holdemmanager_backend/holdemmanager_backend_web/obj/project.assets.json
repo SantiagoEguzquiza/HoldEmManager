@@ -9039,23 +9039,39 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\pipi2\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\santi\\.nuget\\packages\\": {},
+>>>>>>> 42338d35ab05d11cb21255e1de12e1ccfd62e2e2
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
       "projectName": "holdemmanager_backend_web",
       "projectPath": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
       "packagesPath": "C:\\Users\\pipi2\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
+      "projectName": "holdemmanager_backend_web",
+      "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
+      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\obj\\",
+>>>>>>> 42338d35ab05d11cb21255e1de12e1ccfd62e2e2
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\pipi2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 42338d35ab05d11cb21255e1de12e1ccfd62e2e2
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -9151,7 +9167,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
