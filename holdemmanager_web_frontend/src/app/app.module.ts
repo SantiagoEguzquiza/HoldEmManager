@@ -48,6 +48,8 @@ import { NoticiasComponent } from './components/dashboard/noticias/noticias.comp
 import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
 import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
 import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback-popup/feedback-popup.component';
+import { RankingComponent } from './components/dashboard/ranking/ranking.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 
@@ -82,6 +84,8 @@ import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback
     //Feedback
     FeedbackComponent,
     FeedbackPopupComponent,
+    //Ranking
+    RankingComponent,
     
   ],
   imports: [
@@ -94,6 +98,7 @@ import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback
     HttpClientModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
+    AgGridModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
     AuthGuard,

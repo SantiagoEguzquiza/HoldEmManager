@@ -89,6 +89,32 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Noticias");
                 });
 
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Ranking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PlayerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlayerNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Puntuacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RankingEnum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rankings");
+                });
+
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.RecursosEducativos", b =>
                 {
                     b.Property<int>("Id")

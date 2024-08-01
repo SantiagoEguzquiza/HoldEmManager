@@ -11,6 +11,11 @@
             <p><strong>Mapa Del Evento</strong></p>
         </div>
     </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/ranking">
+        <div class="card-content-map">
+            <p><strong>Ranking</strong></p>
+        </div>
+    </div>
     <div *ngIf="usuario.rol == 0" class="card-torneo">
         <div class="card-content">
             <p><strong>Recursos Educativos</strong></p>
