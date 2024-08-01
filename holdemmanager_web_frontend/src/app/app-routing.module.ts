@@ -44,7 +44,7 @@ const routes: Routes = [
       { path: 'mapa', component: MapaInteractivoComponent},
       { path: 'noticias', component: NoticiasComponent},
       { path: 'feedback', component: FeedbackComponent},
-      { path: 'torneos', component: TorneosComponent}     
+      { path: 'torneos', component: TorneosComponent},     
       { path: 'ranking', component:RankingComponent},      
     ]
   },

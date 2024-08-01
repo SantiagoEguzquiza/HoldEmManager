@@ -7,5 +7,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./ranking.component.css']
 })
 export class RankingComponent {
+
+  
  
 }
