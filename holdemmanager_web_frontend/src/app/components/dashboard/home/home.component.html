@@ -1,7 +1,7 @@
 <div class="container">
     <app-loading *ngIf="loading"></app-loading>
     <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
-        <div class="card-content-map">
+        <div class="card-content-list">
             <p><strong>Administración de Torneos</strong></p>
         </div>
     </div>
@@ -10,6 +10,11 @@
             <p><strong>Mapa Del Evento</strong></p>
         </div>
     </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/ranking">
+        <div class="card-content-list">
+            <p><strong>Ranking</strong></p>
+        </div>
+    </div>   
     <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/recursos">
         <div class="card-content-list">
             <p><strong>Recursos Educativos</strong></p>

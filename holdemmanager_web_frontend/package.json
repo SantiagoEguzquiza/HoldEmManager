@@ -21,14 +21,18 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@sweetalert2/ngx-sweetalert2": "^12.3.0",
+    "ag-grid-angular": "^32.0.2",
+    "ag-grid-community": "^32.0.2",
     "boostrap": "^2.0.0",
     "bootstrap": "^4.6.2",
     "bootstrap-icons": "^1.11.3",
+    "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.12.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
