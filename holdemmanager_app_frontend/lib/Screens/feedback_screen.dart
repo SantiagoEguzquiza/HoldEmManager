@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/Models/FeedbackEnum.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,8 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
   final _formKey = GlobalKey<FormState>();
   final _feedbackController = TextEditingController();
   final ApiService _apiService = ApiService();
+  bool _isAnonimo = false;
+  FeedbackEnum _selectedCategory = FeedbackEnum.INSCRIPCION;
 
   @override
   void initState() {
@@ -61,7 +64,8 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
           throw Exception('Usuario no autenticado');
         }
 
-        await _apiService.enviarFeedback(message, userId, now);
+        await _apiService.enviarFeedback(
+            message, userId, now, _isAnonimo, _selectedCategory);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Comentario enviado exitosamente!')),
         );
@@ -90,6 +94,26 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
           key: _formKey,
           child: Column(
             children: [
+              const SizedBox(height: 20),
+              DropdownButtonFormField<FeedbackEnum>(
+                value: _selectedCategory,
+                onChanged: (FeedbackEnum? newValue) {
+                  setState(() {
+                    _selectedCategory = newValue!;
+                  });
+                },
+                items:
+                    FeedbackEnumExtension.values.map((FeedbackEnum category) {
+                  return DropdownMenuItem<FeedbackEnum>(
+                    value: category,
+                    child: Text(category.displayName),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(
+                  labelText: 'Categoría',
+                  border: OutlineInputBorder(),
+                ),
+              ),
               TextFormField(
                 controller: _feedbackController,
                 decoration: const InputDecoration(
@@ -107,6 +131,15 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
                 minLines: 2,
               ),
               const SizedBox(height: 20),
+              CheckboxListTile(
+                title: const Text('Enviar como anónimo'),
+                value: _isAnonimo,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isAnonimo = value!;
+                  });
+                },
+              ),
               ElevatedButton(
                 onPressed: _submitFeedback,
                 style: ButtonStyle(

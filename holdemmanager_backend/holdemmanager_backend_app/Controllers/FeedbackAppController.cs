@@ -60,7 +60,7 @@ namespace holdemmanager_backend_app.Controllers
                 {
                     return BadRequest(new { message = "El usuario especificado no existe." });
                 }
-
+                
                 await _feedbackService.AddFeedback(feedback);
 
                 return Ok(new { message = "Feedback agregado exitosamente." });
@@ -70,6 +70,7 @@ namespace holdemmanager_backend_app.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
 
 
