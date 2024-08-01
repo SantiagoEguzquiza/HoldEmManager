@@ -10,8 +10,8 @@ namespace holdemmanager_backend_app.Domain.Models
     public class Mapa
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public string URLImagen { get; set; }
+        public int? Id { get; set; }
+        public int PlanoId { get; set; }
+        public byte[] Plano { get; set; }
     }
 }

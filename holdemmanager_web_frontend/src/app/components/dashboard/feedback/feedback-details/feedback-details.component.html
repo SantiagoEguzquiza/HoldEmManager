@@ -1,0 +1,16 @@
+<div class="popup-background">
+  <div class="popup-content">
+    <a class="close-button" (click)="cerrarPopup()">X</a>
+    <h2>Detalles del comentario</h2>
+    <br>
+    <p><strong>Mensaje:</strong> {{ feedback?.mensaje }}</p>
+    <p><strong>Fecha:</strong> {{ feedback?.fecha | date:'dd/MM/yyyy' }}</p>
+    <br>
+    <h3>Información del usuario</h3>
+    <br>
+    <p><strong>Nombre:</strong> {{ jugador?.name }}</p>
+    <p><strong>Numero de jugador:</strong> {{ jugador?.numberPlayer }}</p>
+    <p><strong>Email:</strong> {{ jugador?.email }}</p>
+
+  </div>
+</div>

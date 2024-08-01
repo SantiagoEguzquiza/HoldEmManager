@@ -9,7 +9,9 @@
       <div *ngFor="let item of itemsFiltrados" [ngClass]="item.type" [ngStyle]="{
         'left.%': item.x,
         'top.%': item.y,
-        'transform': 'rotate(' + item.rotation + 'deg)'
+        'transform': 'rotate(' + item.rotation + 'deg)',
+        'width.px': item.width,
+        'height.px': item.height
       }" class="item" (mousedown)="empezarArrastrar($event, item)" (contextmenu)="empezarRotar($event, item)">
         <div class="item-content">
           {{ item.label }}

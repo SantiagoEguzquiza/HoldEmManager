@@ -3,15 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { NoticiasService } from 'src/app/service/noticias.service';
-import { Noticias } from 'src/app/models/noticias';
-
-interface Noticia {
-  id?: number;
-  titulo: string;
-  fecha: Date;
-  mensaje: string;
-  URLImagen?: string;
-}
+import { Noticia } from 'src/app/models/noticias';
 
 @Component({
   selector: 'app-noticias',
@@ -20,9 +12,12 @@ interface Noticia {
 })
 export class NoticiasComponent implements OnInit {
   isCreateNoticia = false;
-  noticias: Noticias[] = [];
+  noticias: Noticia[] = [];
   noticiaActual: Noticia | null = null;
   loading = false;
+  page = 1;
+  pageSize = 10;
+  hasNextPage = false;
 
   constructor(private noticiasService: NoticiasService, private router: Router, private toastr: ToastrService) { }
 
@@ -32,15 +27,15 @@ export class NoticiasComponent implements OnInit {
 
   obtenerNoticias(): void {
     this.loading = true;
-    this.noticiasService.obtenerNoticias().subscribe(
+    this.noticiasService.obtenerNoticias(this.page, this.pageSize).subscribe(
       (data) => {
-        this.noticias = data;
+        this.noticias = data.items;
+        this.hasNextPage = data.hasNextPage;
         this.loading = false;
       },
       (error) => {
         this.loading = false;
         this.toastr.error('Error al obtener noticias', 'Error');
-        console.error(error);
       }
     );
   }
@@ -51,12 +46,12 @@ export class NoticiasComponent implements OnInit {
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#f59f00', 
+      confirmButtonColor: '#b4540f',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
-        cancelButton: 'swal2-cancel-button', 
-        confirmButton: 'swal2-confirm-button' 
+        cancelButton: 'swal2-cancel-button',
+        confirmButton: 'swal2-confirm-button'
       }
     }).then((result) => {
       if (result.isConfirmed) {
@@ -77,23 +72,17 @@ export class NoticiasComponent implements OnInit {
   }
 
   agregarNoticia() {
-    this.noticiaActual = {
-      id: 0,
-      titulo: '',
-      fecha: new Date(),
-      mensaje: '',
-      URLImagen: ''
-    };
+    this.noticiaActual = null;
     this.isCreateNoticia = true;
   }
 
-  editarNoticia(noticia: Noticias): void {
+  editarNoticia(noticia: Noticia): void {
     this.noticiaActual = { ...noticia };
     this.isCreateNoticia = true;
   }
 
   guardarNuevaNoticia(nuevaNoticia: Noticia) {
-    if (nuevaNoticia.id === 0) {
+    if (nuevaNoticia.id === 0 || nuevaNoticia.id === undefined) {
       this.noticiasService.agregarNoticia(nuevaNoticia).subscribe(
         (data) => {
           this.noticias.push(data);
@@ -127,5 +116,12 @@ export class NoticiasComponent implements OnInit {
 
   cancelarNuevaNoticia() {
     this.isCreateNoticia = false;
+  }
+
+  onPageChange(newPage: number) {
+    if (newPage > 0 && (newPage < this.page || this.hasNextPage)) {
+      this.page = newPage;
+      this.obtenerNoticias();
+    }
   }
 }

@@ -2,8 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Jugador } from 'src/app/models/jugador';
 
-
-
 @Component({
   selector: 'app-create-player',
   templateUrl: './create-player.component.html',
@@ -18,17 +16,22 @@ export class CreatePlayerComponent {
   constructor(private fb: FormBuilder) {
     this.jugadorForm = this.fb.group({
       id: [0],
-      numberPlayer: ['', [Validators.required, Validators.pattern('^[0-9-]*$')]],
+      numberPlayer: ['', [Validators.required, Validators.pattern('^[0-9-]*$'), this.noSoloGuionValidator]],
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email, this.gmailValidator]],
-      password: ['', Validators.required], 
+      email: ['', [Validators.required, Validators.email, this.emailComValidator]],
+      password: ['', Validators.required],
       imageUrl: ['']
     });
   }
 
-  gmailValidator(control: AbstractControl): {[key: string]: any} | null {
-    const email = control.value;
-    return email.endsWith('@gmail.com') ? null : { 'gmail': true };
+  noSoloGuionValidator(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    return value === '-' ? { 'noSoloGuion': true } : null;
+  }
+
+  emailComValidator(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    return value.endsWith('.com') ? null : { 'email': true }; // Reuse the 'email' key for consistency
   }
 
   guardarJugador() {
@@ -55,10 +58,6 @@ export class CreatePlayerComponent {
 
   get password() {
     return this.jugadorForm.get('password');
-  }
-
-  get confirmPassword() {
-    return this.jugadorForm.get('confirmPassword');
   }
 
   get imageUrl() {

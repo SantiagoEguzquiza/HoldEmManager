@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "holdemmanager-429522",
+  "private_key_id": "d657823e3a0bc1d157c7d35ab108df6008004a81",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC9pPvzKqed2BE0\nFqDVnPTtTEG0D3SClvx8Hj21Dj/ZPp5KWSxH49iO3NQLtCXsmMADEXTcO0ViYdnC\nfbndjdg9I0xC55Cn8v0Cb4cjFffIxY/zZFnFrmBwM2BNrAUCEv9WSU9M+g0tFTTX\ne/c6ypOdZAEWR+szdMUB4k37K5Ro2lWv4hsaVAqDFQVE1zbE8JFcLU5pEj1WWkrh\nbgWG9h5pTJq86zZaC+/15i2jeanksoFZ1rs9W9iyTsxyQzwo49uqQVqCgGRCzP8k\nFnVqXw0TunUJOTTy75BxnWxhXZLQQwSFTWco5m6AekPU9S7tQKxO2hbCOMfZyKUb\ne1GK4foHAgMBAAECggEAD5RmPmvaqVT+1NCnFeV3GaeSHkDGyZOt2mSBnUY2aJqE\nVodM4/sL53Cs2ulJ1E4YOChO+WjFInf3c8rwYgstIJitwzFS6PlFX9XZvEApwwy3\n7r7nwR26Pn16A+eF4c29vFD5etFwE6wSU0GT5fiOd/enPzVZVTjalnUJAwFph9OD\n0pgUbQgRw6Us2L7JL7wJtZifH0BMrGg+JauTumhLyKm82uPXf0bjzvOLoOGj7ofX\nCpM4m7haHcqBv1SQ5yzyOWt+ih8VRRi0BHHIhxHhpt467RF2ZIe2zdQTAX3eqzjn\nMFQiiCQRe3Zf/QjmFeugIq+flPB/3L9NVqI5N6jbgQKBgQDcvOcYMNK1zrvXkAOn\nldYqE5r66W65BzOJWrgHVYA9gkcvHLtaMBxoqAmb2sCIe7ZeVqXOy5q2Z1V0c5B4\ngffpjhSRu6NlrQlMqwWyIvaPmIvt5r8upix7+ST64rK7xalVVyERdXFzktXi8PxU\naCGSZiG8OkDbc5QVwuWotp33DwKBgQDb8IM8fOGgOYi0FOQ0V45aRcxNCb8ZMmN/\nDs6mzNjdbu/bPUDdKBxEdXPXLy1MxBkpXTwvD/MRQ4bekHdps/UCKfox4HZRsN5F\ncApwsc1CGvMaL/Y/EqcnOfNEuZXpP36P7hw49/449B2OwVCTEELzMJ/mrT4RDBfu\nim+gwGMNiQKBgHhnghar6wPItKWspJGxJZTmBM+ArSi4SOBPX7qAZOcoPPPx1DAp\nthVQM42UERlhgeSLlv3qCYYdb3uJ3fAd1MDNA2NK2qIHdN8hGoZElAFX0FwAVaB4\nfCNTj1xac+wAsZEfaaZATZYhLhIQKVNRSZ61nwkxLVeG/+uu197jXd75AoGAKDAH\nWtsawxMgNn+Gv0WsXjRYw07fmzQI2COVgQb3LWbi7vV/T6nPmHa5pv0Y0ukWC+fc\nYmEQsfvbvfk5yJe4Uh/ndoukMwMVaiyxy6vBbK3N8+AFp7q5zkIZgFpE2Szf7F6+\ny24NBs0cRYRvO6ACC7u7zAOlzqmeCdlD0mS09LkCgYEAmmbB5ibI9RvRehwAqkVP\ntI4ywhgCtgsYxEgqajQ/Vtux888NVi+argf4RMf/pqZExrwDErpJafCH77LzRByQ\nx+j5JcWQ7TqUupC1fs2Bi8r5cg4OmW/G+L7Tu/2tJ4jyeGH2/V1OkpIudnQEoC6b\nkIBsuIXC7pvMGySIdsZg6IU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "uploadimages-315@holdemmanager-429522.iam.gserviceaccount.com",
+  "client_id": "112297810153044861555",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/uploadimages-315%40holdemmanager-429522.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

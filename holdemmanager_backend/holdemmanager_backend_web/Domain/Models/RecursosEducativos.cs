@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Domain.Models
 {
-    public class RecursosEducativos
+    public class RecursoEducativo
     {
         [Key]
         public int Id { get; set; }
@@ -18,8 +18,8 @@ namespace holdemmanager_backend_web.Domain.Models
         [Required]
         public string Mensaje { get; set; }
 
-        public string URLImagen { get; set; }
+        public string? URLImagen { get; set; }
 
-        public string URLVideo { get; set; }
+        public string? URLVideo { get; set; }
     }
 }

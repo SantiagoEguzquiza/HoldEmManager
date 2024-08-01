@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace holdemmanager_backend_app.Controllers
@@ -26,6 +25,15 @@ namespace holdemmanager_backend_app.Controllers
             _dbContext = dbContext;
         }
 
+        // obtener todos los jugadores
+        [HttpGet]
+        public async Task<ActionResult<PagedResult<Jugador>>> GetAllNoticias(int page, int pageSize)
+        {
+            var noticias = await _usuarioService.GetAllJugadores(page, pageSize);
+            return Ok(noticias);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Jugador usuario)
         {
@@ -67,20 +75,14 @@ namespace holdemmanager_backend_app.Controllers
 
                 if (usuario == null)
                 {
-
                     return BadRequest(new { message = "Password incorrecta" });
-
                 }
                 else
                 {
-
                     usuario.Password = Encriptar.EncriptarPassword(cambiarPassword.nuevaPassword);
                     await _usuarioService.UpdateUsuario(usuario);
                     return Ok(new { message = "La password fue actualizada con exito" });
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -90,10 +92,8 @@ namespace holdemmanager_backend_app.Controllers
 
         }
 
-      
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por numberPlayer
+        [HttpGet("id/{id:int}")]
+        public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por id
         {
             try
             {
@@ -105,6 +105,21 @@ namespace holdemmanager_backend_app.Controllers
                 return BadRequest(new { message = "No se encontraron datos que coincidan con el id." });
             }
         }
+
+        [HttpGet("number/{numberPlayer:int}")]
+        public async Task<ActionResult<Jugador>> GetUsuarioPorNumberPlayer(int numberPlayer) //trae jugador por numberPlayer
+        {
+            try
+            {
+                var jugador = await _dbContext.Jugadores.Where(u => u.NumberPlayer == numberPlayer).FirstOrDefaultAsync();
+                return Ok(jugador);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "No se encontraron datos que coincidan con el numero de jugador." });
+            }
+        }
+
 
 
         [HttpPut("{imageUrl}/{numeroJugador}")]
@@ -128,12 +143,12 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
-        [HttpPut("UpdateUser/{numeroJugador}")]
-        public async Task<IActionResult> UpdateUser(int numeroJugador, [FromBody] Jugador jugadorActualizado)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Jugador jugador)
         {
             try
             {
-                await _usuarioService.UpdateUser(numeroJugador, jugadorActualizado);
+                await _usuarioService.UpdateUsuario(jugador);
                 return Ok(new { message = "Usuario actualizado con éxito" });
             }
             catch (Exception ex)
@@ -155,14 +170,5 @@ namespace holdemmanager_backend_app.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error al eliminar el usuario", details = ex.Message });
             }
         }
-
-        // obtener todos los jugadores
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Jugador>>> GetAllRecursos()
-        {
-            var jugadores = await _usuarioService.GetAllJugadores();
-            return Ok(jugadores);
-        }
-
     }
 }

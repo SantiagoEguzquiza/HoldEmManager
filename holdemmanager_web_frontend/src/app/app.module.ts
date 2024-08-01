@@ -30,26 +30,27 @@ import { HelpComponent } from './components/dashboard/mapa-interactivo/help/help
 import { MapaInteractivoComponent } from './components/dashboard/mapa-interactivo/mapa-interactivo.component';
 // Recursos
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
-import { CreateRecursoComponent } from './components/dashboard/recursos/create-recurso/create-recursos.component';
-import { EditRecursosComponent } from './components/dashboard/recursos/edit-recursos/edit-recursos.component';
+import { CreateEditRecursoComponent } from './components/dashboard/recursos/create-edit-recurso/create-edit-recurso.component';
 // Players
 import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
 import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
 import { PlayersComponent } from './components/dashboard/players/players.component';
 // Contactos
-import { CreateContactoComponent } from './components/dashboard/contactos/create-contacto/create-contacto.component';
+import { CreateEditContactoComponent } from './components/dashboard/contactos/create-edit-contacto/create-edit-contacto.component';
 import { ContactosComponent } from './components/dashboard/contactos/contactos.component';
-import { EditContactoComponent } from './components/dashboard/contactos/edit-contacto/edit-contacto.component';
+
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateItemComponent } from './components/dashboard/mapa-interactivo/create-item/create-item.component';
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
+import { TorneosComponent } from './components/dashboard/torneos/torneos.component';
+import { CreateTorneoComponent } from './components/dashboard/torneos/create-torneo/create-torneo.component';
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
-import { CreateNoticiaComponent } from './components/dashboard/noticias/create-noticia/create-noticia.component';
+import { CreateEditNoticiaComponent } from './components/dashboard/noticias/create-edit-noticia/create-edit-noticia.component';
 import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
-import { FeedbackPopupComponent } from './components/dashboard/feedback/feedback-popup/feedback-popup.component';
 import { RankingComponent } from './components/dashboard/ranking/ranking.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedback-details/feedback-details.component';
 
 
 
@@ -68,25 +69,25 @@ import { AgGridModule } from 'ag-grid-angular';
     PlayersComponent,
     // Recursos
     RecursosComponent,
-    CreateRecursoComponent,
-    EditRecursosComponent,
+    CreateEditRecursoComponent,
     // Mapa
     HelpComponent,
     MapaInteractivoComponent,
     CreateItemComponent,
     // Contactos
-    CreateContactoComponent,
+    CreateEditContactoComponent,
     ContactosComponent,
-    EditContactoComponent,
     //Noticias
     NoticiasComponent,
-    CreateNoticiaComponent,
+    CreateEditNoticiaComponent,
     //Feedback
-    FeedbackComponent,
-    FeedbackPopupComponent,
+     FeedbackComponent,
+     FeedbackDetailsComponent,
     //Ranking
     RankingComponent,
-    
+    //Torneos
+    TorneosComponent,
+    CreateTorneoComponent
   ],
   imports: [
     BrowserModule,

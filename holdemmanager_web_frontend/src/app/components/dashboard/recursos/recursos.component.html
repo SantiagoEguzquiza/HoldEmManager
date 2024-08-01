@@ -1,18 +1,35 @@
 <div class="loading" style="width: 100%; display: flex; justify-content: center;">
   <app-loading *ngIf="loading"></app-loading>
 </div>
-<div class="container-fluid" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); margin-top: 20px;">
+<div class="dark-background" *ngIf="isCreateRecurso"></div>
+<div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
+
+  <div *ngIf="isCreateRecurso" class="centered-container">
+    <app-create-edit-recurso 
+      [recurso]="recursoActual"
+      (guardar)="guardarNuevoRecurso($event)" 
+      (cancelar)="cancelarNuevoRecurso()">
+    </app-create-edit-recurso>
+  </div>
+
+  <div class="buttons" style="padding-bottom: 20px;">
+    <a class="agregar" href="javascript:void(0)" (click)="agregarRecurso()">
+      <i class="bi bi-plus-square-fill"></i>Agregar Recurso
+    </a>
+  </div>
+
   <div class="row">
     <div class="col-12">
       <div class="card text-center" style="padding: 20px;">
         <h3>Lista de Recursos</h3>
+        <br>
         <table class="table table-striped" *ngIf="!loading && recursos && recursos.length > 0">
           <thead>
             <tr>
               <th>Título</th>
               <th>Contenido</th>
               <th>Imagen</th>
-              <th>Link del video</th>
+              <th>Url del video</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -20,21 +37,26 @@
             <tr *ngFor="let recurso of recursos">
               <td class="truncate">{{ recurso.titulo }}</td>
               <td class="truncate">{{ recurso.mensaje }}</td>
-              <td><img [src]="recurso.urlImagen" alt="Imagen" class="img-fluid" style="max-width: 100px;"></td>
+              <td><img src="{{recurso.urlImagen}}" class="img-recurso"></td>
               <td class="truncate">{{ recurso.urlVideo }}</td>
               <td>
-                <button class="custom-btn btn btn-primary btn-sm" (click)="editarRecurso(recurso)">
+                <a class="custom-btn btn-sm" (click)="editarRecurso(recurso)">
                   <i class="fas fa-pen"></i>
-                </button>
-                <button class="custom-btn btn btn-danger btn-sm" (click)="eliminarRecurso(recurso.id!)">
+                </a>
+                <a class="custom-btn btn-sm" (click)="eliminarRecurso(recurso.id!)">
                   <i class="fas fa-trash-alt"></i>
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
         </table>
         <div *ngIf="!loading && (!recursos || recursos.length === 0)">
           <p>No hay recursos disponibles.</p>
+        </div>
+        <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && recursos && recursos.length > 0">
+          <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
+          <span style="margin-right: 20px; cursor:default">Página {{ page }}</span>
+          <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>
         </div>
       </div>
     </div>

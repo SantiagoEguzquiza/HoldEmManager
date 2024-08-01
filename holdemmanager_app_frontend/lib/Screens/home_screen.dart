@@ -15,11 +15,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-      ),
-      drawerScrimColor: Colors.transparent,
+      appBar: const CustomAppBar(),
+      drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
       drawer: const SideBar(),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _selectedIndex,
@@ -34,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedIndex = index;
           });
         },
-      )
+      ),
     );
   }
 }

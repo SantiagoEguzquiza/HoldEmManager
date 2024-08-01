@@ -22,16 +22,6 @@ namespace holdemmanager_backend_web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TorneosUsuarioWeb", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TorneosUsuarioWeb");
-                });
-
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Contacto", b =>
                 {
                     b.Property<int>("Id")
@@ -61,7 +51,7 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Contactos");
                 });
 
-            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Noticias", b =>
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Noticia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,6 +62,9 @@ namespace holdemmanager_backend_web.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("IdImagen")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Mensaje")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -80,13 +73,9 @@ namespace holdemmanager_backend_web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("URLImagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Noticias");
+                    b.ToTable("Noticia");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Ranking", b =>
@@ -132,11 +121,9 @@ namespace holdemmanager_backend_web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLImagen")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLVideo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -150,16 +137,34 @@ namespace holdemmanager_backend_web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Cierre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Horario")
+                    b.Property<string>("Entrada")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Inicio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Niveles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Premios")
+                    b.Property<string>("Stack")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("numeroRef")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -192,19 +197,18 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("TorneosUsuarioWeb", b =>
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Torneos", b =>
                 {
-                    b.HasOne("holdemmanager_backend_web.Domain.Models.Torneos", null)
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("holdemmanager_backend_web.Domain.Models.UsuarioWeb", null)
-                        .WithMany()
+                        .WithMany("ListaTorneos")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.UsuarioWeb", b =>
+                {
+                    b.Navigation("ListaTorneos");
                 });
 #pragma warning restore 612, 618
         }

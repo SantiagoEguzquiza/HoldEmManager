@@ -54,7 +54,6 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
       final DateTime now = DateTime.now();
 
       try {
-        // Recuperar el ID del usuario desde SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int? userId = prefs.getInt('userId');
 

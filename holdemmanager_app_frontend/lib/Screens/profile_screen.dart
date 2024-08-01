@@ -9,7 +9,6 @@ import 'package:holdemmanager_app/NavBar/side_bar.dart';
 import 'package:holdemmanager_app/Screens/change_password_screen.dart';
 import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

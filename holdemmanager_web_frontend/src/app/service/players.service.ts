@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { Jugador } from '../models/jugador';
+import { PagedResult } from '../helpers/pagedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,15 @@ export class PlayersService {
   }
 
   obtenerPlayerPorId(id: number): Observable<Jugador> {
-    return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
+    return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/id/${id}`);
   }
 
-  obtenerJugadores(): Observable<Jugador[]> {
-    return this.http.get<Jugador[]>(this.myAppUrl + this.myApiUrlWeb);
+  obtenerJugadores(page: number, pageSize: number): Observable<PagedResult<Jugador>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<PagedResult<Jugador>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
   eliminarJugador(id: number): Observable<any> {
@@ -35,8 +40,6 @@ export class PlayersService {
   }
 
   actualizarJugador(jugador: Jugador): Observable<Jugador> {
-    return this.http.put<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/UpdateUser/${jugador.id}`, jugador);
+    return this.http.put<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}`, jugador);
   }
-
-
 }

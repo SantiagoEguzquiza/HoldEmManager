@@ -1,11 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using holdemmanager_backend_web.Utils;
 
 namespace holdemmanager_backend_web.Service
 {
@@ -15,30 +11,31 @@ namespace holdemmanager_backend_web.Service
 
         public NoticiasServiceWeb(INoticiasRepositoryWeb noticiasRepository)
         {
-           _noticiasRepository = noticiasRepository;            
+            _noticiasRepository = noticiasRepository;
         }
 
-        public async Task AddNoticia(Noticias noticia)
+        public async Task AddNoticia(Noticia noticia)
         {
             await _noticiasRepository.AddNoticia(noticia);
         }
+
 
         public async Task<bool> DeleteNoticia(int id)
         {
             return await _noticiasRepository.DeleteNoticia(id);
         }
 
-        public async Task<IEnumerable<Noticias>> GetAllNoticias()
+        public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize)
         {
-            return await _noticiasRepository.GetAllNoticias();
+            return await _noticiasRepository.GetAllNoticias(page, pageSize);
         }
 
-        public async Task<Noticias> GetNoticiaById(int id)
+        public async Task<Noticia> GetNoticiaById(int id)
         {
             return await _noticiasRepository.GetNoticiaById(id);
         }
 
-        public async Task UpdateNoticia(Noticias noticia)
+        public async Task UpdateNoticia(Noticia noticia)
         {
             await _noticiasRepository.UpdateNoticia(noticia);
         }

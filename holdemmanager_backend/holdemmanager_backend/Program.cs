@@ -13,7 +13,9 @@ using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Service;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Repositories;
+using holdemmanager_backend_app.Utils;
 using holdemmanager_backend_app.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,8 @@ builder.Services.AddScoped<IJugadorRepositoryApp, JugadorRepositoryApp>();
 builder.Services.AddScoped<IJugadorServiceApp, JugadorServiceApp>();
 builder.Services.AddScoped<ILoginRepositoryApp, LoginRepositoryApp>();
 builder.Services.AddScoped<ILoginServiceApp, LoginServiceApp>();
+builder.Services.AddScoped<IMapaRepositoryApp, MapaRepositoryApp>();
+builder.Services.AddScoped<IMapaServiceApp, MapaServiceApp>();
 builder.Services.AddScoped<IFeedbackRepositoryApp, FeedbackRepositoryApp>();
 builder.Services.AddScoped<IFeedbackServiceApp, FeedbackServiceApp>();
 
@@ -43,6 +47,10 @@ builder.Services.AddScoped<IContactoRepositoryWeb, ContactoRepositoryWeb>();
 builder.Services.AddScoped<IContactoServiceWeb, ContactoServiceWeb>();
 builder.Services.AddScoped<INoticiasRepositoryWeb, NoticiasRepositoryWeb>();
 builder.Services.AddScoped<INoticiasServiceWeb, NoticiasServiceWeb>();
+builder.Services.AddScoped<ITorneosRepositoryWeb, TorneoRepositoryWeb>();
+builder.Services.AddScoped<ITorneosServiceWeb, TorneoServiceWeb>();
+
+builder.Services.AddSingleton<FirebaseStorageHelper>();
 
 builder.Services.AddDbContext<AplicationDbContextApp>(options =>
 {
@@ -52,7 +60,6 @@ builder.Services.AddDbContext<AplicationDbContextWeb>(options =>
 {
     options.UseSqlServer(connectionStringWeb);
 });
-
 
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebapp",

@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_app.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Feedback>>> GetAllFeedbacks()
+        public async Task<ActionResult<PagedResult<Feedback>>> GetAllFeedbacks(int page, int pageSize)
         {
-            var devolucion = await _feedbackService.GetAllFeedbacks();
+            var devolucion = await _feedbackService.GetAllFeedbacks(page, pageSize);
             return Ok(devolucion);
         }
 

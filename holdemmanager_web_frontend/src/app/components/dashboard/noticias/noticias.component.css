@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
 .dark-background {
@@ -8,7 +9,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  display: none;
 }
 
 .container-fluid .dark-background {
@@ -19,13 +19,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: inherit;
   padding: 0.5rem 1rem;
   color: black;
 }
 
 .custom-btn:hover {
-  background-color: orange;
+  background-color: rgb(180, 84, 15);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
@@ -37,7 +36,10 @@
   font-size: 1rem;
 }
 
-.container-fluid {
+.tabla {
+  margin-top: 30px;
+  margin-left: 2%;
+  margin-right: 2%;
   padding: 20px;
 }
 
@@ -45,9 +47,8 @@
   margin: 0 5px;
 }
 
-.img-fluid {
-  max-height: 100px;
-  width: auto;
+.img-noticia {
+  height: 40px;
 }
 
 .swal2-cancel-button {
@@ -59,28 +60,30 @@
   border: none !important;
 }
 
-.btn {
+i {
+  font-size: 1.2rem;
+}
+
+.agregar {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-}
-
-.aceptar {
+  gap: 10px;
   background-color: #008f39;
   border: none;
   color: #fff;
-
+  padding: 8px;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.aceptar:hover {
+.agregar:hover {
   background-color: #006400;
 }
 
 .centered-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   position: absolute;
   top: 0;
   right: 0;
@@ -100,4 +103,22 @@
   max-height: 100px;
   width: auto;
   max-width: 100px;
+}
+
+.btn-pagination{
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  background-color: rgb(180, 84, 15);
+  border-radius: 15px;
+  margin-right: 20px;
+}
+
+.btn-pagination:hover{
+  background-color: rgb(202, 133, 83);
+}
+
+.btn-pagination:disabled{
+  background-color: rgb(97, 96, 95);
 }

@@ -2,6 +2,7 @@
 using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,28 @@ namespace holdemmanager_backend_web.Repositories
         {
             this._context = context;
         }
-        public async Task<IEnumerable<RecursosEducativos>> GetAllRecursos()
+        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize)
         {
-            return await _context.RecursosEducativos.ToListAsync();
+            var recursos = await _context.RecursosEducativos
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = recursos.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                recursos.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<RecursoEducativo>
+            {
+                Items = recursos,
+                HasNextPage = hasNextPage
+            };
         }
 
-        public async Task<RecursosEducativos> GetRecursoById(int id)
+        public async Task<RecursoEducativo> GetRecursoById(int id)
         {
             var recurso = await _context.RecursosEducativos.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (recurso == null)
@@ -34,13 +51,13 @@ namespace holdemmanager_backend_web.Repositories
             return recurso;
         }
 
-        public async Task AddRecurso(RecursosEducativos recurso)
+        public async Task AddRecurso(RecursoEducativo recurso)
         {
             _context.RecursosEducativos.Add(recurso);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateRecurso(RecursosEducativos recurso)
+        public async Task UpdateRecurso(RecursoEducativo recurso)
         {
             _context.RecursosEducativos.Update(recurso);
             await _context.SaveChangesAsync();

@@ -1,14 +1,19 @@
 import { Component, ElementRef, Renderer2, HostListener, AfterViewInit } from '@angular/core';
 import html2canvas from 'html2canvas';
+import { ToastrService } from 'ngx-toastr';
+import { MapaHelper } from 'src/app/helpers/mapaHelper';
+import { MapaService } from 'src/app/service/mapa.service';
 
 
 interface PlanoItem {
-  type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador'| 'barbero'| 'entretenimiento'| 'salatorneo' ;
+  type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador' | 'barbero' | 'entretenimiento' | 'salatorneo';
   label: string;
   x: number;
   y: number;
   rotation: number;
   plano: number;
+  width: number;
+  height: number;
 }
 
 interface Plano {
@@ -28,6 +33,7 @@ export class MapaInteractivoComponent implements AfterViewInit {
   isCreateItem = false;
   isHelp = false;
   newItemType: PlanoItem['type'] = 'mesa';
+  loading = false;
 
   planos: Plano[] = [
     {
@@ -45,19 +51,18 @@ export class MapaInteractivoComponent implements AfterViewInit {
   ];
 
   itemsOriginales: PlanoItem[] = [
-    { type: 'barra', label: 'Barra', x: 36.4, y: 40, rotation: -90, plano: 1 },
-    { type: 'banio', label: 'Baños', x: 52, y: 2, rotation: 0, plano: 1 },
-    { type: 'caja', label: 'Cajas', x: 36.4, y: 80, rotation: -90, plano: 1 },
-    { type: 'marketing', label: 'Marketing', x: 35.4, y: 60, rotation: -90, plano: 1 },
-    { type: 'infotorneos', label: 'Información Torneos', x: 88.2, y: 87, rotation: 0, plano: 2 },
-    { type: 'prensa', label: 'Prensa', x: 91, y: 20, rotation: 90, plano: 2 },
-    { type: 'agua', label: '', x: 31, y: 2, rotation: 0, plano: 2 },
-    { type: 'agua', label: '', x: 61, y: 2, rotation: 0, plano: 2 },
-    { type: 'agua', label: '', x: 31, y: 93, rotation: 0, plano: 2 },
-    { type: 'agua', label: '', x: 61, y: 93, rotation: 0, plano: 2 },
-    { type: 'salatorneo', label: 'Sala de Torneo', x: 66, y: 50, rotation: 90, plano: 1 },
-    { type: 'barbero', label: 'Barbero', x: 55.5, y: 50, rotation: 90, plano: 1 },
-    { type: 'entretenimiento', label: 'Entretenimiento', x: 53, y: 70, rotation: 90, plano: 1 },
+    { type: 'banio', label: 'Bathrooms', x: 70, y: 15, rotation: 0, plano: 1, width: 65, height: 40 },
+    { type: 'caja', label: 'Cashier', x: 38.5, y: 88, rotation: -90, plano: 1, width: 60, height: 35 },
+    { type: 'marketing', label: 'Marketing', x: 37.4, y: 70, rotation: -90, plano: 1, width: 80, height: 35 },
+    { type: 'infotorneos', label: 'Tournament Information', x: 90, y: 88.3, rotation: 0, plano: 2, width: 80, height: 50 },
+    { type: 'prensa', label: 'Press', x: 92.8, y: 20, rotation: 90, plano: 2, width: 70, height: 40 },
+    { type: 'agua', label: '', x: 31, y: 2, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 61, y: 2, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 31, y: 93.5, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 61, y: 93.5, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'salatorneo', label: 'Tournament Room', x: 68, y: 65, rotation: 90, plano: 1, width: 200, height: 100 },
+    { type: 'barbero', label: 'Barber', x: 55.7, y: 65, rotation: 90, plano: 1, width: 50, height: 30 },
+    { type: 'entretenimiento', label: 'Entertainment', x: 54.5, y: 73.5, rotation: 90, plano: 1, width: 60, height: 45 },
     ...this.crearMesasManuales()
   ];
 
@@ -68,7 +73,7 @@ export class MapaInteractivoComponent implements AfterViewInit {
   private mouseArribaListener: (() => void) | null = null;
   private leftMouseDown = false;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) { }
+  constructor(private renderer: Renderer2, private el: ElementRef, private mapaService: MapaService, private toastr : ToastrService) { }
 
   ngAfterViewInit() {
     this.actualizarItemsPosicion();
@@ -142,17 +147,37 @@ export class MapaInteractivoComponent implements AfterViewInit {
     }
   }
 
-  exportarImagen() {
+  exportarImagen(): void {
     const container = this.el.nativeElement.querySelector('#plano-container');
     html2canvas(container, {
       useCORS: true,
-      allowTaint: true
+      allowTaint: true,
+      scale: window.devicePixelRatio
     }).then((canvas) => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = 'plano-torneo.png';
-      link.click();
+      const base64Image = canvas.toDataURL('image/png').split(',')[1];
+  
+      const mapa: MapaHelper = {
+        planoId: this.currentPlanoId,
+        planoString: base64Image
+      };
+  
+      this.mapaService.saveMapa(mapa).subscribe(data => {
+        this.toastr.success(data.message);
+      }, (error) => {
+        this.loading = false;
+        this.toastr.error(error.message, 'Error');
+        console.error(error);
+      });
     });
+  }
+
+  convertirImagenBytes(base64: string): number[] {
+    const binaryString = atob(base64);
+    const byteArray = new Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      byteArray[i] = binaryString.charCodeAt(i);
+    }
+    return byteArray;
   }
 
   reinicarItems() {
@@ -164,7 +189,7 @@ export class MapaInteractivoComponent implements AfterViewInit {
     this.isCreateItem = true;
   }
 
-  help(){
+  help() {
     this.isHelp = true;
   }
 
@@ -185,7 +210,7 @@ export class MapaInteractivoComponent implements AfterViewInit {
   cancelarNuevoItem() {
     this.isCreateItem = false;
   }
-  
+
   atrasItem() {
     this.isHelp = false;
   }
@@ -226,67 +251,59 @@ export class MapaInteractivoComponent implements AfterViewInit {
 
   crearMesasManuales(): PlanoItem[] {
     return [
-      { type: 'mesa', label: 'Mesa 1', x: 77, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 2', x: 77, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 3', x: 77, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 4', x: 77, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 5', x: 77, y: 74, rotation: 270, plano: 2 },
+      { type: 'mesa', label: 'Mesa 1', x: 77, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 2', x: 77, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 3', x: 77, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 4', x: 77, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 5', x: 77, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
   
-      { type: 'mesa', label: 'Mesa 6', x: 69, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 7', x: 69, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 8', x: 69, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 9', x: 69, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 10', x: 69, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 11', x: 61, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 12', x: 61, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 13', x: 61, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 14', x: 61, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 15', x: 61, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 16', x: 53, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 17', x: 53, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 18', x: 53, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 19', x: 53, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 20', x: 53, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 21', x: 45, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 22', x: 45, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 23', x: 45, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 24', x: 45, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 25', x: 45, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 26', x: 33, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 27', x: 33, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 28', x: 33, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 29', x: 33, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 30', x: 33, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 31', x: 25, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 32', x: 25, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 33', x: 25, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 34', x: 25, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 35', x: 25, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 36', x: 17, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 37', x: 17, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 38', x: 17, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 39', x: 17, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 40', x: 17, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 41', x: 9, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 42', x: 9, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 43', x: 9, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 44', x: 9, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 45', x: 9, y: 74, rotation: 270, plano: 2 },
-
-      { type: 'mesa', label: 'Mesa 46', x: 1, y: 14, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 47', x: 1, y: 29, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 48', x: 1, y: 44, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 49', x: 1, y: 59, rotation: 270, plano: 2 },
-      { type: 'mesa', label: 'Mesa 50', x: 1, y: 74, rotation: 270, plano: 2 },
+      { type: 'mesa', label: 'Mesa 6', x: 69, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 7', x: 69, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 8', x: 69, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 9', x: 69, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 10', x: 69, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
   
-      { type: 'mesa', label: 'Mesa Final', x: 88, y: 43, rotation: 90, plano: 2 },
+      { type: 'mesa', label: 'Mesa 11', x: 61, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 12', x: 61, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 13', x: 61, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 14', x: 61, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 15', x: 61, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 16', x: 53, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 17', x: 53, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 18', x: 53, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 19', x: 53, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 20', x: 53, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 21', x: 45, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 22', x: 45, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 23', x: 45, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 24', x: 45, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 25', x: 45, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 26', x: 33, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 27', x: 33, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 28', x: 33, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 29', x: 33, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 30', x: 33, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 31', x: 25, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 32', x: 25, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 33', x: 25, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 34', x: 25, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 35', x: 25, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 36', x: 17, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 37', x: 17, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 38', x: 17, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 39', x: 17, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 40', x: 17, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
+  
+      { type: 'mesa', label: 'Mesa 41', x: 9, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 42', x: 9, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 43', x: 9, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 44', x: 9, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
+      { type: 'mesa', label: 'Mesa 45', x: 9, y: 74, rotation: 270, plano: 2, width: 50, height: 50 }
     ];
   }
 }
