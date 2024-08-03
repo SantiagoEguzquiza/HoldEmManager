@@ -1,52 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Contactos } from 'src/app/models/contactos';
-import { ContactoService } from 'src/app/service/contacto.service';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Contacto } from 'src/app/models/contactos';
 
 @Component({
-  selector: 'app-create-contacto',
+  selector: 'app-create-edit-contacto',
   templateUrl: './create-edit-contacto.component.html',
   styleUrls: ['./create-edit-contacto.component.css']
 })
-export class CreateEditContactoComponent{
-  register: FormGroup;
+export class CreateEditContactoComponent implements OnChanges {
+  @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
   loading = false;
 
-  constructor(private fb: FormBuilder, private contactoService: ContactoService, private router: Router, private toastr: ToastrService) {
-    this.register = this.fb.group({
-      infocasino: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
-      numerotelefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      email: ['', [Validators.required, Validators.email]]
-    })
+  @Input() contacto: Contacto | null = null;
+  nuevoContacto: Contacto = new Contacto();
+
+  @Output() guardar = new EventEmitter<Contacto>();
+  @Output() cancelar = new EventEmitter<void>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['contacto'] && changes['contacto'].currentValue) {
+      this.nuevoContacto = { ...changes['contacto'].currentValue };
+    } else {
+      this.nuevoContacto = new Contacto();
+    }
   }
 
-  ngOnInit(): void{}
-
-  crearContacto(): void {
-    const contacto: Contactos = {
-      infoCasino: this.register.value.infocasino,
-      direccion: this.register.value.direccion,
-      numeroTelefono: this.register.value.numerotelefono,
-      email: this.register.value.email
-    };
-
+  guardarContacto(): void {
     this.loading = true;
-    this.contactoService.saveContacto(contacto).subscribe(
-      (data) => {
-        console.log(data);
-        this.toastr.success('El contacto fue agregado con exito!', 'Contacto Agregado!');
-        this.router.navigate(['/dashboard/home']);
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-        this.register.reset(); 
-        this.toastr.error(error.error.message, 'Error!');
-        console.log(error);
-      }
-    );
+    this.guardar.emit(this.nuevoContacto);
+  }
+
+  cancelarCreacion() {
+    this.cancelar.emit();
   }
 }

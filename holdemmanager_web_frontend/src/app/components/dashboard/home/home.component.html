@@ -1,28 +1,36 @@
 <div class="container">
     <app-loading *ngIf="loading"></app-loading>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/torneos">
-        <div class="card-content-map">
+    <div *ngIf="usuario.rol == 0" class="card-torneo admin-torneos" routerLink="/dashboard/torneos">
+        <div class="card-content-list">
             <p><strong>Administración de Torneos</strong></p>
         </div>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/mapa">
+    <div *ngIf="usuario.rol == 0" class="card-torneo mapa-evento" routerLink="/dashboard/mapa">
         <div class="card-content-list">
             <p><strong>Mapa Del Evento</strong></p>
         </div>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo" routerLink="/dashboard/recursos">
+    <div *ngIf="usuario.rol == 0" class="card-torneo recursos-educativos" routerLink="/dashboard/recursos">
         <div class="card-content-list">
             <p><strong>Recursos Educativos</strong></p>
         </div>
     </div>
-    <div *ngIf="usuario.rol == 0" class="card-torneo">
-        <div class="card-content">
-            <p><strong>Contacto</strong></p>
+    <div *ngIf="usuario.rol == 0" class="card-torneo contacto" routerLink="/dashboard/contactos">
+        <div class="card-content-list">
+            <p><strong>Contactos</strong></p>
         </div>
-        <a routerLink="/dashboard/create-contacto">Agregar datos de contacto</a>
-        <a routerLink="/dashboard/contactos">Administrar datos de contacto</a>
     </div>
-    <div *ngIf="usuario.rol == 1" class="card-torneo" routerLink="/dashboard/noticias">
+    <div *ngIf="usuario.rol == 0" class="card-torneo jugadores" routerLink="/dashboard/players">
+        <div class="card-content-list">
+            <p><strong>Jugadores</strong></p>
+        </div>
+    </div>
+    <div *ngIf="usuario.rol == 0" class="card-torneo feedback" routerLink="/dashboard/feedback">
+        <div class="card-content-list">
+            <p><strong>Comentarios</strong></p>
+        </div>
+    </div>
+    <div *ngIf="usuario.rol == 1" class="card-torneo prensa" routerLink="/dashboard/noticias">
         <div class="card-content-list">
             <p><strong>Administración De Prensa</strong></p>
         </div>

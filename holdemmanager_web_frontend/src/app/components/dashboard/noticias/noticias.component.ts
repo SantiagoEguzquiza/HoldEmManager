@@ -85,7 +85,6 @@ export class NoticiasComponent implements OnInit {
     if (nuevaNoticia.id === 0 || nuevaNoticia.id === undefined) {
       this.noticiasService.agregarNoticia(nuevaNoticia).subscribe(
         (data) => {
-          this.noticias.push(data);
           this.toastr.success('Noticia agregada exitosamente');
           this.isCreateNoticia = false;
           this.obtenerNoticias();

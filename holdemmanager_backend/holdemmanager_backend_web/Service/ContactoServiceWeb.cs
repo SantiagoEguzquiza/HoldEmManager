@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,9 @@ namespace holdemmanager_backend_web.Service
             return await _contactoRepository.DeleteContacto(id);
         }
 
-        public async Task<IEnumerable<Contacto>> GetAllContactos()
+        public async Task<PagedResult<Contacto>> GetAllContactos(int page, int pageSize)
         {
-            return await _contactoRepository.GetAllContactos();
+            return await _contactoRepository.GetAllContactos(page, pageSize);
         }
 
         public async Task<Contacto> GetContactoById(int id)

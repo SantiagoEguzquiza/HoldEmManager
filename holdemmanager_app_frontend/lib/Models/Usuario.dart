@@ -67,7 +67,7 @@ class Usuario {
   static Future<bool> setImageUrl(String? imageUrl, int numeroJugador) async {
     String? imageUrlEnCode = null;
     if (imageUrl != null) {
-      imageUrlEnCode = Uri.encodeComponent(imageUrl!);
+      imageUrlEnCode = Uri.encodeComponent(imageUrl);
     }
     final String apiUrl =
         "${ApiHandler.baseUrl}/JugadorApp/$imageUrlEnCode/$numeroJugador";

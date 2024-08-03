@@ -6,7 +6,6 @@ import 'package:holdemmanager_app/Models/Noticia.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/noticias/detalle_noticia_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -121,12 +120,12 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
       drawer: const SideBar(),
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 1,
+        currentIndex: 0,
         onTap: (index) {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
             );
           } else if (index == 1) {
             Navigator.push(
@@ -136,101 +135,100 @@ class _NoticiasScreenState extends State<NoticiasScreen>
           }
         },
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            padding: const EdgeInsets.all(25.0),
-            child: Text(
-              finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'NewsForum',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: _noticias.length + (_isLoading ? 2 : 1), // Adjust the count to include the title
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            // Título que estará desplazable
+            return Container(
+              margin: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.all(25.0),
+              child: Text(
+                finalTranslations[finalLocale.toString()]?['newsForum'] ??
+                    'NewsForum',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          } else if (index == _noticias.length + 1) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orangeAccent,
+                ),
+              ),
+            );
+          }
+
+          var noticia = _noticias[index - 1];
+          var fechaFormateada =
+              DateFormat('dd/MM/yyyy').format(noticia.fecha);
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      DetalleNoticiaScreen(noticia: noticia),
+                ),
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(
+                  vertical: 10, horizontal: 15),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      noticia.titulo,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.calendar_today,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          fechaFormateada,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    if (noticia.idImagen != null &&
+                        noticia.idImagen!.isNotEmpty)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          noticia.idImagen!,
+                          height: 150,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: _noticias.length + (_isLoading ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index == _noticias.length) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.orangeAccent,
-                    ),
-                  );
-                }
-
-                var noticia = _noticias[index];
-                var fechaFormateada =
-                    DateFormat('dd/MM/yyyy').format(noticia.fecha);
-
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            DetalleNoticiaScreen(noticia: noticia),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            noticia.titulo,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_today,
-                                size: 16,
-                                color: Colors.grey,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                fechaFormateada,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          if (noticia.idImagen != null &&
-                              noticia.idImagen!.isNotEmpty)
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.network(
-                                noticia.idImagen!,
-                                height: 150,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

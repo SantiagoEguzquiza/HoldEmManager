@@ -7,7 +7,7 @@ import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
 import 'package:holdemmanager_app/Screens/change_password_screen.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen>
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
             );
           }
           setState(() {

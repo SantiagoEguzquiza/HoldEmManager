@@ -43,7 +43,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> implements Lang
             Icons.home,
             color: Colors.orangeAccent,
           ),
-          label: finalTranslations[finalLocale.toString()]?['home'] ?? 'Home',
+          label: finalTranslations[finalLocale.toString()]?['newsForum'] ?? 'News',
         ),
         BottomNavigationBarItem(
           icon: const Icon(

@@ -6,7 +6,7 @@ import 'package:holdemmanager_app/Models/Recurso.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos/detalle_recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -128,7 +128,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
             );
           } else if (index == 1) {
             Navigator.push(
@@ -138,108 +138,77 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
           }
         },
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            padding: const EdgeInsets.all(25.0),
-            child: Text(
-              finalTranslations[finalLocale.toString()]?['educationalResources'] ??
-                  'Educational Resources',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: _recursos.length + (_isLoading ? 2 : 1),
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.all(25.0),
+              child: Text(
+                finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+                    'Educational Resources',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          } else if (index == _recursos.length + 1) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orangeAccent,
+                ),
+              ),
+            );
+          }
+          var recurso = _recursos[index - 1];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      DetalleRecursoScreen(recurso: recurso),
+                ),
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(
+                  vertical: 10, horizontal: 15),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      recurso.titulo,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    if (recurso.urlImagen != null &&
+                        recurso.urlImagen!.isNotEmpty)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          recurso.urlImagen!,
+                          height: 150,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: FutureBuilder<PagedResult<RecursosEducativos>>(
-              future: _futureRecursos,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    color: Colors.orangeAccent,
-                  ));
-                } else if (snapshot.hasError) {
-                  String errorMessage;
-                  if (snapshot.error is TimeoutException) {
-                    errorMessage = traducirError('timeoutError');
-                  } else {
-                    errorMessage = traducirError('serverError');
-                  }
-                  return Center(child: Text(errorMessage));
-                } else if (snapshot.hasData && snapshot.data!.items.isEmpty) {
-                  return Center(
-                    child: Text(
-                      finalTranslations[finalLocale.toString()]?['noData'] ??
-                          'No hay recursos disponibles',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  );
-                } else {
-                  return ListView.builder(
-                    controller: _scrollController,
-                    itemCount: _recursos.length + (_isLoading ? 1 : 0),
-                    itemBuilder: (context, index) {
-                      if (index == _recursos.length) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      var recurso = _recursos[index];
-
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  DetalleRecursoScreen(recurso: recurso),
-                            ),
-                          );
-                        },
-                        child: Card(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  recurso.titulo,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                if (recurso.urlImagen != null &&
-                                    recurso.urlImagen!.isNotEmpty)
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.network(
-                                      recurso.urlImagen!,
-                                      height: 150,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

@@ -1,54 +1,53 @@
-<div class="container">
-    <div class="row" style="width:100%;">
-        <div class="col-lg-6 offset-lg-3">
-            <div class="loading" style="width: 100%; display: flex; justify-content: center;">
-                <app-loading *ngIf="loading"></app-loading>
+<div class="loading-container" *ngIf="loading">
+    <app-loading></app-loading>
+</div>
+<div class="contacto-container">
+    <h3>{{ nuevoContacto.id ? 'Editar contacto' : 'Agregar nuevo contacto' }}</h3>
+    <br>
+    <form (ngSubmit)="guardarContacto()" #contactoForm="ngForm" style="width: 100%;">
+        <div class="form-group">
+            <textarea id="infoCasino" placeholder="Información del casino" [(ngModel)]="nuevoContacto.infoCasino"
+                name="infoCasino" required class="input" #infoCasino="ngModel" rows="5"></textarea>
+            <div *ngIf="infoCasino.invalid && (infoCasino.dirty || infoCasino.touched)" class="invalid">
+                La información del torneo <strong>es requerida</strong>
             </div>
-            <div class="card text-center" style="padding: 20px; display: flex; justify-content: center;">
-                <h3>Agregar contacto</h3>
-                <form [formGroup]="register" (ngSubmit)="crearContacto()" style="padding-top: 10px;">
-                    <div class="form-group" style="text-align: start;">
-                        <textarea class="form-control" placeholder="Información del casino" formControlName="infocasino"
-                            rows="5"></textarea>
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('infocasino')?.hasError('required') && register.get('infocasino')?.touched">
-                            La información del casino <strong>es requerida</strong>
-                        </span>
-                    </div>
-                    <div class="form-group" style="text-align: start;">
-                        <input type="text" class="form-control" placeholder="Dirección del casino"
-                            formControlName="direccion">
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('direccion')?.hasError('required') && register.get('direccion')?.touched">La
-                            dirección del casino <strong>es requerida</strong></span>
-                    </div>
-                    <div class="form-group" style="text-align: start;">
-                        <input type="text" class="form-control" placeholder="Teléfono del casino"
-                            formControlName="numerotelefono">
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('numerotelefono')?.hasError('required') && register.get('numerotelefono')?.touched">El
-                            número de teléfono <strong>es requerido</strong></span>
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('numerotelefono')?.hasError('pattern') && register.get('numerotelefono')?.touched">Solo
-                            puede contener <strong>numeros</strong></span>
-                    </div>
-                    <div class="form-group" style="text-align: start;">
-                        <input type="text" class="form-control" placeholder="Email del casino" formControlName="email">
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('email')?.errors?.['required'] && register.get('email')?.touched">El
-                            email del casino <strong>es requerido</strong></span>
-                        <span class="text-danger ml-2"
-                            *ngIf="register.get('email')?.errors?.['email'] && register.get('email')?.touched">El email
-                            debe ser <strong>válido</strong></span>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary mr-2 btn-reg" type="submit"
-                            [disabled]="register.invalid">Aceptar</button>
-                        <button class="btn btn-secondary" routerLink="/inicio/login">Volver</button>
-                    </div>
-                </form>
-            </div>
-            <br>
         </div>
-    </div>
+        <div class="form-group">
+            <input type="text" id="direccion" placeholder="Dirección" [(ngModel)]="nuevoContacto.direccion"
+                name="direccion" required class="input" #direccion="ngModel">
+            <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="invalid">
+                La dirección del torneo <strong>es requerida</strong>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" id="numeroTelefono" placeholder="Teléfono" [(ngModel)]="nuevoContacto.numeroTelefono"
+                name="numeroTelefono" required class="input" #numeroTelefono="ngModel" pattern="^(\+?[0-9]*)$">
+            <div *ngIf="numeroTelefono.invalid && (numeroTelefono.dirty || numeroTelefono.touched)" class="invalid">
+                <div *ngIf="numeroTelefono.errors?.['required']">
+                    El teléfono <strong>es requerido</strong>
+                </div>
+                <div *ngIf="numeroTelefono.errors?.['pattern']">
+                    El teléfono <strong>debe contener solo números</strong>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" id="email" placeholder="Email" [(ngModel)]="nuevoContacto.email" name="email" required
+                class="input" #email="ngModel" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid">
+                <div *ngIf="email.errors?.['required']">
+                    El email <strong>es requerido</strong>
+                </div>
+                <div *ngIf="email.errors?.['pattern']">
+                    El email debe ser <strong>válido</strong>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn aceptar" [disabled]="contactoForm.invalid">
+                <i class="bi bi-save"></i> {{ 'Aceptar'}}
+            </button>
+            <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
+        </div>
+    </form>
 </div>

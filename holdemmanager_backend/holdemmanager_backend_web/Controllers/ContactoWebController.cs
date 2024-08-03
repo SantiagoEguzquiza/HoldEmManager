@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,9 @@ namespace holdemmanager_backend_web.Controllers
 
         // obtener todos los contactos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Contacto>>> GetAllContactos()
+        public async Task<ActionResult<PagedResult<Contacto>>> GetAllContactos(int page, int pageSize)
         {
-            var contactos = await _contactosService.GetAllContactos();
+            var contactos = await _contactosService.GetAllContactos(page, pageSize);
             return Ok(contactos);
         }
 

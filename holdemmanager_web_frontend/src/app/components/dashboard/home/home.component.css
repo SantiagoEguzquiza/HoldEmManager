@@ -1,96 +1,93 @@
 .container {
     display: flex;
-    height: calc(100vh - 100px);
+    flex-wrap: wrap;
+    height: auto;
     width: 100%;
     align-items: center;
     justify-content: center;
     gap: 20px;
-}
-
-.card {
-    width: 300px;
-    height: 400px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    border-radius: 10px;
-    overflow: hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../../../assets/images/image-poker.jpg);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../../../../assets/images/image-poker.jpg);
-    background-size: cover;
-    background-position: center;
+    padding: 20px;
+    margin-top: 70px;
+    margin-bottom: 70px;
 }
 
 .card-torneo {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 400px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     border-radius: 10px;
-    position: relative;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
+    margin: 10px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.card-torneo .card-content {
-    position: absolute;
+.card-torneo:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+.card-content-list {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 2;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../../../assets/images/image-poker.jpg);
     background-size: cover;
     background-position: center;
-    transition: transform 0.3s ease;
-    overflow: hidden;
-    transform: translateY(0);
-    border-radius: 10px;
+    transition: transform 0.3s, filter 0.3s, opacity 0.3s;
 }
 
-.card-content-list{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../../../assets/images/image-poker.jpg);
-    background-size: cover;
-    background-position: center;
-    transition: filter 0.3s;
-}
-
-.card-torneo .card-content-list:hover{
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../../../../assets/images/image-poker.jpg);
+.admin-torneos .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/admin-torneos.jpg');
     background-size: cover;
     background-position: center;
 }
 
-.card-torneo:hover,
-.card-torneo .card-content:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-}
-
-.card-torneo:hover .card-content,
-.card-torneo .card-content:hover {
-    transform: translateY(-100%);
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(../../../../assets/images/image-poker.jpg);
+.mapa-evento .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/mapa-evento.jpeg');
     background-size: cover;
     background-position: center;
+}
+
+.recursos-educativos .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/recursos-educativos.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.contacto .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/contactos.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.jugadores .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/jugadores.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.feedback .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/comentarios.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.prensa .card-content-list {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../assets/images/prensa.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content-list:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+    opacity: 0.9;
 }
 
 p {
@@ -98,6 +95,7 @@ p {
     font-size: 20px;
     text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     font-family: sans-serif;
+    margin: 0;
 }
 
 a {
@@ -121,26 +119,27 @@ a:hover {
     color: white;
 }
 
-
-
-
 @media (max-width: 900px) {
     .container {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        padding: 10px;
     }
 
-    .card {
+    .card-torneo {
         width: 90%;
         max-width: 300px;
-        margin: 10px 0;
     }
 }
 
-@media only screen and (max-width: 370px) {
+@media (max-width: 600px) {
+    .card-torneo {
+        width: 100%;
+    }
+}
 
+@media (max-width: 370px) {
     p {
-        font-size: 100%;
+        font-size: 16px;
     }
 }

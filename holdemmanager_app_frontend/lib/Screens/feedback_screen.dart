@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/NavBar/app_bar.dart';
+import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
+import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
+import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +53,11 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
     });
   }
 
+  String traducir(String msg) {
+    return finalTranslations[finalLocale.toString()]?[msg] ??
+        'Error';
+  }
+
   Future<void> _submitFeedback() async {
     if (_formKey.currentState!.validate()) {
       final String message = _feedbackController.text;
@@ -77,45 +87,88 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          finalTranslations[finalLocale.toString()]?['comments'] ??
-              'Comentarios',
-        ),
-        backgroundColor: Colors.orangeAccent,
+      appBar: const CustomAppBar(),
+      drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
+      drawer: const SideBar(),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          }
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 25.0),
+                child: Text(
+                  traducir('leaveFeed'),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               TextFormField(
                 controller: _feedbackController,
-                decoration: const InputDecoration(
-                  labelText: 'Escribe tu comentario',
+                decoration: InputDecoration(
+                  labelText: traducir('writeFeed'),
                   alignLabelWithHint: true,
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 20,
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor ingresa un comentario';
+                    return traducir('errorFeed');
                   }
                   return null;
                 },
-                maxLines: 50,
+                maxLines: 5,
                 minLines: 2,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submitFeedback,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.orangeAccent),
-                ),
-                child: const Text(
-                  'Enviar feedback',
-                  style: TextStyle(color: Colors.black),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _submitFeedback,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.orangeAccent),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(vertical: 15),
+                    ),
+                  ),
+                  child: Text(
+                    traducir('sendFeed'),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               ),
             ],

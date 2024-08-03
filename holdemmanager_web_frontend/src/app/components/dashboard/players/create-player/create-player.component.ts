@@ -31,7 +31,7 @@ export class CreatePlayerComponent {
 
   emailComValidator(control: AbstractControl): { [key: string]: any } | null {
     const value = control.value;
-    return value.endsWith('.com') ? null : { 'email': true }; // Reuse the 'email' key for consistency
+    return value.endsWith('.com') ? null : { 'email': true };
   }
 
   guardarJugador() {

@@ -1,4 +1,4 @@
-export class Contactos{
+export class Contacto{
     id?: number;
     infoCasino!: string;
     direccion!: string;
