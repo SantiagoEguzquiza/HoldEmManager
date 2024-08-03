@@ -46,6 +46,8 @@ import { CreateEditTorneoComponent } from './components/dashboard/torneos/create
 import { NoticiasComponent } from './components/dashboard/noticias/noticias.component';
 import { CreateEditNoticiaComponent } from './components/dashboard/noticias/create-edit-noticia/create-edit-noticia.component';
 import { FeedbackComponent } from './components/dashboard/feedback/feedback.component';
+import { RankingComponent } from './components/dashboard/ranking/ranking.component';
+import { AgGridModule } from 'ag-grid-angular';
 import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedback-details/feedback-details.component';
 
 
@@ -77,8 +79,10 @@ import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedba
     NoticiasComponent,
     CreateEditNoticiaComponent,
     //Feedback
-    FeedbackComponent,
-    FeedbackDetailsComponent,
+     FeedbackComponent,
+     FeedbackDetailsComponent,
+    //Ranking
+    RankingComponent,
     //Torneos
     TorneosComponent,
     CreateEditTorneoComponent
@@ -93,6 +97,7 @@ import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedba
     HttpClientModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
+    AgGridModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
     AuthGuard,

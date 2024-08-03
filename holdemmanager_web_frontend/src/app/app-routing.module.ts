@@ -21,6 +21,7 @@ import { TorneosComponent } from './components/dashboard/torneos/torneos.compone
 // Guards
 import { AuthGuard } from './helpers/auth.guard';
 import { AuthRedirectGuard } from './helpers/auth-redirect.guard';
+import { RankingComponent } from './components/dashboard/ranking/ranking.component';
 
 
 
@@ -42,7 +43,8 @@ const routes: Routes = [
       { path: 'mapa', component: MapaInteractivoComponent},
       { path: 'noticias', component: NoticiasComponent},
       { path: 'feedback', component: FeedbackComponent},
-      { path: 'torneos', component: TorneosComponent}
+      { path: 'torneos', component: TorneosComponent},     
+      { path: 'ranking', component:RankingComponent},      
     ]
   },
   { path: '**', redirectTo: '/dashboard/home'}
