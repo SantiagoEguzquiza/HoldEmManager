@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 class ApiService {
   final String baseUrl = 'http://10.0.2.2:5183';
 
+  Future<void> enviarFeedback(
+      String mensaje, int idUsuario, DateTime fecha) async {
   Future<List<dynamic>> obtenerRecursosEducativos() async {
     final response = await http
         .get(Uri.parse('$baseUrl/RecursosEducativosWeb'))
@@ -17,16 +19,7 @@ class ApiService {
     }
   }
 
-  Future<List<dynamic>> obtenerContactos() async {
-    final response = await http
-        .get(Uri.parse('$baseUrl/ContactoWeb'))
-        .timeout(const Duration(seconds: 10));
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Error al cargar contactos');
-    }
-  }
+
 
   Future<void> enviarFeedback(String mensaje, int idUsuario, DateTime fecha,
       bool isAnonimo, FeedbackEnum categoria) async {

@@ -12,6 +12,8 @@ export class CreateEditNoticiaComponent implements OnChanges {
   selectedFileName?: string;
   imageExists = false;
   imageFirst = false;
+  imagenRequerida = false;
+  imagenValida = false;
 
   @Input() noticia: Noticia | null = null;
   nuevaNoticia: Noticia = new Noticia();
@@ -27,6 +29,9 @@ export class CreateEditNoticiaComponent implements OnChanges {
       if (this.nuevaNoticia.idImagen) {
         this.imageExists = true;
         this.imageFirst = true;
+        if (this.fileInput) {
+          this.fileInput.nativeElement.disabled = true;
+        }
       }
     } else {
       this.nuevaNoticia = new Noticia();
@@ -35,6 +40,12 @@ export class CreateEditNoticiaComponent implements OnChanges {
   }
 
   guardarNoticia() {
+    if (!this.nuevaNoticia.idImagen || this.nuevaNoticia.idImagen === 'DELETE') {
+      this.imagenRequerida = true;
+      this.imagenValida = false;
+      return;
+    }
+  
     this.loading = true;
     this.nuevaNoticia.fecha = new Date(this.formattedDate);
     if (this.nuevaNoticia.idImagen && this.imageFirst) {
@@ -62,6 +73,11 @@ export class CreateEditNoticiaComponent implements OnChanges {
       this.imageExists = true;
       this.convertirAByte(file);
       this.imageFirst = false;
+      this.imagenRequerida = false;
+      this.imagenValida = true;
+      if (this.fileInput) {
+        this.fileInput.nativeElement.disabled = true;
+      }
     }
   }
 
@@ -86,5 +102,12 @@ export class CreateEditNoticiaComponent implements OnChanges {
     this.selectedFileName = undefined;
     this.nuevaNoticia.idImagen = 'DELETE';
     this.imageFirst = false;
+    this.imagenRequerida = true;
+    this.imagenValida = false;
+  
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+      this.fileInput.nativeElement.disabled = false;
+    }
   }
 }

@@ -29,6 +29,7 @@ export class CreateEditRecursoComponent implements OnInit, OnChanges {
       if (this.recurso.urlImagen) {
         this.imageExists = true;
         this.imageFirst = true;
+        this.recursoForm.get('urlImagen')?.disable();
       }
     }
   }
@@ -109,5 +110,11 @@ export class CreateEditRecursoComponent implements OnInit, OnChanges {
     this.selectedFileName = undefined;
     this.recursoForm.patchValue({ urlImagen: 'DELETE' });
     this.imageFirst = false;
+    
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
+  
+    this.recursoForm.get('urlImagen')?.enable();
   }
 }

@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,9 +39,25 @@ namespace holdemmanager_backend_web.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Contacto>> GetAllContactos()
+        public async Task<PagedResult<Contacto>> GetAllContactos(int page, int pageSize)
         {
-            return await _context.Contactos.ToListAsync();
+            var contactos = await _context.Contactos
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = contactos.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                contactos.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<Contacto>
+            {
+                Items = contactos,
+                HasNextPage = hasNextPage
+            };
         }
 
         public Task<Contacto> GetContactoById(int id)

@@ -1,4 +1,5 @@
 ﻿using holdemmanager_backend_web.Domain.Models;
+using holdemmanager_backend_web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace holdemmanager_backend_web.Domain.IRepositories
 {
     public interface IContactoRepositoryWeb
     {
-        Task<IEnumerable<Contacto>> GetAllContactos();
+        Task<PagedResult<Contacto>> GetAllContactos(int page, int pageSize);
         Task<Contacto> GetContactoById(int id);
         Task AddContacto(Contacto contacto);
         Task UpdateContacto(Contacto contacto);

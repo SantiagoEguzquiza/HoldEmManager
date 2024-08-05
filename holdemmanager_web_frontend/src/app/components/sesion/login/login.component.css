@@ -26,6 +26,10 @@ h3 {
     padding-left: 10px;
 }
 
+.form-group{
+    margin-bottom: 25px;
+}
+
 .input:focus{
     border: #575757 solid 1px;
 }

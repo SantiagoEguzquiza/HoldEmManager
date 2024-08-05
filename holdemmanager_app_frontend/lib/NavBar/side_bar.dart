@@ -6,7 +6,6 @@ import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/Screens/contacto_screen.dart';
 import 'package:holdemmanager_app/Screens/map_screen.dart';
-import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/feedback_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Screens/torneos/torneos_screen.dart';
@@ -117,6 +116,19 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                 ),
               ],
             ),
+              ListTile(
+              leading:
+                  const Icon(Icons.event_available, color: Colors.orangeAccent),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['tournaments'] ??
+                  'Torneos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TorneosPage()),
+                );
+              },
+            ),
             ListTile(
               leading: const Icon(Icons.map, color: Colors.orangeAccent),
               title: Text(finalTranslations[finalLocale.toString()]?['map'] ??
@@ -125,20 +137,6 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MapScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.ad_units_rounded,
-                  color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]
-                      ?['newsForum'] ??
-                  'Foro de Noticias'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NoticiasScreen()),
                 );
               },
             ),
@@ -165,19 +163,6 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const ContactoPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading:
-                  const Icon(Icons.event_available, color: Colors.orangeAccent),
-              title: Text(finalTranslations[finalLocale.toString()]
-                      ?['tournaments'] ??
-                  'Torneos'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TorneosPage()),
                 );
               },
             ),
