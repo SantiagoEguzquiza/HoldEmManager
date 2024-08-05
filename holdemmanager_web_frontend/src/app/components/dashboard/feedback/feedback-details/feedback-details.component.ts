@@ -15,4 +15,9 @@ export class FeedbackDetailsComponent {
   cerrarPopup() {
     this.cerrar.emit();
   }
+
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
+  }
+  
 }

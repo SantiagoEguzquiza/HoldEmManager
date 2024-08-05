@@ -30,11 +30,17 @@ namespace holdemmanager_backend_app.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdUsuario")
+                    b.Property<int?>("IdUsuario")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAnonimo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Mensaje")
                         .IsRequired()
@@ -120,8 +126,7 @@ namespace holdemmanager_backend_app.Migrations
                     b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
                         .WithMany()
                         .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>

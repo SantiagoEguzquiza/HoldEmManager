@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+import 'package:holdemmanager_app/NavBar/app_bar.dart';
+import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
+import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
+import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:intl/intl.dart';
@@ -71,12 +76,24 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          finalTranslations[finalLocale.toString()]?['tournaments'] ??
-              'Torneos',
-        ),
-        backgroundColor: Colors.orangeAccent,
+     appBar: const CustomAppBar(),
+      drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
+      drawer: const SideBar(),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          }
+        },
       ),
       body: FutureBuilder<List<dynamic>>(
         future: torneos,

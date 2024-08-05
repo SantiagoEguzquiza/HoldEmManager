@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Feedback } from 'src/app/models/feedback';
 import { Jugador } from 'src/app/models/jugador';
 import { FeedbackService } from 'src/app/service/feedback.service';
+import { FeedbackEnum } from 'src/app/models/feedback_enum';
 
 @Component({
   selector: 'app-feedback',
@@ -11,11 +12,11 @@ import { FeedbackService } from 'src/app/service/feedback.service';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
-
   feedbacks: Feedback[] = [];
   loading = false;
   selectedFeedback: Feedback | null = null;
   selectedUser: Jugador | null = null;
+  categoria = FeedbackEnum;
 
   page = 1;
   pageSize = 10;
@@ -69,5 +70,9 @@ export class FeedbackComponent implements OnInit {
       this.page = newPage;
       this.obtenerFeedbacks();
     }
+  }
+
+  obtenerNombreCategoria(categoria: number): string {
+    return FeedbackEnum[categoria];
   }
 }
