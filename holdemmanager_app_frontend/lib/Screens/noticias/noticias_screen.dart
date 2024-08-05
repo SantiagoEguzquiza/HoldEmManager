@@ -98,6 +98,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       final PagedResult<Noticia> result = await Noticia.obtenerNoticias(
         page: _currentPage,
         pageSize: _pageSize,
+        filtro: "NO"
       );
       setState(() {
         _noticias.addAll(result.items);

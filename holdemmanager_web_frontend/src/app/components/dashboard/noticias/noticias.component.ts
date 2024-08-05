@@ -18,6 +18,7 @@ export class NoticiasComponent implements OnInit {
   page = 1;
   pageSize = 10;
   hasNextPage = false;
+  filtro = '';
 
   constructor(private noticiasService: NoticiasService, private router: Router, private toastr: ToastrService) { }
 
@@ -27,7 +28,7 @@ export class NoticiasComponent implements OnInit {
 
   obtenerNoticias(): void {
     this.loading = true;
-    this.noticiasService.obtenerNoticias(this.page, this.pageSize).subscribe(
+    this.noticiasService.obtenerNoticias(this.page, this.pageSize, this.filtro).subscribe(
       (data) => {
         this.noticias = data.items;
         this.hasNextPage = data.hasNextPage;
@@ -122,5 +123,11 @@ export class NoticiasComponent implements OnInit {
       this.page = newPage;
       this.obtenerNoticias();
     }
+  }
+
+  aplicarFiltro(nuevoFiltro: string) {
+    this.filtro = nuevoFiltro;
+    this.page = 1;
+    this.obtenerNoticias();
   }
 }

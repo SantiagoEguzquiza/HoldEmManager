@@ -1,45 +1,48 @@
-<div class="loading-container" *ngIf="loading">
-    <app-loading></app-loading>
-  </div>
-  <div class="recurso-container">
-    <h3>{{ recurso ? 'Editar recurso' : 'Agregar nuevo recurso' }}</h3>
-    <br>
-    <form [formGroup]="recursoForm" (ngSubmit)="guardarRecurso()">
-      <div class="form-group">
-        <input type="text" id="titulo" formControlName="titulo" class="input" placeholder="Título del recurso" required />
-        <div *ngIf="recursoForm.get('titulo')?.invalid && (recursoForm.get('titulo')?.dirty || recursoForm.get('titulo')?.touched)" class="invalid">
-          El título <strong>es requerido</strong>
+<div class="recurso-container">
+  <h3>{{ nuevoRecurso.id ? 'Editar recurso' : 'Agregar nuevo recurso' }}</h3>
+  <br>
+  <form [formGroup]="recursoForm" (ngSubmit)="guardarRecurso()">
+    <div class="form-group">
+      <input type="text" id="titulo" placeholder="Título" formControlName="titulo" required
+        class="input">
+      <div *ngIf="recursoForm.get('titulo')?.invalid && (recursoForm.get('titulo')?.dirty || recursoForm.get('titulo')?.touched)" class="invalid">
+        El título <strong>es requerido</strong>
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea id="mensaje" formControlName="mensaje" placeholder="Contenido" required
+        class="input"></textarea>
+      <div *ngIf="recursoForm.get('mensaje')?.invalid && (recursoForm.get('mensaje')?.dirty || recursoForm.get('mensaje')?.touched)" class="invalid">
+        El contenido <strong>es requerido</strong>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="urlvideo">Video (opcional)</label>
+      <input type="text" id="urlvideo" formControlName="urlVideo" class="input" placeholder="URL del video" />
+      <div *ngIf="recursoForm.get('urlVideo')?.invalid && recursoForm.get('urlVideo')?.touched" class="invalid">
+        Debe ser válido de YouTube.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="URLImagen">Imagen</label>
+      <div class="img-container" style="display: flex; align-items: center;">
+        <input #fileInput type="file" class="upload-box" (change)="imagenSeleccionada($event)" [disabled]="imageExists"
+          name="imagen" formControlName="imagen"/>
+        <div class="delete-btn-container" style="flex-shrink: 0; margin-left: 10px;">
+          <button type="button" class="custom-btn btn-sm" (click)="eliminarImagen()" *ngIf="imageExists">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </div>
       </div>
-      <div class="form-group">
-        <textarea id="mensaje" formControlName="mensaje" class="input" placeholder="Contenido del recurso" rows="5" required></textarea>
-        <div *ngIf="recursoForm.get('mensaje')?.invalid && (recursoForm.get('mensaje')?.dirty || recursoForm.get('mensaje')?.touched)" class="invalid">
-          El contenido <strong>es requerido</strong>
-        </div>
+      <div *ngIf="!imagenValida && recursoForm.get('imagen')?.touched" class="invalid">
+        La imagen <strong>es requerida</strong>
       </div>
-      <div class="form-group">
-        <label for="urlvideo">Video (opcional)</label>
-        <input type="text" id="urlvideo" formControlName="urlVideo" class="input" placeholder="URL del video" />
-        <div *ngIf="recursoForm.get('urlVideo')?.errors?.['youtubeUrl'] && recursoForm.get('urlVideo')?.touched" class="invalid">
-          La URL debe ser un enlace válido de YouTube.
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="URLImagen">Imagen (opcional)</label>
-        <div class="img-container" style="display: flex; align-items: center;">
-          <input #fileInput type="file" class="upload-box" (change)="imagenSeleccionada($event)" />
-          <div class="delete-btn-container" style="flex-shrink: 0; margin-left: 10px;">
-            <button type="button" class="custom-btn btn-sm" (click)="eliminarImagen()" *ngIf="imageExists">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="buttons">
-        <button type="submit" class="btn aceptar" [disabled]="recursoForm.invalid">
-          <i class="bi bi-save"></i> {{ 'Aceptar'}}
-        </button>
-        <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar" [disabled]="recursoForm.invalid || !imagenValida">
+        <i class="bi bi-save"></i> Aceptar
+      </button>
+      <a class="btn cancelar" (click)="cancelarCreacion()">Cancelar</a>
+    </div>
+  </form>
+</div>

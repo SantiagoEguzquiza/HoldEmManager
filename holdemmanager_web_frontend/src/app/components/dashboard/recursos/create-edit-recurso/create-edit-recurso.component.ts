@@ -1,77 +1,84 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { youtubeUrlValidator } from 'src/app/helpers/youtube-url.validator';
+import { ToastrService } from 'ngx-toastr';
 import { RecursoEducativo } from 'src/app/models/recursos';
+import { youtubeUrlValidator } from '../../../../helpers/youtube-url.validator';
 
 @Component({
   selector: 'app-create-edit-recurso',
   templateUrl: './create-edit-recurso.component.html',
   styleUrls: ['./create-edit-recurso.component.css']
 })
-export class CreateEditRecursoComponent implements OnInit, OnChanges {
+export class CreateEditRecursoComponent implements OnChanges {
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
-  @Input() recurso: RecursoEducativo | null = null;
-  @Output() guardar = new EventEmitter<RecursoEducativo>();
-  @Output() cancelar = new EventEmitter<void>();
-
-  recursoForm!: FormGroup;
   loading = false;
   selectedFileName?: string;
   imageExists = false;
   imageFirst = false;
+  imagenRequerida = false;
+  imagenValida = false;
 
-  constructor(private fb: FormBuilder) {}
+  @Input() recurso: RecursoEducativo | null = null;
+  nuevoRecurso: RecursoEducativo = new RecursoEducativo();
+  recursoForm: FormGroup;
 
-  ngOnInit(): void {
-    this.initializeForm();
-    if (this.recurso) {
-      this.recursoForm.patchValue(this.recurso);
-      if (this.recurso.urlImagen) {
-        this.imageExists = true;
-        this.imageFirst = true;
-        this.recursoForm.get('urlImagen')?.disable();
-      }
-    }
+  @Output() guardar = new EventEmitter<RecursoEducativo>();
+  @Output() cancelar = new EventEmitter<void>();
+
+  constructor(private toastr: ToastrService, private fb: FormBuilder) {
+    this.recursoForm = this.fb.group({
+      titulo: ['', Validators.required],
+      mensaje: ['', Validators.required],
+      urlVideo: ['', [youtubeUrlValidator()]],
+      imagen: ''
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['recurso'] && changes['recurso'].currentValue) {
-      if (!this.recursoForm) {
-        this.initializeForm();
-      }
-      this.recursoForm.patchValue(changes['recurso'].currentValue);
-      if (changes['recurso'].currentValue.urlImagen) {
-        this.imageExists = true;
-      }
-    }
-  }
+      this.nuevoRecurso = { ...changes['recurso'].currentValue };
 
-  private initializeForm(): void {
-    this.recursoForm = this.fb.group({
-      id: [null],
-      titulo: ['', Validators.required],
-      mensaje: ['', Validators.required],
-      urlVideo: ['', [youtubeUrlValidator()]],
-      urlImagen: ['']
-    });
+      // Sincronizar el formulario con los valores de nuevoRecurso
+      this.recursoForm.patchValue({
+        titulo: this.nuevoRecurso.titulo,
+        mensaje: this.nuevoRecurso.mensaje,
+        urlVideo: this.nuevoRecurso.urlVideo
+      });
+
+      if (this.nuevoRecurso.urlImagen) {
+        this.imageExists = true;
+        this.imageFirst = true;
+        if (this.fileInput) {
+          this.fileInput.nativeElement.disabled = true;
+        }
+      }
+    } else {
+      this.nuevoRecurso = new RecursoEducativo();
+      this.recursoForm.reset();
+    }
   }
 
   guardarRecurso() {
-    if (this.recursoForm.valid) {
-      this.loading = true;
-      const nuevoRecurso = this.recursoForm.value;
-  
-      if (nuevoRecurso.urlImagen && this.imageFirst) {
-        nuevoRecurso.urlImagen = 'UPDATE';
-      }
-  
-      if (this.recurso) {
-        nuevoRecurso.id = this.recurso.id;
-      }
-      this.guardar.emit(nuevoRecurso);
-    } else {
-      alert('Por favor, corrige los errores en el formulario.');
+    // Actualizar nuevoRecurso con los valores del formulario
+    this.nuevoRecurso.titulo = this.recursoForm.get('titulo')?.value;
+    this.nuevoRecurso.mensaje = this.recursoForm.get('mensaje')?.value;
+    this.nuevoRecurso.urlVideo = this.recursoForm.get('urlVideo')?.value;
+
+    if (this.recursoForm.invalid || !this.imagenValida) {
+      return;
     }
+
+    if (!this.nuevoRecurso.urlImagen || this.nuevoRecurso.urlImagen === 'DELETE') {
+      this.imagenRequerida = true;
+      this.imagenValida = false;
+      return;
+    }
+
+    this.loading = true;
+    if (this.nuevoRecurso.urlImagen && this.imageFirst) {
+      this.nuevoRecurso.urlImagen = 'UPDATE';
+    }
+    this.guardar.emit(this.nuevoRecurso);
   }
 
   cancelarCreacion() {
@@ -82,10 +89,30 @@ export class CreateEditRecursoComponent implements OnInit, OnChanges {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      const fileType = file.type;
+
+      if (!fileType.startsWith('image/')) {
+        this.toastr.error('Por favor, seleccione un archivo de imagen válido.', 'Archivo no válido');
+
+        if (this.fileInput) {
+          this.fileInput.nativeElement.value = '';
+        }
+
+        this.imageExists = false;
+        this.imagenRequerida = true;
+        this.imagenValida = false;
+        return;
+      }
+
       this.selectedFileName = file.name;
       this.imageExists = true;
       this.convertirAByte(file);
       this.imageFirst = false;
+      this.imagenRequerida = false;
+      this.imagenValida = true;
+      if (this.fileInput) {
+        this.fileInput.nativeElement.disabled = true;
+      }
     }
   }
 
@@ -94,13 +121,15 @@ export class CreateEditRecursoComponent implements OnInit, OnChanges {
     reader.onload = () => {
       const image = reader.result as string;
       const base64Data = image.split(',')[1];
-      this.recursoForm.patchValue({ urlImagen: base64Data });
+      this.nuevoRecurso.urlImagen = base64Data;
     };
     reader.readAsDataURL(file);
   }
 
   triggerFileInput(): void {
+    this.imagenRequerida = true;
     if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
       this.fileInput.nativeElement.click();
     }
   }
@@ -108,13 +137,14 @@ export class CreateEditRecursoComponent implements OnInit, OnChanges {
   eliminarImagen(): void {
     this.imageExists = false;
     this.selectedFileName = undefined;
-    this.recursoForm.patchValue({ urlImagen: 'DELETE' });
+    this.nuevoRecurso.urlImagen = 'DELETE';
     this.imageFirst = false;
-    
+    this.imagenRequerida = true;
+    this.imagenValida = false;
+
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
+      this.fileInput.nativeElement.disabled = false;
     }
-  
-    this.recursoForm.get('urlImagen')?.enable();
   }
 }

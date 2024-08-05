@@ -24,9 +24,14 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias(int page, int pageSize)
+        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias(int page, int pageSize, string filtro)
         {
-            var noticias = await _noticiasService.GetAllNoticias(page, pageSize);
+            if (filtro == "NO")
+            {
+                filtro = "";
+            }
+
+            var noticias = await _noticiasService.GetAllNoticias(page, pageSize, filtro);
             return Ok(noticias);
         }
 

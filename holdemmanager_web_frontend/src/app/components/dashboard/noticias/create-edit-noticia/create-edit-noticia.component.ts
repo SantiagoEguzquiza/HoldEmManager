@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Noticia } from 'src/app/models/noticias';
 
 @Component({
@@ -21,6 +22,8 @@ export class CreateEditNoticiaComponent implements OnChanges {
 
   @Output() guardar = new EventEmitter<Noticia>();
   @Output() cancelar = new EventEmitter<void>();
+  
+  constructor(private toastr: ToastrService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['noticia'] && changes['noticia'].currentValue) {
@@ -69,11 +72,26 @@ export class CreateEditNoticiaComponent implements OnChanges {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      const fileType = file.type;
+  
+      if (!fileType.startsWith('image/')) {
+        this.toastr.error('Por favor, seleccione un archivo de imagen válido.', 'Archivo no válido');
+        
+        if (this.fileInput) {
+          this.fileInput.nativeElement.value = '';
+        }
+        
+        this.imageExists = false;
+        this.imagenRequerida = true;
+        this.imagenValida = false;
+        return;
+      }
+  
       this.selectedFileName = file.name;
       this.imageExists = true;
       this.convertirAByte(file);
       this.imageFirst = false;
-      this.imagenRequerida = false;
+      this.imagenRequerida = false;  
       this.imagenValida = true;
       if (this.fileInput) {
         this.fileInput.nativeElement.disabled = true;
@@ -92,7 +110,9 @@ export class CreateEditNoticiaComponent implements OnChanges {
   }
 
   triggerFileInput(): void {
+    this.imagenRequerida = true;
     if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
       this.fileInput.nativeElement.click();
     }
   }
@@ -102,9 +122,9 @@ export class CreateEditNoticiaComponent implements OnChanges {
     this.selectedFileName = undefined;
     this.nuevaNoticia.idImagen = 'DELETE';
     this.imageFirst = false;
-    this.imagenRequerida = true;
+    this.imagenRequerida = true;  
     this.imagenValida = false;
-  
+    
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
       this.fileInput.nativeElement.disabled = false;

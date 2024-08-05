@@ -17,17 +17,22 @@ export class RecursosService {
     this.myApiUrlWeb = '/RecursosEducativosWeb';
   }
 
-  obtenerRecursos(page: number, pageSize: number): Observable<PagedResult<RecursoEducativo>> {
-    const params = new HttpParams()
+  obtenerRecursos(page: number, pageSize: number, filtro: string): Observable<PagedResult<RecursoEducativo>> {
+    if (filtro == '') {
+      filtro = 'NO';
+    }
+
+    let params = new HttpParams()
       .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
-    
+      .set('pageSize', pageSize.toString())
+      .set('filtro', filtro.toString());
+
     return this.http.get<PagedResult<RecursoEducativo>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
   agregarRecurso(recurso: RecursoEducativo): Observable<any> {
     console.log(this.myAppUrl + this.myApiUrlWeb);
-    
+
     return this.http.post(this.myAppUrl + this.myApiUrlWeb, recurso);
   }
 

@@ -21,13 +21,17 @@ namespace holdemmanager_backend_web.Controllers
             _recursosEducativosService = recursosService;
             _dbContext = dbContext;
             _firebaseStorageHelper = firebaseStorageHelper;
-        }
+        } 
 
         // obtener todos los recursos educativos
         [HttpGet]
-        public async Task<ActionResult<PagedResult<RecursoEducativo>>> GetAllRecursos(int page, int pageSize)
+        public async Task<ActionResult<PagedResult<RecursoEducativo>>> GetAllRecursos(int page, int pageSize, string filtro)
         {
-            var recursos = await _recursosEducativosService.GetAllRecursos(page, pageSize);
+            if (filtro == "NO") {
+                filtro = "";
+            }
+
+            var recursos = await _recursosEducativosService.GetAllRecursos(page, pageSize, filtro);
             return Ok(recursos);
         }
 

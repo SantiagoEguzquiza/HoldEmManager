@@ -4,16 +4,20 @@
 <div class="dark-background" *ngIf="isCreateNoticia"></div>
 <div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
   <div *ngIf="isCreateNoticia" class="centered-container">
-    <app-create-edit-noticia 
-      [noticia]="noticiaActual"
-      (guardar)="guardarNuevaNoticia($event)" 
+    <app-create-edit-noticia [noticia]="noticiaActual" (guardar)="guardarNuevaNoticia($event)"
       (cancelar)="cancelarNuevaNoticia()">
     </app-create-edit-noticia>
   </div>
-  <div class="buttons" style="padding-bottom: 20px;">
-    <a class="agregar" href="javascript:void(0)" (click)="agregarNoticia()">
-      <i class="bi bi-plus-square-fill"></i>Agregar Noticia
-    </a>
+  <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
+    <div>
+      <a class="agregar" href="javascript:void(0)" (click)="agregarNoticia()">
+        <i class="bi bi-plus-square-fill"></i>Agregar Noticia
+      </a>
+    </div>
+    <div>
+      <input type="text" [(ngModel)]="filtro" (keyup)="aplicarFiltro(filtro)" placeholder="Buscar noticas..."
+        class="input" style="width: 300px;">
+    </div>
   </div>
   <div class="row">
     <div class="col-12">
@@ -34,8 +38,12 @@
             <tr *ngFor="let noticia of noticias">
               <td class="truncate">{{ noticia.titulo }}</td>
               <td class="truncate">{{ noticia.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="truncate">{{ noticia.mensaje }}</td>  
-              <td><img src="{{noticia.idImagen}}" class="img-noticia"></td>
+              <td class="truncate">{{ noticia.mensaje }}</td>
+              <td>
+                <a [href]="noticia.idImagen" target="_blank">
+                  <img src="{{noticia.idImagen}}" class="img-noticia">
+                </a>
+              </td>
               <td>
                 <a class="custom-btn btn-sm" (click)="editarNoticia(noticia)">
                   <i class="fas fa-pen"></i>
@@ -59,4 +67,3 @@
     </div>
   </div>
 </div>
-<br>

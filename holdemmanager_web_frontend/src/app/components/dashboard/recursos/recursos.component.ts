@@ -18,6 +18,7 @@ export class RecursosComponent implements OnInit {
   page = 1;
   pageSize = 10;
   hasNextPage = false;
+  filtro = '';
 
   constructor(private recursoService: RecursosService, private router: Router, private toastr: ToastrService) { }
 
@@ -27,7 +28,7 @@ export class RecursosComponent implements OnInit {
 
   obtenerRecursos(): void {
     this.loading = true;
-    this.recursoService.obtenerRecursos(this.page, this.pageSize).subscribe(
+    this.recursoService.obtenerRecursos(this.page, this.pageSize, this.filtro).subscribe(
       (data) => {
         this.recursos = data.items;
         this.hasNextPage = data.hasNextPage;
@@ -75,7 +76,7 @@ export class RecursosComponent implements OnInit {
           if (index !== -1) {
             this.recursos[index] = data;
           }
-          this.toastr.success('Recurso actualizada exitosamente');
+          this.toastr.success('Recurso actualizado exitosamente');
           this.isCreateRecurso = false;
           this.obtenerRecursos();
         },
@@ -127,5 +128,11 @@ export class RecursosComponent implements OnInit {
       this.page = newPage;
       this.obtenerRecursos();
     }
+  }
+
+  aplicarFiltro(nuevoFiltro: string) {
+    this.filtro = nuevoFiltro;
+    this.page = 1;
+    this.obtenerRecursos();
   }
 }

@@ -12,13 +12,18 @@ export class NoticiasService {
   private myAppUrl = environment.endpoint;
   private myApiUrlWeb = '/NoticiasWeb';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  obtenerNoticias(page: number, pageSize: number): Observable<PagedResult<Noticia>> {
+  obtenerNoticias(page: number, pageSize: number, filtro: string): Observable<PagedResult<Noticia>> {
+    if (filtro == '') {
+      filtro = 'NO';
+    }
+
     const params = new HttpParams()
       .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
-    
+      .set('pageSize', pageSize.toString())
+      .set('filtro', filtro.toString());
+
     return this.http.get<PagedResult<Noticia>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 

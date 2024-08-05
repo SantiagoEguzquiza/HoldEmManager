@@ -75,7 +75,7 @@ namespace holdemmanager_backend_web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Noticia");
+                    b.ToTable("Noticias");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.Ranking", b =>
@@ -104,7 +104,7 @@ namespace holdemmanager_backend_web.Migrations
                     b.ToTable("Rankings");
                 });
 
-            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.RecursosEducativos", b =>
+            modelBuilder.Entity("holdemmanager_backend_web.Domain.Models.RecursoEducativo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

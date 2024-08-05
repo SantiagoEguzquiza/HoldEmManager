@@ -25,9 +25,9 @@ namespace holdemmanager_backend_web.Service
             return await _noticiasRepository.DeleteNoticia(id);
         }
 
-        public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize)
+        public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize, string filtro)
         {
-            return await _noticiasRepository.GetAllNoticias(page, pageSize);
+            return await _noticiasRepository.GetAllNoticias(page, pageSize, filtro);
         }
 
         public async Task<Noticia> GetNoticiaById(int id)

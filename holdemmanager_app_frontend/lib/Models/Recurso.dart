@@ -43,11 +43,12 @@ class RecursosEducativos {
   static Future<PagedResult<RecursosEducativos>> obtenerRecursosEducativos({
     required int page,
     required int pageSize,
+    required String filtro
   }) async {
     var baseUrl = ApiHandler.baseUrl;
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl/RecursosEducativosWeb?page=$page&pageSize=$pageSize'),
+        Uri.parse('$baseUrl/RecursosEducativosWeb?page=$page&pageSize=$pageSize&filtro=$filtro'),
       ).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {

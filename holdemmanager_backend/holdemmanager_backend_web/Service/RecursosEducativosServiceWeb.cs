@@ -20,9 +20,9 @@ namespace holdemmanager_backend_web.Service
             _recursosRepository = recursosRepository;
         }
 
-        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize)
+        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize, string filtro)
         {
-            return await _recursosRepository.GetAllRecursos(page, pageSize);
+            return await _recursosRepository.GetAllRecursos(page, pageSize, filtro);
         }
 
         public async Task<RecursoEducativo> GetRecursoById(int id)

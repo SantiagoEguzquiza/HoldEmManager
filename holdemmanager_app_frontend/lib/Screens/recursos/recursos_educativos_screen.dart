@@ -99,6 +99,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
       final result = await RecursosEducativos.obtenerRecursosEducativos(
         page: _currentPage,
         pageSize: _pageSize,
+        filtro: "NO"
       );
       setState(() {
         _recursos.addAll(result.items);

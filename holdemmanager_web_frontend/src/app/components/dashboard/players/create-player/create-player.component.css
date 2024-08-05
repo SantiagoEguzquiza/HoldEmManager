@@ -22,6 +22,10 @@
   margin-bottom: 15px;
 }
 
+label{
+  margin-bottom: 10px;
+}
+
 .input {
   outline: none;
   width: 100%;

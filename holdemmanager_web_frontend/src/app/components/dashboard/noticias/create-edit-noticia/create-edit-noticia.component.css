@@ -28,7 +28,7 @@
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .invalid {
@@ -47,6 +47,10 @@
 
 .input:focus {
   border: #575757 solid 1px;
+}
+
+label {
+  margin-bottom: 10px;
 }
 
 .buttons {
@@ -115,6 +119,7 @@
   cursor: pointer;
   padding: 0.5rem 1rem;
   color: black;
+  border-radius: 5px;
 }
 
 .custom-btn:hover {
@@ -124,6 +129,7 @@
 
 .custom-btn i {
   margin-right: 5px;
+  
 }
 
 .custom-btn .fas {

@@ -40,11 +40,11 @@ class Noticia {
   }
 
   static Future<PagedResult<Noticia>> obtenerNoticias(
-      {required int page, required int pageSize}) async {
+      {required int page, required int pageSize, required String filtro}) async {
     var baseUrl = ApiHandler.baseUrl;
     try {
       final response = await http
-          .get(Uri.parse('$baseUrl/NoticiasWeb?page=$page&pageSize=$pageSize'))
+          .get(Uri.parse('$baseUrl/NoticiasWeb?page=$page&pageSize=$pageSize&filtro=$filtro'))
           .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {

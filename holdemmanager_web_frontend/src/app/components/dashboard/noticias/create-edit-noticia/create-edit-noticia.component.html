@@ -25,14 +25,14 @@
       <label for="URLImagen">Imagen</label>
       <div class="img-container" style="display: flex; align-items: center;">
         <input #fileInput type="file" class="upload-box" (change)="imagenSeleccionada($event)" [disabled]="imageExists" [required]="!imageExists" #imagen="ngModel" name="imagen" ngModel />
-        <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="invalid">
-          La imagen <strong>es requerida</strong>
-        </div>
         <div class="delete-btn-container" style="flex-shrink: 0; margin-left: 10px;">
           <button type="button" class="custom-btn btn-sm" (click)="eliminarImagen()" *ngIf="imageExists">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
+      </div>
+      <div *ngIf="!imagenValida && imagen.touched" class="invalid">
+        La imagen <strong>es requerida</strong>
       </div>
     </div>
     <div class="buttons">
