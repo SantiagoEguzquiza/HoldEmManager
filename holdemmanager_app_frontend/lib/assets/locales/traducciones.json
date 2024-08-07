@@ -63,7 +63,14 @@
     "sendFeed": "Send Feedback",
     "leaveFeed": "Leave us your feedback",
     "writeFeed": "Write your feedback",
-    "errorFeed": "Please enter a feedback"
+    "errorFeed": "Please enter a feedback",
+    "searchTournament": "Search tournaments",
+    "start": "Start",
+    "end": "End",
+    "event": "Event",
+    "stack": "Stack",
+    "levels": "Levels",
+    "ticket": "Ticket"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -129,7 +136,14 @@
     "sendFeed": "Enviar Comentario",
     "leaveFeed": "Dejanos tu comentario",
     "writeFeed": "Escribe tu comentario",
-    "errorFeed": "Por favor ingrese un comentario"
+    "errorFeed": "Por favor ingrese un comentario",
+    "searchTournament": "Buscar torneos",
+    "start": "Inicio",
+    "end": "Cierre",
+    "event": "Evento",
+    "stack": "Stack",
+    "levels": "Niveles",
+    "ticket": "Entrada"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -195,6 +209,13 @@
     "sendFeed": "Enviar comentário",
     "leaveFeed": "Deixe-nos o seu comentário",
     "writeFeed": "Escreva seu comentário",
-    "errorFeed": "Por favor insira um comentário"
+    "errorFeed": "Por favor insira um comentário",
+    "searchTournament": "Procurar torneios",
+    "start": "Começo",
+    "end": "Fim",
+    "event": "Evento",
+    "stack": "Pilha",
+    "levels": "Níveis",
+    "ticket": "Bilhete"
   }
 }

@@ -57,6 +57,19 @@ namespace holdemmanager_backend_web.Repositories
                 HasNextPage = hasNextPage
             };
         }
+        public async Task<List<Torneos>> GetTorneosFiltered(string filtro)
+        {
+            var query = _context.Torneos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                query = query.Where(t => t.Nombre.Contains(filtro));
+            }
+
+            var torneos = await query.ToListAsync();
+
+            return torneos;
+        }
 
         public async Task<Torneos> GetTorneoById(int id)
         {
@@ -68,6 +81,7 @@ namespace holdemmanager_backend_web.Repositories
 
             return torneo;
         }
+
 
         public async Task UpdateTorneo(Torneos torneo)
         {

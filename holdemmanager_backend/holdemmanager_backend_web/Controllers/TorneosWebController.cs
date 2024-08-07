@@ -48,6 +48,18 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
+        [HttpGet("filtered/{filtro}")]
+        public async Task<ActionResult<List<Torneos>>> GetTorneosFiltered(string filtro)
+        {
+            if (filtro == "NO")
+            {
+                filtro = "";
+            }
+
+            var torneos = await _torneosService.GetTorneosFiltered(filtro);
+            return Ok(torneos);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Torneos>> GetTorneoById(int id)

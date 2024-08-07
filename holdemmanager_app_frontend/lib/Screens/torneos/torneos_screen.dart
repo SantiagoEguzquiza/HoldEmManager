@@ -24,6 +24,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
   late Map<String, dynamic> finalTranslations = {};
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('es', 'ES');
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -31,25 +32,32 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     initializeDateFormatting('es_ES', null);
     cargarLocaleYTranslations();
     translationService.addListener(this);
-    torneos = apiService.obtenerTorneos().then((data) {
-      setState(() {
-        for (var torneo in data) {
-          DateTime fecha = DateTime.parse(torneo['fecha']);
-          String dia = DateFormat('d ' 'MMMM' ' yyyy', 'es_ES').format(fecha);
-          if (!torneosPorDia.containsKey(dia)) {
-            torneosPorDia[dia] = [];
+    _cargarTorneos('');
+  }
+
+  void _cargarTorneos(String filtro) {
+    setState(() {
+      torneos = apiService.obtenerTorneos(filtro).then((data) {
+        setState(() {
+          torneosPorDia.clear();
+          for (var torneo in data) {
+            DateTime fecha = DateTime.parse(torneo['fecha']);
+            String dia = DateFormat('d ' 'MMMM' ' yyyy', 'es_ES').format(fecha);
+            if (!torneosPorDia.containsKey(dia)) {
+              torneosPorDia[dia] = [];
+            }
+            torneosPorDia[dia]!.add(torneo);
           }
-          torneosPorDia[dia]!.add(torneo);
-        }
-        print('Torneos por día: $torneosPorDia');
+        });
+        return data;
       });
-      return data;
     });
   }
 
   @override
   void dispose() {
     translationService.removeListener(this);
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -69,14 +77,23 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     });
   }
 
+  String traducir(String key) {
+    return finalTranslations[finalLocale.toString()]?[key] ?? key;
+  }
+
   String formatearFecha(DateTime fecha) {
     return DateFormat('dd/MM/yyyy').format(fecha);
+  }
+
+  void _onSearchPressed() {
+    final filtro = _searchController.text;
+    _cargarTorneos(filtro);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(),
       drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
       drawer: const SideBar(),
       bottomNavigationBar: CustomBottomNavBar(
@@ -95,68 +112,113 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
           }
         },
       ),
-      body: FutureBuilder<List<dynamic>>(
-        future: torneos,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text("Error al cargar los torneos"));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("No hay torneos disponibles"));
-          } else {
-            return ListView.builder(
-              itemCount: torneosPorDia.keys.length,
-              itemBuilder: (context, index) {
-                String dia = torneosPorDia.keys.elementAt(index);
-                List<dynamic> torneosDelDia = torneosPorDia[dia]!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text(
-                          dia.toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent,
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 6,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: traducir('searchTournament'),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: _onSearchPressed,
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<dynamic>>(
+              future: torneos,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(
+                      child: Text("Error al cargar los torneos"));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(
+                      child: Text("No hay torneos disponibles"));
+                } else {
+                  return ListView.builder(
+                    itemCount: torneosPorDia.keys.length,
+                    itemBuilder: (context, index) {
+                      String dia = torneosPorDia.keys.elementAt(index);
+                      List<dynamic> torneosDelDia = torneosPorDia[dia]!;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: Text(
+                                dia.toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.orangeAccent,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: DataTable(
-                        columns: const [
-                          DataColumn(label: Text('#')),
-                          DataColumn(label: Text('Inicio')),
-                          DataColumn(label: Text('Cierre')),
-                          DataColumn(label: Text('Evento')),
-                          DataColumn(label: Text('Stack')),
-                          DataColumn(label: Text('Niveles')),
-                          DataColumn(label: Text('Entrada')),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columns: [
+                                const DataColumn(label: Text('#')),
+                                DataColumn(label: Text(traducir('start'))),
+                                DataColumn(label: Text(traducir('end'))),
+                                DataColumn(label: Text(traducir('event'))),
+                                DataColumn(label: Text(traducir('stack'))),
+                                DataColumn(label: Text(traducir('levels'))),
+                                DataColumn(label: Text(traducir('ticket'))),
+                              ],
+                              rows: torneosDelDia.map((torneo) {
+                                return DataRow(cells: [
+                                  DataCell(Text(torneo['numeroRef'])),
+                                  DataCell(Text(torneo['inicio'])),
+                                  DataCell(Text(torneo['cierre'])),
+                                  DataCell(Text(torneo['nombre'])),
+                                  DataCell(Text(torneo['stack'])),
+                                  DataCell(Text(torneo['niveles'])),
+                                  DataCell(Text(torneo['entrada'])),
+                                ]);
+                              }).toList(),
+                            ),
+                          ),
                         ],
-                        rows: torneosDelDia.map((torneo) {
-                          return DataRow(cells: [
-                            DataCell(Text(torneo['numeroRef'])),
-                            DataCell(Text(torneo['inicio'])),
-                            DataCell(Text(torneo['cierre'])),
-                            DataCell(Text(torneo['nombre'])),
-                            DataCell(Text(torneo['stack'])),
-                            DataCell(Text(torneo['niveles'])),
-                            DataCell(Text(torneo['entrada'])),
-                          ]);
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                );
+                      );
+                    },
+                  );
+                }
               },
-            );
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
