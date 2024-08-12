@@ -40,7 +40,9 @@ export class FeedbackComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.toastr.error('Error al obtener feedbacks', 'Error');
+        if (error.status != 401) {
+          this.toastr.error('Error al obtener feedbacks', 'Error');
+        }
         console.error(error);
       }
     );
@@ -48,16 +50,16 @@ export class FeedbackComponent implements OnInit {
 
   verUsuario(feedback: Feedback) {
     this.selectedFeedback = feedback;
-    this.feedbackService.obtenerUsuario(feedback.idUsuario).subscribe(
-      (usuario) => {
-        console.log(usuario);
-        this.selectedUser = usuario;
-      },
-      (error) => {
-        console.error('Error al obtener usuario', error);
-        this.toastr.error('Error al obtener el usuario', 'Error');
-      }
-    );
+    if (feedback.idUsuario != null) {
+      this.feedbackService.obtenerUsuario(feedback.idUsuario).subscribe(
+        (usuario) => {
+          this.selectedUser = usuario;
+        },
+        (error) => {
+          this.toastr.error('Error al obtener el usuario', 'Error');
+        }
+      );
+    }
   }
 
   cerrarPopup() {

@@ -26,11 +26,17 @@ namespace holdemmanager_backend_app.Controllers
         }
 
         // obtener todos los jugadores
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Jugador>>> GetAllNoticias(int page, int pageSize)
+        public async Task<ActionResult<PagedResult<Jugador>>> GetAllJugadores(int page, int pageSize, string filtro)
         {
-            var noticias = await _usuarioService.GetAllJugadores(page, pageSize);
-            return Ok(noticias);
+            if (filtro == "NO")
+            {
+                filtro = "";
+            }
+
+            var jugadores = await _usuarioService.GetAllJugadores(page, pageSize, filtro);
+            return Ok(jugadores);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -92,6 +98,7 @@ namespace holdemmanager_backend_app.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("id/{id:int}")]
         public async Task<ActionResult<Jugador>> GetUsuarioPorId(int id) //trae jugador por id
         {
@@ -106,22 +113,55 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("number/{numberPlayer:int}")]
-        public async Task<ActionResult<Jugador>> GetUsuarioPorNumberPlayer(int numberPlayer) //trae jugador por numberPlayer
+        public async Task<ActionResult<Jugador>> GetUsuarioPorNumberPlayer(int numberPlayer) // trae jugador por numberPlayer
         {
             try
             {
-                var jugador = await _dbContext.Jugadores.Where(u => u.NumberPlayer == numberPlayer).FirstOrDefaultAsync();
+                var jugador = await _dbContext.Jugadores
+                    .Where(u => u.NumberPlayer == numberPlayer)
+                    .FirstOrDefaultAsync();
+
+                if (jugador == null)
+                {
+                    return NotFound(new { message = "No se encontraron datos que coincidan con el número de jugador." });
+                }
+
                 return Ok(jugador);
             }
             catch (Exception)
             {
-                return BadRequest(new { message = "No se encontraron datos que coincidan con el numero de jugador." });
+                return BadRequest(new { message = "Ocurrió un error al obtener los datos." });
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("Feedbacks/{userId:int}")]
+        public async Task<ActionResult<List<Feedback>>> GetFeedbacksPorNumberPlayer(int userId) // trae feedbacks del jugador
+        {
+            try
+            {
+                var feedbacks = await _dbContext.Feedback
+                    .Where(f => f.IdUsuario == userId)
+                    .OrderByDescending(f => f.Fecha)
+                    .Take(3)
+                    .ToListAsync();
 
+                if (feedbacks == null)
+                {
+                    return NotFound(new { message = "No se encontraron datos que coincidan con el número de jugador." });
+                }
 
+                return Ok(feedbacks);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "Ocurrió un error al obtener los datos." });
+            }
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{imageUrl}/{numeroJugador}")]
         public async Task<IActionResult> setImageUrl(string imageUrl, int numeroJugador)
         {
@@ -133,7 +173,7 @@ namespace holdemmanager_backend_app.Controllers
 
             usuario.ImageUrl = imageUrl;
             await _usuarioService.UpdateUsuario(usuario);
-            if (imageUrl != "null" )
+            if (imageUrl != "null")
             {
                 return Ok("Imagen guardada con exito");
             }
@@ -143,6 +183,7 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] Jugador jugador)
         {
@@ -157,6 +198,7 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{numeroJugador}")]
         public async Task<IActionResult> Delete(int numeroJugador)
         {

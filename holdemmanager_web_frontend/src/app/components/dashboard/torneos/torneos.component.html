@@ -4,19 +4,29 @@
 <div class="dark-background" *ngIf="isCreateTorneo"></div>
 <div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
   <div *ngIf="isCreateTorneo" class="centered-container">
-    <app-create-torneo 
-      [torneo]="torneoActual"
-      (guardar)="guardarNuevoTorneo($event)" 
+    <app-create-torneo [torneo]="torneoActual" (guardar)="guardarNuevoTorneo($event)"
       (cancelar)="cancelarNuevoTorneo()">
     </app-create-torneo>
   </div>
 
-  <div class="buttons" style="padding-bottom: 20px;">
-    <a class="agregar" href="javascript:void(0)" (click)="agregarTorneo()">
-      <i class="bi bi-plus-square-fill"></i>Agregar torneo
-    </a>
+  <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
+    <div>
+      <a class="agregar" href="javascript:void(0)" (click)="agregarTorneo()">
+        <i class="bi bi-plus-square-fill"></i>Agregar torneo
+      </a>
+    </div>
+    <div style="display: flex; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="text" [(ngModel)]="filtro" (keyup.enter)="aplicarFiltro()" placeholder="Buscar torneo..."
+          class="input" style="width: 300px;">
+        <button (click)="aplicarFiltro()" style="background: none; border: none; cursor: pointer;">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      <input type="date" [(ngModel)]="filtroFecha" (change)="aplicarFiltroFecha()" class="input" style="width: 150px;">
+    </div>
   </div>
-  
+
   <div class="row">
     <div class="col-12">
       <div class="card text-center" style="padding: 20px;">
@@ -45,7 +55,7 @@
               <td class="truncate">{{ torneo.stack }}</td>
               <td class="truncate">{{ torneo.niveles }}</td>
               <td class="truncate">{{ torneo.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="truncate">{{ torneo.entrada }}</td>   
+              <td class="truncate">{{ torneo.entrada }}</td>
               <td>
                 <a class="custom-btn btn-sm" (click)="editarTorneo(torneo)">
                   <i class="fas fa-pen"></i>

@@ -30,6 +30,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
   late Map<String, dynamic> finalTranslations = {};
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -70,15 +71,26 @@ class _NoticiasScreenState extends State<NoticiasScreen>
     });
   }
 
-  void mostrarNotificacionError(String mensaje) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          mensaje,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
-      ),
+  void mostrarDialogoError(String mensaje) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(finalTranslations[finalLocale.toString()]?['error'] ?? 'Error'),
+          content: Text(traducirError(mensaje)),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                finalTranslations[finalLocale.toString()]?['ok'] ?? 'OK',
+                style: const TextStyle(color: Colors.orangeAccent),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -92,6 +104,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
 
     setState(() {
       _isLoading = true;
+      _errorMessage = null;
     });
 
     try {
@@ -106,11 +119,38 @@ class _NoticiasScreenState extends State<NoticiasScreen>
         _hasMoreData = result.hasNextPage;
       });
     } catch (e) {
-      mostrarNotificacionError(traducirError(e.toString()));
+      String errorKey = 'serverError';
+      if (e.toString().contains('serverError')) {
+        errorKey = 'serverError';
+      }
+      setState(() {
+        _errorMessage = errorKey;
+      });
+      mostrarDialogoError(errorKey);
     } finally {
       setState(() {
         _isLoading = false;
       });
+    }
+  }
+
+  void _onNavBarTap(int index) {
+    if (_isLoading) return;
+    
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const NoticiasScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
     }
   }
 
@@ -121,115 +161,119 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
       drawer: const SideBar(),
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
-            );
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            );
-          }
-        },
+        currentIndex: _selectedIndex,
+        onTap: _onNavBarTap,
       ),
-      body: ListView.builder(
-        controller: _scrollController,
-        itemCount: _noticias.length + (_isLoading ? 2 : 1), // Adjust the count to include the title
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            // Título que estará desplazable
-            return Container(
-              margin: const EdgeInsets.only(bottom: 10.0),
-              padding: const EdgeInsets.all(25.0),
-              child: Text(
-                finalTranslations[finalLocale.toString()]?['newsForum'] ??
-                    'NewsForum',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            );
-          } else if (index == _noticias.length + 1) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.orangeAccent,
-                ),
-              ),
-            );
-          }
-
-          var noticia = _noticias[index - 1];
-          var fechaFormateada =
-              DateFormat('dd/MM/yyyy').format(noticia.fecha);
-
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      DetalleNoticiaScreen(noticia: noticia),
-                ),
-              );
-            },
-            child: Card(
-              margin: const EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 15),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      noticia.titulo,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: _noticias.isEmpty && !_isLoading
+                ? Center(
+                    child: Text(
+                      _errorMessage != null
+                          ? traducirError(_errorMessage!)
+                          : finalTranslations[finalLocale.toString()]?['noData'] ??
+                              'No hay datos disponibles',
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          size: 16,
-                          color: Colors.grey,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          fechaFormateada,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
+                  )
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _noticias.length + (_isLoading ? 2 : 1),
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 10.0),
+                          padding: const EdgeInsets.all(25.0),
+                          child: Text(
+                            finalTranslations[finalLocale.toString()]?['newsForum'] ??
+                                'News Forum',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      } else if (index == _noticias.length + 1) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.orangeAccent,
+                            ),
+                          ),
+                        );
+                      }
+
+                      var noticia = _noticias[index - 1];
+                      var fechaFormateada =
+                          DateFormat('dd/MM/yyyy').format(noticia.fecha);
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetalleNoticiaScreen(noticia: noticia),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  noticia.titulo,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.calendar_today,
+                                      size: 16,
+                                      color: Colors.grey,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      fechaFormateada,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                if (noticia.idImagen != null &&
+                                    noticia.idImagen!.isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      noticia.idImagen!,
+                                      height: 150,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    if (noticia.idImagen != null &&
-                        noticia.idImagen!.isNotEmpty)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                          noticia.idImagen!,
-                          height: 150,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }

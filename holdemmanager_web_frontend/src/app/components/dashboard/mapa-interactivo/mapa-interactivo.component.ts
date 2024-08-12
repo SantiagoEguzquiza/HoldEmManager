@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { MapaHelper } from 'src/app/helpers/mapaHelper';
 import { MapaService } from 'src/app/service/mapa.service';
 
-
 interface PlanoItem {
   type: 'mesa' | 'barra' | 'banio' | 'caja' | 'marketing' | 'agua' | 'prensa' | 'infotorneos' | 'espaciador' | 'barbero' | 'entretenimiento' | 'salatorneo';
   label: string;
@@ -34,6 +33,7 @@ export class MapaInteractivoComponent implements AfterViewInit {
   isHelp = false;
   newItemType: PlanoItem['type'] = 'mesa';
   loading = false;
+  private planoContainer: HTMLElement | null = null;
 
   planos: Plano[] = [
     {
@@ -73,71 +73,54 @@ export class MapaInteractivoComponent implements AfterViewInit {
   private mouseArribaListener: (() => void) | null = null;
   private leftMouseDown = false;
 
-  constructor(private renderer: Renderer2, private el: ElementRef, private mapaService: MapaService, private toastr : ToastrService) { }
+  constructor(private renderer: Renderer2, private el: ElementRef, private mapaService: MapaService, private toastr: ToastrService) { }
 
   ngAfterViewInit() {
+    this.planoContainer = this.el.nativeElement.querySelector('#plano-container');
     this.actualizarItemsPosicion();
   }
 
   @HostListener('window:resize')
   onResize() {
+    this.actualizarItemsPosicion();
   }
 
   empezarArrastrar(event: MouseEvent, item: PlanoItem) {
     event.preventDefault();
-    const container = this.el.nativeElement.querySelector('#plano-container');
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
+
+    if (this.currentItemDragging || event.button !== 0) { 
+      return;
+    }
+
+    const containerWidth = this.planoContainer!.offsetWidth;
+    const containerHeight = this.planoContainer!.offsetHeight;
     const startX = event.clientX;
     const startY = event.clientY;
     const initX = (item.x / 100) * containerWidth;
     const initY = (item.y / 100) * containerHeight;
 
-    if (this.currentItemDragging) {
-      return;
-    }
-
     this.leftMouseDown = true;
     this.currentItemDragging = item;
 
-    const mouseMovimiento = (moveEvent: MouseEvent) => {
-      if (!this.leftMouseDown || !this.currentItemDragging) {
-        return;
-      }
+    this.mouseMovimientoListener = this.renderer.listen('window', 'mousemove', (moveEvent: MouseEvent) => {
       const dx = moveEvent.clientX - startX;
       const dy = moveEvent.clientY - startY;
-      const newX = initX + dx;
-      const newY = initY + dy;
-      this.currentItemDragging.x = (newX / containerWidth) * 100;
-      this.currentItemDragging.y = (newY / containerHeight) * 100;
-    };
+      this.currentItemDragging!.x = ((initX + dx) / containerWidth) * 100;
+      this.currentItemDragging!.y = ((initY + dy) / containerHeight) * 100;
+    });
 
-    const mouseArriba = () => {
+    this.mouseArribaListener = this.renderer.listen('window', 'mouseup', () => {
       this.leftMouseDown = false;
       this.currentItemDragging = null;
-
-      if (this.mouseMovimientoListener) {
-        this.mouseMovimientoListener();
-      }
-      if (this.mouseArribaListener) {
-        this.mouseArribaListener();
-      }
-    };
-
-    this.mouseMovimientoListener = this.renderer.listen('window', 'mousemove', mouseMovimiento);
-    this.mouseArribaListener = this.renderer.listen('window', 'mouseup', mouseArriba);
+      this.mouseMovimientoListener?.();
+      this.mouseArribaListener?.();
+    });
   }
 
   empezarRotar(event: MouseEvent, item: PlanoItem) {
     event.preventDefault();
-    if (this.leftMouseDown || this.currentItemDragging) {
-      return;
-    }
-
-    item.rotation += 90;
-    item.rotation = item.rotation % 360;
-    if (item.rotation < 0) {
-      item.rotation += 360;
+    if (!this.leftMouseDown && !this.currentItemDragging) {
+      item.rotation = (item.rotation + 90) % 360;
     }
   }
 
@@ -148,25 +131,25 @@ export class MapaInteractivoComponent implements AfterViewInit {
   }
 
   exportarImagen(): void {
-    const container = this.el.nativeElement.querySelector('#plano-container');
-    html2canvas(container, {
+    html2canvas(this.planoContainer!, {
       useCORS: true,
       allowTaint: true,
       scale: window.devicePixelRatio
     }).then((canvas) => {
       const base64Image = canvas.toDataURL('image/png').split(',')[1];
-  
+
       const mapa: MapaHelper = {
         planoId: this.currentPlanoId,
         planoString: base64Image
       };
-  
+
       this.mapaService.saveMapa(mapa).subscribe(data => {
         this.toastr.success(data.message);
       }, (error) => {
         this.loading = false;
-        this.toastr.error(error.message, 'Error');
-        console.error(error);
+        if (error.status != 401) {
+          this.toastr.error(error.message, 'Error');
+        }
       });
     });
   }
@@ -216,16 +199,16 @@ export class MapaInteractivoComponent implements AfterViewInit {
   }
 
   actualizarItemsPosicion() {
-    const container = this.el.nativeElement.querySelector('#plano-container');
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
+    const containerWidth = this.planoContainer!.offsetWidth;
+    const containerHeight = this.planoContainer!.offsetHeight;
 
-    this.items.filter(i => i.plano === this.currentPlanoId).forEach(item => {
+    this.itemsFiltrados.forEach(item => {
       const itemElement = this.el.nativeElement.querySelector(`.${item.type}`);
       if (itemElement) {
         this.renderer.setStyle(itemElement, 'left', `${item.x}%`);
         this.renderer.setStyle(itemElement, 'top', `${item.y}%`);
         this.renderer.setStyle(itemElement, 'transform', `rotate(${item.rotation}deg)`);
+
         if (item.rotation % 180 !== 0) {
           this.renderer.setStyle(itemElement, 'writing-mode', 'vertical');
         } else {
@@ -249,61 +232,24 @@ export class MapaInteractivoComponent implements AfterViewInit {
     return this.items.filter(i => i.plano === this.currentPlanoId);
   }
 
+  crearMesa(label: string, x: number, y: number, plano: number): PlanoItem {
+    return { type: 'mesa', label, x, y, rotation: 270, plano, width: 50, height: 50 };
+  }
+
   crearMesasManuales(): PlanoItem[] {
-    return [
-      { type: 'mesa', label: 'Mesa 1', x: 77, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 2', x: 77, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 3', x: 77, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 4', x: 77, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 5', x: 77, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 6', x: 69, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 7', x: 69, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 8', x: 69, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 9', x: 69, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 10', x: 69, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 11', x: 61, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 12', x: 61, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 13', x: 61, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 14', x: 61, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 15', x: 61, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 16', x: 53, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 17', x: 53, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 18', x: 53, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 19', x: 53, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 20', x: 53, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 21', x: 45, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 22', x: 45, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 23', x: 45, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 24', x: 45, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 25', x: 45, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 26', x: 33, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 27', x: 33, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 28', x: 33, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 29', x: 33, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 30', x: 33, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 31', x: 25, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 32', x: 25, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 33', x: 25, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 34', x: 25, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 35', x: 25, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 36', x: 17, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 37', x: 17, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 38', x: 17, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 39', x: 17, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 40', x: 17, y: 74, rotation: 270, plano: 2, width: 50, height: 50 },
-  
-      { type: 'mesa', label: 'Mesa 41', x: 9, y: 14, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 42', x: 9, y: 29, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 43', x: 9, y: 44, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 44', x: 9, y: 59, rotation: 270, plano: 2, width: 50, height: 50 },
-      { type: 'mesa', label: 'Mesa 45', x: 9, y: 74, rotation: 270, plano: 2, width: 50, height: 50 }
+    const mesas: PlanoItem[] = [];
+    const posiciones = [
+      { x: 77, yStart: 14 }, { x: 69, yStart: 14 }, { x: 61, yStart: 14 },
+      { x: 53, yStart: 14 }, { x: 45, yStart: 14 }, { x: 33, yStart: 14 },
+      { x: 25, yStart: 14 }, { x: 17, yStart: 14 }, { x: 9, yStart: 14 }
     ];
+
+    let labelCounter = 1;
+    for (const { x, yStart } of posiciones) {
+      for (let i = 0; i < 5; i++) {
+        mesas.push(this.crearMesa(`Mesa ${labelCounter++}`, x, yStart + 15 * i, 2));
+      }
+    }
+    return mesas;
   }
 }

@@ -32,6 +32,7 @@ export class CreateEditNoticiaComponent implements OnChanges {
       if (this.nuevaNoticia.idImagen) {
         this.imageExists = true;
         this.imageFirst = true;
+        this.imagenValida = true;
         if (this.fileInput) {
           this.fileInput.nativeElement.disabled = true;
         }
@@ -102,9 +103,20 @@ export class CreateEditNoticiaComponent implements OnChanges {
   convertirAByte(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
-      const image = reader.result as string;
-      const base64Data = image.split(',')[1];
-      this.nuevaNoticia.idImagen = base64Data;
+      const img = new Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800;
+        const scaleSize = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scaleSize;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const optimizedImage = canvas.toDataURL('image/jpeg', 0.7);
+        const base64Data = optimizedImage.split(',')[1];
+        this.nuevaNoticia.idImagen = base64Data;
+      };
     };
     reader.readAsDataURL(file);
   }

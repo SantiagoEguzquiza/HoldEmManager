@@ -3,6 +3,7 @@ using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,9 +38,27 @@ namespace holdemmanager_backend_web.Repositories
             return false;
         }
 
-        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize)
+        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize, string filtro, string filtroFecha)
         {
-            var torneos = await _context.Torneos
+            var query = _context.Torneos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                query = query.Where(r => r.Nombre.Contains(filtro) || r.numeroRef.Contains(filtro));
+            }
+
+            if (!string.IsNullOrEmpty(filtroFecha) && filtroFecha != "null")
+            {
+                if (DateTime.TryParse(filtroFecha, out DateTime fechaParsed))
+                {
+                    query = query.Where(r => r.Fecha.Date == fechaParsed.Date);
+                }
+            }
+
+            var totalItems = await query.CountAsync();
+
+
+            var torneos = await query
                                  .Skip((page - 1) * pageSize)
                                  .Take(pageSize + 1)
                                  .ToListAsync();

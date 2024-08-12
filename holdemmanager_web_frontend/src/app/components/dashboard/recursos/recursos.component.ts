@@ -65,8 +65,9 @@ export class RecursosComponent implements OnInit {
           this.obtenerRecursos();
         },
         (error) => {
-          this.toastr.error('Error al agregar recurso', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar recurso', 'Error');
+          }
         }
       );
     } else {
@@ -81,8 +82,9 @@ export class RecursosComponent implements OnInit {
           this.obtenerRecursos();
         },
         (error) => {
-          this.toastr.error('Error al actualizar recurso', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar recurso', 'Error');
+          }
         }
       );
     }
@@ -111,8 +113,9 @@ export class RecursosComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar el recurso', 'Error');
-            console.error(error);
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar el recurso', 'Error');
+            }
           }
         );
       }
@@ -130,8 +133,7 @@ export class RecursosComponent implements OnInit {
     }
   }
 
-  aplicarFiltro(nuevoFiltro: string) {
-    this.filtro = nuevoFiltro;
+  aplicarFiltro(): void {
     this.page = 1;
     this.obtenerRecursos();
   }

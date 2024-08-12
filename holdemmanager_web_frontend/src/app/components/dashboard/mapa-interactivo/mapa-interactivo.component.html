@@ -1,5 +1,5 @@
 <div class="container" style="display: flex; justify-content: center; align-items: center;">
-  <div class="dark-background" *ngIf="isCreateItem"></div>
+  <div class="dark-background" *ngIf="isCreateItem || isHelp"></div>
   <app-create-item *ngIf="isCreateItem" (guardar)="guardarNuevoItem($event)" (cancelar)="cancelarNuevoItem()"
     style="position: absolute; z-index: 2;"></app-create-item>
   <app-help style="position: absolute; z-index: 3;" (atras)="atrasItem()" *ngIf="isHelp"></app-help>

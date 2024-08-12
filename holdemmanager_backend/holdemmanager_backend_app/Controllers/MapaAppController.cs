@@ -2,6 +2,8 @@
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
 using holdemmanager_backend_app.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace holdemmanager_backend_app.Controllers
@@ -19,6 +21,7 @@ namespace holdemmanager_backend_app.Controllers
             _dbContext = dbContext;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] MapaHelper mapa)
         {

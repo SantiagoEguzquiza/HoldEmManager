@@ -47,15 +47,6 @@
   margin: 0 5px;
 }
 
-.swal2-cancel-button {
-  color: #000 !important;
-  border: none !important;
-}
-
-.swal2-confirm-button {
-  border: none !important;
-}
-
 i {
   font-size: 1.2rem;
 }

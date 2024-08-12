@@ -3,6 +3,8 @@ using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,17 +26,18 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias(int page, int pageSize, string filtro)
+        public async Task<ActionResult<PagedResult<Noticia>>> GetAllNoticias(int page, int pageSize, string filtro, string? filtroFecha)
         {
             if (filtro == "NO")
             {
                 filtro = "";
             }
 
-            var noticias = await _noticiasService.GetAllNoticias(page, pageSize, filtro);
+            var noticias = await _noticiasService.GetAllNoticias(page, pageSize, filtro, filtroFecha!);
             return Ok(noticias);
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Noticia>> GetNoticiaById(int id)
         {
@@ -55,7 +58,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddNoticia([FromBody] Noticia noticiaHelper)
         {
@@ -105,7 +108,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNoticia(int id, Noticia noticiaHelper)
         {
@@ -143,7 +146,7 @@ namespace holdemmanager_backend_web.Controllers
 
                     if (!string.IsNullOrEmpty(noticiaExistente.IdImagen))
                     {
-                        await _firebaseStorageHelper.EliminarImagenNoticia(noticiaHelper.IdImagen);
+                        await _firebaseStorageHelper.EliminarImagenNoticia(noticiaExistente.IdImagen);
                     }
                     newImageUrl = await _firebaseStorageHelper.SubirStorageNoticia(stream);
                 }
@@ -162,7 +165,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNoticia(int id)
         {

@@ -21,6 +21,7 @@ namespace holdemmanager_backend_app.Domain.Models
         public FeedbackEnum Categoria { get; set; }
 
         public bool IsAnonimo { get; set; }
-    }
 
+        public Jugador? Usuario { get; set; }
+    }
 }
