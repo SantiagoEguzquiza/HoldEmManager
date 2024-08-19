@@ -23,4 +23,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\holdemmanager_backend_web\holdemmanager_backend_web.csproj" />
+  </ItemGroup>
+
 </Project>

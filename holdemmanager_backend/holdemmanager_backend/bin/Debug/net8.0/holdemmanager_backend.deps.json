@@ -1662,7 +1662,10 @@
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
-          "holdemmanager_backend_app.dll": {}
+          "holdemmanager_backend_app.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "holdemmanager_backend_web/1.0.0": {
@@ -1679,7 +1682,10 @@
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
-          "holdemmanager_backend_web.dll": {}
+          "holdemmanager_backend_web.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
