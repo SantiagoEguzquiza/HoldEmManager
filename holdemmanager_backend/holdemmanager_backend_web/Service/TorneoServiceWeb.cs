@@ -46,5 +46,7 @@ namespace holdemmanager_backend_web.Service
         {
             await _torneoRepository.UpdateTorneo(torneo);
         }
+
+
     }
 }

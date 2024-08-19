@@ -107,5 +107,7 @@ namespace holdemmanager_backend_web.Repositories
             _context.Update(torneo);
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

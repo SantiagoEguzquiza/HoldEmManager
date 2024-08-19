@@ -18,7 +18,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.6",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
-          "Swashbuckle.AspNetCore": "6.4.0"
+          "Swashbuckle.AspNetCore": "6.4.0",
+          "holdemmanager_backend_web": "1.0.0"
         },
         "runtime": {
           "holdemmanager_backend_app.dll": {}
@@ -1645,6 +1646,26 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
+      },
+      "holdemmanager_backend_web/1.0.0": {
+        "dependencies": {
+          "FirebaseAuthentication.net": "3.7.2",
+          "FirebaseStorage.net": "1.0.3",
+          "Google.Apis": "1.68.0",
+          "Google.Apis.Auth": "1.68.0",
+          "Google.Apis.Drive.v3": "1.68.0.3466",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.1",
+          "Swashbuckle.AspNetCore": "6.4.0"
+        },
+        "runtime": {
+          "holdemmanager_backend_web.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -2752,6 +2773,11 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "holdemmanager_backend_web/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
