@@ -60,13 +60,21 @@ namespace holdemmanager_backend_web.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize, string filtro)
+        public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize, string filtro, string filtroFecha)
         {
             var query = _context.Noticias.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filtro))
             {
                 query = query.Where(r => r.Titulo.Contains(filtro) || r.Mensaje.Contains(filtro));
+            }
+
+            if (!string.IsNullOrEmpty(filtroFecha) && filtroFecha != "null")
+            {
+                if (DateTime.TryParse(filtroFecha, out DateTime fechaParsed))
+                {
+                    query = query.Where(r => r.Fecha.Date == fechaParsed.Date);
+                }
             }
 
             var totalItems = await query.CountAsync();

@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:holdemmanager_app/Helpers/Message.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
-import 'package:holdemmanager_app/Models/FeedbackEnum.dart';
+import 'package:holdemmanager_app/Helpers/result.dart';
+import 'package:holdemmanager_app/Models/Feedback/Feedback.dart';
+import 'package:holdemmanager_app/Models/Feedback/FeedbackEnum.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
-import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FeedbackPage extends StatefulWidget {
-  const FeedbackPage({super.key});
+class FeedbackScreen extends StatefulWidget {
+  const FeedbackScreen({super.key});
 
   @override
   _Feedback createState() => _Feedback();
 }
 
-class _Feedback extends State<FeedbackPage> implements LanguageHelper {
+class _Feedback extends State<FeedbackScreen> implements LanguageHelper {
   late Map<String, dynamic> finalTranslations = {};
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
   final _formKey = GlobalKey<FormState>();
   final _feedbackController = TextEditingController();
-  final ApiService _apiService = ApiService();
   bool _isAnonimo = false;
   FeedbackEnum _selectedCategory = FeedbackEnum.INSCRIPCION;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,6 +40,7 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
   @override
   void dispose() {
     translationService.removeListener(this);
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -73,16 +77,26 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
           throw Exception('Usuario no autenticado');
         }
 
-        await _apiService.enviarFeedback(
-            message, userId, now, _isAnonimo, _selectedCategory);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Comentario enviado exitosamente!')),
+        Result result = await FeedbackModel.enviarFeedback(
+            message, userId, now, _isAnonimo, _selectedCategory, context);
+
+        if (result.message == 'sesionEx') {
+          Message.mostrarMensajeError(traducir('sesionEx'), context);
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
+          return;
+        }
+
+        Message.mostrarMensajeCorrecto(traducir('feebackValid'), context);
         _feedbackController.clear();
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error al enviar el comentario')),
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const NoticiasScreen()),
         );
+      } catch (e) {
+        Message.mostrarMensajeError(traducir('feebackError'), context);
       }
     }
   }
@@ -109,7 +123,8 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
           }
         },
       ),
-      body: Padding(
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -127,23 +142,35 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
                 ),
               ),
               const SizedBox(height: 20),
-              DropdownButtonFormField<FeedbackEnum>(
-                value: _selectedCategory,
-                onChanged: (FeedbackEnum? newValue) {
-                  setState(() {
-                    _selectedCategory = newValue!;
-                  });
-                },
-                items:
-                    FeedbackEnumExtension.values.map((FeedbackEnum category) {
-                  return DropdownMenuItem<FeedbackEnum>(
-                    value: category,
-                    child: Text(category.displayName),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(
-                  labelText: 'Categoría',
-                  border: OutlineInputBorder(),
+              Focus(
+                focusNode: _focusNode,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return DropdownButtonFormField<FeedbackEnum>(
+                      value: _selectedCategory,
+                      onChanged: (FeedbackEnum? newValue) {
+                        setState(() {
+                          _selectedCategory = newValue!;
+                        });
+                      },
+                      items: FeedbackEnumExtension.values
+                          .map((FeedbackEnum category) {
+                        return DropdownMenuItem<FeedbackEnum>(
+                          value: category,
+                          child: Text(category.displayName),
+                        );
+                      }).toList(),
+                      decoration: InputDecoration(
+                        labelText: traducir('category'),
+                        labelStyle: TextStyle(
+                          color: _focusNode.hasFocus
+                              ? Colors.orangeAccent
+                              : Colors.grey,
+                        ),
+                        border: const OutlineInputBorder(),
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 20),
@@ -174,8 +201,9 @@ class _Feedback extends State<FeedbackPage> implements LanguageHelper {
               ),
               const SizedBox(height: 20),
               CheckboxListTile(
-                title: const Text('Enviar como anónimo'),
+                title: Text(traducir('sendAnonimo')),
                 value: _isAnonimo,
+                activeColor: Colors.orangeAccent,
                 onChanged: (bool? value) {
                   setState(() {
                     _isAnonimo = value!;

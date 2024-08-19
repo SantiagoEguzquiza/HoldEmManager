@@ -45,9 +45,9 @@ namespace holdemmanager_backend_app.Service
             await _usuarioRepository.UpdateUser(numeroJugador, jugadorActualizado);
         }
 
-        public async Task<PagedResult<Jugador>> GetAllJugadores(int page, int pageSize)
+        public async Task<PagedResult<Jugador>> GetAllJugadores(int page, int pageSize, string filtro)
         {
-            return await _usuarioRepository.GetAllJugadores(page, pageSize);
+            return await _usuarioRepository.GetAllJugadores(page, pageSize, filtro);
         }
 
         public async Task<Jugador> GetRecursoById(int id)

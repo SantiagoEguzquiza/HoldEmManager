@@ -2,12 +2,9 @@
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Controllers
 {
@@ -34,6 +31,7 @@ namespace holdemmanager_backend_web.Controllers
 
 
         // obtener un contacto con id como parametro
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Contacto>> GetContactoById(int id)
         {
@@ -50,6 +48,7 @@ namespace holdemmanager_backend_web.Controllers
 
 
         // agregar un contacto
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddContacto([FromBody] Contacto contacto)
         {
@@ -72,6 +71,7 @@ namespace holdemmanager_backend_web.Controllers
 
 
         // actualizar un contacto
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecurso(int id, Contacto contacto)
         {
@@ -93,6 +93,7 @@ namespace holdemmanager_backend_web.Controllers
 
 
         // borrar un contacto
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecurso(int id)
         {

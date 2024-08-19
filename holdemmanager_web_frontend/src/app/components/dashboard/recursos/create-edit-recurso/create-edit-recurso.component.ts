@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RecursoEducativo } from 'src/app/models/recursos';
@@ -25,7 +25,7 @@ export class CreateEditRecursoComponent implements OnChanges {
   @Output() guardar = new EventEmitter<RecursoEducativo>();
   @Output() cancelar = new EventEmitter<void>();
 
-  constructor(private toastr: ToastrService, private fb: FormBuilder) {
+  constructor(private toastr: ToastrService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.recursoForm = this.fb.group({
       titulo: ['', Validators.required],
       mensaje: ['', Validators.required],
@@ -38,28 +38,34 @@ export class CreateEditRecursoComponent implements OnChanges {
     if (changes['recurso'] && changes['recurso'].currentValue) {
       this.nuevoRecurso = { ...changes['recurso'].currentValue };
 
-      // Sincronizar el formulario con los valores de nuevoRecurso
       this.recursoForm.patchValue({
         titulo: this.nuevoRecurso.titulo,
         mensaje: this.nuevoRecurso.mensaje,
         urlVideo: this.nuevoRecurso.urlVideo
       });
 
-      if (this.nuevoRecurso.urlImagen) {
+      if (this.nuevoRecurso.urlImagen) {        
         this.imageExists = true;
         this.imageFirst = true;
+        this.imagenValida = true;
+
+        // Forzar detección de cambios antes de desactivar el input
+        this.cdr.detectChanges();
+
         if (this.fileInput) {
           this.fileInput.nativeElement.disabled = true;
         }
+      } else {
+        this.imagenValida = false;
       }
     } else {
       this.nuevoRecurso = new RecursoEducativo();
       this.recursoForm.reset();
+      this.imagenValida = false;
     }
   }
 
   guardarRecurso() {
-    // Actualizar nuevoRecurso con los valores del formulario
     this.nuevoRecurso.titulo = this.recursoForm.get('titulo')?.value;
     this.nuevoRecurso.mensaje = this.recursoForm.get('mensaje')?.value;
     this.nuevoRecurso.urlVideo = this.recursoForm.get('urlVideo')?.value;
@@ -93,44 +99,20 @@ export class CreateEditRecursoComponent implements OnChanges {
 
       if (!fileType.startsWith('image/')) {
         this.toastr.error('Por favor, seleccione un archivo de imagen válido.', 'Archivo no válido');
-
-        if (this.fileInput) {
-          this.fileInput.nativeElement.value = '';
-        }
-
-        this.imageExists = false;
-        this.imagenRequerida = true;
-        this.imagenValida = false;
+        this.resetFileInput();
         return;
       }
 
       this.selectedFileName = file.name;
       this.imageExists = true;
-      this.convertirAByte(file);
+      this.convertirAByte(file);  // Redimensionar y optimizar la imagen aquí
       this.imageFirst = false;
       this.imagenRequerida = false;
       this.imagenValida = true;
+
       if (this.fileInput) {
         this.fileInput.nativeElement.disabled = true;
       }
-    }
-  }
-
-  convertirAByte(file: File): void {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const image = reader.result as string;
-      const base64Data = image.split(',')[1];
-      this.nuevoRecurso.urlImagen = base64Data;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  triggerFileInput(): void {
-    this.imagenRequerida = true;
-    if (this.fileInput) {
-      this.fileInput.nativeElement.value = '';
-      this.fileInput.nativeElement.click();
     }
   }
 
@@ -146,5 +128,43 @@ export class CreateEditRecursoComponent implements OnChanges {
       this.fileInput.nativeElement.value = '';
       this.fileInput.nativeElement.disabled = false;
     }
+  }
+
+  convertirAByte(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800; // Ajusta el tamaño máximo deseado
+        const scaleSize = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scaleSize;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const optimizedImage = canvas.toDataURL('image/jpeg', 0.7);
+        const base64Data = optimizedImage.split(',')[1];
+        this.nuevoRecurso.urlImagen = base64Data;
+      };
+    };
+    reader.readAsDataURL(file);
+  }
+
+  triggerFileInput(): void {
+    this.imagenRequerida = true;
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+      this.fileInput.nativeElement.click();
+    }
+  }
+
+  resetFileInput(): void {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
+    this.imageExists = false;
+    this.imagenRequerida = true;
+    this.imagenValida = false;
   }
 }

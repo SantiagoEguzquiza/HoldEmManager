@@ -12,6 +12,7 @@ namespace holdemmanager_backend_web.Domain.IServices
     {
         Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize);
         Task<List<Torneos>> GetTorneosFiltered(string filtro);
+        Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize, string filtro, string filtroFecha);
         Task<Torneos> GetTorneoById(int id);
         Task AddTorneo(Torneos torneo);
         Task UpdateTorneo(Torneos torneo);

@@ -14,9 +14,15 @@
         <i class="bi bi-plus-square-fill"></i>Agregar Noticia
       </a>
     </div>
-    <div>
-      <input type="text" [(ngModel)]="filtro" (keyup)="aplicarFiltro(filtro)" placeholder="Buscar noticas..."
-        class="input" style="width: 300px;">
+    <div style="display: flex; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="text" [(ngModel)]="filtro" (keyup.enter)="aplicarFiltro()" placeholder="Buscar noticias..."
+          class="input" style="width: 300px;">
+        <button (click)="aplicarFiltro()" style="background: none; border: none; cursor: pointer;">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      <input type="date" [(ngModel)]="filtroFecha" (change)="aplicarFiltroFecha()" class="input" style="width: 150px;">
     </div>
   </div>
   <div class="row">

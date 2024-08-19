@@ -27,9 +27,9 @@ namespace holdemmanager_backend_web.Service
             return await _torneoRepository.DeleteTorneo(id);
         }
 
-        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize)
+        public async Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize, string filtro, string filtroFecha)
         {
-            return await _torneoRepository.GetAllTorneos(page,pageSize);
+            return await _torneoRepository.GetAllTorneos(page,pageSize, filtro, filtroFecha);
         }
         public async Task<List<Torneos>> GetTorneosFiltered(string filtro)
         {

@@ -14,7 +14,7 @@ export class NoticiasService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerNoticias(page: number, pageSize: number, filtro: string): Observable<PagedResult<Noticia>> {
+  obtenerNoticias(page: number, pageSize: number, filtro: string, filtroFecha: string | null): Observable<PagedResult<Noticia>> {
     if (filtro == '') {
       filtro = 'NO';
     }
@@ -22,7 +22,8 @@ export class NoticiasService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('pageSize', pageSize.toString())
-      .set('filtro', filtro.toString());
+      .set('filtro', filtro.toString())
+      .set('filtroFecha', filtroFecha!);
 
     return this.http.get<PagedResult<Noticia>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }

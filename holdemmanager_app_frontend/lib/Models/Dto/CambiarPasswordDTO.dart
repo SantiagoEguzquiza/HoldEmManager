@@ -26,33 +26,37 @@ class CambiarPassworDTO {
     };
   }
 
-  static Future<Result> cambiarPassword(CambiarPassworDTO passwordDto) async {
-    final String apiUrl = '${ApiHandler.baseUrl}/UsuarioApp/CambiarPassword';
+  static Future<Result> cambiarPassword(
+      CambiarPassworDTO passwordDto, context) async {
+    final String apiUrl = '${ApiHandler.baseUrl}/JugadorApp/CambiarPassword';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String token = prefs.getString('jwt_token') ?? '';
+    bool valid = await ApiHandler.checkTokenAndFetchData(context);
+    if (valid) {
+      try {
+        var response = await http
+            .put(
+              Uri.parse(apiUrl),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer $token',
+              },
+              body: jsonEncode(passwordDto.toJson()),
+            )
+            .timeout(const Duration(seconds: 10));
 
-    try {
-      var response = await http
-          .put(
-            Uri.parse(apiUrl),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': 'Bearer $token',
-            },
-            body: jsonEncode(passwordDto.toJson()),
-          )
-          .timeout(const Duration(seconds: 10));
-
-      if (response.statusCode == 200) {
-        return Result(valid: true, message: 'passwordUpdated');
-      } else {
-        return Result(valid: false, message: 'passwordError');
+        if (response.statusCode == 200) {
+          return Result(valid: true, message: 'passwordUpdated');
+        } else {
+          return Result(valid: false, message: 'passwordError');
+        }
+      } on TimeoutException catch (e) {
+        print(e);
+        return Result(valid: false, message: 'serverError');
+      } catch (e) {
+        return Result(valid: false, message: '');
       }
-    } on TimeoutException catch (e) {
-      print(e);
-      return Result(valid: false, message: 'serverError');
-    } catch (e) {
-      return Result(valid: false, message: '');
     }
+    return Result(valid: false, message: 'sesionEx');
   }
 }

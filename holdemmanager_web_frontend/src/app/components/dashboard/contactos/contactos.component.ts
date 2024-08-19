@@ -35,8 +35,9 @@ export class ContactosComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.toastr.error('Error al obtener contactos', 'Error');
-        console.error(error);
+        if (error.status != 401) {
+          this.toastr.error('Error al obtener contactos', 'Error');
+        }
       }
     );
   }
@@ -47,12 +48,12 @@ export class ContactosComponent implements OnInit {
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#b4540f', 
+      confirmButtonColor: '#b4540f',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
-        cancelButton: 'swal2-cancel-button', 
-        confirmButton: 'swal2-confirm-button' 
+        cancelButton: 'swal2-cancel-button',
+        confirmButton: 'swal2-confirm-button'
       }
     }).then((result) => {
       if (result.isConfirmed) {
@@ -64,8 +65,9 @@ export class ContactosComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar el contacto', 'Error');
-            console.error(error);
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar el contacto', 'Error');
+            }
           }
         );
       }
@@ -85,14 +87,15 @@ export class ContactosComponent implements OnInit {
   guardarNuevoContacto(nuevoContacto: Contacto) {
     if (nuevoContacto.id === 0 || nuevoContacto.id === undefined) {
       this.contactosService.agregarContacto(nuevoContacto).subscribe(
-        (data) => {          
+        (data) => {
           this.toastr.success('Contacto agregado exitosamente');
           this.isCreateContacto = false;
           this.obtenerContactos();
         },
         (error) => {
-          this.toastr.error('Error al agregar contacto', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar contacto', 'Error');
+          }
         }
       );
     } else {
@@ -107,8 +110,9 @@ export class ContactosComponent implements OnInit {
           this.obtenerContactos();
         },
         (error) => {
-          this.toastr.error('Error al actualizar contacto', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar contacto', 'Error');
+          }
         }
       );
     }

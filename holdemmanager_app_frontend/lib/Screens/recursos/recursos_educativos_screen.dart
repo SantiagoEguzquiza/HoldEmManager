@@ -31,13 +31,14 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
   late Locale finalLocale = const Locale('en', 'US');
   final int _pageSize = 10;
   int _currentPage = 1;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
     cargarLocaleYTranslations();
     translationService.addListener(this);
-    _futureRecursos = _fetchRecursos();
+    _fetchRecursos();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
@@ -71,15 +72,26 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
     });
   }
 
-  void mostrarNotificacionError(String mensaje) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          mensaje,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
-      ),
+  void mostrarDialogoError(String mensaje) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(finalTranslations[finalLocale.toString()]?['error'] ?? 'Error'),
+          content: Text(traducirError(mensaje)),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                finalTranslations[finalLocale.toString()]?['ok'] ?? 'OK',
+                style: const TextStyle(color: Colors.orangeAccent),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -88,11 +100,12 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
         'Error en el servidor, inténtelo de nuevo más tarde';
   }
 
-  Future<PagedResult<RecursosEducativos>> _fetchRecursos() async {
-    if (_isLoading || !_hasMoreData) return Future.error('loading');
+  Future<void> _fetchRecursos() async {
+    if (_isLoading || !_hasMoreData) return;
 
     setState(() {
       _isLoading = true;
+      _errorMessage = null;
     });
 
     try {
@@ -106,10 +119,15 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
         _currentPage++;
         _hasMoreData = result.hasNextPage;
       });
-      return result;
     } catch (e) {
-      mostrarNotificacionError(traducirError(e.toString()));
-      return Future.error(e.toString());
+      String errorKey = 'serverError';
+      if (e.toString().contains('serverError')) {
+        errorKey = 'serverError';
+      }
+      setState(() {
+        _errorMessage = errorKey;
+      });
+      mostrarDialogoError(errorKey);
     } finally {
       setState(() {
         _isLoading = false;
@@ -139,77 +157,94 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
           }
         },
       ),
-      body: ListView.builder(
-        controller: _scrollController,
-        itemCount: _recursos.length + (_isLoading ? 2 : 1),
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 10.0),
-              padding: const EdgeInsets.all(25.0),
-              child: Text(
-                finalTranslations[finalLocale.toString()]?['educationalResources'] ??
-                    'Educational Resources',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            );
-          } else if (index == _recursos.length + 1) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.orangeAccent,
-                ),
-              ),
-            );
-          }
-          var recurso = _recursos[index - 1];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      DetalleRecursoScreen(recurso: recurso),
-                ),
-              );
-            },
-            child: Card(
-              margin: const EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 15),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recurso.titulo,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: _recursos.isEmpty && !_isLoading
+                ? Center(
+                    child: Text(
+                      _errorMessage != null
+                          ? traducirError(_errorMessage!)
+                          : finalTranslations[finalLocale.toString()]?['noData'] ??
+                              'No hay datos disponibles',
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 10),
-                    if (recurso.urlImagen != null &&
-                        recurso.urlImagen!.isNotEmpty)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                          recurso.urlImagen!,
-                          height: 150,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
+                  )
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _recursos.length + (_isLoading ? 2 : 1),
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 10.0),
+                          padding: const EdgeInsets.all(25.0),
+                          child: Text(
+                            finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+                                'Educational Resources',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      } else if (index == _recursos.length + 1) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.orangeAccent,
+                            ),
+                          ),
+                        );
+                      }
+                      var recurso = _recursos[index - 1];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetalleRecursoScreen(recurso: recurso),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  recurso.titulo,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                if (recurso.urlImagen != null &&
+                                    recurso.urlImagen!.isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      recurso.urlImagen!,
+                                      height: 150,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }

@@ -12,16 +12,22 @@ export class TorneosService {
   private myAppUrl = environment.endpoint;
   private myApiUrlWeb = '/TorneosWeb';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   crearTorneo(torneo: Torneos): Observable<any> {
     return this.http.post(this.myAppUrl + this.myApiUrlWeb, torneo);
   }
 
-  obtenerTorneos(page: number, pageSize: number): Observable<PagedResult<Torneos>> {
+  obtenerTorneos(page: number, pageSize: number, filtro : string, filtroFecha: string | null): Observable<PagedResult<Torneos>> {
+    if (filtro == '') {
+      filtro = 'NO';
+    }
+
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString());
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('filtro', filtro.toString())
+      .set('filtroFecha', filtroFecha!);
 
     return this.http.get<PagedResult<Torneos>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }

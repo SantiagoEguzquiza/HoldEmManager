@@ -3,6 +3,8 @@ using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -36,6 +38,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         // obtener un recurso educativo con id como parametro
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<RecursoEducativo>> GetRecursoById(int id)
         {
@@ -51,6 +54,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         // agregar un recurso
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RecursoEducativo recurso)
         {
@@ -101,6 +105,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         // actualizar un recurso
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecurso(RecursoEducativo recurso)
         {
@@ -159,6 +164,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         // borrar un recurso
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecurso(int id)
         {

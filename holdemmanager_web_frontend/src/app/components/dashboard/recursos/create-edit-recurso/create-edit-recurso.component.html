@@ -26,8 +26,7 @@
     <div class="form-group">
       <label for="URLImagen">Imagen</label>
       <div class="img-container" style="display: flex; align-items: center;">
-        <input #fileInput type="file" class="upload-box" (change)="imagenSeleccionada($event)" [disabled]="imageExists"
-          name="imagen" formControlName="imagen"/>
+        <input #fileInput type="file" class="upload-box" (change)="imagenSeleccionada($event)" [disabled]="imageExists" [required]="!imageExists" formControlName="imagen"/>
         <div class="delete-btn-container" style="flex-shrink: 0; margin-left: 10px;">
           <button type="button" class="custom-btn btn-sm" (click)="eliminarImagen()" *ngIf="imageExists">
             <i class="fas fa-trash-alt"></i>

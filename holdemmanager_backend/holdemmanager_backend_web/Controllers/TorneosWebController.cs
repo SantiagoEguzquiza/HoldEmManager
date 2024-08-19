@@ -3,6 +3,8 @@ using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Migrations;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,9 +29,14 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Torneos>>> GetAllTorneos(int page, int pageSize)
+        public async Task<ActionResult<PagedResult<Torneos>>> GetAllTorneos(int page, int pageSize, string filtro, string? filtroFecha)
         {
-            var torneos = await _torneosService.GetAllTorneos(page, pageSize);
+            if (filtro == "NO")
+            {
+                filtro = "";
+            }
+
+            var torneos = await _torneosService.GetAllTorneos(page, pageSize, filtro, filtroFecha!);
             return Ok(torneos);
         }
 
@@ -61,6 +68,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Torneos>> GetTorneoById(int id)
         {
@@ -75,7 +83,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddTorneo([FromBody] Torneos torneo)
         {
@@ -96,7 +104,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTorneo(int id, Torneos torneo)
         {
@@ -116,7 +124,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTorneo(int id)
         {

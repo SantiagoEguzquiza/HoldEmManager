@@ -19,6 +19,7 @@ export class NoticiasComponent implements OnInit {
   pageSize = 10;
   hasNextPage = false;
   filtro = '';
+  filtroFecha: string | null = null;
 
   constructor(private noticiasService: NoticiasService, private router: Router, private toastr: ToastrService) { }
 
@@ -28,7 +29,7 @@ export class NoticiasComponent implements OnInit {
 
   obtenerNoticias(): void {
     this.loading = true;
-    this.noticiasService.obtenerNoticias(this.page, this.pageSize, this.filtro).subscribe(
+    this.noticiasService.obtenerNoticias(this.page, this.pageSize, this.filtro, this.filtroFecha).subscribe(
       (data) => {
         this.noticias = data.items;
         this.hasNextPage = data.hasNextPage;
@@ -64,7 +65,9 @@ export class NoticiasComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar noticia', 'Error');
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar noticia', 'Error');
+            }
             console.error(error);
           }
         );
@@ -91,8 +94,9 @@ export class NoticiasComponent implements OnInit {
           this.obtenerNoticias();
         },
         (error) => {
-          this.toastr.error('Error al agregar noticia', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar noticia', 'Error');
+          }
         }
       );
     } else {
@@ -107,8 +111,9 @@ export class NoticiasComponent implements OnInit {
           this.obtenerNoticias();
         },
         (error) => {
-          this.toastr.error('Error al actualizar noticia', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar noticia', 'Error');
+          }
         }
       );
     }
@@ -125,8 +130,12 @@ export class NoticiasComponent implements OnInit {
     }
   }
 
-  aplicarFiltro(nuevoFiltro: string) {
-    this.filtro = nuevoFiltro;
+  aplicarFiltro(): void {
+    this.page = 1;
+    this.obtenerNoticias();
+  }
+
+  aplicarFiltroFecha(): void {
     this.page = 1;
     this.obtenerNoticias();
   }

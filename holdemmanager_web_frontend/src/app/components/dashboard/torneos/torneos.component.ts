@@ -11,13 +11,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./torneos.component.css']
 })
 export class TorneosComponent implements OnInit {
-  isCreateTorneo= false;
+  isCreateTorneo = false;
   torneos: Torneos[] = [];
   torneoActual: Torneos | null = null;
   loading = false;
   page = 1;
   pageSize = 10;
   hasNextPage = false;
+  filtro = '';
+  filtroFecha: string | null = null;
 
   constructor(private torneosService: TorneosService, private router: Router, private toastr: ToastrService) { }
 
@@ -26,22 +28,21 @@ export class TorneosComponent implements OnInit {
   }
 
   obtenerTorneos(): void {
-    this.loading = true;``
-    this.torneosService.obtenerTorneos(this.page, this.pageSize).subscribe(
+    this.loading = true;
+    this.torneosService.obtenerTorneos(this.page, this.pageSize, this.filtro, this.filtroFecha).subscribe(
       (data) => {
         this.torneos = data.items;
         this.hasNextPage = data.hasNextPage;
         this.loading = false;
-        console.log(data);
-        console.log(data.items);
       },
       (error) => {
         this.loading = false;
-        this.toastr.error('Error al obtener torneos', 'Error');
+        if (error.status != 401) {
+          this.toastr.error('Error al obtener torneos', 'Error');
+        }
       }
     );
   }
-
 
   eliminarTorneo(id: number): void {
     Swal.fire({
@@ -66,26 +67,24 @@ export class TorneosComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar torneo', 'Error');
-            console.error(error);
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar torneo', 'Error');
+            }
           }
         );
       }
     });
   }
 
-
   agregarTorneo() {
     this.torneoActual = null;
     this.isCreateTorneo = true;
   }
 
-
   editarTorneo(torneo: Torneos): void {
     this.torneoActual = { ...torneo };
     this.isCreateTorneo = true;
   }
-
 
   guardarNuevoTorneo(nuevoTorneo: Torneos) {
     if (nuevoTorneo.id === 0 || nuevoTorneo.id === undefined) {
@@ -97,8 +96,9 @@ export class TorneosComponent implements OnInit {
           this.obtenerTorneos();
         },
         (error) => {
-          this.toastr.error('Error al agregar torneo', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar torneo', 'Error');
+          }
         }
       );
     } else {
@@ -113,23 +113,32 @@ export class TorneosComponent implements OnInit {
           this.obtenerTorneos();
         },
         (error) => {
-          this.toastr.error('Error al actualizar torneo', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar torneo', 'Error');
+          }
         }
       );
     }
   }
 
-
   cancelarNuevoTorneo() {
     this.isCreateTorneo = false;
   }
-
 
   onPageChange(newPage: number) {
     if (newPage > 0 && (newPage < this.page || this.hasNextPage)) {
       this.page = newPage;
       this.obtenerTorneos();
     }
+  }
+
+  aplicarFiltro(): void {
+    this.page = 1;
+    this.obtenerTorneos();
+  }
+
+  aplicarFiltroFecha(): void {
+    this.page = 1;
+    this.obtenerTorneos();
   }
 }

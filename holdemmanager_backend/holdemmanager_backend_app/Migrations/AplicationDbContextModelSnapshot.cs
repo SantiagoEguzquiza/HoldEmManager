@@ -46,9 +46,14 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdUsuario");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Feedback");
                 });
@@ -127,6 +132,12 @@ namespace holdemmanager_backend_app.Migrations
                         .WithMany()
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Usuario")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("UsuarioId");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>
@@ -138,6 +149,11 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }

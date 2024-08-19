@@ -230,7 +230,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                                               nuevaPasswordController.text);
 
                                       Result success = await CambiarPassworDTO
-                                          .cambiarPassword(cambiarPassword);
+                                          .cambiarPassword(cambiarPassword, context);
 
                                       if (success.valid) {
                                         setState(() {
@@ -246,6 +246,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                                         nuevaPasswordController.text = "";
                                         nuevaPasswordRepetirController.text =
                                             "";
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ProfileScreen()),
+                                        );
                                       } else {
                                         setState(() {
                                           isLoading = false;
