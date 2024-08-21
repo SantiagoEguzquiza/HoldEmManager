@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using holdemmanager_backend_web.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace holdemmanager_backend_app.Domain.Models
@@ -21,5 +22,7 @@ namespace holdemmanager_backend_app.Domain.Models
         public string Password { get; set; }
         public string? ImageUrl { get; set; }
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
+        public List<Torneos> listaTorneos { get; set; } = new List<Torneos> { };
     }
 }

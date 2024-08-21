@@ -71,8 +71,7 @@
     "category": "Category",
     "sendAnonimo": "Send as anonymous",
     "feebackValid": "Feedback sent successfully",
-    "feebackError": "Error sending feedback"
-    "errorFeed": "Please enter a feedback",
+    "feebackError": "Error sending feedback",
     "searchTournament": "Search tournaments",
     "start": "Start",
     "end": "End",
@@ -153,8 +152,7 @@
     "category": "Categoría",
     "sendAnonimo": "Enviar como anónimo",
     "feebackValid": "Feedback enviado correctamente",
-    "feebackError": "Error al enviar el feedback"
-    "errorFeed": "Por favor ingrese un comentario",
+    "feebackError": "Error al enviar el feedback",
     "searchTournament": "Buscar torneos",
     "start": "Inicio",
     "end": "Cierre",
@@ -235,8 +233,7 @@
     "category": "Categoria",
     "sendAnonimo": "Enviar como anônimo",
     "feebackValid": "Feedback enviado com sucesso",
-    "feebackError": "Erro ao enviar feedback"
-    "errorFeed": "Por favor insira um comentário",
+    "feebackError": "Erro ao enviar feedback",
     "searchTournament": "Procurar torneios",
     "start": "Começo",
     "end": "Fim",
