@@ -110,6 +110,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "ObtenerFavoritos",
+    "RelativePath": "FavoritoApp/{jugadorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "AgregarFavorito",
+    "RelativePath": "FavoritoApp/{jugadorId}/{torneoId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "torneoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "EliminarFavorito",
+    "RelativePath": "FavoritoApp/{jugadorId}/{torneoId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "torneoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "holdemmanager_backend_app.Controllers.FeedbackAppController",
     "Method": "GetAllFeedbacks",
     "RelativePath": "FeedbackApp",

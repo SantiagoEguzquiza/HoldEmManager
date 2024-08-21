@@ -9,6 +9,7 @@ namespace holdemmanager_backend_app.Persistence
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<ForoDiscusion> ForoDiscusiones { get; set; }
         public DbSet<Mapa> Mapa { get; set; }
+        public DbSet<Favorito> Favoritos { get; set; }
         public AplicationDbContextApp(DbContextOptions<AplicationDbContextApp> options) : base(options)
         {
         }

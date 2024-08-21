@@ -22,6 +22,27 @@ namespace holdemmanager_backend_app.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Favorito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TorneoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JugadorId");
+
+                    b.ToTable("Favoritos");
+                });
+
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -124,6 +145,17 @@ namespace holdemmanager_backend_app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Mapa");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Favorito", b =>
+                {
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Jugador")
+                        .WithMany()
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jugador");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>

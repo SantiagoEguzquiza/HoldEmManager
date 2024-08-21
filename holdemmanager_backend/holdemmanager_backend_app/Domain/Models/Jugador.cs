@@ -22,7 +22,5 @@ namespace holdemmanager_backend_app.Domain.Models
         public string Password { get; set; }
         public string? ImageUrl { get; set; }
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-
-        public List<Torneos> listaTorneos { get; set; } = new List<Torneos> { };
     }
 }

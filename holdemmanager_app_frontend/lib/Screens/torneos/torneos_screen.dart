@@ -1,5 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
+//import 'package:holdemmanager_app/Models/TorneoFavorito.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
@@ -9,6 +11,7 @@ import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TorneosPage extends StatefulWidget {
   const TorneosPage({super.key});
@@ -25,6 +28,9 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('es', 'ES');
   final TextEditingController _searchController = TextEditingController();
+  //List<int> favoritos = [];
+  //List<TorneoFavoritoModel> _torneos = [];
+  Set<int> _favoritos = <int>{};
 
   @override
   void initState() {
@@ -33,11 +39,58 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     cargarLocaleYTranslations();
     translationService.addListener(this);
     _cargarTorneos('');
+    _cargarFavoritos();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _cargarFavoritos();
+  }
+
+  Future<void> _cargarFavoritos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt('userId');
+
+    if (userId != null) {
+      try {
+        List<int> favoritosIds =
+            await apiService.obtenerFavoritosJugador(userId);
+        setState(() {
+          _favoritos = favoritosIds.toSet();
+        });
+      } catch (e) {
+        print("Error al cargar favoritos: $e");
+      }
+    }
+  }
+
+  Future<void> _toggleFavorito(int torneoId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt('userId');
+
+    if (userId != null) {
+      try {
+        if (_favoritos.contains(torneoId)) {
+          await ApiService.eliminarFavorito(userId, torneoId, context);
+          setState(() {
+            _favoritos.remove(torneoId);
+          });
+        } else {
+          await ApiService.agregarFavorito(userId, torneoId, context);
+          setState(() {
+            _favoritos.add(torneoId);
+          });
+        }
+      } catch (e) {
+        print("Error al modificar favorito: $e");
+      }
+    }
   }
 
   void _cargarTorneos(String filtro) {
     setState(() {
-      torneos = apiService.obtenerTorneos(filtro).then((data) {
+      torneos = apiService.obtenerTorneos(filtro).then((data) async {
         setState(() {
           torneosPorDia.clear();
           for (var torneo in data) {
@@ -196,8 +249,12 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                 DataColumn(label: Text(traducir('stack'))),
                                 DataColumn(label: Text(traducir('levels'))),
                                 DataColumn(label: Text(traducir('ticket'))),
+                                DataColumn(label: Text(traducir('favorite'))),
                               ],
                               rows: torneosDelDia.map((torneo) {
+                                final isFavorite =
+                                    _favoritos.contains(torneo['id']);
+
                                 return DataRow(cells: [
                                   DataCell(Text(torneo['numeroRef'])),
                                   DataCell(Text(torneo['inicio'])),
@@ -206,6 +263,21 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                   DataCell(Text(torneo['stack'])),
                                   DataCell(Text(torneo['niveles'])),
                                   DataCell(Text(torneo['entrada'])),
+                                  DataCell(
+                                    IconButton(
+                                      icon: Icon(
+                                        isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: isFavorite
+                                            ? Colors.orangeAccent
+                                            : Colors.grey,
+                                      ),
+                                      onPressed: () {
+                                        _toggleFavorito(torneo['id']);
+                                      },
+                                    ),
+                                  ),
                                 ]);
                               }).toList(),
                             ),

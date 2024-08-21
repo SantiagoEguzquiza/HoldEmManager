@@ -36,6 +36,9 @@ builder.Services.AddScoped<IMapaRepositoryApp, MapaRepositoryApp>();
 builder.Services.AddScoped<IMapaServiceApp, MapaServiceApp>();
 builder.Services.AddScoped<IFeedbackRepositoryApp, FeedbackRepositoryApp>();
 builder.Services.AddScoped<IFeedbackServiceApp, FeedbackServiceApp>();
+builder.Services.AddScoped<IFavoritoRepositoryApp, FavoritoRepositoryApp>();
+builder.Services.AddScoped<IFavoritoServiceApp, FavoritoServiceApp>();
+
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
 builder.Services.AddScoped<IUsuarioServiceWeb, UsuarioServiceWeb>();
