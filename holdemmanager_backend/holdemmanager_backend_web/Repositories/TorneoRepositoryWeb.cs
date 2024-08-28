@@ -15,6 +15,8 @@ namespace holdemmanager_backend_web.Repositories
     public class TorneoRepositoryWeb : ITorneosRepositoryWeb
     {
         private readonly AplicationDbContextWeb _context;
+        //private readonly AplicationDbContextApp _contextApp;
+
         public TorneoRepositoryWeb(AplicationDbContextWeb context)
         {
             this._context = context;

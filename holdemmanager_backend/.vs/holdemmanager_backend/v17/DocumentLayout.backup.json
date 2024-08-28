@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\repositories\\favoritorepositoryapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\repositories\\favoritorepositoryapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_web\\controllers\\torneoswebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|solutionrelative:holdemmanager_backend_web\\controllers\\torneoswebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\favoritoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\favoritoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_web\\repositories\\torneorepositoryweb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|solutionrelative:holdemmanager_backend_web\\repositories\\torneorepositoryweb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\service\\favoritoserviceapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\service\\favoritoserviceapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\service\\notificaciontorneoserviceapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\service\\notificaciontorneoserviceapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\domain\\models\\favorito.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\domain\\models\\favorito.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\repositories\\notificaciontorneorepositoryapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\repositories\\notificaciontorneorepositoryapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|c:\\users\\pipi2\\onedrive\\escritorio\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\notificaciontorneoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\notificaciontorneoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,55 +42,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FavoritoAppController.cs",
-              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
-              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAiwD0AAAAUAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "NotificacionTorneoServiceApp.cs",
+              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Service\\NotificacionTorneoServiceApp.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Service\\NotificacionTorneoServiceApp.cs",
+              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Service\\NotificacionTorneoServiceApp.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Service\\NotificacionTorneoServiceApp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T17:36:17.797Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-28T01:30:21.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TorneoRepositoryWeb.cs",
+              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Repositories\\TorneoRepositoryWeb.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_web\\Repositories\\TorneoRepositoryWeb.cs",
+              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Repositories\\TorneoRepositoryWeb.cs",
+              "RelativeToolTip": "holdemmanager_backend_web\\Repositories\\TorneoRepositoryWeb.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T01:26:20.562Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FavoritoRepositoryApp.cs",
-              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Repositories\\FavoritoRepositoryApp.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Repositories\\FavoritoRepositoryApp.cs",
-              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Repositories\\FavoritoRepositoryApp.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Repositories\\FavoritoRepositoryApp.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA2wCAAAAAAAAAAAAAAAA==",
+              "Title": "TorneosWebController.cs",
+              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "RelativeToolTip": "holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T17:28:38.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-28T01:26:05.9Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FavoritoServiceApp.cs",
-              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Service\\FavoritoServiceApp.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Service\\FavoritoServiceApp.cs",
-              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Service\\FavoritoServiceApp.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Service\\FavoritoServiceApp.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "NotificacionTorneoAppController.cs",
+              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
+              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAADQAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T17:25:21.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-28T00:29:22.462Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Favorito.cs",
-              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Domain\\Models\\Favorito.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Domain\\Models\\Favorito.cs",
-              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Domain\\Models\\Favorito.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Domain\\Models\\Favorito.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
+              "Title": "NotificacionTorneoRepositoryApp.cs",
+              "DocumentMoniker": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Repositories\\NotificacionTorneoRepositoryApp.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Repositories\\NotificacionTorneoRepositoryApp.cs",
+              "ToolTip": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Repositories\\NotificacionTorneoRepositoryApp.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Repositories\\NotificacionTorneoRepositoryApp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T17:16:59.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-28T00:17:22.546Z"
             }
           ]
         }

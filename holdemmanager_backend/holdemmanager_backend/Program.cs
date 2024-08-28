@@ -15,6 +15,7 @@ using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Repositories;
 using holdemmanager_backend_app.Utils;
 using holdemmanager_backend_app.Repositories;
+using holdemmanager_backend_app.Domain.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +39,8 @@ builder.Services.AddScoped<IFeedbackRepositoryApp, FeedbackRepositoryApp>();
 builder.Services.AddScoped<IFeedbackServiceApp, FeedbackServiceApp>();
 builder.Services.AddScoped<IFavoritoRepositoryApp, FavoritoRepositoryApp>();
 builder.Services.AddScoped<IFavoritoServiceApp, FavoritoServiceApp>();
+builder.Services.AddScoped<INotificacionTorneoRepositoryApp, NotificacionTorneoRepositoryApp>();
+builder.Services.AddScoped<INotificacionTorneoServiceApp, NotificacionTorneoServiceApp>();
 
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
