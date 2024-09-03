@@ -25,8 +25,16 @@ namespace holdemmanager_backend_web.Repositories
         }
         public async Task AddTorneo(Torneos torneo)
         {
-            _context.Torneos.Add(torneo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Torneos.Add(torneo);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al agregar el torneo: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<bool> DeleteTorneo(int id)
@@ -44,7 +52,7 @@ namespace holdemmanager_backend_web.Repositories
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error al eliminar el torneo: {ex.Message}");
+                    throw new Exception($"Error al eliminar el torneo: {ex.Message}");
                     throw;
                 }
             }
@@ -125,7 +133,8 @@ namespace holdemmanager_backend_web.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al eliminar el torneo: {ex.Message}");
+                throw new Exception($"Error al editar el torneo: {ex.Message}");
+                throw;
             }
         }
     }

@@ -109,9 +109,21 @@ class ApiService {
     }
   }
 
-  Future<List<dynamic>> obtenerNotificaciones(int idJugador) async {
+  Future<List<dynamic>> obtenerNotificacionesTorneo(int idJugador) async {
     final response = await http.get(
       Uri.parse('$baseUrl/NotificacionTorneoApp/jugador/$idJugador'),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar notificaciones');
+    }
+  }
+
+  Future<List<dynamic>> obtenerNotificacionesNoticias(int idJugador) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/NotificacionNoticiaApp/jugador/$idJugador'),
     );
 
     if (response.statusCode == 200) {

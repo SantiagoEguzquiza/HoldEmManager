@@ -68,7 +68,7 @@ namespace holdemmanager_backend_app.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al agregar notificaciones: {ex.Message}");
+                throw new Exception($"Error al agregar notificaciones: {ex.Message}");
                 throw;
             }
         }

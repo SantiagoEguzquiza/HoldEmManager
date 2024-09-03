@@ -13,6 +13,8 @@ namespace holdemmanager_backend_app.Persistence
         public DbSet<Favorito> Favoritos { get; set; }
         public DbSet<NotificacionTorneo> NotificacionTorneos { get; set; }
 
+        public DbSet<NotificacionNoticia> NotificacionNoticias { get; set; }
+
         public AplicationDbContextApp(DbContextOptions<AplicationDbContextApp> options) : base(options)
         {
         }
@@ -29,7 +31,13 @@ namespace holdemmanager_backend_app.Persistence
                 .HasOne<Jugador>()
                 .WithMany() 
                 .HasForeignKey(j => j.JugadorId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<NotificacionNoticia>()
+                .HasOne<Jugador>()
+                .WithMany()
+                .HasForeignKey(j => j.JugadorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

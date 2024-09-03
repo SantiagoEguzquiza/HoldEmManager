@@ -644,6 +644,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "AddNotificacion",
+    "RelativePath": "NotificacionNoticiaApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noticiaId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipoEvento",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "DeleteNotificacion",
+    "RelativePath": "NotificacionNoticiaApp/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "GetNotificacionesPorJugador",
+    "RelativePath": "NotificacionNoticiaApp/jugador/{idJugador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[holdemmanager_backend_app.Domain.Models.NotificacionNoticia, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionTorneoAppController",
     "Method": "AddNotificacion",
     "RelativePath": "NotificacionTorneoApp",

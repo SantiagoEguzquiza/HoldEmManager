@@ -40,6 +40,8 @@ builder.Services.AddScoped<IFavoritoRepositoryApp, FavoritoRepositoryApp>();
 builder.Services.AddScoped<IFavoritoServiceApp, FavoritoServiceApp>();
 builder.Services.AddScoped<INotificacionTorneoRepositoryApp, NotificacionTorneoRepositoryApp>();
 builder.Services.AddScoped<INotificacionServiceWeb, NotificacionTorneoServiceApp>();
+builder.Services.AddScoped<INotificacionNoticiasWeb, NotificacionNoticiaServiceApp>();
+builder.Services.AddScoped<INotificacionNoticiaRepositoryApp, NotificacionNoticiaRepositoryApp>();
 
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();

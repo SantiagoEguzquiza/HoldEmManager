@@ -115,6 +115,9 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("NoticiasNotifications")
+                        .HasColumnType("bit");
+
                     b.Property<int>("NumberPlayer")
                         .HasColumnType("int");
 
@@ -145,6 +148,34 @@ namespace holdemmanager_backend_app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Mapa");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionNoticia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoEvento")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JugadorId");
+
+                    b.ToTable("NotificacionNoticias");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionTorneo", b =>
@@ -212,6 +243,15 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionNoticia", b =>
+                {
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
+                        .WithMany()
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionTorneo", b =>

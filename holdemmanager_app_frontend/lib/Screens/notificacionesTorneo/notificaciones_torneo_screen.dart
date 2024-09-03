@@ -27,7 +27,8 @@ class _NotificacionesScreenState extends State<NotificacionesScreen>
   @override
   void initState() {
     super.initState();
-    notificaciones = ApiService().obtenerNotificaciones(widget.idJugador!);
+    notificaciones =
+        ApiService().obtenerNotificacionesTorneo(widget.idJugador!);
   }
 
   @override
