@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IRepositories;
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_web.Migrations;
 using holdemmanager_backend_web.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,59 +14,74 @@ namespace holdemmanager_backend_app.Repositories
 {
     public class NotificacionTorneoRepositoryApp : INotificacionTorneoRepositoryApp
     {
-        private readonly AplicationDbContextApp _context;
+        private readonly AplicationDbContextApp _contextApp;
         private readonly AplicationDbContextWeb _contextWeb;
-        public NotificacionTorneoRepositoryApp(AplicationDbContextApp context, AplicationDbContextWeb contextWeb)
+        public NotificacionTorneoRepositoryApp(AplicationDbContextApp contextApp, AplicationDbContextWeb contextWeb)
         {
-            this._context = context;
-            this._contextWeb = contextWeb;
-        }
-        public async Task AddNotificacion(NotificacionTorneo notificacion)
-        {
-            _context.Add(notificacion);
-            await _context.SaveChangesAsync();
+            _contextApp = contextApp;
+            _contextWeb = contextWeb;
         }
 
-        public async Task AddNotificacion(int torneoId, NotificacionEnum tipoEvento)
+        public async Task AddNotificacion(int torneoId, string tipoEvento)
         {
-            var torneo = await _contextWeb.Torneos.FindAsync(torneoId);
-
-            if (torneo == null)
+            try
             {
-                throw new Exception("Torneo no encontrado");
+                var torneo = await _contextWeb.Torneos.FindAsync(torneoId);
+                if (torneo == null)
+                {
+                    throw new Exception("Torneo no encontrado");
+                }
+
+                var evento = tipoEvento == "ELIMINADO" ? NotificacionTorneoEnum.ELIMINADO : NotificacionTorneoEnum.EDITADO;
+
+                var usuariosFavoritos = await _contextApp.Favoritos
+                    .Where(f => f.TorneoId == torneoId)
+                    .Select(f => f.JugadorId)
+                    .ToListAsync();
+
+                if (!usuariosFavoritos.Any())
+                {
+                    return;
+                }
+
+                foreach (var usuarioId in usuariosFavoritos)
+                {
+                    var jugador = await _contextApp.Jugadores.FindAsync(usuarioId);
+                    if (jugador == null)
+                    {
+                        throw new Exception($"Jugador con ID {usuarioId} no encontrado.");
+                    }
+
+                    var notificacion = new NotificacionTorneo
+                    {
+                        TorneoId = torneo.Id,
+                        JugadorId = jugador.Id,
+                        TipoEvento = evento,
+                        Fecha = DateTime.Now,
+                        Mensaje = $"El torneo {torneo.Nombre} ha sido {tipoEvento}."
+                    };
+
+                    _contextApp.NotificacionTorneos.Add(notificacion);
+                }
+
+                await _contextApp.SaveChangesAsync();
             }
-
-            var usuariosFavoritos = await _context.Favoritos
-                .Where(f => f.TorneoId == torneoId)
-                .Select(f => f.JugadorId)
-                .ToListAsync();
-
-            if (!usuariosFavoritos.Any())
+            catch (Exception ex)
             {
-                return; 
+                Console.WriteLine($"Error al agregar notificaciones: {ex.Message}");
+                throw;
             }
-
-            var notificaciones = usuariosFavoritos.Select(usuarioId => new NotificacionTorneo
-            {
-                TorneoId = torneoId,
-                JugadorId = usuarioId,
-                TipoEvento = tipoEvento,
-                Fecha = DateTime.Now,
-                Mensaje = $"El torneo {torneo.Nombre} ha sido {tipoEvento}."
-            }).ToList();
-
-            await _context.NotificacionTorneos.AddRangeAsync(notificaciones);
-            await _context.SaveChangesAsync();
         }
+
 
         public async Task<bool> DeleteNotificacion(int id)
         {
-            var notificacion = await _context.NotificacionTorneos.Where(n => n.Id == id).FirstOrDefaultAsync();
+            var notificacion = await _contextApp.NotificacionTorneos.Where(n => n.Id == id).FirstOrDefaultAsync();
 
             if (notificacion != null)
             {
-                _context.NotificacionTorneos.Remove(notificacion);
-                await _context.SaveChangesAsync();
+                _contextApp.NotificacionTorneos.Remove(notificacion);
+                await _contextApp.SaveChangesAsync();
                 return true;
             }
             return false;
@@ -73,7 +89,7 @@ namespace holdemmanager_backend_app.Repositories
 
         public async Task<NotificacionTorneo> GetNotificacionById(int id)
         {
-            var notificacion = await _context.NotificacionTorneos.Where(c => c.Id == id).FirstOrDefaultAsync();
+            var notificacion = await _contextApp.NotificacionTorneos.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (notificacion == null)
             {
                 throw new Exception($"La notificacion con id {id} no fue encontrada o no existe");

@@ -79,7 +79,8 @@
     "stack": "Stack",
     "levels": "Levels",
     "ticket": "Ticket",
-    "favorite": "Favorite"
+    "favorite": "Favorite",
+    "notifications": "Notificacions"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -161,7 +162,8 @@
     "stack": "Stack",
     "levels": "Niveles",
     "ticket": "Entrada",
-    "favorite": "Favorito"
+    "favorite": "Favorito",
+    "notifications": "Notificaciones"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -243,6 +245,7 @@
     "stack": "Pilha",
     "levels": "Níveis",
     "ticket": "Bilhete",
-    "favorite": "Favorito"
+    "favorite": "Favorito",
+    "notifications": "Notificações"
   }
 }

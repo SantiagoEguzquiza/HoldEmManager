@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Domain.IServices;
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,36 +20,33 @@ namespace holdemmanager_backend_app.Controllers
     [ApiController]
     public class NotificacionTorneoAppController : ControllerBase
     {
-        private readonly INotificacionTorneoServiceApp _notificacionService;
+        private readonly INotificacionServiceWeb _notificacionService;
         private readonly AplicationDbContextApp _dbContext;
 
-        public NotificacionTorneoAppController(AplicationDbContextApp dbContext, INotificacionTorneoServiceApp notificacionService)
+        public NotificacionTorneoAppController(AplicationDbContextApp dbContext, INotificacionServiceWeb notificacionService)
         {
             _notificacionService = notificacionService;
             _dbContext = dbContext;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<NotificacionTorneo>> GetNotificacionById(int id)
+        [HttpGet("jugador/{idJugador}")]
+        public async Task<ActionResult<List<NotificacionTorneo>>> GetNotificacionesPorJugador(int idJugador)
         {
-            try
+            var notificaciones = await _dbContext.NotificacionTorneos
+                .Where(n => n.JugadorId == idJugador)
+                .ToListAsync();
+
+            if (notificaciones == null || notificaciones.Count == 0)
             {
-                var notificacion = await _notificacionService.GetNotificacionById(id);
-                if (notificacion == null)
-                {
-                    return NotFound("Notificación no encontrada.");
-                }
-                return Ok(notificacion);
+                return NotFound("No se encontraron notificaciones para este jugador.");
             }
-            catch (Exception)
-            {
-                return BadRequest(new { message = "No se encontraron datos que coincidan con el id." });
-            }
+
+            return Ok(notificaciones);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddNotificacion(int torneoId, NotificacionEnum tipoEvento)
+        public async Task<IActionResult> AddNotificacion(int torneoId, string tipoEvento)
         {
             try
             {
@@ -66,8 +64,8 @@ namespace holdemmanager_backend_app.Controllers
         {
             try
             {
-                var notificacion = await _notificacionService.GetNotificacionById(id);
-                if (notificacion == null)
+                var notificacion = await _notificacionService.DeleteNotificacion(id);
+                if (!notificacion)
                 {
                     return BadRequest(new { message = "La notificacion no existe." });
                 }

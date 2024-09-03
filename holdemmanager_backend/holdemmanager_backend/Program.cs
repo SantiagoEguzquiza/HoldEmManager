@@ -1,21 +1,20 @@
+using holdemmanager_backend_app.Domain.IRepositories;
+using holdemmanager_backend_app.Domain.IServices;
+using holdemmanager_backend_app.Persistence;
+using holdemmanager_backend_app.Persistence.Repositories;
+using holdemmanager_backend_app.Repositories;
+using holdemmanager_backend_app.Service;
+using holdemmanager_backend_app.Utils;
+using holdemmanager_backend_web.Domain.IRepositories;
+using holdemmanager_backend_web.Domain.IServices;
+using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Persistence.Repositories;
+using holdemmanager_backend_web.Repositories;
+using holdemmanager_backend_web.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using holdemmanager_backend_app.Domain.IRepositories;
-using holdemmanager_backend_app.Domain.IServices;
-using holdemmanager_backend_app.Persistence.Repositories;
-using holdemmanager_backend_app.Service;
-using holdemmanager_backend_app.Persistence;
-using holdemmanager_backend_web.Domain.IRepositories;
-using holdemmanager_backend_web.Persistence.Repositories;
-using holdemmanager_backend_web.Domain.IServices;
-using holdemmanager_backend_web.Service;
-using holdemmanager_backend_web.Persistence;
-using holdemmanager_backend_web.Repositories;
-using holdemmanager_backend_app.Utils;
-using holdemmanager_backend_app.Repositories;
-using holdemmanager_backend_app.Domain.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +39,7 @@ builder.Services.AddScoped<IFeedbackServiceApp, FeedbackServiceApp>();
 builder.Services.AddScoped<IFavoritoRepositoryApp, FavoritoRepositoryApp>();
 builder.Services.AddScoped<IFavoritoServiceApp, FavoritoServiceApp>();
 builder.Services.AddScoped<INotificacionTorneoRepositoryApp, NotificacionTorneoRepositoryApp>();
-builder.Services.AddScoped<INotificacionTorneoServiceApp, NotificacionTorneoServiceApp>();
+builder.Services.AddScoped<INotificacionServiceWeb, NotificacionTorneoServiceApp>();
 
 
 builder.Services.AddScoped<IUsuarioRepositoryWeb, UsuarioRepositoryWeb>();
@@ -93,6 +92,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 app.UseCors("AllowWebapp");
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -100,10 +101,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
-app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllers();
 

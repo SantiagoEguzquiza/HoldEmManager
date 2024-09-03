@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace holdemmanager_backend_app.Domain.Models
 {
-    public enum NotificacionEnum
+    public enum NotificacionTorneoEnum
     {
         AÑADIDO,
         EDITADO,

@@ -59,7 +59,7 @@
           "dependencies": {
             "FirebaseAuthentication.net": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[3.7.2, )"
             },
             "FirebaseStorage.net": {
               "target": "Package",
@@ -179,7 +179,7 @@
           "dependencies": {
             "FirebaseAuthentication.net": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[3.7.2, )"
             },
             "FirebaseStorage.net": {
               "target": "Package",
@@ -292,7 +292,7 @@
           "dependencies": {
             "FirebaseAuthentication.net": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[3.7.2, )"
             },
             "FirebaseStorage.net": {
               "target": "Package",

@@ -28,8 +28,6 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('es', 'ES');
   final TextEditingController _searchController = TextEditingController();
-  //List<int> favoritos = [];
-  //List<TorneoFavoritoModel> _torneos = [];
   Set<int> _favoritos = <int>{};
 
   @override

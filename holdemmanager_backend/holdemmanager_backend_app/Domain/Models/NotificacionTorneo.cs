@@ -15,20 +15,12 @@ namespace holdemmanager_backend_app.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         public int TorneoId { get; set; }
 
-        [ForeignKey("TorneoId")]
-        public Torneos Torneo { get; set; }
-
-        [Required]
         public int JugadorId { get; set; }
 
-        [ForeignKey("JugadorId")]
-        public Jugador Jugador { get; set; }
-
         [Required]
-        public NotificacionEnum TipoEvento { get; set; }
+        public NotificacionTorneoEnum TipoEvento { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }

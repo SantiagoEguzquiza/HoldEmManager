@@ -108,4 +108,16 @@ class ApiService {
       throw Exception('Error al cargar favoritos');
     }
   }
+
+  Future<List<dynamic>> obtenerNotificaciones(int idJugador) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/NotificacionTorneoApp/jugador/$idJugador'),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar notificaciones');
+    }
+  }
 }

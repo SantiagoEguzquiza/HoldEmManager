@@ -1,4 +1,5 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
+using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
@@ -15,11 +16,12 @@ namespace holdemmanager_backend_web.Repositories
     public class TorneoRepositoryWeb : ITorneosRepositoryWeb
     {
         private readonly AplicationDbContextWeb _context;
-        //private readonly AplicationDbContextApp _contextApp;
+        private readonly INotificacionServiceWeb _notificacionService;
 
-        public TorneoRepositoryWeb(AplicationDbContextWeb context)
+        public TorneoRepositoryWeb(AplicationDbContextWeb context, INotificacionServiceWeb notificacionService)
         {
             this._context = context;
+            this._notificacionService = notificacionService;
         }
         public async Task AddTorneo(Torneos torneo)
         {
@@ -33,9 +35,18 @@ namespace holdemmanager_backend_web.Repositories
 
             if (torneo != null)
             {
-                _context.Torneos.Remove(torneo);
-                await _context.SaveChangesAsync();
-                return true;
+                try
+                {
+                    _context.Torneos.Remove(torneo);
+                    await _context.SaveChangesAsync();
+                    await _notificacionService.AddNotificacion(id, "ELIMINADO");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al eliminar el torneo: {ex.Message}");
+                    throw;
+                }
             }
             return false;
         }
@@ -106,10 +117,16 @@ namespace holdemmanager_backend_web.Repositories
 
         public async Task UpdateTorneo(Torneos torneo)
         {
-            _context.Update(torneo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Update(torneo);
+                await _context.SaveChangesAsync();
+                await _notificacionService.AddNotificacion(torneo.Id, "EDITADO");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar el torneo: {ex.Message}");
+            }
         }
-
-
     }
 }

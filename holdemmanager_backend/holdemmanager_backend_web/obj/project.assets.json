@@ -46,20 +46,17 @@
           }
         }
       },
-      "FirebaseAuthentication.net/4.1.0": {
+      "FirebaseAuthentication.net/3.7.2": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "13.0.2"
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
-          "lib/netstandard2.0/Firebase.Auth.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard1.1/Firebase.Auth.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Firebase.Auth.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard1.1/Firebase.Auth.dll": {}
         }
       },
       "FirebaseStorage.net/1.0.3": {
@@ -2970,20 +2967,16 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "FirebaseAuthentication.net/4.1.0": {
-      "sha512": "pShi5v9cvT5bUWZDm261lO4uxJHvzOvpj46YHrL3uCB1WBeyCIcpoVakAQ2xHTu1dpmV86/BzSNRpqIGNp860g==",
+    "FirebaseAuthentication.net/3.7.2": {
+      "sha512": "d0Zc0tiE7NutI/jMX/T81LU/rX3HVBH8vtvKTbIeN6BCIQ+wipstz7tm5MnIgAeh4ehqCHTiVuMOHztqfCVCBQ==",
       "type": "package",
-      "path": "firebaseauthentication.net/4.1.0",
+      "path": "firebaseauthentication.net/3.7.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE.txt",
-        "README.md",
-        "firebase.png",
-        "firebaseauthentication.net.4.1.0.nupkg.sha512",
+        "firebaseauthentication.net.3.7.2.nupkg.sha512",
         "firebaseauthentication.net.nuspec",
-        "lib/netstandard2.0/Firebase.Auth.dll",
-        "lib/netstandard2.0/Firebase.Auth.xml"
+        "lib/netstandard1.1/Firebase.Auth.dll"
       ]
     },
     "FirebaseStorage.net/1.0.3": {
@@ -9051,7 +9044,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "FirebaseAuthentication.net >= 4.1.0",
+      "FirebaseAuthentication.net >= 3.7.2",
       "FirebaseStorage.net >= 1.0.3",
       "Google.Apis >= 1.68.0",
       "Google.Apis.Auth >= 1.68.0",
@@ -9116,7 +9109,7 @@
         "dependencies": {
           "FirebaseAuthentication.net": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[3.7.2, )"
           },
           "FirebaseStorage.net": {
             "target": "Package",

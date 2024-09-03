@@ -10,7 +10,7 @@ namespace holdemmanager_backend_app.Domain.IRepositories
     public interface INotificacionTorneoRepositoryApp
     {
         Task<NotificacionTorneo> GetNotificacionById(int id);
-        Task AddNotificacion(int torneoId, NotificacionEnum tipoEvento);
+        Task AddNotificacion(int torneoId, string tipoEvento);
         Task<bool> DeleteNotificacion(int id);
     }
 }
