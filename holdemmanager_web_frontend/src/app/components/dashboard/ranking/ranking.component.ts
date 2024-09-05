@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Ranking, RankingEnum } from 'src/app/models/ranking';
 import { RankingService } from 'src/app/service/ranking.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-ranking',
@@ -14,7 +12,7 @@ import { saveAs } from 'file-saver';
 })
 export class RankingComponent implements OnInit {
 
-  loading = false;
+  loading = true;
 
   isCreate = false;
   isEdit = false;
@@ -24,6 +22,7 @@ export class RankingComponent implements OnInit {
   filteredRankings: Ranking[] = [];
   public RankingEnum = RankingEnum;
   titulo: string = 'Ranking';
+  rankingActual: RankingEnum = RankingEnum.POKER; // Por defecto Poker el color del boton
 
   constructor(private rankingService: RankingService, private toastr: ToastrService) { }
 
@@ -35,6 +34,7 @@ export class RankingComponent implements OnInit {
     this.loading = true;
     this.rankingService.obtenerRanking().subscribe((data: Ranking[]) => {
       this.rankings = data;
+      this.rankings = data.sort((a, b) => b.puntuacion - a.puntuacion);
       this.filtrarPorRankingEnum(RankingEnum.POKER); // Filtra automáticamente por Poker al cargar
       this.loading = false;
     });
@@ -125,8 +125,8 @@ export class RankingComponent implements OnInit {
     });
   }
 
-
   filtrarPorRankingEnum(rankingEnum: RankingEnum): void {
+    this.rankingActual = rankingEnum;
     this.filteredRankings = this.rankings.filter(r => r.rankingEnum === rankingEnum);
     this.actualizarTitulo(rankingEnum);
   }
@@ -151,80 +151,78 @@ export class RankingComponent implements OnInit {
     return RankingEnum[value];
   }
 
-  importarRanking(event: any): void {
+  async importarRanking(event: any): Promise<void> {
+    this.loading = true; // Mostrar loading al iniciar la importación
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length === 1) {
-        const file: File = input.files[0];
-        const fileName = file.name.toLowerCase();
-        if (!fileName.endsWith('.xlsx')) {
-            this.toastr.error('Por favor, selecciona un archivo con extensión .xlsx.', 'Error');
-            return;
+      const file: File = input.files[0];
+      const fileName = file.name.toLowerCase();
+      if (!fileName.endsWith('.xlsx')) {
+        this.toastr.error('Por favor, selecciona un archivo con extensión .xlsx.', 'Error');
+        this.loading = false; // Ocultar loading si hay error
+        return;
+      }
+
+      const reader: FileReader = new FileReader();
+
+      reader.onload = async (e: any) => {
+        const bstr: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+        const data: any[] = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+        const rankings: Ranking[] = data.slice(1).map(row => ({
+          playerNumber: row[0],
+          playerName: row[1],
+          puntuacion: row[2],
+          rankingEnum: row[3]
+        }));
+
+        try {
+          await this.procesarRankings(rankings);
+          this.toastr.success('Rankings procesados exitosamente');
+          this.obtenerRankings();
+        } catch (error) {
+          this.toastr.error('Error al procesar rankings', 'Error');
+          console.error(error);
+        } finally {
+          this.loading = false; // Ocultar loading al finalizar
         }
+      };
 
-        const reader: FileReader = new FileReader();
-
-        reader.onload = (e: any) => {
-            const bstr: string = e.target.result;
-            const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-            const wsname: string = wb.SheetNames[0];
-            const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-            const data: any[] = XLSX.utils.sheet_to_json(ws, { header: 1 });
-
-            const rankings: Ranking[] = data.slice(1).map(row => ({
-                playerNumber: row[0],
-                playerName: row[1],
-                puntuacion: row[2],
-                rankingEnum: row[3]
-            }));
-
-            const updatePromises = rankings.map(ranking =>
-                this.rankingService.obtenerRankingPorNumero(ranking.playerNumber).toPromise().then(
-                    (existingRanking) => {
-                        if (existingRanking) {
-                            // Si el jugador ya existe, actualizar si la puntuación es diferente o el rankingEnum
-                            if (existingRanking.puntuacion !== ranking.puntuacion || existingRanking.rankingEnum !== ranking.rankingEnum) {
-                                existingRanking.puntuacion = ranking.puntuacion;
-                                existingRanking.rankingEnum = ranking.rankingEnum;
-                                return this.rankingService.actualizarRanking(existingRanking).toPromise();
-                            } else {
-                                return Promise.resolve(null); // No hace nada si la puntuación es igual
-                            }
-                        } else {
-                            // Si el jugador no existe, agregarlo
-                            return this.rankingService.agregarRanking(ranking).toPromise();
-                        }
-                    }
-                ).catch((error) => {
-                    if (error.status === 400) {
-                        // Si el error es 400 y el mensaje indica que no se encontró el jugador
-                        return this.rankingService.agregarRanking(ranking).toPromise();
-                    } else {
-                        this.toastr.error('Error al verificar o actualizar el jugador', 'Error');
-                        console.error(error);
-                        return Promise.reject(error);
-                    }
-                })
-            );
-
-            Promise.all(updatePromises).then(() => {
-                this.toastr.success('Rankings procesados exitosamente');
-                this.obtenerRankings();
-            }).catch((error) => {
-                this.toastr.error('Error al procesar rankings', 'Error');
-                console.error(error);
-            });
-        };
-
-        reader.readAsBinaryString(file);
+      reader.readAsBinaryString(file);
     } else {
-        this.toastr.error('Por favor, selecciona un único archivo.', 'Error');
+      this.toastr.error('Por favor, selecciona un único archivo.', 'Error');
+      this.loading = false; // Ocultar loading si hay error
     }
+  }
+
+  private async procesarRankings(rankings: Ranking[]): Promise<void> {
+    const updatePromises = rankings.map(async (ranking) => {
+      try {
+        const existingRanking = await this.rankingService.obtenerRankingPorNumero(ranking.playerNumber).toPromise();
+        if (existingRanking) {
+          if (existingRanking.puntuacion !== ranking.puntuacion || existingRanking.rankingEnum !== ranking.rankingEnum) {
+            existingRanking.puntuacion = ranking.puntuacion;
+            existingRanking.rankingEnum = ranking.rankingEnum;
+            await this.rankingService.actualizarRanking(existingRanking).toPromise();
+          }
+        } else {
+          await this.rankingService.agregarRanking(ranking).toPromise();
+        }
+      } catch (error: any) {
+        if (error.status === 400 || error.status === 404) {
+          await this.rankingService.agregarRanking(ranking).toPromise();
+        } else {
+          throw error;
+        }
+      }
+    });
+
+    await Promise.all(updatePromises);
+  }
 }
-
-
-
-}
-

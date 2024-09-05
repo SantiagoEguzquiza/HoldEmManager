@@ -1,5 +1,5 @@
-<div class="loading" style="width: 100%; display: flex; justify-content: center;">
-    <app-loading *ngIf="loading"></app-loading>
+<div class="loading-container" *ngIf="loading">
+    <app-loading></app-loading>
 </div>
 
 <div class="dark-background" *ngIf="isCreate"></div>
@@ -23,20 +23,25 @@
         </a>
         <a class="importar" href="javascript:void(0)" (click)="fileInput.click()">
             <i class="bi bi-file-earmark-arrow-up"></i> Importar
-          </a>
-          <input type="file" #fileInput (change)="importarRanking($event)" accept=".xlsx" style="display:none"/>
-          
-    </div>    
+        </a>
+        <input type="file" #fileInput (change)="importarRanking($event)" accept=".xlsx" style="display:none" />
+
+    </div>
 
     <div class="row">
         <div class="col-12">
             <div class="card text-center" style="padding: 20px;">
                 <h2>{{ titulo }}</h2>
-                <!-- Botones para filtrar -->
                 <div class="button-group" style="padding-top: 20px;">
-                    <button class="ranking-btn poker-btn" (click)="filtrarPorRankingEnum(RankingEnum.POKER)">Poker</button>
-                    <button class="ranking-btn fullhouse-btn" (click)="filtrarPorRankingEnum(RankingEnum.FULLHOUSE)">Full House</button>
-                    <button class="ranking-btn escalera-btn" (click)="filtrarPorRankingEnum(RankingEnum.ESCALERAREAL)">Escalera Real</button>
+                    <button class="ranking-btn poker-btn" [ngClass]="{'active': rankingActual === RankingEnum.POKER}"
+                        (click)="filtrarPorRankingEnum(RankingEnum.POKER)">Poker</button>
+                    <button class="ranking-btn fullhouse-btn"
+                        [ngClass]="{'active': rankingActual === RankingEnum.FULLHOUSE}"
+                        (click)="filtrarPorRankingEnum(RankingEnum.FULLHOUSE)">Full House</button>
+                    <button class="ranking-btn escalera-btn"
+                        [ngClass]="{'active': rankingActual === RankingEnum.ESCALERAREAL}"
+                        (click)="filtrarPorRankingEnum(RankingEnum.ESCALERAREAL)">Escalera Real</button>
+
                 </div>
                 <br>
                 <table class="table table-striped" *ngIf="!loading && filteredRankings && filteredRankings.length > 0">

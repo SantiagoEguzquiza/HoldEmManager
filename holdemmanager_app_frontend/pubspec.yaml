@@ -47,6 +47,7 @@ flutter:
     - lib/assets/locales/traducciones.json
     - lib/assets/images/ingles.jpg
     - lib/assets/images/portugues.jpg
+    - lib/assets/images/español.jpg
     - lib/assets/images/default-map.jpg
     - lib/assets/images/logo.png
 

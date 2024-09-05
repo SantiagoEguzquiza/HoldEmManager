@@ -8,7 +8,7 @@ namespace holdemmanager_backend_web.Domain.Models
 {
     public enum RolesEnum
     {
-        ADMINISTRACION,
-        PRENSA
+        ADMINISTRACION = 0,
+        PRENSA = 1
     }
 }

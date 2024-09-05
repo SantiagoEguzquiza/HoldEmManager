@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Models/Ranking.dart';
+import 'package:holdemmanager_app/NavBar/app_bar.dart';
+import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
+import 'package:holdemmanager_app/NavBar/side_bar.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
+import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Screens/rankings/detalle_ranking_screen.dart';
 
 class RankingPage extends StatefulWidget {
-  const RankingPage({Key? key}) : super(key: key);
+  const RankingPage({super.key});
 
   @override
   _RankingScreenState createState() => _RankingScreenState();
@@ -16,7 +21,6 @@ class _RankingScreenState extends State<RankingPage> {
   RankingEnum? _selectedRankingEnum =
       RankingEnum.POKER; // Carga Poker por defecto
   bool _isLoading = false;
- 
 
   @override
   void initState() {
@@ -54,9 +58,8 @@ class _RankingScreenState extends State<RankingPage> {
           .where((ranking) => ranking.rankingEnum == selectedEnum)
           .toList();
 
-      // ACA ORDENA DE MAYOR A MENOR
-      _filteredRankings.sort((a, b) =>
-          b.puntuacion.compareTo(a.puntuacion)); 
+      // Ordena de mayor a menor
+      _filteredRankings.sort((a, b) => b.puntuacion.compareTo(a.puntuacion));
     });
   }
 
@@ -67,7 +70,25 @@ class _RankingScreenState extends State<RankingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Rankings')),
+      appBar: const CustomAppBar(),
+      drawerScrimColor: const Color.fromARGB(0, 163, 141, 141),
+      drawer: const SideBar(),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          }
+        },
+      ),
       body: Column(
         children: [
           Row(
@@ -77,26 +98,46 @@ class _RankingScreenState extends State<RankingPage> {
                 onPressed: () => _filterRankings(RankingEnum.POKER),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _getButtonColor(RankingEnum.POKER),
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Esquinas redondeadas
+                  ),
                 ),
-                child: const Text('Poker'),
+                child: const Text(
+                  'Poker',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () => _filterRankings(RankingEnum.FULLHOUSE),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _getButtonColor(RankingEnum.FULLHOUSE),
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Esquinas redondeadas
+                  ),
                 ),
-                child: const Text('Full House'),
+                child: const Text(
+                  'Full House',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () => _filterRankings(RankingEnum.ESCALERAREAL),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _getButtonColor(RankingEnum.ESCALERAREAL),
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Esquinas redondeadas
+                  ),
                 ),
-                child: const Text('Escalera Real'),
+                child: const Text(
+                  'Escalera Real',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-              
             ],
           ),
           Expanded(
