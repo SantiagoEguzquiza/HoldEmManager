@@ -8,6 +8,7 @@ import 'package:holdemmanager_app/Screens/contacto_screen.dart';
 import 'package:holdemmanager_app/Screens/map_screen.dart';
 import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/feedback_screen.dart';
+import 'package:holdemmanager_app/Screens/rankings/rankings_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos/recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Screens/torneos/torneos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -178,6 +179,19 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TorneosPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading:
+                  const Icon(Icons.leaderboard_outlined, color: Colors.orangeAccent),
+              title: Text(finalTranslations[finalLocale.toString()]
+                      ?['ranking'] ??
+                  'Ranking'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RankingPage()),
                 );
               },
             ),

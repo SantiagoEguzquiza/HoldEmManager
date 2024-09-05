@@ -9,8 +9,8 @@ namespace holdemmanager_backend_web.Domain.Models
 {
     public enum RankingEnum
     {
-     POKER,
-     FULLHOUSE,
-     ESCALERAREAL
+     POKER = 0,
+     FULLHOUSE = 1,
+     ESCALERAREAL = 2
     }
 }

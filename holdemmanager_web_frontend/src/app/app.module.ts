@@ -32,7 +32,7 @@ import { MapaInteractivoComponent } from './components/dashboard/mapa-interactiv
 import { RecursosComponent } from './components/dashboard/recursos/recursos.component';
 import { CreateEditRecursoComponent } from './components/dashboard/recursos/create-edit-recurso/create-edit-recurso.component';
 // Players
-import {CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
+import { CreatePlayerComponent } from './components/dashboard/players/create-player/create-player.component';
 import { EditPlayerComponent } from './components/dashboard/players/edit-player/edit-player.component';
 import { PlayersComponent } from './components/dashboard/players/players.component';
 // Contactos
@@ -51,6 +51,8 @@ import { FeedbackComponent } from './components/dashboard/feedback/feedback.comp
 import { RankingComponent } from './components/dashboard/ranking/ranking.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedback-details/feedback-details.component';
+import { CreateRankingComponent } from './components/dashboard/ranking/create-ranking/create-ranking.component';
+import { EditRankingComponent } from './components/dashboard/ranking/edit-ranking/edit-ranking.component';
 
 
 
@@ -81,10 +83,12 @@ import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedba
     NoticiasComponent,
     CreateEditNoticiaComponent,
     //Feedback
-     FeedbackComponent,
-     FeedbackDetailsComponent,
+    FeedbackComponent,
+    FeedbackDetailsComponent,
     //Ranking
     RankingComponent,
+    CreateRankingComponent,
+    EditRankingComponent,
     //Torneos
     TorneosComponent,
     CreateTorneoComponent
@@ -95,7 +99,7 @@ import { FeedbackDetailsComponent } from './components/dashboard/feedback/feedba
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({positionClass : 'toast-bottom-right'}),
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     HttpClientModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
