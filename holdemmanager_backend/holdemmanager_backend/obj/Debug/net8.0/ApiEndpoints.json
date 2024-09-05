@@ -363,6 +363,22 @@
   },
   {
     "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "ActivateDeactivateNoticias",
+    "RelativePath": "JugadorApp/activar-desactivar-noticias/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
     "Method": "CambiarPassword",
     "RelativePath": "JugadorApp/CambiarPassword",
     "HttpMethod": "PUT",
@@ -705,6 +721,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "NoticiasActivasJugador",
+    "RelativePath": "NotificacionNoticiaApp/noticiasActivadas/{idJugador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionTorneoAppController",

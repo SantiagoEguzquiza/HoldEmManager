@@ -22,7 +22,7 @@ namespace holdemmanager_backend_app.Domain.Models
         public string Password { get; set; }
         public string? ImageUrl { get; set; }
 
-        public bool NoticiasNotifications { get; set; }
+        public bool NoticiasNotifications { get; set; } = false;
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

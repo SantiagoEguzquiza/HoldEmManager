@@ -36,8 +36,9 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     initializeDateFormatting('es_ES', null);
     cargarLocaleYTranslations();
     translationService.addListener(this);
-    _cargarTorneos('');
-    _cargarFavoritos();
+    _cargarFavoritos().then((_) {
+      _cargarTorneos('');
+    });
   }
 
   @override

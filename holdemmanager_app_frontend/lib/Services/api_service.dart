@@ -99,11 +99,14 @@ class ApiService {
   Future<List<int>> obtenerFavoritosJugador(int? userId) async {
     var baseUrl = ApiHandler.baseUrl;
 
-    final response = await http.get(Uri.parse('$baseUrl/FavoritoApp/$userId'));
+    final response = await http.get(
+      Uri.parse('$baseUrl/FavoritoApp/$userId'),
+      headers: {"Content-Type": "application/json"},
+    );
 
     if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      return data.cast<int>();
+      List<dynamic> favoritos = jsonDecode(response.body);
+      return favoritos.map<int>((favorito) => favorito['id'] as int).toList();
     } else {
       throw Exception('Error al cargar favoritos');
     }
@@ -130,6 +133,42 @@ class ApiService {
       return json.decode(response.body);
     } else {
       throw Exception('Error al cargar notificaciones');
+    }
+  }
+
+  Future<List<dynamic>> obtenerTodasLasNotificaciones(int idJugador) async {
+    try {
+      final notificacionesTorneos =
+          await obtenerNotificacionesTorneo(idJugador);
+
+      final notificacionesNoticias =
+          await obtenerNotificacionesNoticias(idJugador);
+
+      return [...notificacionesTorneos, ...notificacionesNoticias];
+    } catch (e) {
+      throw Exception('Error al cargar notificaciones: $e');
+    }
+  }
+
+  Future<void> toggleNotificacionesNoticias(int idJugador) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/JugadorApp/activar-desactivar-noticias/$idJugador'),
+    );
+
+    if (response.statusCode != 204) {
+      throw Exception('Error al cambiar la configuración de notificaciones');
+    }
+  }
+
+  Future<bool> obtenerEstadoNotificacionesNoticias(int idJugador) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/NotificacionNoticiaApp/noticiasActivadas/$idJugador'),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body == 'true';
+    } else {
+      throw Exception('Error al obtener el estado de las notificaciones');
     }
   }
 }

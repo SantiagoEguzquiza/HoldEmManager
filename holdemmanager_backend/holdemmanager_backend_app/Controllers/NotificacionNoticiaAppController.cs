@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,18 @@ namespace holdemmanager_backend_app.Controllers
         {
             _notificacionService = notificacionService;
             _dbContext = dbContext;
+        }
+
+        [HttpGet("noticiasActivadas/{idJugador}")]
+        public async Task<IActionResult> NoticiasActivasJugador(int idJugador)
+        {
+            var jugador = await _dbContext.Jugadores.FirstOrDefaultAsync(j => j.Id == idJugador);
+            if(jugador == null)
+            {
+                return NotFound("No se encontro al jugador.");
+            }
+
+            return Ok(jugador.NoticiasNotifications);
         }
 
         [HttpGet("jugador/{idJugador}")]

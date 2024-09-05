@@ -7,6 +7,7 @@ import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Services/api_service.dart';
+import 'package:intl/intl.dart';
 
 class NotificacionesScreen extends StatefulWidget {
   final int? idJugador;
@@ -28,7 +29,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen>
   void initState() {
     super.initState();
     notificaciones =
-        ApiService().obtenerNotificacionesTorneo(widget.idJugador!);
+        ApiService().obtenerTodasLasNotificaciones(widget.idJugador!);
   }
 
   @override
@@ -88,9 +89,49 @@ class _NotificacionesScreenState extends State<NotificacionesScreen>
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var notificacion = snapshot.data![index];
-                return ListTile(
-                  title: Text(notificacion['mensaje']),
-                  subtitle: Text(notificacion['fecha']),
+
+                DateTime fecha = DateTime.parse(notificacion['fecha']);
+                String fechaFormateada = DateFormat('dd/MM/yyyy').format(fecha);
+                String horaFormateada = DateFormat('HH:mm').format(fecha);
+                String fechaHoraFormateada =
+                    'El día $fechaFormateada a las $horaFormateada hs.';
+
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        notificacion['mensaje'],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        fechaHoraFormateada,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 75, 75, 75),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             );

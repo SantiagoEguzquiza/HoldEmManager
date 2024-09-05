@@ -54,5 +54,10 @@ namespace holdemmanager_backend_app.Service
         {
            return await _usuarioRepository.GetJugadorById(id);
         }
+
+        public async Task ActivateDeactivateNoticias(int id)
+        {
+            await _usuarioRepository.ActivateDeactivateNoticias(id);
+        }
     }
 }

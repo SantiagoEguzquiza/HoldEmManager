@@ -80,7 +80,8 @@
     "levels": "Levels",
     "ticket": "Ticket",
     "favorite": "Favorite",
-    "notifications": "Notificacions"
+    "notifications": "Notificacions",
+    "toggleNotifications": "Get notifications"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -163,7 +164,8 @@
     "levels": "Niveles",
     "ticket": "Entrada",
     "favorite": "Favorito",
-    "notifications": "Notificaciones"
+    "notifications": "Notificaciones",
+    "toggleNotifications": "Recibir notificaciones"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -246,6 +248,7 @@
     "levels": "Níveis",
     "ticket": "Bilhete",
     "favorite": "Favorito",
-    "notifications": "Notificações"
+    "notifications": "Notificações",
+    "toggleNotifications": "Receber notificações"
   }
 }
