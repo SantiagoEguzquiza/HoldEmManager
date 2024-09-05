@@ -10,16 +10,19 @@
         <table class="table table-striped" *ngIf="!loading && feedbacks && feedbacks.length > 0">
           <thead>
             <tr>
-              <th>Mensaje</th>
               <th>Fecha</th>
+              <th>Categoría</th>
+              <th>Mensaje</th>
+              <th>Anónimo</th>
               <th>Usuario</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let comentario of feedbacks">
-              <td class="truncate">{{ comentario.mensaje }}</td>
               <td class="truncate">{{ comentario.fecha | date:'dd/MM/yyyy' }}</td>
-             
+              <td class="truncate">{{ obtenerNombreCategoria(comentario.categoria) }}</td>
+              <td class="truncate">{{ comentario.mensaje }}</td>
+              <td class="truncate">{{ comentario.isAnonimo ? 'SI' : 'NO' }}</td>
               <td>
                 <a class="custom-btn" (click)="verUsuario(comentario)">
                   <i class="fa-solid fa-circle-info"></i>

@@ -12,10 +12,18 @@
     </app-create-edit-recurso>
   </div>
 
-  <div class="buttons" style="padding-bottom: 20px;">
-    <a class="agregar" href="javascript:void(0)" (click)="agregarRecurso()">
-      <i class="bi bi-plus-square-fill"></i>Agregar Recurso
-    </a>
+  <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
+    <div>
+      <a class="agregar" href="javascript:void(0)" (click)="agregarRecurso()">
+        <i class="bi bi-plus-square-fill"></i>Agregar Recurso
+      </a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <input type="text" [(ngModel)]="filtro" (keyup.enter)="aplicarFiltro()" placeholder="Buscar recursos..." class="input" style="width: 300px;">
+      <button (click)="aplicarFiltro()" style="background: none; border: none; cursor: pointer;">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
   </div>
 
   <div class="row">
@@ -29,7 +37,7 @@
               <th>Título</th>
               <th>Contenido</th>
               <th>Imagen</th>
-              <th>Url del video</th>
+              <th>Video</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -37,7 +45,11 @@
             <tr *ngFor="let recurso of recursos">
               <td class="truncate">{{ recurso.titulo }}</td>
               <td class="truncate">{{ recurso.mensaje }}</td>
-              <td><img src="{{recurso.urlImagen}}" class="img-recurso"></td>
+              <td>
+                <a [href]="recurso.urlImagen" target="_blank">
+                  <img src="{{recurso.urlImagen}}" class="img-recurso">
+                </a>
+              </td>
               <td class="truncate">{{ recurso.urlVideo }}</td>
               <td>
                 <a class="custom-btn btn-sm" (click)="editarRecurso(recurso)">

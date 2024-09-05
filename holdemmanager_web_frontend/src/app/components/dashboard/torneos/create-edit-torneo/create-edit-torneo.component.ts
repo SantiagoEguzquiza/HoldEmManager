@@ -3,10 +3,10 @@ import { Torneos } from 'src/app/models/torneos';
 
 @Component({
   selector: 'app-create-torneo',
-  templateUrl: './create-torneo.component.html',
-  styleUrls: ['./create-torneo.component.css']
+  templateUrl: './create-edit-torneo.component.html',
+  styleUrls: ['./create-edit-torneo.component.css']
 })
-export class CreateTorneoComponent implements OnChanges {
+export class CreateEditTorneoComponent implements OnChanges {
   loading = false;
 
   @Input() torneo: Torneos | null = null;

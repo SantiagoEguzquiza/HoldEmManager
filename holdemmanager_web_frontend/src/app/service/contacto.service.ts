@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { Contactos } from '../models/contactos';
+import { Contacto } from '../models/contactos';
+import { PagedResult } from '../helpers/pagedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,24 @@ export class ContactoService {
     this.myApiUrlWeb = '/ContactoWeb';
   }
 
-  saveContacto(contacto: Contactos): Observable<any> {
-    return this.http.post(this.myAppUrl + this.myApiUrlWeb, contacto);
+  agregarContacto(contacto: Contacto): Observable<Contacto> {
+    return this.http.post<Contacto>(this.myAppUrl + this.myApiUrlWeb, contacto);
   }
 
-  obtenerContactos(): Observable<Contactos[]> {
-    return this.http.get<Contactos[]>(this.myAppUrl + this.myApiUrlWeb);
+  obtenerContactos(page: number, pageSize: number): Observable<PagedResult<Contacto>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<PagedResult<Contacto>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
-  obtenerContactoPorId(id: number): Observable<Contactos> {
-    return this.http.get<Contactos>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
+  obtenerContactoPorId(id: number): Observable<Contacto> {
+    return this.http.get<Contacto>(`${this.myAppUrl + this.myApiUrlWeb}/${id}`);
   }
 
-  actualizarContacto(contacto: Contactos): Observable<Contactos> {
-    return this.http.put<Contactos>(`${this.myAppUrl + this.myApiUrlWeb}/${contacto.id}`, contacto);
+  actualizarContacto(contacto: Contacto): Observable<Contacto> {
+    return this.http.put<Contacto>(`${this.myAppUrl + this.myApiUrlWeb}/${contacto.id}`, contacto);
   }
 
   eliminarContacto(id: number): Observable<any> {

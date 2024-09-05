@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Noticia } from 'src/app/models/noticias';
 
 @Component({
@@ -12,6 +13,8 @@ export class CreateEditNoticiaComponent implements OnChanges {
   selectedFileName?: string;
   imageExists = false;
   imageFirst = false;
+  imagenRequerida = false;
+  imagenValida = false;
 
   @Input() noticia: Noticia | null = null;
   nuevaNoticia: Noticia = new Noticia();
@@ -19,6 +22,8 @@ export class CreateEditNoticiaComponent implements OnChanges {
 
   @Output() guardar = new EventEmitter<Noticia>();
   @Output() cancelar = new EventEmitter<void>();
+  
+  constructor(private toastr: ToastrService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['noticia'] && changes['noticia'].currentValue) {
@@ -27,6 +32,10 @@ export class CreateEditNoticiaComponent implements OnChanges {
       if (this.nuevaNoticia.idImagen) {
         this.imageExists = true;
         this.imageFirst = true;
+        this.imagenValida = true;
+        if (this.fileInput) {
+          this.fileInput.nativeElement.disabled = true;
+        }
       }
     } else {
       this.nuevaNoticia = new Noticia();
@@ -35,6 +44,12 @@ export class CreateEditNoticiaComponent implements OnChanges {
   }
 
   guardarNoticia() {
+    if (!this.nuevaNoticia.idImagen || this.nuevaNoticia.idImagen === 'DELETE') {
+      this.imagenRequerida = true;
+      this.imagenValida = false;
+      return;
+    }
+  
     this.loading = true;
     this.nuevaNoticia.fecha = new Date(this.formattedDate);
     if (this.nuevaNoticia.idImagen && this.imageFirst) {
@@ -58,25 +73,58 @@ export class CreateEditNoticiaComponent implements OnChanges {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      const fileType = file.type;
+  
+      if (!fileType.startsWith('image/')) {
+        this.toastr.error('Por favor, seleccione un archivo de imagen válido.', 'Archivo no válido');
+        
+        if (this.fileInput) {
+          this.fileInput.nativeElement.value = '';
+        }
+        
+        this.imageExists = false;
+        this.imagenRequerida = true;
+        this.imagenValida = false;
+        return;
+      }
+  
       this.selectedFileName = file.name;
       this.imageExists = true;
       this.convertirAByte(file);
       this.imageFirst = false;
+      this.imagenRequerida = false;  
+      this.imagenValida = true;
+      if (this.fileInput) {
+        this.fileInput.nativeElement.disabled = true;
+      }
     }
   }
 
   convertirAByte(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
-      const image = reader.result as string;
-      const base64Data = image.split(',')[1];
-      this.nuevaNoticia.idImagen = base64Data;
+      const img = new Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800;
+        const scaleSize = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scaleSize;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const optimizedImage = canvas.toDataURL('image/jpeg', 0.7);
+        const base64Data = optimizedImage.split(',')[1];
+        this.nuevaNoticia.idImagen = base64Data;
+      };
     };
     reader.readAsDataURL(file);
   }
 
   triggerFileInput(): void {
+    this.imagenRequerida = true;
     if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
       this.fileInput.nativeElement.click();
     }
   }
@@ -86,5 +134,12 @@ export class CreateEditNoticiaComponent implements OnChanges {
     this.selectedFileName = undefined;
     this.nuevaNoticia.idImagen = 'DELETE';
     this.imageFirst = false;
+    this.imagenRequerida = true;  
+    this.imagenValida = false;
+    
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+      this.fileInput.nativeElement.disabled = false;
+    }
   }
 }

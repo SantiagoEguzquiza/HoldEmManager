@@ -1,28 +1,35 @@
 ﻿using Firebase.Auth;
 using Firebase.Storage;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace holdemmanager_backend_app.Utils
 {
     public class FirebaseStorageHelper
     {
-        private static readonly HttpClient httpClient = new HttpClient();
-        private string api_key = "AIzaSyAWV4QN7q9590HmcMQymlxmDp6-PZg1Brw";
-        private string email = "holdemmanager@gmail.com";
-        private string clave = "holdemmanager123";
-        private string ruta = "holdemmanager-16a40.appspot.com";
+        private readonly string apiKey;
+        private readonly string email;
+        private readonly string password;
+        private readonly string storageBucket;
+
+        public FirebaseStorageHelper(IConfiguration configuration)
+        {
+            apiKey = configuration["Firebase:ApiKey"];
+            email = configuration["Firebase:Email"];
+            password = configuration["Firebase:Password"];
+            storageBucket = configuration["Firebase:StorageBucket"];
+        }
 
         public async Task<string> SubirImagenFirebase(Stream imagen, string directorio)
         {
-            var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
-            var a = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(apiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(email, password);
 
             var cancellation = new CancellationTokenSource();
 
             string uniqueFileName = $"{Guid.NewGuid()}.jpg";
 
             var task = new FirebaseStorage(
-                ruta,
+                storageBucket,
                 new FirebaseStorageOptions
                 {
                     AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
@@ -49,11 +56,11 @@ namespace holdemmanager_backend_app.Utils
 
         public async Task EliminarImagen(string imageUrl, string directorio)
         {
-            var auth = new FirebaseAuthProvider(new FirebaseConfig(api_key));
-            var a = await auth.SignInWithEmailAndPasswordAsync(email, clave);
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(apiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(email, password);
 
             var firebaseStorage = new FirebaseStorage(
-                ruta,
+                storageBucket,
                 new FirebaseStorageOptions
                 {
                     AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),

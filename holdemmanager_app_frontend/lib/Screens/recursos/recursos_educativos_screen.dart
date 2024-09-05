@@ -6,7 +6,7 @@ import 'package:holdemmanager_app/Models/Recurso.dart';
 import 'package:holdemmanager_app/NavBar/app_bar.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
 import 'package:holdemmanager_app/NavBar/side_bar.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Screens/recursos/detalle_recursos_educativos_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
@@ -31,13 +31,14 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
   late Locale finalLocale = const Locale('en', 'US');
   final int _pageSize = 10;
   int _currentPage = 1;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
     cargarLocaleYTranslations();
     translationService.addListener(this);
-    _futureRecursos = _fetchRecursos();
+    _fetchRecursos();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
@@ -71,15 +72,26 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
     });
   }
 
-  void mostrarNotificacionError(String mensaje) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          mensaje,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
-      ),
+  void mostrarDialogoError(String mensaje) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(finalTranslations[finalLocale.toString()]?['error'] ?? 'Error'),
+          content: Text(traducirError(mensaje)),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                finalTranslations[finalLocale.toString()]?['ok'] ?? 'OK',
+                style: const TextStyle(color: Colors.orangeAccent),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -88,27 +100,34 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
         'Error en el servidor, inténtelo de nuevo más tarde';
   }
 
-  Future<PagedResult<RecursosEducativos>> _fetchRecursos() async {
-    if (_isLoading || !_hasMoreData) return Future.error('loading');
+  Future<void> _fetchRecursos() async {
+    if (_isLoading || !_hasMoreData) return;
 
     setState(() {
       _isLoading = true;
+      _errorMessage = null;
     });
 
     try {
       final result = await RecursosEducativos.obtenerRecursosEducativos(
         page: _currentPage,
         pageSize: _pageSize,
+        filtro: "NO"
       );
       setState(() {
         _recursos.addAll(result.items);
         _currentPage++;
         _hasMoreData = result.hasNextPage;
       });
-      return result;
     } catch (e) {
-      mostrarNotificacionError(traducirError(e.toString()));
-      return Future.error(e.toString());
+      String errorKey = 'serverError';
+      if (e.toString().contains('serverError')) {
+        errorKey = 'serverError';
+      }
+      setState(() {
+        _errorMessage = errorKey;
+      });
+      mostrarDialogoError(errorKey);
     } finally {
       setState(() {
         _isLoading = false;
@@ -128,7 +147,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
             );
           } else if (index == 1) {
             Navigator.push(
@@ -139,58 +158,47 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
         },
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            padding: const EdgeInsets.all(25.0),
-            child: Text(
-              finalTranslations[finalLocale.toString()]?['educationalResources'] ??
-                  'Educational Resources',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
-            child: FutureBuilder<PagedResult<RecursosEducativos>>(
-              future: _futureRecursos,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    color: Colors.orangeAccent,
-                  ));
-                } else if (snapshot.hasError) {
-                  String errorMessage;
-                  if (snapshot.error is TimeoutException) {
-                    errorMessage = traducirError('timeoutError');
-                  } else {
-                    errorMessage = traducirError('serverError');
-                  }
-                  return Center(child: Text(errorMessage));
-                } else if (snapshot.hasData && snapshot.data!.items.isEmpty) {
-                  return Center(
+            child: _recursos.isEmpty && !_isLoading
+                ? Center(
                     child: Text(
-                      finalTranslations[finalLocale.toString()]?['noData'] ??
-                          'No hay recursos disponibles',
+                      _errorMessage != null
+                          ? traducirError(_errorMessage!)
+                          : finalTranslations[finalLocale.toString()]?['noData'] ??
+                              'No hay datos disponibles',
                       style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
-                  );
-                } else {
-                  return ListView.builder(
+                  )
+                : ListView.builder(
                     controller: _scrollController,
-                    itemCount: _recursos.length + (_isLoading ? 1 : 0),
+                    itemCount: _recursos.length + (_isLoading ? 2 : 1),
                     itemBuilder: (context, index) {
-                      if (index == _recursos.length) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 10.0),
+                          padding: const EdgeInsets.all(25.0),
+                          child: Text(
+                            finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+                                'Educational Resources',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      } else if (index == _recursos.length + 1) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.orangeAccent,
+                            ),
+                          ),
                         );
                       }
-
-                      var recurso = _recursos[index];
-
+                      var recurso = _recursos[index - 1];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -234,10 +242,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
                         ),
                       );
                     },
-                  );
-                }
-              },
-            ),
+                  ),
           ),
         ],
       ),

@@ -3,29 +3,29 @@
   <form [formGroup]="jugadorForm" (ngSubmit)="guardarJugador()">
     <div class="form-group">
       <label for="numberPlayer">Número de Jugador</label>
-      <input type="text" id="numberPlayer" formControlName="numberPlayer" class="form-control">
+      <input type="text" id="numberPlayer" formControlName="numberPlayer" class="input">
       <div class="text-danger ml-2" *ngIf="numberPlayer?.invalid && (numberPlayer?.dirty || numberPlayer?.touched)">
-        <small *ngIf="numberPlayer?.errors?.['required']">Número de jugador es <strong>requerido.</strong></small>
-        <small *ngIf="numberPlayer?.errors?.['pattern']">Número de jugador debe ser un número <strong>válido.</strong></small>
+        <span *ngIf="numberPlayer?.errors?.['required']">Número de jugador es <strong>requerido.</strong></span>
+        <span *ngIf="numberPlayer?.errors?.['pattern']">Número de jugador debe ser un número <strong>válido.</strong></span>
       </div>
     </div>
     <div class="form-group">
       <label for="name">Nombre</label>
-      <input type="text" id="name" formControlName="name" class="form-control">
+      <input type="text" id="name" formControlName="name" class="input">
       <div class="text-danger ml-2" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
-        <small *ngIf="name?.errors?.['required']">El nombre es <strong>requerido.</strong></small>
+        <span *ngIf="name?.errors?.['required']">El nombre es <strong>requerido.</strong></span>
       </div>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email" class="form-control">
+      <input type="email" id="email" formControlName="email" class="input">
       <span class="text-danger ml-2" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-        <small *ngIf="email?.errors?.['required']">El email es <strong>requerido</strong> </small>
-        <small *ngIf="email?.errors?.['email']">El email debe ser <strong>válido.</strong></small>
+        <span *ngIf="email?.errors?.['required']">El email es <strong>requerido</strong> </span>
+        <span *ngIf="email?.errors?.['email']">El email debe ser <strong>válido.</strong></span>
       </span>
     </div>
     <div class="buttons">
-      <button type="submit" class="btn aceptar" [disabled]="jugadorForm.invalid">Guardar</button>
+      <button type="submit" class="btn aceptar" [disabled]="jugadorForm.invalid"> <i class="bi bi-save"></i> Aceptar</button>
       <button type="button" class="btn cancelar" (click)="cancelarEdicion()">Cancelar</button>
     </div>
   </form>

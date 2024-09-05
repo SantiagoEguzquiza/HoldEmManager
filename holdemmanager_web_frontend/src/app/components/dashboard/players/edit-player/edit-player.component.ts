@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Jugador } from 'src/app/models/jugador';
 
 @Component({
@@ -16,13 +16,12 @@ export class EditPlayerComponent implements OnInit, OnChanges {
   @Output() guardar = new EventEmitter<Jugador>();
   @Output() cancelar = new EventEmitter<void>();
 
-  constructor(
-    private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.jugadorForm = this.fb.group({
       id: [0],
-      numberPlayer: ['', [Validators.required, Validators.pattern('^[0-9-]*$')]],
+      numberPlayer: ['', [Validators.required, Validators.pattern('^[0-9-]*$'), this.noSoloGuionValidator]],
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, this.emailComValidator]],
       password: ['', Validators.required],
       imageUrl: ['']
     });
@@ -48,6 +47,16 @@ export class EditPlayerComponent implements OnInit, OnChanges {
 
   cancelarEdicion() {
     this.cancelar.emit();
+  }
+
+  noSoloGuionValidator(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    return value === '-' ? { 'noSoloGuion': true } : null;
+  }
+
+  emailComValidator(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    return value.endsWith('.com') ? null : { 'email': true };
   }
 
   get numberPlayer() {

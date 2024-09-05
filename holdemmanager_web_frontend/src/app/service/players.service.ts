@@ -27,11 +27,16 @@ export class PlayersService {
     return this.http.get<Jugador>(`${this.myAppUrl + this.myApiUrlWeb}/id/${id}`);
   }
 
-  obtenerJugadores(page: number, pageSize: number): Observable<PagedResult<Jugador>> {
+  obtenerJugadores(page: number, pageSize: number, filtro: string): Observable<PagedResult<Jugador>> {
+    if (filtro == '') {
+      filtro = 'NO';
+    }
+
     const params = new HttpParams()
       .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
-    
+      .set('pageSize', pageSize.toString())
+      .set('filtro', filtro.toString());
+
     return this.http.get<PagedResult<Jugador>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 

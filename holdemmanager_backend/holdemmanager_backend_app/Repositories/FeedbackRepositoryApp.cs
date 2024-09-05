@@ -19,9 +19,9 @@ namespace holdemmanager_backend_app.Repositories
         {
             this._context = context; 
         }
-        public async Task AddFeedback(Feedback devolucion)
+        public async Task AddFeedback(Feedback feedback)
         {
-            _context.Feedback.Add(devolucion);
+            _context.Feedback.Add(feedback);
             await _context.SaveChangesAsync();
         }
 

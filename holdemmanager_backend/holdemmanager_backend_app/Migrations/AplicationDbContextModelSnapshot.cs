@@ -30,19 +30,30 @@ namespace holdemmanager_backend_app.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdUsuario")
+                    b.Property<int?>("IdUsuario")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAnonimo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Mensaje")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdUsuario");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Feedback");
                 });
@@ -120,8 +131,13 @@ namespace holdemmanager_backend_app.Migrations
                     b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
                         .WithMany()
                         .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Usuario")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("UsuarioId");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.ForoDiscusion", b =>
@@ -133,6 +149,11 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }

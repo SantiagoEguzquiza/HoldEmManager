@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CreateTorneoComponent } from './create-torneo.component';
+import { CreateTorneoComponent } from './create-edit-torneo.component';
 
 describe('CreateTorneoComponent', () => {
   let component: CreateTorneoComponent;

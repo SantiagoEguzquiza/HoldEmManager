@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:get/get.dart';
+import 'package:holdemmanager_app/Models/Feedback/Feedback.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:path/path.dart' as path;
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,110 +12,94 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PerfilHelper {
   static late String finalName;
   static late String finalEmail;
-  static late int numeroJugador = 0;
+  static late int numeroJugador;
   static late bool isLoading;
   static String? imagePath;
   static Uint8List? image;
-  static late bool isLoggedIn = false;
+  static late bool isLoggedIn;
+  static List<FeedbackModel>? feedbacks;
+  static String? status;
 
   static Future<void> getDatosValidacion() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    final obtenerName = sharedPreferences.getString('name');
-    final obtenerEmail = sharedPreferences.getString('email');
-    final obtenerNumeroJugador = sharedPreferences.getInt('numberPlayer');
-    final obtenerJugadorLogged = sharedPreferences.getBool('isLoggedIn');
-    isLoggedIn = obtenerJugadorLogged ?? false;
-    finalName = obtenerName ?? '';
-    finalEmail = obtenerEmail ?? '';
-    numeroJugador = obtenerNumeroJugador ?? 0;
+    final prefs = await SharedPreferences.getInstance();
+    
+    finalName = prefs.getString('name') ?? '';
+    finalEmail = prefs.getString('email') ?? '';
+    numeroJugador = prefs.getInt('numberPlayer') ?? 0;
+    isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     isLoading = false;
+    status = null;
+
+    if (isLoggedIn) {
+      try {
+        feedbacks = await Usuario.getFeedbacksPorUserId(prefs.getInt('userId') ?? -1);
+      } catch (e) {
+        status = e.toString().contains('sesionEx') ? 'sesionEx' : 'error';
+      }
+    }
   }
 
-  static Future<void> cargarImagen(BuildContext context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? savedImagePath =
-        prefs.getString('${finalEmail}_userImagePath');
-    if (savedImagePath != null) {
-      final File imageFile = File(savedImagePath);
-      if (await imageFile.exists()) {
-        final Uint8List imageBytes = await imageFile.readAsBytes();
-        imagePath = savedImagePath;
-        image = imageBytes;
-      }
+  static Future<void> cargarImagen() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedImagePath = prefs.getString('${finalEmail}_userImagePath');
+    
+    if (savedImagePath != null && await File(savedImagePath).exists()) {
+      imagePath = savedImagePath;
+      image = await File(savedImagePath).readAsBytes();
     } else {
       imagePath = null;
       image = null;
     }
   }
 
-  static Future<String> seleccionarImagen(BuildContext context) async {
+  static Future<String> seleccionarImagen() async {
     final ImagePicker imagePicker = ImagePicker();
-    final XFile? file =
-        await imagePicker.pickImage(source: ImageSource.gallery);
+    final XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (file != null) {
       final File imageFile = File(file.path);
-      const int maxSize = 1024 * 1024;
 
-      if (await imageFile.length() > maxSize) {
+      if (await imageFile.length() > 1024 * 1024) {
         return 'imageSize';
       }
 
-      final Uint8List imageBytes = await imageFile.readAsBytes();
-      image = imageBytes;
-      if (await guardarImagen(file)) {
-        return 'imageSaved';
-      }
+      image = await imageFile.readAsBytes();
+      return await guardarImagen(file) ? 'imageSaved' : '';
     }
     return '';
   }
 
   static Future<bool> guardarImagen(XFile file) async {
-    bool valorBool = false;
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final String fileName = path.basename(file.path);
-      final String localPath = path.join(directory.path, fileName);
+      final String localPath = path.join(directory.path, path.basename(file.path));
 
-      final File imageFile = File(file.path);
-      await imageFile.copy(localPath);
+      await File(file.path).copy(localPath);
 
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-
+      final prefs = await SharedPreferences.getInstance();
       prefs.setString('${finalEmail}_userImagePath', localPath);
 
       imagePath = localPath;
-
-      valorBool = await Usuario.setImageUrl(localPath, numeroJugador);
-      return valorBool;
+      return await Usuario.setImageUrl(localPath, numeroJugador);
     } catch (e) {
-      return valorBool;
+      return false;
     }
   }
 
   static Future<String> eliminarImagen() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     prefs.remove('${finalEmail}_userImagePath');
+    
     image = null;
     imagePath = null;
-    bool borrado = await Usuario.setImageUrl(null, numeroJugador);
-    if (borrado) {
-      return 'imageDeleted';
-    } else {
-      return 'imageDeletedError';
-    }
+    
+    return await Usuario.setImageUrl(null, numeroJugador) ? 'imageDeleted' : 'imageDeletedError';
   }
 
   static Future<void> cerrarSesion() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    sharedPreferences.remove('isLoggedIn');
-    sharedPreferences.remove('name');
-    sharedPreferences.remove('email');
-    sharedPreferences.remove('${finalEmail}_userImagePath');
-    sharedPreferences.remove('playerNumber');
-    sharedPreferences.remove('jwt_token');
+    final prefs = await SharedPreferences.getInstance();
+    
+    await prefs.clear();
     Get.offAll(() => const LoginScreen());
   }
 }

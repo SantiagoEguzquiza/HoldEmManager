@@ -12,7 +12,7 @@ namespace holdemmanager_backend_app.Domain.Models
         public int NumberPlayer { get; set; }
 
         [Required]
-        public string Name { get; set; }    
+        public string Name { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -20,5 +20,6 @@ namespace holdemmanager_backend_app.Domain.Models
         [Required]
         public string Password { get; set; }
         public string? ImageUrl { get; set; }
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

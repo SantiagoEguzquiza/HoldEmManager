@@ -3,12 +3,10 @@ description: "A new Flutter project."
 
 publish_to: 'none' 
 
-
 version: 1.0.0+1
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
-
 
 dependencies:
   flutter:
@@ -21,7 +19,6 @@ dependencies:
   flutter_locales: 2.0.0
   restart_app: 1.2.1
   carousel_slider: ^4.0.0
-
   cupertino_icons: ^1.0.6
   image_picker: ^1.1.2
   path_provider: ^2.0.11
@@ -33,10 +30,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.9.2
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/assets/images/logo.png" # Asegúrate de que esta ruta sea correcta y la imagen exista
+  adaptive_icon_background: "#FFFFFF" # Puedes cambiar el color de fondo si es necesario
+  adaptive_icon_foreground: "lib/assets/images/logo.png" # Opcional, solo para Android adaptativo
 
 flutter:
   assets:
@@ -44,10 +46,8 @@ flutter:
     - lib/assets/images/default-user.png
     - lib/assets/locales/traducciones.json
     - lib/assets/images/ingles.jpg
-    - lib/assets/images/español.jpg
     - lib/assets/images/portugues.jpg
     - lib/assets/images/default-map.jpg
+    - lib/assets/images/logo.png
 
   uses-material-design: true
-
-  

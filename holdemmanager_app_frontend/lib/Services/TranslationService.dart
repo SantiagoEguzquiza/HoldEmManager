@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TranslationService {
@@ -160,7 +160,7 @@ class TranslationService {
 
     if (isLoggedIn) {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const NoticiasScreen()),
         (Route<dynamic> route) => false,
       );
     } else {

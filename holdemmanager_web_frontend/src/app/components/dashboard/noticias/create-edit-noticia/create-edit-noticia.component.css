@@ -1,6 +1,19 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
 .noticia-container {
   max-width: 600px;
   margin-top: 150px;
@@ -15,7 +28,7 @@
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .invalid {
@@ -34,6 +47,10 @@
 
 .input:focus {
   border: #575757 solid 1px;
+}
+
+label {
+  margin-bottom: 10px;
 }
 
 .buttons {
@@ -102,6 +119,7 @@
   cursor: pointer;
   padding: 0.5rem 1rem;
   color: black;
+  border-radius: 5px;
 }
 
 .custom-btn:hover {
@@ -111,6 +129,7 @@
 
 .custom-btn i {
   margin-right: 5px;
+  
 }
 
 .custom-btn .fas {

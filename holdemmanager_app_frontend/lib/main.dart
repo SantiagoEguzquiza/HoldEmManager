@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
-import 'package:holdemmanager_app/Screens/profile_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +12,15 @@ void main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  String? tokenExpiryStr = prefs.getString('tokenExpiry');
+  if (tokenExpiryStr != null) {
+    DateTime tokenExpiry = DateTime.parse(tokenExpiryStr);
+    if (DateTime.now().isAfter(tokenExpiry)) {
+      isLoggedIn = false;
+      await prefs.setBool('isLoggedIn', false);
+    }
+  }
 
   runApp(MyApp(isLoggedIn: isLoggedIn));
 }
@@ -49,7 +58,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isLoggedIn ? const ProfileScreen() : const LoginScreen(),
+      home: isLoggedIn ? const NoticiasScreen() : const LoginScreen(),
     );
   }
 }

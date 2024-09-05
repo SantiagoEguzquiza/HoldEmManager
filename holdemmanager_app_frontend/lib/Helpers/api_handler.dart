@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/Usuario.dart';
@@ -50,6 +51,25 @@ class ApiHandler {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt_token', token);
       await prefs.setInt('userId', userId);
+      await prefs.setString('tokenExpiry',
+          DateTime.now().add(const Duration(days: 1)).toIso8601String());
     } catch (e) {}
+  }
+
+  static Future<bool> checkTokenAndFetchData(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenExpiryStr = prefs.getString('tokenExpiry');
+
+    if (tokenExpiryStr != null) {
+      DateTime tokenExpiry = DateTime.parse(tokenExpiryStr);
+
+      if (DateTime.now().isAfter(tokenExpiry)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
 }

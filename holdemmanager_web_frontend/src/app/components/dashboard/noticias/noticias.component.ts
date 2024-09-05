@@ -18,6 +18,8 @@ export class NoticiasComponent implements OnInit {
   page = 1;
   pageSize = 10;
   hasNextPage = false;
+  filtro = '';
+  filtroFecha: string | null = null;
 
   constructor(private noticiasService: NoticiasService, private router: Router, private toastr: ToastrService) { }
 
@@ -27,7 +29,7 @@ export class NoticiasComponent implements OnInit {
 
   obtenerNoticias(): void {
     this.loading = true;
-    this.noticiasService.obtenerNoticias(this.page, this.pageSize).subscribe(
+    this.noticiasService.obtenerNoticias(this.page, this.pageSize, this.filtro, this.filtroFecha).subscribe(
       (data) => {
         this.noticias = data.items;
         this.hasNextPage = data.hasNextPage;
@@ -63,7 +65,9 @@ export class NoticiasComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar noticia', 'Error');
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar noticia', 'Error');
+            }
             console.error(error);
           }
         );
@@ -85,14 +89,14 @@ export class NoticiasComponent implements OnInit {
     if (nuevaNoticia.id === 0 || nuevaNoticia.id === undefined) {
       this.noticiasService.agregarNoticia(nuevaNoticia).subscribe(
         (data) => {
-          this.noticias.push(data);
           this.toastr.success('Noticia agregada exitosamente');
           this.isCreateNoticia = false;
           this.obtenerNoticias();
         },
         (error) => {
-          this.toastr.error('Error al agregar noticia', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar noticia', 'Error');
+          }
         }
       );
     } else {
@@ -107,8 +111,9 @@ export class NoticiasComponent implements OnInit {
           this.obtenerNoticias();
         },
         (error) => {
-          this.toastr.error('Error al actualizar noticia', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar noticia', 'Error');
+          }
         }
       );
     }
@@ -123,5 +128,15 @@ export class NoticiasComponent implements OnInit {
       this.page = newPage;
       this.obtenerNoticias();
     }
+  }
+
+  aplicarFiltro(): void {
+    this.page = 1;
+    this.obtenerNoticias();
+  }
+
+  aplicarFiltroFecha(): void {
+    this.page = 1;
+    this.obtenerNoticias();
   }
 }

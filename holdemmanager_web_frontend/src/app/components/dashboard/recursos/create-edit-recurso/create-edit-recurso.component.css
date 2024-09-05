@@ -27,12 +27,16 @@
     align-items: center;
 }
 
+label {
+    margin-bottom: 10px;
+}
+
 .invalid {
     color: red;
 }
 
-.form-group{
-    padding: 0 !important;
+.form-group {
+    margin-bottom: 20px;
 }
 
 .input {
@@ -52,6 +56,7 @@
 .buttons {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 .cancelar {
@@ -115,6 +120,7 @@
     cursor: pointer;
     padding: 0.5rem 1rem;
     color: black;
+    border-radius: 5px;
 }
 
 .custom-btn:hover {

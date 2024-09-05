@@ -2,7 +2,10 @@
 using holdemmanager_backend_app.Domain.Models;
 using holdemmanager_backend_app.Persistence;
 using holdemmanager_backend_app.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,7 @@ namespace holdemmanager_backend_app.Controllers
             _dbContext = dbContext;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<PagedResult<Feedback>>> GetAllFeedbacks(int page, int pageSize)
         {
@@ -45,6 +49,7 @@ namespace holdemmanager_backend_app.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddFeedback([FromBody] Feedback feedback)
         {
@@ -55,43 +60,34 @@ namespace holdemmanager_backend_app.Controllers
                     return BadRequest(new { message = "El feedback no puede ser nulo." });
                 }
 
-                var usuarioExistente = await _dbContext.Jugadores.FindAsync(feedback.IdUsuario);
+                var usuarioExistente = await _dbContext.Jugadores
+                    .Include(j => j.Feedbacks)
+                    .FirstOrDefaultAsync(j => j.Id == feedback.IdUsuario);
+
                 if (usuarioExistente == null)
                 {
                     return BadRequest(new { message = "El usuario especificado no existe." });
                 }
 
+                if (!feedback.IsAnonimo)
+                {
+                    usuarioExistente.Feedbacks.Add(feedback);
+                }
+                else
+                {
+                    feedback.IdUsuario = null;
+                }
                 await _feedbackService.AddFeedback(feedback);
 
                 return Ok(new { message = "Feedback agregado exitosamente." });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new { message = "Ocurrió un error al agregar el feedback.", details = ex.Message });
             }
         }
 
-
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFeedback(int id, Feedback feedback)
-        {
-            if (feedback == null || id != feedback.Id)
-            {
-                return BadRequest(new { message = "ID del feedback no coincide o el feedback es nulo." });
-            }
-
-            try
-            {
-                await _feedbackService.UpdateFeedback(feedback);
-                return Ok(new { message = "Feedback actualizado exitosamente." });
-            }
-            catch (Exception)
-            {
-                return BadRequest(new { message = "Feedback no encontrado" });
-            }
-        }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFeedback(int id)
         {

@@ -28,7 +28,7 @@ namespace holdemmanager_backend_web.Utils
                 issuer: Issuer,
                 audience: Audience,
                 claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials
 
                 );

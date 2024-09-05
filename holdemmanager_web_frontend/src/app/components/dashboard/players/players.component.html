@@ -15,10 +15,19 @@
     <app-edit-player [jugador]="jugadorEditado" (guardar)="guardarJugadorEditado($event)" (cancelar)="cancelarEditarJugador()"></app-edit-player>
   </div>
 
-  <div class="buttons" style="padding-bottom: 20px;">
-    <a class="agregar" href="javascript:void(0)" (click)="agregarJugador()">
-      <i class="bi bi-plus-square-fill"></i> Agregar Jugador
-    </a>
+  <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
+    <div>
+      <a class="agregar" href="javascript:void(0)" (click)="agregarJugador()">
+        <i class="bi bi-plus-square-fill"></i> Agregar Jugador
+      </a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <input type="text" [(ngModel)]="filtro" (keyup.enter)="aplicarFiltro()" placeholder="Buscar jugadores..."
+        class="input" style="width: 300px;">
+      <button (click)="aplicarFiltro()" style="background: none; border: none; cursor: pointer;">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
   </div>
 
   <div class="row">
@@ -54,7 +63,8 @@
         <div *ngIf="!loading && (!jugadores || jugadores.length === 0)">
           <p>No hay jugadores registrados.</p>
         </div>
-        <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && jugadores && jugadores.length > 0">
+        <div style="margin-top: 20px;" class="pagination-controls"
+          *ngIf="!loading && jugadores && jugadores.length > 0">
           <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
           <span style="margin-right: 20px; cursor:default">Página {{ page }}</span>
           <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>

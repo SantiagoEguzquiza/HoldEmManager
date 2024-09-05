@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Contactos } from 'src/app/models/contactos';
+import { Contacto } from 'src/app/models/contactos';
 import { ContactoService } from 'src/app/service/contacto.service';
 import Swal from 'sweetalert2';
 
@@ -11,8 +11,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./contactos.component.css']
 })
 export class ContactosComponent implements OnInit {
-  contactos: Contactos[] = [];
+  isCreateContacto = false;
+  contactos: Contacto[] = [];
+  contactoActual: Contacto | null = null;
   loading = false;
+  page = 1;
+  pageSize = 10;
+  hasNextPage = false;
 
   constructor(private contactosService: ContactoService, private router: Router, private toastr: ToastrService) { }
 
@@ -22,17 +27,17 @@ export class ContactosComponent implements OnInit {
 
   obtenerContactos(): void {
     this.loading = true;
-    this.contactosService.obtenerContactos().subscribe(
+    this.contactosService.obtenerContactos(this.page, this.pageSize).subscribe(
       (data) => {
-        console.log('Contactos recibidos', data);
-        console.log(data);
-        this.contactos = data;
+        this.contactos = data.items;
+        this.hasNextPage = data.hasNextPage;
         this.loading = false;
       },
       (error) => {
         this.loading = false;
-        this.toastr.error('Error al obtener contactos', 'Error');
-        console.error(error);
+        if (error.status != 401) {
+          this.toastr.error('Error al obtener contactos', 'Error');
+        }
       }
     );
   }
@@ -43,12 +48,12 @@ export class ContactosComponent implements OnInit {
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#b4540f', 
+      confirmButtonColor: '#b4540f',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
-        cancelButton: 'swal2-cancel-button', 
-        confirmButton: 'swal2-confirm-button' 
+        cancelButton: 'swal2-cancel-button',
+        confirmButton: 'swal2-confirm-button'
       }
     }).then((result) => {
       if (result.isConfirmed) {
@@ -60,16 +65,67 @@ export class ContactosComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar el contacto', 'Error');
-            console.error(error);
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar el contacto', 'Error');
+            }
           }
         );
       }
     });
   }
 
-  editarContacto(contacto: Contactos): void {
-    this.router.navigate(['/dashboard/edit-contacto', contacto.id]);
+  agregarContacto() {
+    this.contactoActual = null;
+    this.isCreateContacto = true;
   }
 
+  editarContacto(contacto: Contacto): void {
+    this.contactoActual = { ...contacto };
+    this.isCreateContacto = true;
+  }
+
+  guardarNuevoContacto(nuevoContacto: Contacto) {
+    if (nuevoContacto.id === 0 || nuevoContacto.id === undefined) {
+      this.contactosService.agregarContacto(nuevoContacto).subscribe(
+        (data) => {
+          this.toastr.success('Contacto agregado exitosamente');
+          this.isCreateContacto = false;
+          this.obtenerContactos();
+        },
+        (error) => {
+          if (error.status != 401) {
+            this.toastr.error('Error al agregar contacto', 'Error');
+          }
+        }
+      );
+    } else {
+      this.contactosService.actualizarContacto(nuevoContacto).subscribe(
+        (data) => {
+          const index = this.contactos.findIndex(n => n.id === data.id);
+          if (index !== -1) {
+            this.contactos[index] = data;
+          }
+          this.toastr.success('Contacto actualizado exitosamente');
+          this.isCreateContacto = false;
+          this.obtenerContactos();
+        },
+        (error) => {
+          if (error.status != 401) {
+            this.toastr.error('Error al actualizar contacto', 'Error');
+          }
+        }
+      );
+    }
+  }
+
+  cancelarNuevoContacto() {
+    this.isCreateContacto = false;
+  }
+
+  onPageChange(newPage: number) {
+    if (newPage > 0 && (newPage < this.page || this.hasNextPage)) {
+      this.page = newPage;
+      this.obtenerContactos();
+    }
+  }
 }

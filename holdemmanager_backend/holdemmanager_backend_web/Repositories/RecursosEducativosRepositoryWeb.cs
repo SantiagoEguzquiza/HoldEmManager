@@ -19,9 +19,18 @@ namespace holdemmanager_backend_web.Repositories
         {
             this._context = context;
         }
-        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize)
+        public async Task<PagedResult<RecursoEducativo>> GetAllRecursos(int page, int pageSize, string filtro)
         {
-            var recursos = await _context.RecursosEducativos
+            var query = _context.RecursosEducativos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                query = query.Where(r => r.Titulo.Contains(filtro) || r.Mensaje.Contains(filtro));
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var recursos = await query
                                  .Skip((page - 1) * pageSize)
                                  .Take(pageSize + 1)
                                  .ToListAsync();

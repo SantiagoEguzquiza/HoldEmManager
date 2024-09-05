@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/Models/Usuario.dart';
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      Get.offAll(() => const HomeScreen());
+                                      Get.offAll(() => const NoticiasScreen());
                                     } else {
                                       setState(() {
                                         isLoading = false;
@@ -248,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> implements LanguageHelper {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => const NoticiasScreen(),
                 ),
               );
             },

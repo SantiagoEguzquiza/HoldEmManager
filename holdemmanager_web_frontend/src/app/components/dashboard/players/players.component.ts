@@ -20,6 +20,7 @@ export class PlayersComponent implements OnInit {
   page = 1;
   pageSize = 10;
   hasNextPage = false;
+  filtro = '';
 
   constructor(private playersService: PlayersService, private toastr: ToastrService) { }
 
@@ -29,7 +30,7 @@ export class PlayersComponent implements OnInit {
 
   obtenerJugadores(): void {
     this.loading = true;
-    this.playersService.obtenerJugadores(this.page, this.pageSize).subscribe(
+    this.playersService.obtenerJugadores(this.page, this.pageSize, this.filtro).subscribe(
       (data: PagedResult<Jugador>) => {
         this.jugadores = data.items;
         this.hasNextPage = data.hasNextPage;
@@ -38,7 +39,6 @@ export class PlayersComponent implements OnInit {
       (error) => {
         this.loading = false;
         this.toastr.error('Error al obtener jugadores', 'Error');
-        console.error(error);
       }
     );
   }
@@ -66,8 +66,9 @@ export class PlayersComponent implements OnInit {
           },
           (error) => {
             this.loading = false;
-            this.toastr.error('Error al eliminar el jugador', 'Error');
-            console.error(error);
+            if (error.status != 401) {
+              this.toastr.error('Error al eliminar el jugador', 'Error');
+            }
           }
         );
       }
@@ -92,8 +93,9 @@ export class PlayersComponent implements OnInit {
         this.obtenerJugadores();
       },
       (error) => {
-        this.toastr.error(error.error.message, 'Error');
-        console.log(error);
+        if (error.status != 401) {
+          this.toastr.error(error.error.message, 'Error');
+        }
       }
     );
   }
@@ -111,8 +113,9 @@ export class PlayersComponent implements OnInit {
           this.obtenerJugadores();
         },
         (error) => {
-          this.toastr.error('Error al editar jugador', 'Error');
-          console.error(error);
+          if (error.status != 401) {
+            this.toastr.error('Error al editar jugador', 'Error');
+          }
         }
       );
     }
@@ -131,5 +134,10 @@ export class PlayersComponent implements OnInit {
       this.page = newPage;
       this.obtenerJugadores();
     }
+  }
+
+  aplicarFiltro(): void {
+    this.page = 1;
+    this.obtenerJugadores();
   }
 }

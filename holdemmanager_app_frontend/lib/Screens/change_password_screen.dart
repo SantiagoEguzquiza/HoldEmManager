@@ -6,7 +6,7 @@ import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/result.dart';
 import 'package:holdemmanager_app/Models/Dto/CambiarPasswordDTO.dart';
 import 'package:holdemmanager_app/NavBar/bottom_nav_bar.dart';
-import 'package:holdemmanager_app/Screens/home_screen.dart';
+import 'package:holdemmanager_app/Screens/noticias/noticias_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
 import 'package:holdemmanager_app/widgets/input_decoration.dart';
@@ -57,7 +57,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => const NoticiasScreen()),
             );
           } else if (index == 1) {
             Navigator.push(
@@ -230,7 +230,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                                               nuevaPasswordController.text);
 
                                       Result success = await CambiarPassworDTO
-                                          .cambiarPassword(cambiarPassword);
+                                          .cambiarPassword(cambiarPassword, context);
 
                                       if (success.valid) {
                                         setState(() {
@@ -246,6 +246,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                                         nuevaPasswordController.text = "";
                                         nuevaPasswordRepetirController.text =
                                             "";
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ProfileScreen()),
+                                        );
                                       } else {
                                         setState(() {
                                           isLoading = false;
