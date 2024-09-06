@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayersService } from 'src/app/service/players.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { Jugador } from 'src/app/models/jugador';
@@ -23,7 +22,7 @@ export class PlayersComponent implements OnInit {
   hasNextPage = false;
   filtro = '';
 
-  constructor(private playersService: PlayersService, private router: Router, private toastr: ToastrService) { }
+  constructor(private playersService: PlayersService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.obtenerJugadores();

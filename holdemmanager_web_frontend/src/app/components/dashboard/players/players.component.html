@@ -12,8 +12,7 @@
   </div>
 
   <div *ngIf="isEditJugador" class="centered-container">
-    <app-edit-player [jugador]="jugadorEditado" (guardar)="guardarJugadorEditado($event)"
-      (cancelar)="cancelarEditarJugador()"></app-edit-player>
+    <app-edit-player [jugador]="jugadorEditado" (guardar)="guardarJugadorEditado($event)" (cancelar)="cancelarEditarJugador()"></app-edit-player>
   </div>
 
   <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
