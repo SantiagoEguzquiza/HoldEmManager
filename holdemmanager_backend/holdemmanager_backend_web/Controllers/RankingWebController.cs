@@ -1,20 +1,7 @@
-﻿using holdemmanager_backend_app.Utils;
-using holdemmanager_backend_web.Domain.Excepciones;
-using holdemmanager_backend_web.Domain.IServices;
+﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Controllers
 {
@@ -155,14 +142,14 @@ namespace holdemmanager_backend_web.Controllers
 
         }
 
-        // obtener un recurso educativo con id como parametro
+        // obtener un ranking con player number como parametro
         [HttpGet("getByNumber/{number}")]
-        public async Task<ActionResult<RecursoEducativo>> GetRecursoById(int number)
+        public async Task<ActionResult<Ranking>> GetRecursoById(int number)
         {
             try
             {
-                var recurso = await _rankingService.GetRankingByNumber(number);
-                return Ok(recurso);
+                var ranking = await _rankingService.GetRankingByNumber(number);
+                return Ok(ranking);
             }
             catch (Exception)
             {
