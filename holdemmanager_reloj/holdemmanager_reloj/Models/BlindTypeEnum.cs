@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace holdemmanager_reloj.Models
 {
-    class User
+    public enum BlindTypeEnum
     {
+        Level,
+        Break
     }
 }

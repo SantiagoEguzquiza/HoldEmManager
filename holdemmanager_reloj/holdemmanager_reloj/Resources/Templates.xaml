@@ -1,4 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
+    <!-- Aquí puedes agregar plantillas de control -->
+    <!-- Ejemplo de plantilla personalizada para Button -->
+    <ControlTemplate TargetType="Button" x:Key="CustomButtonTemplate">
+        <Border Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="2"
+                CornerRadius="10"
+                Padding="{TemplateBinding Padding}">
+            <ContentPresenter HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"/>
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>
