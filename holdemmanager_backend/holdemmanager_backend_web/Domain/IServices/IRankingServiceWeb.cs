@@ -11,7 +11,7 @@ namespace holdemmanager_backend_web.Domain.IServices
     public interface IRankingServiceWeb
     {
 
-        Task<IEnumerable<Ranking>> GetAllRankings();
+        Task<PagedResult<Ranking>> GetAllRankings(RankingEnum rankingType,int page, int pageSize);
         Task<Ranking> GetRankingById(int id);
         Task<Ranking> GetRankingByNumber(int number);
         Task AddRanking(Ranking ranking);

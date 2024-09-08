@@ -6,7 +6,7 @@ using System.Windows.Input;
 using holdemmanager_reloj.Helpers;
 using System.Linq;
 using holdemmanager_reloj.Services;
-using System.Windows.Threading;
+using System.Timers;
 
 namespace holdemmanager_reloj.ViewModels
 {
@@ -19,8 +19,8 @@ namespace holdemmanager_reloj.ViewModels
         private BlindLevel _currentLevel;
         private BlindLevel _nextLevel;
         private TimeSpan _timeToNextBreak;
-        private DispatcherTimer _timer;
-        private DispatcherTimer _breakTimer;
+        private System.Timers.Timer _timer;
+        private System.Timers.Timer _breakTimer;
         private bool _isTimingPaused = true;
         private bool _isConfiguring = false;
         private bool _isBreak;
@@ -137,7 +137,6 @@ namespace holdemmanager_reloj.ViewModels
         public ICommand ResetCommand { get; }
         public ICommand ToSubtractPlayer { get; }
 
-
         public BlindClockViewModel(Tournament tournament)
         {
             Tournament = tournament ?? throw new ArgumentNullException(nameof(tournament));
@@ -149,13 +148,13 @@ namespace holdemmanager_reloj.ViewModels
                 UpdateNextLevelInfo();
             }
 
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += OnTimerTick;
+            _timer = new System.Timers.Timer(1000); // Intervalo de 1 segundo
+            _timer.Elapsed += OnTimerTick;
+            _timer.AutoReset = true;
 
-            _breakTimer = new DispatcherTimer();
-            _breakTimer.Interval = TimeSpan.FromSeconds(1);
-            _breakTimer.Tick += OnBreakTimerTick;
+            _breakTimer = new System.Timers.Timer(1000); // Intervalo de 1 segundo
+            _breakTimer.Elapsed += OnBreakTimerTick;
+            _breakTimer.AutoReset = true;
 
             StartCommand = new RelayCommand(StartTournament);
             PauseCommand = new RelayCommand(ToggleTimer);
@@ -173,30 +172,42 @@ namespace holdemmanager_reloj.ViewModels
             StartBreakTimer();
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, ElapsedEventArgs e)
         {
-            if (CurrentLevel?.Duration.TotalSeconds > 0)
+            App.Current.Dispatcher.Invoke(() =>
             {
-                CurrentLevel.Duration = CurrentLevel.Duration.Subtract(TimeSpan.FromSeconds(1));
-                OnPropertyChanged(nameof(CurrentLevel));
-            }
-            else
-            {
-                MoveToNextLevel();
-            }
+                if (CurrentLevel?.Duration.TotalSeconds > 1)
+                {
+                    CurrentLevel.Duration = CurrentLevel.Duration.Subtract(TimeSpan.FromSeconds(1));
+                    OnPropertyChanged(nameof(CurrentLevel));
+                }
+                else if (CurrentLevel?.Duration.TotalSeconds == 1)
+                {
+                    CurrentLevel.Duration = TimeSpan.Zero;
+                    OnPropertyChanged(nameof(CurrentLevel));
+                    MoveToNextLevel(); 
+                }
+                else
+                {
+                    MoveToNextLevel();
+                }
+            });
         }
 
-        private void OnBreakTimerTick(object sender, EventArgs e)
+        private void OnBreakTimerTick(object sender, ElapsedEventArgs e)
         {
-            if (_breakTimer != null && TimeToNextBreak.TotalSeconds > 0)
+            App.Current.Dispatcher.Invoke(() =>
             {
-                TimeToNextBreak = TimeToNextBreak.Subtract(TimeSpan.FromSeconds(1));
-            }
-            else
-            {
-                _breakTimer?.Stop();
-                MoveToNextLevel();
-            }
+                if (_breakTimer != null && TimeToNextBreak.TotalSeconds > 0)
+                {
+                    TimeToNextBreak = TimeToNextBreak.Subtract(TimeSpan.FromSeconds(1));
+                }
+                else
+                {
+                    _breakTimer?.Stop();
+                    MoveToNextLevel();
+                }
+            });
         }
 
         private void MoveToNextLevel()

@@ -1,6 +1,9 @@
 ﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
+using holdemmanager_backend_web.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace holdemmanager_backend_web.Controllers
@@ -19,6 +22,7 @@ namespace holdemmanager_backend_web.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> AddRanking([FromBody] Ranking ranking)
         {
@@ -39,6 +43,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Noticia>> GetRankingById(int id)
         {
@@ -60,15 +65,14 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ranking>>> GetAllRankings()
+        public async Task<ActionResult<PagedResult<Ranking>>> GetAllRankings(RankingEnum tipo,int page, int pageSize)
         {
-
-            var rankings = await _rankingService.GetAllRankings();
+            var rankings = await _rankingService.GetAllRankings(tipo, page, pageSize);
 
             return Ok(rankings);
-
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRanking(int id)
         {
@@ -77,7 +81,7 @@ namespace holdemmanager_backend_web.Controllers
                 var ranking = await _rankingService.GetRankingById(id);
                 if (ranking == null)
                 {
-                    return BadRequest(new { message = "El rank no existe." });
+                    return BadRequest(new { message = "El ranking no existe." });
                 }
 
 
@@ -98,6 +102,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRanking(int id, Ranking ranking)
         {
@@ -118,6 +123,7 @@ namespace holdemmanager_backend_web.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("importRanking")]
         public async Task<IActionResult> importarRankings([FromBody] Ranking[] rankings)
         {
@@ -142,18 +148,23 @@ namespace holdemmanager_backend_web.Controllers
 
         }
 
-        // obtener un ranking con player number como parametro
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("getByNumber/{number}")]
-        public async Task<ActionResult<Ranking>> GetRecursoById(int number)
+        public async Task<ActionResult<RankingHelper>> GetRankingByNumber(int number)
         {
+            RankingHelper rankingHelper = new RankingHelper();
+            rankingHelper.existingRanking = false;
             try
             {
                 var ranking = await _rankingService.GetRankingByNumber(number);
-                return Ok(ranking);
+                rankingHelper.Ranking = ranking;
+                rankingHelper.existingRanking = true;
+                return Ok(rankingHelper);
             }
             catch (Exception)
             {
-                 return NotFound();
+                rankingHelper.Ranking = null;
+                return rankingHelper;
             }
         }
     }

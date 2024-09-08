@@ -10,6 +10,7 @@ import { Ranking, RankingEnum } from 'src/app/models/ranking';
   styleUrls: ['./edit-ranking.component.css']
 })
 export class EditRankingComponent implements OnInit, OnChanges {
+  loading = false;
 
   rankingForm: FormGroup;
   public rankingEnumOptions: { key: string, value: number }[];
@@ -49,6 +50,7 @@ export class EditRankingComponent implements OnInit, OnChanges {
 
   guardarRanking() {
     if (this.rankingForm.valid) {
+      this.loading = true;
       const formValue = {
         ...this.rankingForm.value,         
         rankingEnum: Number(this.rankingForm.value.rankingEnum)    

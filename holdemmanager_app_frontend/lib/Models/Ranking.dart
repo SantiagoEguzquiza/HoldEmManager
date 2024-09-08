@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:holdemmanager_app/Helpers/api_handler.dart';
+import 'package:holdemmanager_app/Helpers/pagedResult.dart';
 import 'package:http/http.dart' as http;
 
 enum RankingEnum {
@@ -44,15 +44,26 @@ class Ranking {
     };
   }
 
-  static Future<List<dynamic>> obtenerRankings() async {
-    const String baseUrl = 'http://10.0.2.2:5183';
+  static Future<PagedResult<Ranking>> obtenerRankings({
+  required int page,
+  required int pageSize,
+  required RankingEnum tipo,
+}) async {
+  var rank = tipo.index;
+  const String baseUrl = 'http://10.0.2.2:5183';
+  try {
     final response = await http
-        .get(Uri.parse('$baseUrl/RankingWeb'))
+        .get(Uri.parse('$baseUrl/RankingWeb?tipo=$rank&page=$page&pageSize=$pageSize'))
         .timeout(const Duration(seconds: 10));
+    
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      final Map<String, dynamic> data = json.decode(response.body);
+      return PagedResult.fromJson(data, (json) => Ranking.fromJson(json));
     } else {
-      throw Exception('Error al cargar torneos');
+      throw Exception('serverError');
     }
+  } catch (e) {
+    throw Exception('serverError');
   }
+}
 }

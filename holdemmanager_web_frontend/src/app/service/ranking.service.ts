@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Ranking } from '../models/ranking';
+import { Ranking, RankingEnum } from '../models/ranking';
+import { PagedResult } from '../helpers/pagedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,13 @@ export class RankingService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerRanking(): Observable<Ranking[]> {
-    return this.http.get<Ranking[]>(this.myAppUrl + this.myApiUrlWeb);
+  obtenerRankingPorTipo(tipo: RankingEnum, page: number, pageSize: number): Observable<PagedResult<Ranking>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('tipo', tipo);
+    
+    return this.http.get<PagedResult<Ranking>>(this.myAppUrl + this.myApiUrlWeb, { params });
   }
 
   eliminarRanking(id: number): Observable<any> {

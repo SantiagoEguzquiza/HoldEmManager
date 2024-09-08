@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:holdemmanager_app/Helpers/languageHelper.dart';
 import 'package:holdemmanager_app/Models/Ranking.dart';
+import 'package:holdemmanager_app/Services/TranslationService.dart';
 
-class DetalleRankingScreen extends StatelessWidget {
+class DetalleRankingScreen extends StatefulWidget {
   final Ranking ranking;
 
   const DetalleRankingScreen({super.key, required this.ranking});
+
+  @override
+  _DetalleRankingScreenState createState() => _DetalleRankingScreenState();
+}
+
+class _DetalleRankingScreenState extends State<DetalleRankingScreen>
+    implements LanguageHelper {
+  late Map<String, dynamic> finalTranslations = {};
+  final TranslationService translationService = TranslationService();
+  late Locale finalLocale = const Locale('en', 'US');
 
   String getRankingEnumText(RankingEnum rankingEnum) {
     switch (rankingEnum) {
@@ -20,6 +32,39 @@ class DetalleRankingScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    cargarLocaleYTranslations();
+    translationService.addListener(this);
+  }
+
+  @override
+  void dispose() {
+    translationService.removeListener(this);
+    super.dispose();
+  }
+
+  @override
+  void actualizarLenguaje(Locale locale) {
+    cargarLocaleYTranslations();
+  }
+
+  Future<void> cargarLocaleYTranslations() async {
+    final Locale? locale = await translationService.getLocale();
+    final Map<String, dynamic> translations =
+        await translationService.getTranslations();
+
+    setState(() {
+      finalTranslations = translations;
+      finalLocale = locale ?? const Locale('en', 'US');
+    });
+  }
+
+  String traducir(String key) {
+    return finalTranslations[finalLocale.toString()]?[key] ?? key;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +73,7 @@ class DetalleRankingScreen extends StatelessWidget {
         shadowColor: Colors.black.withOpacity(0.4),
         iconTheme: const IconThemeData(
           color: Color.fromARGB(255, 231, 229, 229),
-        ),       
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -46,7 +91,7 @@ class DetalleRankingScreen extends StatelessWidget {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -54,7 +99,7 @@ class DetalleRankingScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      ranking.playerName,
+                      widget.ranking.playerName,
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -63,7 +108,7 @@ class DetalleRankingScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Ranking: ${getRankingEnumText(ranking.rankingEnum)}',
+                      'Ranking: ${getRankingEnumText(widget.ranking.rankingEnum)}',
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.grey,
@@ -79,7 +124,7 @@ class DetalleRankingScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          'Puntuación: ${ranking.puntuacion}',
+                          '${traducir('score')}: ${widget.ranking.puntuacion}',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.black87,
@@ -89,7 +134,7 @@ class DetalleRankingScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Número de Jugador: ${ranking.playerNumber}',
+                      '${traducir('numberPlayer')}: ${widget.ranking.playerNumber}',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black87,

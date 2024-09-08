@@ -29,9 +29,9 @@ namespace holdemmanager_backend_web.Service
             return await _rankingRepository.DeleteRanking(id);
         }
 
-        public async Task<IEnumerable<Ranking>> GetAllRankings()
+        public async Task<PagedResult<Ranking>> GetAllRankings(RankingEnum rankingType, int page, int pageSize)
         {
-            return await _rankingRepository.GetAllRankings();
+            return await _rankingRepository.GetAllRankings(rankingType,page, pageSize);
         }
 
         public async Task<Ranking> GetRankingById(int id)

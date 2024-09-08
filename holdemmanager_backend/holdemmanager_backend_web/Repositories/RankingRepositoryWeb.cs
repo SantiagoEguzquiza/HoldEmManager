@@ -41,9 +41,31 @@ namespace holdemmanager_backend_web.Repositories
         }
 
 
-        public async Task<IEnumerable<Ranking>> GetAllRankings()
+        public async Task<PagedResult<Ranking>> GetAllRankings(RankingEnum rankingType, int page, int pageSize)
         {
-            return await _context.Rankings.ToListAsync();
+            var query = _context.Rankings
+                                .Where(r => r.RankingEnum == rankingType)
+                                .AsQueryable();
+
+            var totalItems = await query.CountAsync();
+
+            var rankings = await query
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize + 1)
+                                 .ToListAsync();
+
+            var hasNextPage = rankings.Count > pageSize;
+
+            if (hasNextPage)
+            {
+                rankings.RemoveAt(pageSize);
+            }
+
+            return new PagedResult<Ranking>
+            {
+                Items = rankings,
+                HasNextPage = hasNextPage
+            };
         }
 
         public async Task<Ranking> GetRankingById(int id)

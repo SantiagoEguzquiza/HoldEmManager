@@ -36,9 +36,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "lib/assets/images/logo.png" # Asegúrate de que esta ruta sea correcta y la imagen exista
-  adaptive_icon_background: "#FFFFFF" # Puedes cambiar el color de fondo si es necesario
-  adaptive_icon_foreground: "lib/assets/images/logo.png" # Opcional, solo para Android adaptativo
+  image_path: "lib/assets/images/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "lib/assets/images/logo.png"
 
 flutter:
   assets:

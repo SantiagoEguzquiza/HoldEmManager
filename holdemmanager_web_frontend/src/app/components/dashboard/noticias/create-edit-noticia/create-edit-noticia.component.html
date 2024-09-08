@@ -1,3 +1,7 @@
+<div class="loading-container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+
 <div class="noticia-container">
   <h3>{{ nuevaNoticia.id ? 'Editar noticia' : 'Agregar nueva noticia' }}</h3>
   <br>

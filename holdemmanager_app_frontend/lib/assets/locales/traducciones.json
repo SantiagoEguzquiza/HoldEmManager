@@ -66,12 +66,14 @@
     "errorFeed": "Please enter a feedback",
     "soon": "Soon...",
     "noFeed": "No feedbacks available.",
-    "feed": "Latest Feedbacks",
+    "feed": "My Latest Feedbacks",
     "sesionEx": "Session expired. Log in again",
     "category": "Category",
     "sendAnonimo": "Send as anonymous",
     "feebackValid": "Feedback sent successfully",
-    "feebackError": "Error sending feedback"
+    "feebackError": "Error sending feedback",
+    "score": "Score",
+    "numberPlayer": "Number Player"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -140,12 +142,14 @@
     "errorFeed": "Por favor ingrese un comentario",
     "soon": "Proximamente...",
     "noFeed": "No hay comentarios disponibles.",
-    "feed": "Últimos Feedbacks",
+    "feed": "Mis Últimos Comentarios",
     "sesionEx": "La sesión expiró. Inicia sesión nuevamente",
     "category": "Categoría",
     "sendAnonimo": "Enviar como anónimo",
     "feebackValid": "Feedback enviado correctamente",
-    "feebackError": "Error al enviar el feedback"
+    "feebackError": "Error al enviar el feedback",
+    "score": "Puntuación",
+    "numberPlayer": "Número de Jugador"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -214,11 +218,13 @@
     "errorFeed": "Por favor insira um comentário",
     "soon": "Em breve...",
     "noFeed": "Nenhum comentário disponível.",
-    "feed": "Comentários mais recentes",
+    "feed": "Meus últimos comentários",
     "sesionEx": "A sessão expirou. Faça login novamente",
     "category": "Categoria",
     "sendAnonimo": "Enviar como anônimo",
     "feebackValid": "Feedback enviado com sucesso",
-    "feebackError": "Erro ao enviar feedback"
+    "feebackError": "Erro ao enviar feedback",
+    "score": "Pontuação",
+    "numberPlayer": "Número do jogador"
   }
 }

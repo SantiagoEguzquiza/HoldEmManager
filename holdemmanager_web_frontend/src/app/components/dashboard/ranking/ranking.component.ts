@@ -18,26 +18,65 @@ export class RankingComponent implements OnInit {
   isEdit = false;
   rankingEditado!: Ranking;
 
+  page = 1;
+  pageSize = 10;
+  hasNextPage = false;
+
+  cacheRankings: { [key: string]: { [page: number]: Ranking[] } } = {
+    [RankingEnum.POKER]: {},
+    [RankingEnum.FULLHOUSE]: {},
+    [RankingEnum.ESCALERAREAL]: {}
+  };
+
+  filteredPokerRankings: Ranking[] = [];
+  filteredFullHouseRankings: Ranking[] = [];
+  filteredEscaleraRealRankings: Ranking[] = [];
   rankings: Ranking[] = [];
   filteredRankings: Ranking[] = [];
   public RankingEnum = RankingEnum;
   titulo: string = 'Ranking';
-  rankingActual: RankingEnum = RankingEnum.POKER; // Por defecto Poker el color del boton
+  rankingActual: RankingEnum = RankingEnum.POKER;
 
   constructor(private rankingService: RankingService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.obtenerRankings();
+    this.obtenerRankingsPorTipo();
   }
 
-  obtenerRankings(): void {
+  obtenerRankingsPorTipo(rankingEnum: RankingEnum = this.rankingActual): void {
     this.loading = true;
-    this.rankingService.obtenerRanking().subscribe((data: Ranking[]) => {
-      this.rankings = data;
-      this.rankings = data.sort((a, b) => b.puntuacion - a.puntuacion);
-      this.filtrarPorRankingEnum(RankingEnum.POKER); // Filtra automáticamente por Poker al cargar
+    
+    if (this.cacheRankings[rankingEnum][this.page]) {
+      this.asignarRankingsDesdeCache(rankingEnum);
+  
+      this.hasNextPage = this.cacheRankings[rankingEnum][this.page].length === this.pageSize;
       this.loading = false;
-    });
+    } else {
+      this.rankingService.obtenerRankingPorTipo(rankingEnum, this.page, this.pageSize).subscribe(
+        (result) => {
+          this.cacheRankings[rankingEnum][this.page] = result.items;
+  
+          this.hasNextPage = result.hasNextPage;
+  
+          this.asignarRankingsDesdeCache(rankingEnum);
+          this.loading = false;
+        },
+        (error) => {
+          console.error(error);
+          this.loading = false;
+        }
+      );
+    }
+  }
+
+  asignarRankingsDesdeCache(rankingEnum: RankingEnum): void {
+    if (rankingEnum === RankingEnum.POKER) {
+      this.filteredPokerRankings = this.cacheRankings[RankingEnum.POKER][this.page] || [];
+    } else if (rankingEnum === RankingEnum.FULLHOUSE) {
+      this.filteredFullHouseRankings = this.cacheRankings[RankingEnum.FULLHOUSE][this.page] || [];
+    } else if (rankingEnum === RankingEnum.ESCALERAREAL) {
+      this.filteredEscaleraRealRankings = this.cacheRankings[RankingEnum.ESCALERAREAL][this.page] || [];
+    }
   }
 
   agregarRanking() {
@@ -59,40 +98,35 @@ export class RankingComponent implements OnInit {
 
   guardarJugadorEditado(rankingEditado: Ranking) {
     if (this.rankingEditado) {
-      this.rankingService.actualizarRanking(rankingEditado).subscribe(
-        (data: Ranking) => {
-          const index = this.rankings.findIndex(j => j.id === this.rankingEditado!.id);
-          if (index !== -1) {
-            this.rankings[index] = data;
-          }
-          this.toastr.success('Ranking actualizado exitosamente');
-          this.isEdit = false;
-          this.obtenerRankings();
-        },
-        (error) => {
-          this.toastr.error('Error al editar el ranking', 'Error');
-          console.error(error);
-        }
-      );
+        this.rankingService.actualizarRanking(rankingEditado).subscribe(
+            (data: Ranking) => {
+                this.cacheRankings[this.rankingActual] = {};
+                this.toastr.success('Ranking actualizado exitosamente');
+                this.isEdit = false;
+                this.obtenerRankingsPorTipo();
+            },
+            (error) => {
+                this.toastr.error('Error al editar el ranking', 'Error');
+                console.error(error);
+            }
+        );
     }
-  }
+}
 
-  guardarNuevoRanking(nuevoRanking: Ranking) {
-    this.rankingService.agregarRanking(nuevoRanking).subscribe(
+guardarNuevoRanking(nuevoRanking: Ranking) {
+  this.rankingService.agregarRanking(nuevoRanking).subscribe(
       (data: Ranking) => {
-        this.rankings.push(data);
-        this.toastr.success('Jugador agregado al ranking exitosamente');
-        this.isCreate = false;
-        this.obtenerRankings();
+          this.cacheRankings[this.rankingActual] = {};
+          this.toastr.success('Jugador agregado al ranking exitosamente');
+          this.isCreate = false;
+          this.obtenerRankingsPorTipo();
       },
-
       (error) => {
-        console.log(nuevoRanking);
-        this.toastr.error(error?.error?.message, 'Error');
-        console.log(error);
+          this.toastr.error(error?.error?.message, 'Error');
+          console.log(error);
       }
-    );
-  }
+  );
+}
 
   eliminarRanking(id: number): void {
     Swal.fire({
@@ -113,7 +147,7 @@ export class RankingComponent implements OnInit {
         this.rankingService.eliminarRanking(id).subscribe(
           () => {
             this.toastr.success('Jugador eliminado correctamente', 'Éxito');
-            this.obtenerRankings();
+            this.obtenerRankingsPorTipo();
           },
           (error) => {
             this.loading = false;
@@ -127,8 +161,8 @@ export class RankingComponent implements OnInit {
 
   filtrarPorRankingEnum(rankingEnum: RankingEnum): void {
     this.rankingActual = rankingEnum;
-    this.filteredRankings = this.rankings.filter(r => r.rankingEnum === rankingEnum);
-    this.actualizarTitulo(rankingEnum);
+    this.page = 1;
+    this.obtenerRankingsPorTipo(rankingEnum);
   }
 
   actualizarTitulo(rankingEnum: RankingEnum): void {
@@ -152,7 +186,7 @@ export class RankingComponent implements OnInit {
   }
 
   async importarRanking(event: any): Promise<void> {
-    this.loading = true; // Mostrar loading al iniciar la importación
+    this.loading = true;
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length === 1) {
@@ -160,7 +194,7 @@ export class RankingComponent implements OnInit {
       const fileName = file.name.toLowerCase();
       if (!fileName.endsWith('.xlsx')) {
         this.toastr.error('Por favor, selecciona un archivo con extensión .xlsx.', 'Error');
-        this.loading = false; // Ocultar loading si hay error
+        this.loading = false;
         return;
       }
 
@@ -185,19 +219,19 @@ export class RankingComponent implements OnInit {
         try {
           await this.procesarRankings(rankings);
           this.toastr.success('Rankings procesados exitosamente');
-          this.obtenerRankings();
+          this.obtenerRankingsPorTipo();
         } catch (error) {
           this.toastr.error('Error al procesar rankings', 'Error');
           console.error(error);
         } finally {
-          this.loading = false; // Ocultar loading al finalizar
+          this.loading = false;
         }
       };
 
       reader.readAsBinaryString(file);
     } else {
       this.toastr.error('Por favor, selecciona un único archivo.', 'Error');
-      this.loading = false; // Ocultar loading si hay error
+      this.loading = false;
     }
   }
 
@@ -224,5 +258,12 @@ export class RankingComponent implements OnInit {
     });
 
     await Promise.all(updatePromises);
+  }
+
+  onPageChange(newPage: number) {
+    if (newPage > 0) {
+      this.page = newPage;
+      this.obtenerRankingsPorTipo();
+    }
   }
 }

@@ -9,6 +9,7 @@ import { Ranking, RankingEnum } from 'src/app/models/ranking';
   styleUrls: ['./create-ranking.component.css']
 })
 export class CreateRankingComponent {
+  loading = false;
 
   rankingForm: FormGroup;
   public RankingEnum = RankingEnum;
@@ -40,6 +41,7 @@ export class CreateRankingComponent {
 
   onSubmit() {
     if (this.rankingForm.valid) {
+      this.loading = true;
       const formValue = {
         ...this.rankingForm.value,
         playerNumber: Number(this.rankingForm.value.playerNumber), 

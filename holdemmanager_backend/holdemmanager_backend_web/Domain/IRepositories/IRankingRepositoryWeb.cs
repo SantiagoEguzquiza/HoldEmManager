@@ -10,7 +10,7 @@ namespace holdemmanager_backend_web.Domain.IRepositories
 {
     public interface IRankingRepositoryWeb
     {
-        Task<IEnumerable<Ranking>> GetAllRankings();
+        Task<PagedResult<Ranking>> GetAllRankings(RankingEnum rankingType, int page, int pageSize);
         Task<Ranking> GetRankingById(int id);
         Task<Ranking> GetRankingByNumber(int number);
         Task AddRanking(Ranking ranking);

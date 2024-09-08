@@ -14,7 +14,6 @@
         <local:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </Window.Resources>
 
-    <!-- Main Grid Container -->
     <Grid>
         <TextBlock Text="Configurando torneo..."
                    FontSize="36"
@@ -83,9 +82,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Main Timer Display -->
                 <TextBlock Grid.Row="0" FontSize="200" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">
-                    <Run Text="{Binding CurrentLevel.Duration}" />
+                   <Run Text="{Binding CurrentLevel.Duration, StringFormat={}{0:mm\\:ss}}" />
                 </TextBlock>
 
                 <TextBlock Grid.Row="1" Text="Blinds" FontSize="64" FontWeight="Bold" Foreground="Gold" HorizontalAlignment="Center"/>

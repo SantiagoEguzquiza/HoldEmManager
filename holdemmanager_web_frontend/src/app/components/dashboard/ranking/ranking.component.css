@@ -6,7 +6,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    z-index: 1000;
 }
 
 .dark-background {
@@ -27,15 +27,20 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: inherit;
   padding: 0.5rem 1rem;
   color: black;
+  border-radius: 5px;
+}
+
+.custom-btn {
   margin: 0 5px;
 }
 
 .custom-btn:hover {
+  background-color: rgb(180, 84, 15);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
+
 
 .custom-btn .fas {
   font-size: 1rem;
@@ -160,4 +165,22 @@ i {
 .ranking-btn:hover {
   transform: scale(1.05);
   background-color: orange;
+}
+
+.btn-pagination {
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  background-color: rgb(180, 84, 15);
+  border-radius: 15px;
+  margin-right: 20px;
+}
+
+.btn-pagination:hover {
+  background-color: rgb(202, 133, 83);
+}
+
+.btn-pagination:disabled {
+  background-color: rgb(97, 96, 95);
 }

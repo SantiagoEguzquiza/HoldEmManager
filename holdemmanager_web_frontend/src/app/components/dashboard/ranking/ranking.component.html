@@ -1,9 +1,8 @@
-<div class="loading-container" *ngIf="loading">
-    <app-loading></app-loading>
+<div class="loading" style="width: 100%; display: flex; justify-content: center;">
+    <app-loading *ngIf="loading"></app-loading>
 </div>
 
-<div class="dark-background" *ngIf="isCreate"></div>
-<div class="dark-background" *ngIf="isEdit"></div>
+<div class="dark-background" *ngIf="isCreate || isEdit"></div>
 
 <div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
 
@@ -25,7 +24,6 @@
             <i class="bi bi-file-earmark-arrow-up"></i> Importar
         </a>
         <input type="file" #fileInput (change)="importarRanking($event)" accept=".xlsx" style="display:none" />
-
     </div>
 
     <div class="row">
@@ -41,21 +39,22 @@
                     <button class="ranking-btn escalera-btn"
                         [ngClass]="{'active': rankingActual === RankingEnum.ESCALERAREAL}"
                         (click)="filtrarPorRankingEnum(RankingEnum.ESCALERAREAL)">Escalera Real</button>
-
                 </div>
                 <br>
-                <table class="table table-striped" *ngIf="!loading && filteredRankings && filteredRankings.length > 0">
+
+                <!-- Poker Rankings Table -->
+                <table class="table table-striped"
+                    *ngIf="!loading && rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0">
                     <thead>
                         <tr>
                             <th>Número Jugador</th>
                             <th>Nombre</th>
-                            <th>Puntuacion</th>
+                            <th>Puntuación</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let ranking of filteredRankings">
-
+                        <tr *ngFor="let ranking of filteredPokerRankings">
                             <td>{{ ranking.playerNumber }}</td>
                             <td>{{ ranking.playerName }}</td>
                             <td>{{ ranking.puntuacion }}</td>
@@ -70,8 +69,77 @@
                         </tr>
                     </tbody>
                 </table>
-                <div *ngIf="!loading && (!filteredRankings || filteredRankings.length === 0)">
+
+                <!-- Full House Rankings Table -->
+                <table class="table table-striped"
+                    *ngIf="!loading && rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Número Jugador</th>
+                            <th>Nombre</th>
+                            <th>Puntuación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ranking of filteredFullHouseRankings">
+                            <td>{{ ranking.playerNumber }}</td>
+                            <td>{{ ranking.playerName }}</td>
+                            <td>{{ ranking.puntuacion }}</td>
+                            <td>
+                                <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Escalera Real Rankings Table -->
+                <table class="table table-striped"
+                    *ngIf="!loading && rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Número Jugador</th>
+                            <th>Nombre</th>
+                            <th>Puntuación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ranking of filteredEscaleraRealRankings">
+                            <td>{{ ranking.playerNumber }}</td>
+                            <td>{{ ranking.playerName }}</td>
+                            <td>{{ ranking.puntuacion }}</td>
+                            <td>
+                                <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="!loading && (rankingActual === RankingEnum.POKER && filteredPokerRankings.length === 0) ||
+                          (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length === 0) ||
+                          (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length === 0)">
                     <p>No hay jugadores registrados.</p>
+                </div>
+
+                <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && (
+              (rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0) ||
+              (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0) ||
+              (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0)
+            )">
+                    <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
+                    <span style="margin-right: 20px; cursor:default">Página {{ page }}</span>
+                    <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>
                 </div>
             </div>
         </div>

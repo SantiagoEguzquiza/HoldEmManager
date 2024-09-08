@@ -8,7 +8,7 @@ import { Jugador } from 'src/app/models/jugador';
   styleUrls: ['./edit-player.component.css']
 })
 export class EditPlayerComponent implements OnInit, OnChanges {
-
+  loading = false;
   jugadorForm: FormGroup;
 
   @Input() jugador!: Jugador;
@@ -41,6 +41,7 @@ export class EditPlayerComponent implements OnInit, OnChanges {
 
   guardarJugador() {
     if (this.jugadorForm.valid) {
+      this.loading = true;
       this.guardar.emit(this.jugadorForm.value);
     }
   }

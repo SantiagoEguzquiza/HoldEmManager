@@ -1,9 +1,12 @@
+<div class="loading-container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
 <div class="create-ranking-container">
   <h3 class="titulo">Agregar jugador al Ranking</h3>
   <form [formGroup]="rankingForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="playerNumber">Número de Jugador</label>
-      <input id="playerNumber" type="text" formControlName="playerNumber" class="form-control" />
+      <input id="playerNumber" type="text" formControlName="playerNumber" class="input" />
       <div *ngIf="rankingForm.get('playerNumber')?.invalid && rankingForm.get('playerNumber')?.touched"
         class="text-danger">
         El número de jugador es requerido y debe ser un número válido.
@@ -12,7 +15,7 @@
 
     <div class="form-group">
       <label for="playerName">Nombre del Jugador</label>
-      <input id="playerName" type="text" formControlName="playerName" class="form-control" />
+      <input id="playerName" type="text" formControlName="playerName" class="input" />
       <div *ngIf="rankingForm.get('playerName')?.invalid && rankingForm.get('playerName')?.touched" class="text-danger">
         El nombre del jugador es <strong>requerido.</strong>
       </div>
@@ -20,7 +23,7 @@
 
     <div class="form-group">
       <label for="puntuacion">Puntuación</label>
-      <input id="puntuacion" type="text" formControlName="puntuacion" class="form-control" />
+      <input id="puntuacion" type="text" formControlName="puntuacion" class="input" />
       <div *ngIf="rankingForm.get('puntuacion')?.invalid && rankingForm.get('puntuacion')?.touched" class="text-danger">
         La puntuación es requerida y debe ser un número válido.
       </div>
@@ -28,18 +31,18 @@
 
     <div class="form-group">
       <label for="rankingEnum">Ranking</label>
-      <select id="rankingEnum" formControlName="rankingEnum" class="form-control">
+      <select id="rankingEnum" formControlName="rankingEnum" class="input">
         <option value="" disabled>Seleccione un ranking</option>
         <option *ngFor="let option of rankingEnumOptions" [value]="option.value">{{ option.key }}</option>
       </select>
       <div *ngIf="rankingForm.get('rankingEnum')?.invalid && rankingForm.get('rankingEnum')?.touched"
         class="text-danger">
         El ranking es <strong>requerido.</strong>
-      </div>
+      </div> 
     </div>
 
     <div class="form-group" style="display: flex; justify-content: space-between;">
-      <button type="submit" class="btn aceptar" [disabled]="rankingForm.invalid">Guardar</button>
+      <button type="submit" class="btn aceptar" [disabled]="rankingForm.invalid"> <i class="bi bi-save"></i> {{ 'Aceptar'}}</button>
       <button type="button" class="btn cancelar" (click)="onCancel()">Cancelar</button>
     </div>
   </form>
