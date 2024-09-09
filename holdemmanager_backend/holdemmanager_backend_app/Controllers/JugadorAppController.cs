@@ -25,6 +25,14 @@ namespace holdemmanager_backend_app.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpPost("activar-desactivar-noticias/{id}")]
+        public async Task<IActionResult> ActivateDeactivateNoticias(int id)
+        {
+            await _usuarioService.ActivateDeactivateNoticias(id);
+            return NoContent();
+        }
+
+
         // obtener todos los jugadores
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]

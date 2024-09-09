@@ -31,15 +31,22 @@ namespace holdemmanager_backend_web.Service
         {
             return await _torneoRepository.GetAllTorneos(page,pageSize, filtro, filtroFecha);
         }
+        public async Task<List<Torneos>> GetTorneosFiltered(string filtro)
+        {
+            return await _torneoRepository.GetTorneosFiltered(filtro);
+        }
 
         public async Task<Torneos> GetTorneoById(int id)
         {
             return await _torneoRepository.GetTorneoById(id);
         }
 
+
         public async Task UpdateTorneo(Torneos torneo)
         {
             await _torneoRepository.UpdateTorneo(torneo);
         }
+
+
     }
 }

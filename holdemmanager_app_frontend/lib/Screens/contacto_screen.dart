@@ -16,7 +16,8 @@ class ContactoScreen extends StatefulWidget {
   _ContactoScreenState createState() => _ContactoScreenState();
 }
 
-class _ContactoScreenState extends State<ContactoScreen> implements LanguageHelper {
+class _ContactoScreenState extends State<ContactoScreen>
+    implements LanguageHelper {
   final ApiService apiService = ApiService();
   final List<Contacto> _contactos = [];
   final ScrollController _scrollController = ScrollController();
@@ -176,17 +177,8 @@ class _ContactoScreenState extends State<ContactoScreen> implements LanguageHelp
                       if (index == 0) {
                         return Container(
                           margin: const EdgeInsets.only(bottom: 10.0),
-                          padding: const EdgeInsets.all(25.0),
-                          child: Text(
-                            finalTranslations[finalLocale.toString()]?['contact'] ??
-                                'Educational Resources',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         );
-                      }else if (index == _contactos.length + 1) {
+                      } else if (index == _contactos.length + 1) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 20),
                           child: Center(

@@ -1,4 +1,5 @@
 ﻿using holdemmanager_backend_web.Domain.IRepositories;
+using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
@@ -15,14 +16,25 @@ namespace holdemmanager_backend_web.Repositories
     public class TorneoRepositoryWeb : ITorneosRepositoryWeb
     {
         private readonly AplicationDbContextWeb _context;
-        public TorneoRepositoryWeb(AplicationDbContextWeb context)
+        private readonly INotificacionServiceWeb _notificacionService;
+
+        public TorneoRepositoryWeb(AplicationDbContextWeb context, INotificacionServiceWeb notificacionService)
         {
             this._context = context;
+            this._notificacionService = notificacionService;
         }
         public async Task AddTorneo(Torneos torneo)
         {
-            _context.Torneos.Add(torneo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Torneos.Add(torneo);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al agregar el torneo: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<bool> DeleteTorneo(int id)
@@ -31,9 +43,18 @@ namespace holdemmanager_backend_web.Repositories
 
             if (torneo != null)
             {
-                _context.Torneos.Remove(torneo);
-                await _context.SaveChangesAsync();
-                return true;
+                try
+                {
+                    _context.Torneos.Remove(torneo);
+                    await _context.SaveChangesAsync();
+                    await _notificacionService.AddNotificacion(id, "ELIMINADO");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al eliminar el torneo: {ex.Message}");
+                    throw;
+                }
             }
             return false;
         }
@@ -76,6 +97,19 @@ namespace holdemmanager_backend_web.Repositories
                 HasNextPage = hasNextPage
             };
         }
+        public async Task<List<Torneos>> GetTorneosFiltered(string filtro)
+        {
+            var query = _context.Torneos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                query = query.Where(t => t.Nombre.Contains(filtro));
+            }
+
+            var torneos = await query.ToListAsync();
+
+            return torneos;
+        }
 
         public async Task<Torneos> GetTorneoById(int id)
         {
@@ -88,10 +122,20 @@ namespace holdemmanager_backend_web.Repositories
             return torneo;
         }
 
+
         public async Task UpdateTorneo(Torneos torneo)
         {
-            _context.Update(torneo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Update(torneo);
+                await _context.SaveChangesAsync();
+                await _notificacionService.AddNotificacion(torneo.Id, "EDITADO");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al editar el torneo: {ex.Message}");
+                throw;
+            }
         }
     }
 }

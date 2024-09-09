@@ -50,5 +50,6 @@ flutter:
     - lib/assets/images/español.jpg
     - lib/assets/images/default-map.jpg
     - lib/assets/images/logo.png
+    - lib/assets/images/español.jpg
 
   uses-material-design: true

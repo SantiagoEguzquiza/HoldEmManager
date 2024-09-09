@@ -10,6 +10,9 @@ namespace holdemmanager_backend_web.Domain.IRepositories
 {
     public interface ITorneosRepositoryWeb
     {
+        
+
+        Task<List<Torneos>> GetTorneosFiltered(string filtro);
         Task<PagedResult<Torneos>> GetAllTorneos(int page, int pageSize, string filtro, string filtroFecha);
         Task<Torneos> GetTorneoById(int id);
         Task AddTorneo(Torneos torneo);
