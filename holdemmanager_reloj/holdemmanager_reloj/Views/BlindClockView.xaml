@@ -1,0 +1,160 @@
+﻿<Window x:Class="holdemmanager_reloj.Views.BlindClockView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:holdemmanager_reloj.Converters"
+        mc:Ignorable="d"
+        Title="Reloj de Ciegas"
+        WindowState="Maximized"
+        Topmost="True"
+        Background="#505050">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <TextBlock Text="Configurando torneo..."
+                   FontSize="36"
+                   FontWeight="Bold"
+                   Foreground="#B66830"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding IsConfiguring, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Grid Visibility="{Binding IsConfiguring, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="5"
+                       Text="{Binding Tournament.TournamentName}"
+                       FontSize="72" FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="20" Foreground="#B66830"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="Nivel" />
+                            <Setter Property="FontSize" Value="40" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Margin" Value="0,20,0,10" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsBreak}" Value="True">
+                                    <Setter Property="Text" Value="Break Time" />
+                                    <Setter Property="FontSize" Value="60" />
+                                    <Setter Property="Foreground" Value="Gold" />
+                                    <Setter Property="Margin" Value="0,20,0,-40" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <TextBlock Text="{Binding CurrentLevel.Level}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Text="Inscriptos" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Text="{Binding Tournament.CountInscriptions}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Text="En juego" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Text="{Binding Tournament.ParticipantsRemaining}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Text="Recompras" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Text="{Binding Tournament.CountRebuys}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="1" Background="White" Width="2" Height="700" VerticalAlignment="Center"/>
+
+            <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" FontSize="200" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">
+                   <Run Text="{Binding CurrentLevel.Duration, StringFormat={}{0:mm\\:ss}}" />
+                </TextBlock>
+
+                <TextBlock Grid.Row="1" Text="Blinds" FontSize="64" FontWeight="Bold" Foreground="Gold" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="2" FontSize="64" FontWeight="Bold" Foreground="Gold" HorizontalAlignment="Center">
+                    <Run Text="{Binding CurrentLevel.SmallBlind}" />
+                    <Run Text=" / " />
+                    <Run Text="{Binding CurrentLevel.BigBlind}" />
+                </TextBlock>
+
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Ante: " FontSize="56" Foreground="Gold" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentLevel.Ante}" FontSize="56" FontWeight="Bold" Foreground="Gold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,60,0,0">
+                    <TextBlock Text="Next Blinds: " FontSize="28" Foreground="White"/>
+                    <TextBlock Text="{Binding NextLevel.SmallBlind}" FontSize="28" Foreground="White"/>
+                    <TextBlock Text=" / " FontSize="28" Foreground="White"/>
+                    <TextBlock Text="{Binding NextLevel.BigBlind}" FontSize="28" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Next Ante -->
+                <StackPanel Grid.Row="5" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,105,0,0">
+                    <TextBlock Text="Next Ante: " FontSize="28" Foreground="White"/>
+                    <TextBlock Text="{Binding NextLevel.Ante}" FontSize="28" Foreground="White"/>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="3" Background="White" Width="2" Height="700" VerticalAlignment="Center"/>
+
+            <Grid Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" Text="Siguiente pausa" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Grid.Row="2" Text="{Binding TimeToNextBreak, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Grid.Row="3" Text="Promedio de fichas" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Grid.Row="4" Text="{Binding Tournament.AverageChips}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Grid.Row="5" Text="Total Pot" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
+                <TextBlock Grid.Row="6" Text="{Binding Tournament.PrizePool}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+            </Grid>
+        </Grid>
+
+        <Grid Background="#AA000000" Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Pause" FontSize="200" FontWeight="Bold" Foreground="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPaused}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="PauseStoryboard">
+                                        <Storyboard AutoReverse="True" RepeatBehavior="Forever">
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="PauseStoryboard" />
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>

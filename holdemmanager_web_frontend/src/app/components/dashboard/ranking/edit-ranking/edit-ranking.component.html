@@ -1,0 +1,42 @@
+<div class="loading-container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+<div class="edit-player-container">
+  <h3 class="titulo">Editar jugador</h3>
+  <form [formGroup]="rankingForm" (ngSubmit)="guardarRanking()">
+    <div class="form-group">
+      <label for="playerNumber">Número de Jugador</label>
+      <input type="text" id="playerNumber" formControlName="playerNumber" class="input">
+      <div class="text-danger ml-2" *ngIf="playerNumber?.invalid && (playerNumber?.dirty || playerNumber?.touched)">
+        <small *ngIf="playerNumber?.errors?.['required']">Número de jugador es <strong>requerido.</strong></small>
+        <small *ngIf="playerNumber?.errors?.['pattern']">Número de jugador debe ser un número <strong>válido.</strong></small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="playerName">Nombre del jugador</label>
+      <input type="text" id="playerName" formControlName="playerName" class="input">
+      <div class="text-danger ml-2" *ngIf="playerName?.invalid && (playerName?.dirty || playerName?.touched)">
+        <small *ngIf="playerName?.errors?.['required']">El nombre es <strong>requerido.</strong></small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="puntuacion">Puntuacion</label>
+      <input type="text" id="puntuacion" formControlName="puntuacion" class="input">
+      <div class="text-danger ml-2" *ngIf="puntuacion?.invalid && (puntuacion?.dirty || puntuacion?.touched)">
+        <small *ngIf="puntuacion?.errors?.['required']">La puntuación es <strong>requerida.</strong></small>
+        <small *ngIf="puntuacion?.errors?.['pattern']">La puntuación debe ser un número <strong>válido.</strong></small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rankingEnum">Ranking</label>
+      <select id="rankingEnum" formControlName="rankingEnum" class="input">
+        <option value="" disabled>Seleccione un ranking</option>
+        <option *ngFor="let option of rankingEnumOptions" [value]="option.value">{{ option.key }}</option>
+      </select>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn aceptar" [disabled]="rankingForm.invalid"> <i class="bi bi-save"></i> {{ 'Aceptar'}}</button>
+      <button type="button" class="btn cancelar" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </form>
+</div>

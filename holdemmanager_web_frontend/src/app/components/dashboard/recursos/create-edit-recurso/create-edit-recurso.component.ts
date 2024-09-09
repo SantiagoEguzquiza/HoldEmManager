@@ -49,7 +49,6 @@ export class CreateEditRecursoComponent implements OnChanges {
         this.imageFirst = true;
         this.imagenValida = true;
 
-        // Forzar detección de cambios antes de desactivar el input
         this.cdr.detectChanges();
 
         if (this.fileInput) {
@@ -105,7 +104,7 @@ export class CreateEditRecursoComponent implements OnChanges {
 
       this.selectedFileName = file.name;
       this.imageExists = true;
-      this.convertirAByte(file);  // Redimensionar y optimizar la imagen aquí
+      this.convertirAByte(file);
       this.imageFirst = false;
       this.imagenRequerida = false;
       this.imagenValida = true;
@@ -137,7 +136,7 @@ export class CreateEditRecursoComponent implements OnChanges {
       img.src = reader.result as string;
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const maxWidth = 800; // Ajusta el tamaño máximo deseado
+        const maxWidth = 800;
         const scaleSize = maxWidth / img.width;
         canvas.width = maxWidth;
         canvas.height = img.height * scaleSize;

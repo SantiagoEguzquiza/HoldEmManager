@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "uqWjvpmcTIo=",
+=======
+  "dgSpecHash": "3n0CFO/0xs0=",
+>>>>>>> 9726c92f98f2ef72ea9fb17d2222a655a98df7db
   "success": true,
   "projectFilePath": "C:\\Users\\pipi2\\OneDrive\\Escritorio\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
   "expectedPackageFiles": [

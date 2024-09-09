@@ -1,0 +1,158 @@
+﻿<Window x:Class="holdemmanager_reloj.Views.TournamentHomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:holdemmanager_reloj.Views"
+        mc:Ignorable="d"
+        Height="600" Width="1000" MinHeight="700" MinWidth="900"
+        Foreground="White"
+        Background="Transparent"
+        Title="Inicio" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Border CornerRadius="20" BorderThickness="0" Margin="10" Padding="0">
+        <Border.Background>
+            <VisualBrush Stretch="Fill">
+                <VisualBrush.Visual>
+                    <Grid>
+                        <Border CornerRadius="10" ClipToBounds="True">
+                            <Border.Clip>
+                                <RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>
+                            </Border.Clip>
+                            <Image Source="../Assets/background.jpeg" Stretch="Uniform"/>
+                        </Border>
+                        <Rectangle Fill="Black" Opacity="0.6"/>
+                    </Grid>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Border.Background>
+
+        <Border Background="Transparent" CornerRadius="10" BorderThickness="0">
+            <Grid>
+                <!-- Grid de Carga -->
+                <Grid x:Name="LoadingGrid" Visibility="Collapsed" Background="#80000000" Panel.ZIndex="1">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Cargando..." Foreground="White" FontSize="16" Margin="5" HorizontalAlignment="Center"/>
+                        <ProgressBar IsIndeterminate="True" Width="200" Height="20" Style="{StaticResource OrangeProgressBarStyle}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Contenido Principal -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="../Assets/logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,570,0,0" Grid.Row="0" Grid.RowSpan="2"/>
+
+                    <Grid Grid.Row="1">
+                        <DockPanel Background="Transparent" Margin="10,0,0,0" VerticalAlignment="Top" Height="60" LastChildFill="True" MouseDown="DockPanel_MouseDown">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="CloseBtn"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="0,10,10,0"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand" Click="CloseBtn_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="CloseBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="20">
+                                                <Grid>
+                                                    <Image x:Name="CloseImage" Source="../Assets/Close.png" Width="30" Height="30" Stretch="Uniform"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="CloseBorder" Property="Background" Value="DarkRed"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="CloseBorder" Property="Background" Value="Red"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </DockPanel>
+
+                        <!-- Border para "Torneos" -->
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Margin="400,0,0,0" Width="280" Height="400" CornerRadius="20" BorderBrush="Black" BorderThickness="1"
+                                Cursor="Hand" MouseLeftButtonDown="Border1_MouseLeftButtonDown">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="ZoomTransform" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5"/>
+                            </Border.RenderTransform>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform" Storyboard.TargetProperty="ScaleX" To="1.1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform" Storyboard.TargetProperty="ScaleY" To="1.1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform" Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform" Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <Grid>
+                                <Rectangle RadiusX="20" RadiusY="20">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="../Assets/torneos.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <TextBlock Text="Torneos" Foreground="White" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Border para "Crear Torneo" -->
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,400,0" Width="280" Height="400" CornerRadius="20" BorderBrush="Black" BorderThickness="1"
+                                Cursor="Hand" MouseLeftButtonDown="Border2_MouseLeftButtonDown">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="ZoomTransform2" ScaleX="1" ScaleY="1" CenterX="0.5" CenterY="0.5"/>
+                            </Border.RenderTransform>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform2" Storyboard.TargetProperty="ScaleX" To="1.1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform2" Storyboard.TargetProperty="ScaleY" To="1.1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform2" Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="ZoomTransform2" Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <Grid>
+                                <Rectangle RadiusX="20" RadiusY="20">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="../Assets/crearTorneo.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <TextBlock Text="Crear Torneo" Foreground="White" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

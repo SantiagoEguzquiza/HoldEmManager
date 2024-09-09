@@ -1,3 +1,7 @@
+<div class="loading-container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+
 <div class="create-player-container">
   <h3 class="titulo">Agregar jugador</h3>
   <form [formGroup]="jugadorForm" (ngSubmit)="guardarJugador()">

@@ -56,6 +56,8 @@ builder.Services.AddScoped<INoticiasRepositoryWeb, NoticiasRepositoryWeb>();
 builder.Services.AddScoped<INoticiasServiceWeb, NoticiasServiceWeb>();
 builder.Services.AddScoped<ITorneosRepositoryWeb, TorneoRepositoryWeb>();
 builder.Services.AddScoped<ITorneosServiceWeb, TorneoServiceWeb>();
+builder.Services.AddScoped<IRankingRepositoryWeb, RankingRepositoryWeb>();
+builder.Services.AddScoped<IRankingServiceWeb, RankingServiceWeb>();
 
 builder.Services.AddSingleton<FirebaseStorageHelper>();
 

@@ -9,6 +9,7 @@ import { Jugador } from 'src/app/models/jugador';
 })
 export class CreatePlayerComponent {
   jugadorForm: FormGroup;
+  loading = false;
 
   @Output() guardar = new EventEmitter<Jugador>();
   @Output() cancelar = new EventEmitter<void>();
@@ -36,6 +37,7 @@ export class CreatePlayerComponent {
 
   guardarJugador() {
     if (this.jugadorForm.valid) {
+      this.loading = true;
       this.guardar.emit(this.jugadorForm.value);
     }
   }
