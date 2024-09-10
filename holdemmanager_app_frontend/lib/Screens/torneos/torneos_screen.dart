@@ -42,12 +42,10 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     cargarLocaleYTranslations();
     translationService.addListener(this);
 
-    // Initialize favorites and load the first page of tournaments
     _cargarFavoritos().then((_) {
       _cargarTorneos('');
     });
 
-    // Configure the scroll controller to load more tournaments when reaching the end
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
@@ -108,7 +106,6 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     setState(() {
       _isLoading = true;
 
-      // Check if the ScrollController has attached positions
       double currentScrollPosition = _scrollController.hasClients
           ? _scrollController.position.pixels
           : 0.0;
@@ -135,10 +132,9 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
           if (pagedResult.items.length == _pageSize) {
             _currentPage++;
           } else {
-            _hasMoreData = false; // No more data to load
+            _hasMoreData = false;
           }
 
-          // Set the scroll position to the previous location only if there are clients attached
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (_scrollController.hasClients) {
               _scrollController.jumpTo(currentScrollPosition);
@@ -154,7 +150,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
         });
       }).whenComplete(() {
         setState(() {
-          _isLoading = false; // End of loading state
+          _isLoading = false;
         });
       });
     });
@@ -194,7 +190,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
 
   void _onSearchPressed() {
     final filtro = _searchController.text;
-    _currentPage = 1; // Reset pagination when searching
+    _currentPage = 1;
     _hasMoreData = true;
     _cargarTorneos(filtro);
   }
