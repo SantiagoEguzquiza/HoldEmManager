@@ -37,9 +37,12 @@ namespace holdemmanager_backend_web.Service
             return await _torneoRepository.GetTorneoById(id);
         }
 
+
         public async Task UpdateTorneo(Torneos torneo)
         {
             await _torneoRepository.UpdateTorneo(torneo);
         }
+
+
     }
 }

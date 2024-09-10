@@ -97,6 +97,14 @@ namespace holdemmanager_backend_app.Persistence.Repositories
             }
         }
 
-        
+        public async Task ActivateDeactivateNoticias(int id)
+        {
+            var jugador = await _context.Jugadores.FindAsync(id);
+            if (jugador != null)
+            {
+                jugador.NoticiasNotifications = !jugador.NoticiasNotifications;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

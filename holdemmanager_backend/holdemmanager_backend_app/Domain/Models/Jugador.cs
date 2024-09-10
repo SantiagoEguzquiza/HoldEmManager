@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using holdemmanager_backend_web.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace holdemmanager_backend_app.Domain.Models
@@ -20,6 +21,8 @@ namespace holdemmanager_backend_app.Domain.Models
         [Required]
         public string Password { get; set; }
         public string? ImageUrl { get; set; }
+
+        public bool NoticiasNotifications { get; set; } = false;
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

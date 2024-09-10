@@ -17,10 +17,31 @@ namespace holdemmanager_backend_app.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Favorito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TorneoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JugadorId");
+
+                    b.ToTable("Favoritos");
+                });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
@@ -94,6 +115,9 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("NoticiasNotifications")
+                        .HasColumnType("bit");
+
                     b.Property<int>("NumberPlayer")
                         .HasColumnType("int");
 
@@ -126,6 +150,76 @@ namespace holdemmanager_backend_app.Migrations
                     b.ToTable("Mapa");
                 });
 
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionNoticia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoEvento")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JugadorId");
+
+                    b.ToTable("NotificacionNoticias");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionTorneo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoEvento")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TorneoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JugadorId");
+
+                    b.ToTable("NotificacionTorneos");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Favorito", b =>
+                {
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", "Jugador")
+                        .WithMany()
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jugador");
+                });
+
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Feedback", b =>
                 {
                     b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
@@ -149,6 +243,24 @@ namespace holdemmanager_backend_app.Migrations
                         .IsRequired();
 
                     b.Navigation("idUsuario");
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionNoticia", b =>
+                {
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
+                        .WithMany()
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.NotificacionTorneo", b =>
+                {
+                    b.HasOne("holdemmanager_backend_app.Domain.Models.Jugador", null)
+                        .WithMany()
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("holdemmanager_backend_app.Domain.Models.Jugador", b =>

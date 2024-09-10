@@ -9,7 +9,9 @@ import 'package:holdemmanager_app/NavBar/side_bar.dart';
 import 'package:holdemmanager_app/Screens/noticias/detalle_noticia_screen.dart';
 import 'package:holdemmanager_app/Screens/profile_screen.dart';
 import 'package:holdemmanager_app/Services/TranslationService.dart';
+import 'package:holdemmanager_app/Services/api_service.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NoticiasScreen extends StatefulWidget {
   const NoticiasScreen({super.key});
@@ -31,6 +33,10 @@ class _NoticiasScreenState extends State<NoticiasScreen>
   final TranslationService translationService = TranslationService();
   late Locale finalLocale = const Locale('en', 'US');
   String? _errorMessage;
+  bool _notificacionesHabilitadas = false;
+  late int? idJugador;
+  late SharedPreferences preferencias;
+  ApiService apiService = ApiService();
 
   @override
   void initState() {
@@ -60,6 +66,27 @@ class _NoticiasScreenState extends State<NoticiasScreen>
     cargarLocaleYTranslations();
   }
 
+  Future<void> getPreferencias() async {
+    preferencias = await SharedPreferences.getInstance();
+    idJugador = preferencias.getInt('userId');
+
+    if (idJugador != null) {
+      try {
+        bool estado =
+            await apiService.obtenerEstadoNotificacionesNoticias(idJugador!);
+        setState(() {
+          _notificacionesHabilitadas = estado;
+        });
+      } catch (e) {
+        mostrarDialogoError('serverError');
+      }
+    } else {
+      setState(() {
+        _notificacionesHabilitadas = false;
+      });
+    }
+  }
+
   Future<void> cargarLocaleYTranslations() async {
     final Locale? locale = await translationService.getLocale();
     final Map<String, dynamic> translations =
@@ -69,6 +96,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       finalTranslations = translations;
       finalLocale = locale ?? const Locale('en', 'US');
     });
+    getPreferencias();
   }
 
   void mostrarDialogoError(String mensaje) {
@@ -76,7 +104,8 @@ class _NoticiasScreenState extends State<NoticiasScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(finalTranslations[finalLocale.toString()]?['error'] ?? 'Error'),
+          title: Text(
+              finalTranslations[finalLocale.toString()]?['error'] ?? 'Error'),
           content: Text(traducirError(mensaje)),
           actions: <Widget>[
             TextButton(
@@ -109,10 +138,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
 
     try {
       final PagedResult<Noticia> result = await Noticia.obtenerNoticias(
-        page: _currentPage,
-        pageSize: _pageSize,
-        filtro: "NO"
-      );
+          page: _currentPage, pageSize: _pageSize, filtro: "NO");
       setState(() {
         _noticias.addAll(result.items);
         _currentPage++;
@@ -136,7 +162,7 @@ class _NoticiasScreenState extends State<NoticiasScreen>
 
   void _onNavBarTap(int index) {
     if (_isLoading) return;
-    
+
     setState(() {
       _selectedIndex = index;
     });
@@ -172,7 +198,8 @@ class _NoticiasScreenState extends State<NoticiasScreen>
                     child: Text(
                       _errorMessage != null
                           ? traducirError(_errorMessage!)
-                          : finalTranslations[finalLocale.toString()]?['noData'] ??
+                          : finalTranslations[finalLocale.toString()]
+                                  ?['noData'] ??
                               'No hay datos disponibles',
                       style: const TextStyle(fontSize: 16),
                       textAlign: TextAlign.center,
@@ -183,17 +210,34 @@ class _NoticiasScreenState extends State<NoticiasScreen>
                     itemCount: _noticias.length + (_isLoading ? 2 : 1),
                     itemBuilder: (context, index) {
                       if (index == 0) {
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 10.0),
-                          padding: const EdgeInsets.all(25.0),
-                          child: Text(
-                            finalTranslations[finalLocale.toString()]?['newsForum'] ??
-                                'News Forum',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                        return Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 10.0),
+                              padding: const EdgeInsets.all(25.0),
+                              child: Text(
+                                finalTranslations[finalLocale.toString()]
+                                        ?['newsForum'] ??
+                                    'News Forum',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
+                            CheckboxListTile(
+                              title: Text(
+                                finalTranslations[finalLocale.toString()]
+                                        ?['toggleNotifications'] ??
+                                    'Enable Notifications',
+                              ),
+                              value: _notificacionesHabilitadas,
+                              onChanged: (bool? newValue) {
+                              },
+                              activeColor: Colors.orangeAccent,
+                              controlAffinity: ListTileControlAffinity.leading,
+                            ),
+                          ],
                         );
                       } else if (index == _noticias.length + 1) {
                         return const Padding(

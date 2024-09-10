@@ -6,8 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend", "holdemmanager_backend\holdemmanager_backend.csproj", "{43D8F808-42B4-4527-AD51-759DA5358462}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend_app", "holdemmanager_backend_app\holdemmanager_backend_app.csproj", "{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063} = {A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holdemmanager_backend_web", "holdemmanager_backend_web\holdemmanager_backend_web.csproj", "{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_backend_web", "holdemmanager_backend_web\holdemmanager_backend_web.csproj", "{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

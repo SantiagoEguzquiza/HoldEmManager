@@ -13,5 +13,6 @@ namespace holdemmanager_backend_app.Domain.IServices
         Task UpdateUsuario(Jugador usuario);
         Task DeleteUser(int numberPlayer);
         Task UpdateUser(int numberPlayer, Jugador jugadorActualizado);
+        Task ActivateDeactivateNoticias(int id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using holdemmanager_backend_app.Utils;
 using holdemmanager_backend_web.Domain.Excepciones;
 using holdemmanager_backend_web.Domain.IRepositories;
+using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
@@ -16,9 +17,11 @@ namespace holdemmanager_backend_web.Repositories
     public class NoticiasRepositoryWeb : INoticiasRepositoryWeb
     {
         private readonly AplicationDbContextWeb _context;
-        public NoticiasRepositoryWeb(AplicationDbContextWeb context)
+        private readonly INotificacionNoticiasWeb _notificacionService;
+        public NoticiasRepositoryWeb(AplicationDbContextWeb context, INotificacionNoticiasWeb notificacionService)
         {
             this._context = context;
+            this._notificacionService = notificacionService;
         }
 
         public async Task<Noticia> GetNoticiaById(int id)
@@ -35,8 +38,19 @@ namespace holdemmanager_backend_web.Repositories
 
         public async Task AddNoticia(Noticia noticia)
         {
-            _context.Noticias.Add(noticia);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Noticias.Add(noticia);
+                await _context.SaveChangesAsync();
+
+                await _notificacionService.AddNotificacion(noticia.Id, "AGREGADA");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al agregar noticia: {ex.Message}");
+                throw;
+            }
+
         }
 
 
@@ -46,9 +60,18 @@ namespace holdemmanager_backend_web.Repositories
 
             if (noticia != null)
             {
-                _context.Noticias.Remove(noticia);
-                await _context.SaveChangesAsync();
-                return true;
+                try
+                {
+                    _context.Noticias.Remove(noticia);
+                    await _notificacionService.AddNotificacion(id, "ELIMINADA");
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al eliminar noticia: {ex.Message}");
+                    throw;
+                }
             }
             return false;
         }
@@ -56,8 +79,18 @@ namespace holdemmanager_backend_web.Repositories
 
         public async Task UpdateNoticia(Noticia noticia)
         {
-            _context.Noticias.Update(noticia);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Noticias.Update(noticia);
+                await _context.SaveChangesAsync();
+                await _notificacionService.AddNotificacion(noticia.Id, "EDITADA");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al editar noticia: {ex.Message}");
+                throw;
+            }
+
         }
 
         public async Task<PagedResult<Noticia>> GetAllNoticias(int page, int pageSize, string filtro, string filtroFecha)

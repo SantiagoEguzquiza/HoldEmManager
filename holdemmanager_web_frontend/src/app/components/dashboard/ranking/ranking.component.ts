@@ -98,35 +98,36 @@ export class RankingComponent implements OnInit {
 
   guardarJugadorEditado(rankingEditado: Ranking) {
     if (this.rankingEditado) {
-        this.rankingService.actualizarRanking(rankingEditado).subscribe(
-            (data: Ranking) => {
-                this.cacheRankings[this.rankingActual] = {};
-                this.toastr.success('Ranking actualizado exitosamente');
-                this.isEdit = false;
-                this.obtenerRankingsPorTipo();
-            },
-            (error) => {
-                this.toastr.error('Error al editar el ranking', 'Error');
-                console.error(error);
-            }
-        );
-    }
-}
-
-guardarNuevoRanking(nuevoRanking: Ranking) {
-  this.rankingService.agregarRanking(nuevoRanking).subscribe(
-      (data: Ranking) => {
-          this.cacheRankings[this.rankingActual] = {};
-          this.toastr.success('Jugador agregado al ranking exitosamente');
-          this.isCreate = false;
+      this.rankingService.actualizarRanking(rankingEditado).subscribe(
+        (data: Ranking) => {
+          this.cacheRankings[rankingEditado.rankingEnum] = {};
+          this.toastr.success('Ranking actualizado exitosamente');
+          this.isEdit = false;
           this.obtenerRankingsPorTipo();
+        },
+        (error) => {
+          if (error.status != 401) {
+            this.toastr.error('Error al editar el ranking', 'Error');
+          }
+        }
+      );
+    }
+  }
+
+  guardarNuevoRanking(nuevoRanking: Ranking) {
+    this.rankingService.agregarRanking(nuevoRanking).subscribe(
+      (data: Ranking) => {
+        this.cacheRankings[nuevoRanking.rankingEnum] = {};
+        this.toastr.success('Jugador agregado al ranking exitosamente');
+        this.isCreate = false;
+        this.obtenerRankingsPorTipo();
       },
       (error) => {
-          this.toastr.error(error?.error?.message, 'Error');
-          console.log(error);
+        this.toastr.error(error?.error?.message, 'Error');
+        console.log(error);
       }
-  );
-}
+    );
+  }
 
   eliminarRanking(id: number): void {
     Swal.fire({
@@ -147,6 +148,7 @@ guardarNuevoRanking(nuevoRanking: Ranking) {
         this.rankingService.eliminarRanking(id).subscribe(
           () => {
             this.toastr.success('Jugador eliminado correctamente', 'Éxito');
+            this.cacheRankings[this.rankingActual] = {};
             this.obtenerRankingsPorTipo();
           },
           (error) => {
@@ -213,7 +215,7 @@ guardarNuevoRanking(nuevoRanking: Ranking) {
           playerNumber: row[0],
           playerName: row[1],
           puntuacion: row[2],
-          rankingEnum: row[3]
+          rankingEnum: row[3] as RankingEnum
         }));
 
         try {
@@ -239,11 +241,11 @@ guardarNuevoRanking(nuevoRanking: Ranking) {
     const updatePromises = rankings.map(async (ranking) => {
       try {
         const existingRanking = await this.rankingService.obtenerRankingPorNumero(ranking.playerNumber).toPromise();
-        if (existingRanking) {
-          if (existingRanking.puntuacion !== ranking.puntuacion || existingRanking.rankingEnum !== ranking.rankingEnum) {
-            existingRanking.puntuacion = ranking.puntuacion;
-            existingRanking.rankingEnum = ranking.rankingEnum;
-            await this.rankingService.actualizarRanking(existingRanking).toPromise();
+        if (existingRanking?.ranking) {
+          if (existingRanking.ranking.puntuacion !== ranking.puntuacion || existingRanking.ranking.rankingEnum !== ranking.rankingEnum) {
+            existingRanking.ranking.puntuacion = ranking.puntuacion;
+            existingRanking.ranking.rankingEnum = ranking.rankingEnum;
+            await this.rankingService.actualizarRanking(existingRanking.ranking).toPromise();
           }
         } else {
           await this.rankingService.agregarRanking(ranking).toPromise();
@@ -255,6 +257,7 @@ guardarNuevoRanking(nuevoRanking: Ranking) {
           throw error;
         }
       }
+      this.cacheRankings[ranking.rankingEnum] = {};
     });
 
     await Promise.all(updatePromises);

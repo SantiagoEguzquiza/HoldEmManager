@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Ranking, RankingEnum } from '../models/ranking';
 import { PagedResult } from '../helpers/pagedResult';
+import { RankingHelper } from '../helpers/rankingHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,8 @@ export class RankingService {
     return this.http.post<void>( this.myAppUrl + this.myApiUrlWeb + '/importRanking', rankings);
   }
 
-  obtenerRankingPorNumero(number: number): Observable<Ranking> {
-    return this.http.get<Ranking>(`${this.myAppUrl + this.myApiUrlWeb + '/getByNumber'}/${number}`);
+  obtenerRankingPorNumero(number: number): Observable<RankingHelper> {
+    return this.http.get<RankingHelper>(`${this.myAppUrl + this.myApiUrlWeb + '/getByNumber'}/${number}`);
   }
 }
 

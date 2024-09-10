@@ -1,17 +1,10 @@
 ﻿using holdemmanager_backend_web.Domain.IServices;
 using holdemmanager_backend_web.Domain.Models;
-using holdemmanager_backend_web.Migrations;
 using holdemmanager_backend_web.Persistence;
 using holdemmanager_backend_web.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace holdemmanager_backend_web.Controllers
 {
@@ -29,30 +22,15 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Torneos>>> GetAllTorneos(int page, int pageSize, string filtro, string? filtroFecha)
+        public async Task<ActionResult<PagedResult<Torneos>>> GetAllTorneos(int page, int pageSize, string? filtro, string? filtroFecha)
         {
-            if (filtro == "NO")
+            if (filtro == "NO" || filtro == null)
             {
                 filtro = "";
             }
 
-            var torneos = await _torneosService.GetAllTorneos(page, pageSize, filtro, filtroFecha!);
+            var torneos = await _torneosService.GetAllTorneos(page, pageSize, filtro!, filtroFecha!);
             return Ok(torneos);
-        }
-
-
-        [HttpGet("listadoCompleto")]
-        public async Task<ActionResult<List<Torneos>>> GetTodosLosTorneos()
-        {
-            try
-            {
-                var torneos = await _dbContext.Torneos.ToListAsync();
-                return Ok(torneos);
-            }
-            catch (Exception)
-            {
-                return BadRequest(new { message = "No se pudieron obtener los torneos." });
-            }
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

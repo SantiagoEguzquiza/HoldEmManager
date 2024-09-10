@@ -71,9 +71,19 @@
     "category": "Category",
     "sendAnonimo": "Send as anonymous",
     "feebackValid": "Feedback sent successfully",
-    "feebackError": "Error sending feedback",
     "score": "Score",
-    "numberPlayer": "Number Player"
+    "numberPlayer": "Number Player",
+    "feebackError": "Error sending feedback",
+    "searchTournament": "Search tournaments",
+    "start": "Start",
+    "end": "End",
+    "event": "Event",
+    "stack": "Stack",
+    "levels": "Levels",
+    "ticket": "Ticket",
+    "favorite": "Favorite",
+    "notifications": "Notificacions",
+    "toggleNotifications": "Get notifications"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -147,9 +157,19 @@
     "category": "Categoría",
     "sendAnonimo": "Enviar como anónimo",
     "feebackValid": "Feedback enviado correctamente",
-    "feebackError": "Error al enviar el feedback",
     "score": "Puntuación",
-    "numberPlayer": "Número de Jugador"
+    "numberPlayer": "Número de Jugador",
+    "feebackError": "Error al enviar el feedback",
+    "searchTournament": "Buscar torneos",
+    "start": "Inicio",
+    "end": "Cierre",
+    "event": "Evento",
+    "stack": "Stack",
+    "levels": "Niveles",
+    "ticket": "Entrada",
+    "favorite": "Favorito",
+    "notifications": "Notificaciones",
+    "toggleNotifications": "Recibir notificaciones"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -223,8 +243,18 @@
     "category": "Categoria",
     "sendAnonimo": "Enviar como anônimo",
     "feebackValid": "Feedback enviado com sucesso",
-    "feebackError": "Erro ao enviar feedback",
     "score": "Pontuação",
-    "numberPlayer": "Número do jogador"
+    "numberPlayer": "Número do jogador",
+    "feebackError": "Erro ao enviar feedback",
+    "searchTournament": "Procurar torneios",
+    "start": "Começo",
+    "end": "Fim",
+    "event": "Evento",
+    "stack": "Pilha",
+    "levels": "Níveis",
+    "ticket": "Bilhete",
+    "favorite": "Favorito",
+    "notifications": "Notificações",
+    "toggleNotifications": "Receber notificações"
   }
 }

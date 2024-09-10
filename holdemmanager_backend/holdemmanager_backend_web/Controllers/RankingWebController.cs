@@ -65,7 +65,7 @@ namespace holdemmanager_backend_web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Ranking>>> GetAllRankings(RankingEnum tipo,int page, int pageSize)
+        public async Task<ActionResult<PagedResult<Ranking>>> GetAllRankings(RankingEnum tipo, int page, int pageSize)
         {
             var rankings = await _rankingService.GetAllRankings(tipo, page, pageSize);
 
@@ -139,7 +139,7 @@ namespace holdemmanager_backend_web.Controllers
                     await _rankingService.AddRanking(rank);
 
                 }
-                return Ok(new { message = "Los rankings fueron agregados exitosamente"});
+                return Ok(new { message = "Los rankings fueron agregados exitosamente" });
             }
             catch (Exception ex)
             {
@@ -157,9 +157,18 @@ namespace holdemmanager_backend_web.Controllers
             try
             {
                 var ranking = await _rankingService.GetRankingByNumber(number);
-                rankingHelper.Ranking = ranking;
-                rankingHelper.existingRanking = true;
-                return Ok(rankingHelper);
+                if (ranking != null)
+                {
+                    rankingHelper.Ranking = ranking;
+                    rankingHelper.existingRanking = true;
+                    return Ok(rankingHelper);
+                }
+                else
+                {
+                    rankingHelper.Ranking = null;
+                    return rankingHelper;
+                }
+
             }
             catch (Exception)
             {

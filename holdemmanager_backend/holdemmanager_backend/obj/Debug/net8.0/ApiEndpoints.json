@@ -1,0 +1,1216 @@
+[
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.ContactoWebController",
+    "Method": "GetAllContactos",
+    "RelativePath": "ContactoWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.PagedResult\u00601[[holdemmanager_backend_web.Domain.Models.Contacto, holdemmanager_backend_web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.ContactoWebController",
+    "Method": "AddContacto",
+    "RelativePath": "ContactoWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contacto",
+        "Type": "holdemmanager_backend_web.Domain.Models.Contacto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.ContactoWebController",
+    "Method": "GetContactoById",
+    "RelativePath": "ContactoWeb/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.Contacto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.ContactoWebController",
+    "Method": "UpdateRecurso",
+    "RelativePath": "ContactoWeb/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "contacto",
+        "Type": "holdemmanager_backend_web.Domain.Models.Contacto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.ContactoWebController",
+    "Method": "DeleteRecurso",
+    "RelativePath": "ContactoWeb/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "ObtenerFavoritos",
+    "RelativePath": "FavoritoApp/{jugadorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "AgregarFavorito",
+    "RelativePath": "FavoritoApp/{jugadorId}/{torneoId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "torneoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FavoritoAppController",
+    "Method": "EliminarFavorito",
+    "RelativePath": "FavoritoApp/{jugadorId}/{torneoId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugadorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "torneoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FeedbackAppController",
+    "Method": "GetAllFeedbacks",
+    "RelativePath": "FeedbackApp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Utils.PagedResult\u00601[[holdemmanager_backend_app.Domain.Models.Feedback, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FeedbackAppController",
+    "Method": "AddFeedback",
+    "RelativePath": "FeedbackApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "feedback",
+        "Type": "holdemmanager_backend_app.Domain.Models.Feedback",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FeedbackAppController",
+    "Method": "GetFeedbackById",
+    "RelativePath": "FeedbackApp/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Domain.Models.Feedback",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.FeedbackAppController",
+    "Method": "DeleteFeedback",
+    "RelativePath": "FeedbackApp/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "GetAllJugadores",
+    "RelativePath": "JugadorApp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtro",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Utils.PagedResult\u00601[[holdemmanager_backend_app.Domain.Models.Jugador, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "Post",
+    "RelativePath": "JugadorApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "holdemmanager_backend_app.Domain.Models.Jugador",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "Put",
+    "RelativePath": "JugadorApp",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jugador",
+        "Type": "holdemmanager_backend_app.Domain.Models.Jugador",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "setImageUrl",
+    "RelativePath": "JugadorApp/{imageUrl}/{numeroJugador}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "imageUrl",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "numeroJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "Delete",
+    "RelativePath": "JugadorApp/{numeroJugador}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "numeroJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "ActivateDeactivateNoticias",
+    "RelativePath": "JugadorApp/activar-desactivar-noticias/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "CambiarPassword",
+    "RelativePath": "JugadorApp/CambiarPassword",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cambiarPassword",
+        "Type": "holdemmanager_backend_app.DTO.CambiarPasswordDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "GetFeedbacksPorNumberPlayer",
+    "RelativePath": "JugadorApp/Feedbacks/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[holdemmanager_backend_app.Domain.Models.Feedback, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "GetUsuarioPorId",
+    "RelativePath": "JugadorApp/id/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Domain.Models.Jugador",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.JugadorAppController",
+    "Method": "GetUsuarioPorNumberPlayer",
+    "RelativePath": "JugadorApp/number/{numberPlayer}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "numberPlayer",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Domain.Models.Jugador",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.LoginAppController",
+    "Method": "Post",
+    "RelativePath": "LoginApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "holdemmanager_backend_app.Domain.Models.Jugador",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.LoginWebController",
+    "Method": "Post",
+    "RelativePath": "LoginWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "holdemmanager_backend_web.Domain.Models.UsuarioWeb",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.MapaAppController",
+    "Method": "Post",
+    "RelativePath": "MapaApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mapa",
+        "Type": "holdemmanager_backend_app.Utils.MapaHelper",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.MapaAppController",
+    "Method": "GetMapa",
+    "RelativePath": "MapaApp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_app.Domain.Models.Mapa",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.NoticiasWebController",
+    "Method": "GetAllNoticias",
+    "RelativePath": "NoticiasWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtro",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtroFecha",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.PagedResult\u00601[[holdemmanager_backend_web.Domain.Models.Noticia, holdemmanager_backend_web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.NoticiasWebController",
+    "Method": "AddNoticia",
+    "RelativePath": "NoticiasWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noticiaHelper",
+        "Type": "holdemmanager_backend_web.Domain.Models.Noticia",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.NoticiasWebController",
+    "Method": "GetNoticiaById",
+    "RelativePath": "NoticiasWeb/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.Noticia",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.NoticiasWebController",
+    "Method": "UpdateNoticia",
+    "RelativePath": "NoticiasWeb/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "noticiaHelper",
+        "Type": "holdemmanager_backend_web.Domain.Models.Noticia",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.NoticiasWebController",
+    "Method": "DeleteNoticia",
+    "RelativePath": "NoticiasWeb/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "AddNotificacion",
+    "RelativePath": "NotificacionNoticiaApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noticiaId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipoEvento",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "DeleteNotificacion",
+    "RelativePath": "NotificacionNoticiaApp/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "GetNotificacionesPorJugador",
+    "RelativePath": "NotificacionNoticiaApp/jugador/{idJugador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[holdemmanager_backend_app.Domain.Models.NotificacionNoticia, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionNoticiaAppController",
+    "Method": "NoticiasActivasJugador",
+    "RelativePath": "NotificacionNoticiaApp/noticiasActivadas/{idJugador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionTorneoAppController",
+    "Method": "AddNotificacion",
+    "RelativePath": "NotificacionTorneoApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "torneoId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipoEvento",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionTorneoAppController",
+    "Method": "DeleteNotificacion",
+    "RelativePath": "NotificacionTorneoApp/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_app.Controllers.NotificacionTorneoAppController",
+    "Method": "GetNotificacionesPorJugador",
+    "RelativePath": "NotificacionTorneoApp/jugador/{idJugador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idJugador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[holdemmanager_backend_app.Domain.Models.NotificacionTorneo, holdemmanager_backend_app, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "AddRanking",
+    "RelativePath": "RankingWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ranking",
+        "Type": "holdemmanager_backend_web.Domain.Models.Ranking",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "GetAllRankings",
+    "RelativePath": "RankingWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tipo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.PagedResult\u00601[[holdemmanager_backend_web.Domain.Models.Ranking, holdemmanager_backend_web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "GetRankingById",
+    "RelativePath": "RankingWeb/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.Noticia",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "DeleteRanking",
+    "RelativePath": "RankingWeb/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "UpdateRanking",
+    "RelativePath": "RankingWeb/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ranking",
+        "Type": "holdemmanager_backend_web.Domain.Models.Ranking",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "GetRankingByNumber",
+    "RelativePath": "RankingWeb/getByNumber/{number}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "number",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.RankingHelper",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RankingWebController",
+    "Method": "importarRankings",
+    "RelativePath": "RankingWeb/importRanking",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rankings",
+        "Type": "holdemmanager_backend_web.Domain.Models.Ranking[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RecursosEducativosWebController",
+    "Method": "GetAllRecursos",
+    "RelativePath": "RecursosEducativosWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtro",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.PagedResult\u00601[[holdemmanager_backend_web.Domain.Models.RecursoEducativo, holdemmanager_backend_web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RecursosEducativosWebController",
+    "Method": "Post",
+    "RelativePath": "RecursosEducativosWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recurso",
+        "Type": "holdemmanager_backend_web.Domain.Models.RecursoEducativo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RecursosEducativosWebController",
+    "Method": "GetRecursoById",
+    "RelativePath": "RecursosEducativosWeb/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.RecursoEducativo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RecursosEducativosWebController",
+    "Method": "UpdateRecurso",
+    "RelativePath": "RecursosEducativosWeb/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recurso",
+        "Type": "holdemmanager_backend_web.Domain.Models.RecursoEducativo",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.RecursosEducativosWebController",
+    "Method": "DeleteRecurso",
+    "RelativePath": "RecursosEducativosWeb/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.TorneosWebController",
+    "Method": "GetAllTorneos",
+    "RelativePath": "TorneosWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtro",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtroFecha",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Utils.PagedResult\u00601[[holdemmanager_backend_web.Domain.Models.Torneos, holdemmanager_backend_web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.TorneosWebController",
+    "Method": "AddTorneo",
+    "RelativePath": "TorneosWeb",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "torneo",
+        "Type": "holdemmanager_backend_web.Domain.Models.Torneos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.TorneosWebController",
+    "Method": "GetTorneoById",
+    "RelativePath": "TorneosWeb/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.Torneos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.TorneosWebController",
+    "Method": "UpdateTorneo",
+    "RelativePath": "TorneosWeb/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "torneo",
+        "Type": "holdemmanager_backend_web.Domain.Models.Torneos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.TorneosWebController",
+    "Method": "DeleteTorneo",
+    "RelativePath": "TorneosWeb/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "holdemmanager_backend_web.Controllers.UsuarioWebController",
+    "Method": "GetUsuarioLoggeado",
+    "RelativePath": "UsuarioWeb/GetUsuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "holdemmanager_backend_web.Domain.Models.UsuarioWeb",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

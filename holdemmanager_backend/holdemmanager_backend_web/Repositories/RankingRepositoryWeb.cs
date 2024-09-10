@@ -84,7 +84,7 @@ namespace holdemmanager_backend_web.Repositories
             var ranking = await _context.Rankings.Where(x => x.PlayerNumber == number).FirstOrDefaultAsync();
             if (ranking == null)
             {
-                throw new Exception($"El ranking con Numero de jugador: {number} no fue encontrada o no existe.");
+                return null;
             }
 
             return ranking;
