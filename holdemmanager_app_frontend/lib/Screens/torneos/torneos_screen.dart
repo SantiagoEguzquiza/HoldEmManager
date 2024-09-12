@@ -143,6 +143,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
         });
 
         return pagedResult.items;
+        // ignore: body_might_complete_normally_catch_error
       }).catchError((e) {
         print("Error al cargar torneos: $e");
         setState(() {

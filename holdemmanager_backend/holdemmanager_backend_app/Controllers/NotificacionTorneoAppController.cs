@@ -38,7 +38,7 @@ namespace holdemmanager_backend_app.Controllers
 
             if (notificaciones == null || notificaciones.Count == 0)
             {
-                return NotFound("No se encontraron notificaciones para este jugador.");
+                return Ok(new List<NotificacionTorneo>());
             }
 
             return Ok(notificaciones);

@@ -8,8 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiService {
   final String baseUrl = 'http://10.0.2.2:5183';
 
-  
-
   static Future<Result> agregarFavorito(
       int? jugadorId, int torneoId, context) async {
     try {
@@ -95,26 +93,36 @@ class ApiService {
   }
 
   Future<List<dynamic>> obtenerNotificacionesTorneo(int idJugador) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/NotificacionTorneoApp/jugador/$idJugador'),
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/NotificacionTorneoApp/jugador/$idJugador'),
+      );
 
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Error al cargar notificaciones');
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Error al cargar notificaciones');
+      }
+    } catch (e) {
+      print("Error: $e");
+      rethrow;
     }
   }
 
   Future<List<dynamic>> obtenerNotificacionesNoticias(int idJugador) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/NotificacionNoticiaApp/jugador/$idJugador'),
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/NotificacionNoticiaApp/jugador/$idJugador'),
+      );
 
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Error al cargar notificaciones');
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Error al cargar notificaciones');
+      }
+    } catch (e) {
+      print("Error: $e");
+      rethrow;
     }
   }
 
@@ -122,13 +130,12 @@ class ApiService {
     try {
       final notificacionesTorneos =
           await obtenerNotificacionesTorneo(idJugador);
-
       final notificacionesNoticias =
           await obtenerNotificacionesNoticias(idJugador);
 
-      return [...notificacionesTorneos, ...notificacionesNoticias];
+      return [...(notificacionesTorneos), ...(notificacionesNoticias)];
     } catch (e) {
-      throw Exception('Error al cargar notificaciones: $e');
+      throw Exception('Error al cargar todas las notificaciones: $e');
     }
   }
 
