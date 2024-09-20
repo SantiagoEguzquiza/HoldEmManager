@@ -600,3 +600,4 @@ C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemman
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.genruntimeconfig.cache
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\ref\holdemmanager_backend.dll
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\System.Text.Json.dll

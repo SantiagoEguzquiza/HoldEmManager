@@ -83,19 +83,6 @@ namespace holdemmanager_reloj.ViewModels
             }
         }
 
-        private int _totalEntries;
-        public int TotalEntries
-        {
-            get => _totalEntries;
-            set
-            {
-                if (_totalEntries != value)
-                {
-                    _totalEntries = value;
-                    OnPropertyChanged(nameof(TotalEntries));
-                }
-            }
-        }
 
         private int? _participantsRemaining = 0;
         public int? ParticipantsRemaining
@@ -139,6 +126,20 @@ namespace holdemmanager_reloj.ViewModels
             }
         }
 
+        private int? _chipsRebuys = 0;
+        public int? ChipsRebuys
+        {
+            get => _chipsRebuys;
+            set
+            {
+                if (_chipsRebuys != value)
+                {
+                    _chipsRebuys = value;
+                    OnPropertyChanged(nameof(ChipsRebuys));
+                }
+            }
+        }
+
         private int? _totalInscriptions = 0;
         public int? TotalInscriptions
         {
@@ -166,6 +167,63 @@ namespace holdemmanager_reloj.ViewModels
                 }
             }
         }
+
+        private int? _chipsInscriptions = 0;
+        public int? ChipsInscriptions
+        {
+            get => _chipsInscriptions;
+            set
+            {
+                if (_chipsInscriptions != value)
+                {
+                    _chipsInscriptions = value;
+                    OnPropertyChanged(nameof(ChipsInscriptions));
+                }
+            }
+        }
+
+        private int _totalAddOn;
+        public int TotalAddOn
+        {
+            get => _totalAddOn;
+            set
+            {
+                if (_totalAddOn != value)
+                {
+                    _totalAddOn = value;
+                    OnPropertyChanged(nameof(TotalAddOn));
+                }
+            }
+        }
+
+        private int _countAddOn;
+        public int CountAddOn
+        {
+            get => _countAddOn;
+            set
+            {
+                if (_countAddOn != value)
+                {
+                    _countAddOn = value;
+                    OnPropertyChanged(nameof(CountAddOn));
+                }
+            }
+        }
+
+        private int? _chipsAddon = 0;
+        public int? ChipsAddon
+        {
+            get => _chipsAddon;
+            set
+            {
+                if (_chipsAddon != value)
+                {
+                    _chipsAddon = value;
+                    OnPropertyChanged(nameof(ChipsAddon));
+                }
+            }
+        }
+
 
         private decimal? _averageChips = 0;
         public decimal? AverageChips
@@ -209,33 +267,7 @@ namespace holdemmanager_reloj.ViewModels
             }
         }
 
-        private int _totalAddOn;
-        public int TotalAddOn
-        {
-            get => _totalAddOn;
-            set
-            {
-                if (_totalAddOn != value)
-                {
-                    _totalAddOn = value;
-                    OnPropertyChanged(nameof(TotalAddOn));
-                }
-            }
-        }
-
-        private int _countAddOn;
-        public int CountAddOn
-        {
-            get => _countAddOn;
-            set
-            {
-                if (_countAddOn != value)
-                {
-                    _countAddOn = value;
-                    OnPropertyChanged(nameof(CountAddOn));
-                }
-            }
-        }
+        
 
         private string _durationString;
         public string DurationString
@@ -289,8 +321,7 @@ namespace holdemmanager_reloj.ViewModels
                     var tournament = new Tournament
                     {
                         TournamentName = TournamentName,
-                        Level = Level,
-                        TotalEntries = TotalEntries,
+                        Level = Level,                    
                         ParticipantsRemaining = ParticipantsRemaining,
                         TotalRebuys = TotalRebuys,
                         CountRebuys = CountRebuys,
@@ -352,7 +383,7 @@ namespace holdemmanager_reloj.ViewModels
                 SmallBlind = 0,
                 BigBlind = 0,
                 Ante = 0,
-                DurationString = "1",
+                DurationString = "10",
                 BlindType = BlindTypeEnum.Break
             });
         }
@@ -363,11 +394,18 @@ namespace holdemmanager_reloj.ViewModels
             {
                 Levels.Remove(level);
 
+                // Reordenar los niveles después de eliminar uno
                 int levelCounter = 1;
                 foreach (var lvl in Levels.Where(l => l.BlindType == BlindTypeEnum.Level))
                 {
                     lvl.Level = levelCounter++;
                 }
+
+                // Crear una nueva instancia de la colección para forzar el refresh
+                Levels = new ObservableCollection<BlindLevel>(Levels);
+
+                // Notificar a la interfaz de usuario que la colección Levels ha cambiado
+                OnPropertyChanged(nameof(Levels));
             }
         }
 

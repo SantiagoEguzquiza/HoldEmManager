@@ -64,3 +64,6 @@ C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemman
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Debug\net8.0\holdemmanager_backend_web.dll
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Debug\net8.0\holdemmanager_backend_web.pdb
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Debug\net8.0\holdemma.CD84079C.Up2Date
+C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Debug\net8.0\holdemmanager_backend_web.dll
+C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Debug\net8.0\holdemmanager_backend_web.pdb
+C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Debug\net8.0\holdemma.CD84079C.Up2Date
