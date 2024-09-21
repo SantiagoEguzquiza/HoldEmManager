@@ -80,7 +80,7 @@ namespace holdemmanager_reloj.Views
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            TournamentListView tournamentHome = new TournamentListView();
+            TournamentHomeView tournamentHome = new TournamentHomeView();
             tournamentHome.Show();
             Close();
         }

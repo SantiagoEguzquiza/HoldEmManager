@@ -91,14 +91,14 @@ namespace holdemmanager_reloj.ViewModels
             }
         }
 
-        private void PlayTournament(Tournament selectedTournament)
+        public void PlayTournament(Tournament selectedTournament)
         {
 
             if (selectedTournament != null)
             {
                
                 NavigationService.NavigateTo("BlindClockView", selectedTournament);
-                NavigationService.NavigateTo("EditTournamentView", selectedTournament);
+                NavigationService.NavigateTo("EditTournamentView", selectedTournament);                
                 
             }
         }

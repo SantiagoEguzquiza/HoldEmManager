@@ -225,8 +225,8 @@ namespace holdemmanager_reloj.ViewModels
         }
 
 
-        private decimal? _averageChips = 0;
-        public decimal? AverageChips
+        private int? _averageChips = 0;
+        public int? AverageChips
         {
             get => _averageChips;
             set

@@ -163,11 +163,13 @@ namespace holdemmanager_reloj.ViewModels
 
         private void StartTournament()
         {
+
             IsConfiguring = false;
             _isTimingPaused = false;
             IsPaused = false;
             EndGameMessage = string.Empty;
 
+            calculateAverageChips();
             _timer.Start();
             StartBreakTimer();
         }
@@ -237,6 +239,7 @@ namespace holdemmanager_reloj.ViewModels
         private void RestarPlayer()
         {
             Tournament.ParticipantsRemaining--;
+            calculateAverageChips();
             OnPropertyChanged(nameof(Tournament));
         }
 
@@ -265,6 +268,17 @@ namespace holdemmanager_reloj.ViewModels
             {
                 TimeToNextBreak = _blindService.GetNextBreakTiming(Tournament, CurrentLevel);
                 StartBreakTimer();
+            }
+        }
+
+        private void calculateAverageChips() {
+
+            var chips = Tournament.ChipsInscriptions + Tournament.ChipsRebuys + Tournament.ChipsAddon;
+
+            if (Tournament.ParticipantsRemaining > 0)
+            {
+                Tournament.AverageChips = chips / Tournament.ParticipantsRemaining;
+                OnPropertyChanged(nameof(Tournament));
             }
         }
 

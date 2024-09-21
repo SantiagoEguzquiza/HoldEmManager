@@ -158,7 +158,7 @@ namespace holdemmanager_reloj.ViewModels
                     _tournamentService.SaveOrUpdateTournament(Tournament);
                 });
 
-                TournamentListView tournamentListView = new TournamentListView();
+                TournamentListView tournamentListView =  TournamentListView.Instance;
                 tournamentListView.Show();
 
                 Application.Current.Dispatcher.Invoke(() => {
