@@ -447,6 +447,7 @@ C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemman
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.genruntimeconfig.cache
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\ref\holdemmanager_backend.dll
 C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.MvcApplicationPartsAssemblyInfo.cs
+<<<<<<< HEAD
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\appsettings.Development.json
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\appsettings.json
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\credentials.json
@@ -609,3 +610,6 @@ D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.pdb
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\holdemmanager_backend.genruntimeconfig.cache
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend\obj\Debug\net8.0\ref\holdemmanager_backend.dll
+=======
+C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend\bin\Debug\net8.0\System.Text.Json.dll
+>>>>>>> dd7ef90f189c2d66e2beeb195161a867d7bb44b8

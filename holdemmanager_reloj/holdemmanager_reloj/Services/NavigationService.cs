@@ -19,12 +19,12 @@ namespace holdemmanager_reloj.Services
 
             if (viewName == "EditTournamentView" && parameter is Tournament tournament)
             {
-                window = new EditTournamentView(tournament);
+                window =  EditTournamentView.ObtenerInstancia(tournament);
             }
             else if (viewName == "BlindClockView" && parameter is Tournament tournamentPlay)
             {
-                window = new BlindClockView(tournamentPlay);
-               
+                 window = BlindClockView.ObtenerInstancia(tournamentPlay);
+
             }
             else
             {

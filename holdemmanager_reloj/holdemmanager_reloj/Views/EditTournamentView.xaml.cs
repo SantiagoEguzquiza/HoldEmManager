@@ -17,17 +17,14 @@ namespace holdemmanager_reloj.Views
         private AlertServices alertServices;
         private EditTournamentViewModel viewModel;
 
-        public EditTournamentView()
-        {
-            InitializeComponent();
+        // Instancia única de la clase
+        private static EditTournamentView instanciaUnica = null;
 
-            viewModel = new EditTournamentViewModel(new NotificationContainer(), new Tournament());
-            DataContext = viewModel;
+        // Objeto para bloqueo de hilo
+        private static readonly object bloqueo = new object();
 
-            alertServices = new AlertServices(notificationContainer);
-        }
-
-        public EditTournamentView(Tournament tournament)
+        // Constructor privado para evitar la creación de instancias
+        private EditTournamentView(Tournament tournament)
         {
             InitializeComponent();
 
@@ -35,6 +32,23 @@ namespace holdemmanager_reloj.Views
             DataContext = viewModel;
 
             alertServices = new AlertServices(notificationContainer);
+        }
+
+        // Método estático público para obtener la instancia única
+        public static EditTournamentView ObtenerInstancia(Tournament tournament)
+        {
+            // Doble verificación de bloqueo para asegurar que solo una instancia sea creada
+            if (instanciaUnica == null)
+            {
+                lock (bloqueo)
+                {
+                    if (instanciaUnica == null)
+                    {
+                        instanciaUnica = new EditTournamentView(tournament);
+                    }
+                }
+            }
+            return instanciaUnica;
         }
 
         private void DurationTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -66,7 +80,7 @@ namespace holdemmanager_reloj.Views
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            TournamentListView tournamentHome = new TournamentListView();
+            TournamentHomeView tournamentHome = new TournamentHomeView();
             tournamentHome.Show();
             Close();
         }

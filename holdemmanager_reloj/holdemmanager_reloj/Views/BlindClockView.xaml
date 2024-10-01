@@ -14,7 +14,8 @@
         <local:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     </Window.Resources>
 
-    <Grid>
+    <Grid Width="1920"
+          Height="1080">
         <TextBlock Text="Configurando torneo..."
                    FontSize="36"
                    FontWeight="Bold"
@@ -42,7 +43,7 @@
                        HorizontalAlignment="Center"
                        Margin="20" Foreground="#B66830"/>
 
-            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,0,0">
                 <TextBlock>
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -50,25 +51,27 @@
                             <Setter Property="FontSize" Value="40" />
                             <Setter Property="Foreground" Value="White" />
                             <Setter Property="Margin" Value="0,20,0,10" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsBreak}" Value="True">
                                     <Setter Property="Text" Value="Break Time" />
                                     <Setter Property="FontSize" Value="60" />
                                     <Setter Property="Foreground" Value="Gold" />
                                     <Setter Property="Margin" Value="0,20,0,-40" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
 
-                <TextBlock Text="{Binding CurrentLevel.Level}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
-                <TextBlock Text="Inscriptos" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Text="{Binding Tournament.CountInscriptions}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
-                <TextBlock Text="En juego" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Text="{Binding Tournament.ParticipantsRemaining}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
-                <TextBlock Text="Recompras" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Text="{Binding Tournament.CountRebuys}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Text="{Binding CurrentLevel.Level}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
+                <TextBlock Text="Inscriptos" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Tournament.TotalInscriptions}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
+                <TextBlock Text="En juego" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Tournament.ParticipantsRemaining}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
+                <TextBlock Text="Recompras" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Tournament.TotalRebuys}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
             </StackPanel>
 
             <Border Grid.Row="1" Grid.Column="1" Background="White" Width="2" Height="700" VerticalAlignment="Center"/>
@@ -125,16 +128,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="1" Text="Siguiente pausa" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Grid.Row="2" Text="{Binding TimeToNextBreak, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
-                <TextBlock Grid.Row="3" Text="Promedio de fichas" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Grid.Row="4" Text="{Binding Tournament.AverageChips}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
-                <TextBlock Grid.Row="5" Text="Total Pot" FontSize="40" Foreground="White" Margin="0,20,0,10"/>
-                <TextBlock Grid.Row="6" Text="{Binding Tournament.PrizePool}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40"/>
+                <TextBlock Grid.Row="1" Text="Siguiente pausa" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="{Binding TimeToNextBreak, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Text="Promedio de fichas" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="4" Text="{Binding Tournament.AverageChips}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="5" Text="Total Pot" FontSize="40" Foreground="White" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="6" Text="{Binding Tournament.PrizePool}" FontSize="64" FontWeight="Bold" Foreground="White" Margin="0,0,0,40" HorizontalAlignment="Center"/>
             </Grid>
         </Grid>
 
-        <Grid Background="#AA000000" Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Background="#AA000000" Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="1892,10,-1892,-10">
             <TextBlock Text="Pause" FontSize="200" FontWeight="Bold" Foreground="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">

@@ -5,17 +5,38 @@ using System.Windows.Input;
 
 namespace holdemmanager_reloj.Views
 {
-    /// <summary>
-    /// Lógica de interacción para BlindClockView.xaml
-    /// </summary>
     public partial class BlindClockView : Window
     {
-        public BlindClockView(Tournament tournament)
+        // Instancia única de la clase
+        private static BlindClockView instanciaUnica = null;
+
+        // Objeto para bloqueo de hilo
+        private static readonly object bloqueo = new object();
+
+        // Constructor privado para evitar la creación de instancias
+        private BlindClockView(Tournament tournament)
         {
             InitializeComponent();
             this.PreviewKeyDown += new KeyEventHandler(HandleKeyPress);
 
             this.DataContext = new BlindClockViewModel(tournament);
+        }
+
+        // Método estático público para obtener la instancia única
+        public static BlindClockView ObtenerInstancia(Tournament tournament)
+        {
+            // Doble verificación de bloqueo para asegurar que solo una instancia sea creada
+            if (instanciaUnica == null)
+            {
+                lock (bloqueo)
+                {
+                    if (instanciaUnica == null)
+                    {
+                        instanciaUnica = new BlindClockView(tournament);
+                    }
+                }
+            }
+            return instanciaUnica;
         }
 
         private void HandleKeyPress(object sender, KeyEventArgs e)
@@ -70,4 +91,3 @@ namespace holdemmanager_reloj.Views
         }
     }
 }
-

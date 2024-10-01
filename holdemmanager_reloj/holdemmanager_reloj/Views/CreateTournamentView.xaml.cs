@@ -1,4 +1,5 @@
-﻿using holdemmanager_reloj.ViewModels;
+﻿using Flattinger.UI.ToastMessage.Controls;
+using holdemmanager_reloj.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,14 +14,14 @@ namespace holdemmanager_reloj.Views
         public CreateTournamentView()
         {
             InitializeComponent();
-            DataContext = new CreateTournamentViewModel(notificationContainer);
+            DataContext = new CreateTournamentViewModel(new NotificationContainer());
         }
 
         private void DurationTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox)
             {
-                string duration = textBox.Text?.Trim();
+                string duration = textBox.Text?.Trim() ?? string.Empty;
 
                 if (string.IsNullOrWhiteSpace(duration))
                 {
@@ -43,6 +44,7 @@ namespace holdemmanager_reloj.Views
         {
             Close();
         }
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             TournamentHomeView tournamentHome = new TournamentHomeView();

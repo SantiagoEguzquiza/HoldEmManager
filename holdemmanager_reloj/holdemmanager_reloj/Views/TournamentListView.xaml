@@ -16,36 +16,36 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
-    <Grid>
-        <Grid x:Name="MainContentGrid" Cursor="">
-            <Border CornerRadius="20" BorderThickness="0" Margin="10" Padding="0">
-                <Border.Background>
-                    <VisualBrush Stretch="Fill">
-                        <VisualBrush.Visual>
-                            <Grid>
-                                <Border CornerRadius="10" ClipToBounds="True">
-                                    <Border.Clip>
-                                        <RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>
-                                    </Border.Clip>
-                                    <Image Source="../Assets/background.jpeg" Stretch="Uniform"/>
-                                </Border>
-                                <Rectangle Fill="Black" Opacity="0.6"/>
-                            </Grid>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Border.Background>
+	<Grid>
+		<Grid x:Name="MainContentGrid" Cursor="">
+			<Border CornerRadius="20" BorderThickness="0" Margin="10" Padding="0">
+				<Border.Background>
+					<VisualBrush Stretch="Fill">
+						<VisualBrush.Visual>
+							<Grid>
+								<Border CornerRadius="10" ClipToBounds="True">
+									<Border.Clip>
+										<RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>
+									</Border.Clip>
+									<Image Source="../Assets/background.jpeg" Stretch="Uniform"/>
+								</Border>
+								<Rectangle Fill="Black" Opacity="0.6"/>
+							</Grid>
+						</VisualBrush.Visual>
+					</VisualBrush>
+				</Border.Background>
 
-                <Border Background="Transparent" CornerRadius="10" BorderThickness="0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+				<Border Background="Transparent" CornerRadius="10" BorderThickness="0">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
 
-                        <DockPanel Grid.Row="0" Background="Transparent" Margin="10,0,0,0" VerticalAlignment="Top" Height="60" LastChildFill="True" MouseDown="DockPanel_MouseDown" Grid.RowSpan="2">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button x:Name="BackBtn"
+						<DockPanel Grid.Row="0" Background="Transparent" Margin="10,0,0,0" VerticalAlignment="Top" Height="60" LastChildFill="True" MouseDown="DockPanel_MouseDown" Grid.RowSpan="2">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+								<Button x:Name="BackBtn"
                                     Width="40"
                                     Height="40"
                                     Margin="0,10,10,0"
@@ -53,62 +53,62 @@
                                     BorderThickness="0"
                                     Cursor="Hand" Click="BackBtn_Click">
 
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="CloseBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="20">
-                                                <Grid>
-                                                    <Image x:Name="BackImage" Source="../Assets/flecha.png" Width="30" Height="30" Stretch="Uniform"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="CloseBorder" Property="Background" Value="Gray"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="CloseBorder" Property="Background" Value="Gray"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button x:Name="CloseBtn"
+									<Button.Template>
+										<ControlTemplate TargetType="Button">
+											<Border x:Name="CloseBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="20">
+												<Grid>
+													<Image x:Name="BackImage" Source="../Assets/flecha.png" Width="30" Height="30" Stretch="Uniform"/>
+												</Grid>
+											</Border>
+											<ControlTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="True">
+													<Setter TargetName="CloseBorder" Property="Background" Value="Gray"/>
+												</Trigger>
+												<Trigger Property="IsPressed" Value="True">
+													<Setter TargetName="CloseBorder" Property="Background" Value="Gray"/>
+												</Trigger>
+											</ControlTemplate.Triggers>
+										</ControlTemplate>
+									</Button.Template>
+								</Button>
+								<Button x:Name="CloseBtn"
                                     Width="40"
                                     Height="40"
                                     Margin="0,10,10,0"
                                     Background="Transparent"
                                     BorderThickness="0"
                                     Cursor="Hand" Click="CloseBtn_Click">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="CloseBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="20">
-                                                <Grid>
-                                                    <Image x:Name="CloseImage" Source="../Assets/Close.png" Width="30" Height="30" Stretch="Uniform"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="CloseBorder" Property="Background" Value="DarkRed"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="CloseBorder" Property="Background" Value="Red"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                            </StackPanel>
-                        </DockPanel>
+									<Button.Template>
+										<ControlTemplate TargetType="Button">
+											<Border x:Name="CloseBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="20">
+												<Grid>
+													<Image x:Name="CloseImage" Source="../Assets/Close.png" Width="30" Height="30" Stretch="Uniform"/>
+												</Grid>
+											</Border>
+											<ControlTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="True">
+													<Setter TargetName="CloseBorder" Property="Background" Value="DarkRed"/>
+												</Trigger>
+												<Trigger Property="IsPressed" Value="True">
+													<Setter TargetName="CloseBorder" Property="Background" Value="Red"/>
+												</Trigger>
+											</ControlTemplate.Triggers>
+										</ControlTemplate>
+									</Button.Template>
+								</Button>
+							</StackPanel>
+						</DockPanel>
 
-                        <TextBlock Grid.Row="2" 
-                               Text="Torneos" 
-                               Foreground="White" 
-                               FontWeight="Bold" 
-                               FontSize="16" 
-                               Margin="52,29,0,552" 
+						<TextBlock Grid.Row="2"
+                               Text="Torneos"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Margin="52,29,0,552"
                                HorizontalAlignment="Left"/>
 
-                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                            <DataGrid x:Name="TorneoDataGrid" ItemsSource="{Binding Tournaments}"
+						<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+							<DataGrid x:Name="TorneoDataGrid" ItemsSource="{Binding Tournaments}"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
                                   IsReadOnly="True"
@@ -125,188 +125,188 @@
                                   FontSize="14"
                                   FontWeight="Bold" Width="769">
 
-                                <DataGrid.ColumnHeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
-                                        <Setter Property="Background" Value="#B3242424"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="FontSize" Value="14"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                        <Setter Property="Height" Value="30"/>
-                                        <Setter Property="BorderBrush" Value="Gray"/>
-                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                                    </Style>
-                                </DataGrid.ColumnHeaderStyle>
+								<DataGrid.ColumnHeaderStyle>
+									<Style TargetType="DataGridColumnHeader">
+										<Setter Property="Background" Value="#B3242424"/>
+										<Setter Property="Foreground" Value="White"/>
+										<Setter Property="FontWeight" Value="Bold"/>
+										<Setter Property="FontSize" Value="14"/>
+										<Setter Property="HorizontalContentAlignment" Value="Center"/>
+										<Setter Property="VerticalContentAlignment" Value="Center"/>
+										<Setter Property="Height" Value="30"/>
+										<Setter Property="BorderBrush" Value="Gray"/>
+										<Setter Property="BorderThickness" Value="0,0,0,1"/>
+									</Style>
+								</DataGrid.ColumnHeaderStyle>
 
-                                <DataGrid.RowStyle>
-                                    <Style TargetType="DataGridRow">
-                                        <Setter Property="Background" Value="#CC2B2B2B"/>
-                                        <Setter Property="BorderBrush" Value="Gray"/>
-                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                                        <Setter Property="FontSize" Value="14"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#99FFFFFF"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.RowStyle>
+								<DataGrid.RowStyle>
+									<Style TargetType="DataGridRow">
+										<Setter Property="Background" Value="#CC2B2B2B"/>
+										<Setter Property="BorderBrush" Value="Gray"/>
+										<Setter Property="BorderThickness" Value="0,0,0,1"/>
+										<Setter Property="FontSize" Value="14"/>
+										<Setter Property="FontWeight" Value="Bold"/>
+										<Setter Property="Foreground" Value="White"/>
+										<Style.Triggers>
+											<Trigger Property="IsMouseOver" Value="True">
+												<Setter Property="Background" Value="#99FFFFFF"/>
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</DataGrid.RowStyle>
 
-                                <DataGrid.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="FontSize" Value="12"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="Padding" Value="5"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                        <Setter Property="Height" Value="30"/>
-                                    </Style>
-                                </DataGrid.CellStyle>
+								<DataGrid.CellStyle>
+									<Style TargetType="DataGridCell">
+										<Setter Property="Background" Value="Transparent"/>
+										<Setter Property="Foreground" Value="White"/>
+										<Setter Property="FontSize" Value="12"/>
+										<Setter Property="FontWeight" Value="Bold"/>
+										<Setter Property="BorderThickness" Value="0"/>
+										<Setter Property="Padding" Value="5"/>
+										<Setter Property="VerticalContentAlignment" Value="Center"/>
+										<Setter Property="HorizontalContentAlignment" Value="Center"/>
+										<Setter Property="Height" Value="30"/>
+									</Style>
+								</DataGrid.CellStyle>
 
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nombre" Binding="{Binding TournamentName}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="Nombre" Binding="{Binding TournamentName}" Width="*">
+										<DataGridTextColumn.ElementStyle>
+											<Style TargetType="TextBlock">
+												<Setter Property="VerticalAlignment" Value="Center"/>
+												<Setter Property="HorizontalAlignment" Value="Center"/>
+											</Style>
+										</DataGridTextColumn.ElementStyle>
+									</DataGridTextColumn>
 
-                                    <DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding FechaInicio, StringFormat=\{0:dd/MM/yyyy\}}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
+									<DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding FechaInicio, StringFormat=\{0:dd/MM/yyyy\}}" Width="*">
+										<DataGridTextColumn.ElementStyle>
+											<Style TargetType="TextBlock">
+												<Setter Property="VerticalAlignment" Value="Center"/>
+												<Setter Property="HorizontalAlignment" Value="Center"/>
+											</Style>
+										</DataGridTextColumn.ElementStyle>
+									</DataGridTextColumn>
 
-                                    <DataGridTextColumn Header="Inscripciones" Binding="{Binding CountInscriptions}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
+									<DataGridTextColumn Header="Inscripciones" Binding="{Binding CountInscriptions}" Width="*">
+										<DataGridTextColumn.ElementStyle>
+											<Style TargetType="TextBlock">
+												<Setter Property="VerticalAlignment" Value="Center"/>
+												<Setter Property="HorizontalAlignment" Value="Center"/>
+											</Style>
+										</DataGridTextColumn.ElementStyle>
+									</DataGridTextColumn>
 
-                                    <DataGridTextColumn Header="Premio" Binding="{Binding PrizePool}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
+									<DataGridTextColumn Header="Premio" Binding="{Binding PrizePool}" Width="*">
+										<DataGridTextColumn.ElementStyle>
+											<Style TargetType="TextBlock">
+												<Setter Property="VerticalAlignment" Value="Center"/>
+												<Setter Property="HorizontalAlignment" Value="Center"/>
+											</Style>
+										</DataGridTextColumn.ElementStyle>
+									</DataGridTextColumn>
 
-                                    <DataGridTemplateColumn Width="50">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Cursor="Hand">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="Button">
-                                                                        <Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
-                                                                            <Grid>
-                                                                                <Image Source="../Assets/play.png" Stretch="Fill"/>
-                                                                            </Grid>
-                                                                        </Border>
-                                                                        <ControlTemplate.Triggers>
-                                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
-                                                                            </Trigger>
-                                                                        </ControlTemplate.Triggers>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+									<DataGridTemplateColumn Width="50">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="PlayTournament_Click" Cursor="Hand">
+													<Button.Style>
+														<Style TargetType="Button">
+															<Setter Property="Template">
+																<Setter.Value>
+																	<ControlTemplate TargetType="Button">
+																		<Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
+																			<Grid>
+																				<Image Source="../Assets/play.png" Stretch="Fill"/>
+																			</Grid>
+																		</Border>
+																		<ControlTemplate.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
+																			</Trigger>
+																		</ControlTemplate.Triggers>
+																	</ControlTemplate>
+																</Setter.Value>
+															</Setter>
+														</Style>
+													</Button.Style>
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="50">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0"
+									<DataGridTemplateColumn Width="50">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Width="30" Height="30" Background="Transparent" BorderThickness="0"
                                                     Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                     CommandParameter="{Binding}" Cursor="Hand">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="Button">
-                                                                        <Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
-                                                                            <Grid>
-                                                                                <Image Source="../Assets/editar.png" Stretch="Fill"/>
-                                                                            </Grid>
-                                                                        </Border>
-                                                                        <ControlTemplate.Triggers>
-                                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
-                                                                            </Trigger>
-                                                                        </ControlTemplate.Triggers>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+													<Button.Style>
+														<Style TargetType="Button">
+															<Setter Property="Template">
+																<Setter.Value>
+																	<ControlTemplate TargetType="Button">
+																		<Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
+																			<Grid>
+																				<Image Source="../Assets/editar.png" Stretch="Fill"/>
+																			</Grid>
+																		</Border>
+																		<ControlTemplate.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
+																			</Trigger>
+																		</ControlTemplate.Triggers>
+																	</ControlTemplate>
+																</Setter.Value>
+															</Setter>
+														</Style>
+													</Button.Style>
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="50">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Cursor="Hand">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="Button">
-                                                                        <Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
-                                                                            <Grid>
-                                                                                <Image Source="../Assets/delete.png" Stretch="Fill"/>
-                                                                            </Grid>
-                                                                        </Border>
-                                                                        <ControlTemplate.Triggers>
-                                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
-                                                                            </Trigger>
-                                                                        </ControlTemplate.Triggers>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </ScrollViewer>
-                    </Grid>
-                </Border>
-            </Border>
-        </Grid>
+									<DataGridTemplateColumn Width="50">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Cursor="Hand">
+													<Button.Style>
+														<Style TargetType="Button">
+															<Setter Property="Template">
+																<Setter.Value>
+																	<ControlTemplate TargetType="Button">
+																		<Border Padding="2" x:Name="ButtonBorder" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" CornerRadius="7">
+																			<Grid>
+																				<Image Source="../Assets/delete.png" Stretch="Fill"/>
+																			</Grid>
+																		</Border>
+																		<ControlTemplate.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter TargetName="ButtonBorder" Property="Background" Value="Gray"/>
+																			</Trigger>
+																		</ControlTemplate.Triggers>
+																	</ControlTemplate>
+																</Setter.Value>
+															</Setter>
+														</Style>
+													</Button.Style>
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+								</DataGrid.Columns>
+							</DataGrid>
+						</ScrollViewer>
+					</Grid>
+				</Border>
+			</Border>
+		</Grid>
 
-        <Grid x:Name="NotificationLayer" Panel.ZIndex="100">
-            <toast:NotificationContainer x:Name="notificationContainer"
+		<Grid x:Name="NotificationLayer" Panel.ZIndex="100">
+			<toast:NotificationContainer x:Name="notificationContainer"
                                          VerticalAlignment="Bottom"
                                          HorizontalAlignment="Right"
                                          Margin="20"/>
-        </Grid>
-    </Grid>
+		</Grid>
+	</Grid>
 </Window>

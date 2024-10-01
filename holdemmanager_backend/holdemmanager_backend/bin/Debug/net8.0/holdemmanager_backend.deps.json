@@ -1627,6 +1627,12 @@
       "System.Text.Json/8.0.4": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Text.Json.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.724.31311"
+          }
         }
       },
       "System.Text.RegularExpressions/4.3.0": {
@@ -1781,10 +1787,7 @@
           "xunit": "2.9.0"
         },
         "runtime": {
-          "holdemmanager_backend_app.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "holdemmanager_backend_app.dll": {}
         }
       },
       "holdemmanager_backend_web/1.0.0": {
@@ -1806,10 +1809,7 @@
           "xunit": "2.9.0"
         },
         "runtime": {
-          "holdemmanager_backend_web.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "holdemmanager_backend_web.dll": {}
         }
       }
     }

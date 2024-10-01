@@ -35,7 +35,7 @@ namespace holdemmanager_reloj.Views
             TournamentListView tournamentList = null;
             TournamentListViewModel viewModel = null;
 
-            tournamentList = new TournamentListView();
+            tournamentList =  TournamentListView.Instance;
             var notificationContainer = tournamentList.notificationContainer;
 
             viewModel = new TournamentListViewModel(notificationContainer);
