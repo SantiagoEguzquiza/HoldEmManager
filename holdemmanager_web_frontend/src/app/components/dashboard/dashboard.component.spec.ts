@@ -1,9 +1,10 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
+import { NavbarComponent } from '../dashboard/navbar/navbar.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -11,9 +12,13 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardComponent, NavbarComponent],
+      imports: [
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

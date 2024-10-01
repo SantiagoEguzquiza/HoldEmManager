@@ -7,6 +7,8 @@ import '../Models/Usuario.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHandler {
+  static http.Client client = http.Client();
+
   static final baseUrl = Uri.parse('http://10.0.2.2:5183');
 
   static Future<Result> login(Usuario usuario) async {
@@ -14,7 +16,7 @@ class ApiHandler {
       var urlApi = ('/LoginApp');
       var apiUrl = baseUrl.resolve(urlApi);
 
-      var response = await http
+      var response = await client
           .post(
             apiUrl,
             headers: <String, String>{
@@ -24,7 +26,7 @@ class ApiHandler {
           )
           .timeout(const Duration(seconds: 10));
 
-      Result result = new Result(valid: false, message: response.body);
+      Result result = Result(valid: false, message: response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         result.valid = true;

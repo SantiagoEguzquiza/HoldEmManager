@@ -1,9 +1,9 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MapaInteractivoComponent } from './mapa-interactivo.component';
+import { MapaService } from 'src/app/service/mapa.service';
 
 describe('MapaInteractivoComponent', () => {
   let component: MapaInteractivoComponent;
@@ -11,9 +11,16 @@ describe('MapaInteractivoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapaInteractivoComponent ]
-    })
-    .compileComponents();
+      declarations: [MapaInteractivoComponent],
+      imports: [
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+      providers: [
+        MapaService
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

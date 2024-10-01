@@ -15,10 +15,9 @@ namespace holdemmanager_backend_web.Controllers
         private readonly IContactoServiceWeb _contactosService;
         private readonly AplicationDbContextWeb _dbContext;
 
-        public ContactoWebController(AplicationDbContextWeb dbContext, IContactoServiceWeb contactosService)
+        public ContactoWebController(IContactoServiceWeb contactosService)
         {
             _contactosService = contactosService;
-            _dbContext = dbContext;
         }
 
         // obtener todos los contactos

@@ -18,10 +18,9 @@ namespace holdemmanager_backend_web.Controllers
         private readonly AplicationDbContextWeb _dbContext;
         private readonly FirebaseStorageHelper _firebaseStorageHelper;
 
-        public NoticiasWebController(AplicationDbContextWeb dbContext, INoticiasServiceWeb noticiasService, FirebaseStorageHelper firebaseStorageHelper)
+        public NoticiasWebController(INoticiasServiceWeb noticiasService, FirebaseStorageHelper firebaseStorageHelper)
         {
             _noticiasService = noticiasService;
-            _dbContext = dbContext;
             _firebaseStorageHelper = firebaseStorageHelper;
         }
 

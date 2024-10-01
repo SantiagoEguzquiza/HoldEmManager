@@ -13,13 +13,10 @@ namespace holdemmanager_backend_web.Controllers
     public class RankingWebController : ControllerBase
     {
         private readonly IRankingServiceWeb _rankingService;
-        private readonly AplicationDbContextWeb _dbContext;
 
         public RankingWebController(AplicationDbContextWeb dbContext, IRankingServiceWeb rankingService)
         {
             _rankingService = rankingService;
-            _dbContext = dbContext;
-
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

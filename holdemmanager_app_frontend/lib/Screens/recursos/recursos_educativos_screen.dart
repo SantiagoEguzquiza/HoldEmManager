@@ -32,6 +32,8 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
   final int _pageSize = 10;
   int _currentPage = 1;
   String? _errorMessage;
+  bool isDialogVisible =
+      false;
 
   @override
   void initState() {
@@ -73,6 +75,8 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
   }
 
   void mostrarDialogoError(String mensaje) {
+  if (!isDialogVisible) {
+    isDialogVisible = true;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -87,6 +91,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
               ),
               onPressed: () {
                 Navigator.of(context).pop();
+                isDialogVisible = false;
               },
             ),
           ],
@@ -94,6 +99,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
       },
     );
   }
+}
 
   String traducirError(String errorKey) {
     return finalTranslations[finalLocale.toString()]?[errorKey] ??
@@ -110,10 +116,7 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
 
     try {
       final result = await RecursosEducativos.obtenerRecursosEducativos(
-        page: _currentPage,
-        pageSize: _pageSize,
-        filtro: "NO"
-      );
+          page: _currentPage, pageSize: _pageSize, filtro: "NO");
       setState(() {
         _recursos.addAll(result.items);
         _currentPage++;
@@ -165,7 +168,8 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
                     child: Text(
                       _errorMessage != null
                           ? traducirError(_errorMessage!)
-                          : finalTranslations[finalLocale.toString()]?['noData'] ??
+                          : finalTranslations[finalLocale.toString()]
+                                  ?['noData'] ??
                               'No hay datos disponibles',
                       style: const TextStyle(fontSize: 16),
                       textAlign: TextAlign.center,
@@ -180,7 +184,8 @@ class _RecursosEducativosScreenState extends State<RecursosEducativosScreen>
                           margin: const EdgeInsets.only(bottom: 10.0),
                           padding: const EdgeInsets.all(25.0),
                           child: Text(
-                            finalTranslations[finalLocale.toString()]?['educationalResources'] ??
+                            finalTranslations[finalLocale.toString()]
+                                    ?['educationalResources'] ??
                                 'Educational Resources',
                             style: const TextStyle(
                               fontSize: 24,
