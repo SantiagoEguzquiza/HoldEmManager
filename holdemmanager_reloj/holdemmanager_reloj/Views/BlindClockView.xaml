@@ -137,7 +137,7 @@
             </Grid>
         </Grid>
 
-        <Grid Background="#AA000000" Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="1892,10,-1892,-10">
+        <Grid Background="#AA000000" Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="2,0,-2,0">
             <TextBlock Text="Pause" FontSize="200" FontWeight="Bold" Foreground="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">

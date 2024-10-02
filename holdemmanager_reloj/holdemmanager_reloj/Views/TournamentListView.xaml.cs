@@ -22,7 +22,7 @@ namespace holdemmanager_reloj.Views
         private TournamentListViewModel _viewModel;
         private TournamentService _tournamentService;
 
-        private TournamentListView()
+        public TournamentListView()
         {
             InitializeComponent();
 

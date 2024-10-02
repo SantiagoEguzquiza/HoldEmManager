@@ -14,7 +14,7 @@ namespace holdemmanager_reloj.Views
         private static readonly object bloqueo = new object();
 
         // Constructor privado para evitar la creación de instancias
-        private BlindClockView(Tournament tournament)
+        public BlindClockView(Tournament tournament)
         {
             InitializeComponent();
             this.PreviewKeyDown += new KeyEventHandler(HandleKeyPress);

@@ -32,21 +32,20 @@ namespace holdemmanager_reloj.Views
 
             await Dispatcher.Yield(DispatcherPriority.Background);
 
-            TournamentListView tournamentList = null;
-            TournamentListViewModel viewModel = null;
-
-            tournamentList =  TournamentListView.Instance;
-            var notificationContainer = tournamentList.notificationContainer;
-
-            viewModel = new TournamentListViewModel(notificationContainer);
+            TournamentListView tournamentList = new TournamentListView();
+            TournamentListViewModel viewModel = new TournamentListViewModel(tournamentList.notificationContainer);
             tournamentList.DataContext = viewModel;
 
             tournamentList.Show();
 
             LoadingGrid.Visibility = Visibility.Collapsed;
 
+            // Cierra la ventana actual después de un pequeño retraso para asegurarse de que todas las operaciones se hayan completado
+            await Task.Delay(100);
             Close();
         }
+
+
 
         private async void Border2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
