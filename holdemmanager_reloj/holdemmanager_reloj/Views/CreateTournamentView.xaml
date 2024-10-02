@@ -35,7 +35,7 @@
 
         <Border Background="Transparent" CornerRadius="10" BorderThickness="0">
             <Grid>
-                <Grid x:Name="LoadingGrid" Visibility="{Binding LoadingVisibility}" Background="#80000000" Panel.ZIndex="1" Margin="985,3,-985,-3">
+                <Grid x:Name="LoadingGrid" Visibility="{Binding LoadingVisibility}" Background="#80000000" Panel.ZIndex="1" Margin="0,3,0,-3">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Guardando..." Foreground="White" FontSize="16" Margin="5" HorizontalAlignment="Center"/>
                         <ProgressBar IsIndeterminate="True" Width="200" Height="20" Style="{StaticResource OrangeProgressBarStyle}" />

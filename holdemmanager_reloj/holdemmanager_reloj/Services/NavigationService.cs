@@ -23,7 +23,7 @@ namespace holdemmanager_reloj.Services
             }
             else if (viewName == "BlindClockView" && parameter is Tournament tournamentPlay)
             {
-                 window = BlindClockView.ObtenerInstancia(tournamentPlay);
+                 window = new BlindClockView(tournamentPlay);
 
             }
             else

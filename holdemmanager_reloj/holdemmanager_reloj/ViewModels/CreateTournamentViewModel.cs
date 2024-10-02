@@ -330,8 +330,11 @@ namespace holdemmanager_reloj.ViewModels
                         AverageChips = AverageChips,
                         PrizePool = PrizePool,
                         TotalAddOn = TotalAddOn,
-                        CountAddOn = CountAddOn,
+                        CountAddOn = CountAddOn, 
                         FechaInicio = FechaInicio,
+                        ChipsRebuys = ChipsRebuys,
+                        ChipsInscriptions = ChipsInscriptions,
+                        ChipsAddon = ChipsAddon,
                         Levels = new List<BlindLevel>(Levels)
                     };
 
