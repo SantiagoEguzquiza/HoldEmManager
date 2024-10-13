@@ -189,7 +189,8 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                   );
                 },
               ),
-              ListTile(
+            ],
+            ListTile(
                 leading: const Icon(Icons.leaderboard_outlined,
                     color: Colors.orangeAccent),
                 title: Text(finalTranslations[finalLocale.toString()]
@@ -203,21 +204,6 @@ class _SideBarState extends State<SideBar> implements LanguageHelper {
                   );
                 },
               ),
-              // ListTile(
-              //   leading:
-              //       const Icon(Icons.people_sharp, color: Colors.orangeAccent),
-              //   title: Text(finalTranslations[finalLocale.toString()]
-              //           ?['discussionForum'] ??
-              //       'Foro de Discusión'),
-              //   onTap: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => const ForumScreen()),
-              //     );
-              //   },
-              // ),
-            ],
             ListTile(
               leading:
                   const Icon(Icons.contact_page, color: Colors.orangeAccent),

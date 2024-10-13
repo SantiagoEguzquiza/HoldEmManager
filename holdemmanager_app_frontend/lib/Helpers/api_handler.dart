@@ -11,7 +11,7 @@ class ApiHandler {
 
   static final baseUrl = Uri.parse('http://10.0.2.2:5183');
 
-  static Future<Result> login(Usuario usuario) async {
+  static Future<Result> login(Usuario usuario) async { 
     try {
       var urlApi = ('/LoginApp');
       var apiUrl = baseUrl.resolve(urlApi);

@@ -180,6 +180,27 @@ class _NoticiasScreenState extends State<NoticiasScreen>
     }
   }
 
+  Future<void> _actualizarNotificaciones(bool habilitar) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final int? userId = prefs.getInt('userId');
+
+    if (userId != null) {
+      try {
+        await ApiService().toggleNotificacionesNoticias(userId);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  '${traducirError('notifications')} ${traducirError(habilitar ? 'estado_activado' : 'estado_desactivado')}')),
+        );
+      } catch (e) {
+        mostrarDialogoError(
+            'Error al cambiar la configuración de notificaciones');
+      }
+    } else {
+      mostrarDialogoError('No se encontró el ID del usuario');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,6 +254,12 @@ class _NoticiasScreenState extends State<NoticiasScreen>
                               ),
                               value: _notificacionesHabilitadas,
                               onChanged: (bool? newValue) {
+                                setState(() {
+                                  _notificacionesHabilitadas =
+                                      newValue ?? false;
+                                });
+                                _actualizarNotificaciones(
+                                    _notificacionesHabilitadas);
                               },
                               activeColor: Colors.orangeAccent,
                               controlAffinity: ListTileControlAffinity.leading,
