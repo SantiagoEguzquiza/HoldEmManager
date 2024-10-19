@@ -8,32 +8,56 @@ namespace holdemmanager_reloj.Services
     public class TournamentService
     {
         private readonly string _connectionString;
+        private readonly DbContextOptions<ApplicationDbContext> _options;
 
         public TournamentService()
         {
             _connectionString = App.Configuration.GetConnectionString("DefaultConnection")!;
         }
 
-        public async void SaveOrUpdateTournament(Tournament tournament)
+        public TournamentService(DbContextOptions<ApplicationDbContext> options)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer(_connectionString);
+            _options = options;
+        }
 
-            using (var context = new ApplicationDbContext(optionsBuilder.Options))
+        public async Task SaveOrUpdateTournament(Tournament tournament)
+        {
+            DbContextOptions<ApplicationDbContext> optionsToUse;
+
+            if (_options != null)
             {
-                var existingTournament = context.Tournament
-                    .FirstOrDefault(t => t.TournamentId == tournament.TournamentId);
+                optionsToUse = _options;
+            }
+            else
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optionsBuilder.UseSqlServer(_connectionString);
+                optionsToUse = optionsBuilder.Options;
+            }
+
+            using (var context = new ApplicationDbContext(optionsToUse))
+            {
+                var existingTournament = await context.Tournament
+                    .FirstOrDefaultAsync(t => t.TournamentId == tournament.TournamentId);
 
                 if (existingTournament != null)
                 {
-                    context.Entry(existingTournament).CurrentValues.SetValues(tournament);
+                    // Aquí aseguramos que Entity Framework rastree la entidad
+                    context.Attach(existingTournament);
+
+                    // Actualizamos manualmente los valores
+                    existingTournament.TournamentName = tournament.TournamentName;
+                    existingTournament.TotalEntries = tournament.TotalEntries;
+
+                    // Forzamos a EF a marcar la entidad como modificada
+                    context.Entry(existingTournament).State = EntityState.Modified;
                 }
                 else
                 {
                     await context.Tournament.AddAsync(tournament);
                 }
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 

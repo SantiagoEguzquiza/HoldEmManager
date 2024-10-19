@@ -1,23 +1,34 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { RecursosRegisterComponent } from './create-edit-recurso.component';
+import { CreateEditRecursoComponent } from './create-edit-recurso.component';
+import { RecursosService } from 'src/app/service/recursos.service';
 
-describe('RecursosRegisterComponent', () => {
-  let component: RecursosRegisterComponent;
-  let fixture: ComponentFixture<RecursosRegisterComponent>;
+describe('CreateEditRecursoComponent', () => {
+  let component: CreateEditRecursoComponent;
+  let fixture: ComponentFixture<CreateEditRecursoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecursosRegisterComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateEditRecursoComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+      providers: [
+        RecursosService
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecursosRegisterComponent);
+    fixture = TestBed.createComponent(CreateEditRecursoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

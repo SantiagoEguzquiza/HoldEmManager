@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj": {}
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj": {
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
+        "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
         "projectName": "holdemmanager_backend",
-        "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
-        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\obj\\",
+        "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj",
+        "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
+        "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -33,11 +29,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
-                "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj"
+              "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
+                "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj"
               },
-              "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
-                "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
+              "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
+                "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
               }
             }
           }
@@ -57,6 +53,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
             "FirebaseAuthentication.net": {
               "target": "Package",
               "version": "[3.7.2, )"
@@ -85,6 +85,10 @@
               "target": "Package",
               "version": "[8.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -99,9 +103,17 @@
               "target": "Package",
               "version": "[8.0.2, )"
             },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.7.3, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.0, )"
             }
           },
           "imports": [
@@ -123,25 +135,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+        "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
         "projectName": "holdemmanager_backend_app",
-        "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
-        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
+        "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\holdemmanager_backend_app.csproj",
+        "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
+        "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -156,8 +164,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
-                "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
+              "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
+                "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj"
               }
             }
           }
@@ -177,6 +185,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
             "FirebaseAuthentication.net": {
               "target": "Package",
               "version": "[3.7.2, )"
@@ -205,6 +217,10 @@
               "target": "Package",
               "version": "[8.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -219,9 +235,17 @@
               "target": "Package",
               "version": "[8.0.2, )"
             },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.7.3, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.0, )"
             }
           },
           "imports": [
@@ -240,25 +264,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
+    "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
+        "projectUniqueName": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
         "projectName": "holdemmanager_backend_web",
-        "projectPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
-        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\obj\\",
+        "projectPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\holdemmanager_backend_web.csproj",
+        "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
+        "outputPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -290,6 +310,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.43.0, )"
+            },
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
             "FirebaseAuthentication.net": {
               "target": "Package",
               "version": "[3.7.2, )"
@@ -318,6 +346,10 @@
               "target": "Package",
               "version": "[8.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -332,9 +364,17 @@
               "target": "Package",
               "version": "[8.0.2, )"
             },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.7.3, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.0, )"
             }
           },
           "imports": [
@@ -353,7 +393,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,9 +1,10 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 import { RankingComponent } from './ranking.component';
+import { RankingService } from 'src/app/service/ranking.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('RankingComponent', () => {
   let component: RankingComponent;
@@ -11,9 +12,17 @@ describe('RankingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RankingComponent ]
-    })
-    .compileComponents();
+      declarations: [RankingComponent],
+      imports: [
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+      providers: [
+        RankingService,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

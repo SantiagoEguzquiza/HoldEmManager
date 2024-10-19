@@ -47,10 +47,8 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     });
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent &&
-          !_isLoading &&
-          _hasMoreData) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
+          !_isLoading && _hasMoreData) {
         _cargarTorneos('');
       }
     });
@@ -68,8 +66,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
 
     if (userId != null) {
       try {
-        List<int> favoritosIds =
-            await apiService.obtenerFavoritosJugador(userId);
+        List<int> favoritosIds = await apiService.obtenerFavoritosJugador(userId);
         setState(() {
           _favoritos = favoritosIds.toSet();
         });
@@ -106,9 +103,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
     setState(() {
       _isLoading = true;
 
-      double currentScrollPosition = _scrollController.hasClients
-          ? _scrollController.position.pixels
-          : 0.0;
+      double currentScrollPosition = _scrollController.hasClients ? _scrollController.position.pixels : 0.0;
 
       torneos = Torneos.obtenerTorneos(
         page: _currentPage,
@@ -121,8 +116,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
           }
 
           for (var torneo in pagedResult.items) {
-            String dia =
-                DateFormat('d MMMM yyyy', 'es_ES').format(torneo.fecha);
+            String dia = DateFormat('d MMMM yyyy', 'es_ES').format(torneo.fecha);
             if (!torneosPorDia.containsKey(dia)) {
               torneosPorDia[dia] = [];
             }
@@ -171,8 +165,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
 
   Future<void> cargarLocaleYTranslations() async {
     final Locale? locale = await translationService.getLocale();
-    final Map<String, dynamic> translations =
-        await translationService.getTranslations();
+    final Map<String, dynamic> translations = await translationService.getTranslations();
 
     setState(() {
       finalTranslations = translations;
@@ -260,9 +253,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
               future: torneos,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                          color: Colors.orangeAccent));
+                  return const Center(child: CircularProgressIndicator(color: Colors.orangeAccent));
                 } else if (snapshot.hasError) {
                   return Center(child: Text(traducir("noData")));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -270,7 +261,6 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                 } else {
                   return ListView.builder(
                     controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: torneosPorDia.keys.length + (_isLoading ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index < torneosPorDia.keys.length) {
@@ -279,10 +269,9 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              child: Center(
                                 child: Text(
                                   dia.toUpperCase(),
                                   style: const TextStyle(
@@ -293,49 +282,87 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                 ),
                               ),
                             ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columns: [
-                                  const DataColumn(label: Text('#')),
-                                  DataColumn(label: Text(traducir('start'))),
-                                  DataColumn(label: Text(traducir('end'))),
-                                  DataColumn(label: Text(traducir('event'))),
-                                  DataColumn(label: Text(traducir('stack'))),
-                                  DataColumn(label: Text(traducir('levels'))),
-                                  DataColumn(label: Text(traducir('ticket'))),
-                                  DataColumn(label: Text(traducir('favorite'))),
-                                ],
-                                rows: torneosDelDia.map((torneo) {
-                                  final isFavorite =
-                                      _favoritos.contains(torneo.id);
+                            Column(
+                              children: torneosDelDia.map((torneo) {
+                                final isFavorite = _favoritos.contains(torneo.id);
 
-                                  return DataRow(cells: [
-                                    DataCell(Text(torneo.numeroRef)),
-                                    DataCell(Text(torneo.inicio)),
-                                    DataCell(Text(torneo.cierre)),
-                                    DataCell(Text(torneo.nombre)),
-                                    DataCell(Text(torneo.stack)),
-                                    DataCell(Text(torneo.niveles)),
-                                    DataCell(Text(torneo.entrada)),
-                                    DataCell(
-                                      IconButton(
-                                        icon: Icon(
-                                          isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: isFavorite
-                                              ? Colors.orangeAccent
-                                              : Colors.grey,
+                                return Card(
+                                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                                  elevation: 6,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              torneo.nombre,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              icon: Icon(
+                                                isFavorite ? Icons.favorite : Icons.favorite_border,
+                                                color: isFavorite ? Colors.orangeAccent : Colors.grey,
+                                              ),
+                                              onPressed: () {
+                                                _toggleFavorito(torneo.id);
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                        onPressed: () {
-                                          _toggleFavorito(torneo.id);
-                                        },
-                                      ),
+                                        const Divider(),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.calendar_today, color: Colors.orangeAccent),
+                                            const SizedBox(width: 8),
+                                            Text('${traducir('start')}: ${torneo.inicio}'),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.event, color: Colors.orangeAccent),
+                                            const SizedBox(width: 8),
+                                            Text('${traducir('end')}: ${torneo.cierre}'),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.layers, color: Colors.orangeAccent),
+                                            const SizedBox(width: 8),
+                                            Text('${traducir('stack')}: ${torneo.stack}'),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.timeline, color: Colors.orangeAccent),
+                                            const SizedBox(width: 8),
+                                            Text('${traducir('levels')}: ${torneo.niveles}'),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.attach_money, color: Colors.orangeAccent),
+                                            const SizedBox(width: 8),
+                                            Text('${traducir('ticket')}: ${torneo.entrada}'),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ]);
-                                }).toList(),
-                              ),
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           ],
                         );

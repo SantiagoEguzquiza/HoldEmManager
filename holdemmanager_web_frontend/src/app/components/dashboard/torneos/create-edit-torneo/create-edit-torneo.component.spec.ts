@@ -1,23 +1,34 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { CreateTorneoComponent } from './create-edit-torneo.component';
+import { CreateEditTorneoComponent } from './create-edit-torneo.component';
+import { TorneosService } from 'src/app/service/torneos.service';
 
-describe('CreateTorneoComponent', () => {
-  let component: CreateTorneoComponent;
-  let fixture: ComponentFixture<CreateTorneoComponent>;
+describe('CreateEditTorneoComponent', () => {
+  let component: CreateEditTorneoComponent;
+  let fixture: ComponentFixture<CreateEditTorneoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateTorneoComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateEditTorneoComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot(), 
+        RouterTestingModule
+      ],
+      providers: [
+        TorneosService
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateTorneoComponent);
+    fixture = TestBed.createComponent(CreateEditTorneoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

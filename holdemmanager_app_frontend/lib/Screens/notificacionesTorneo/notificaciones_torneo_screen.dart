@@ -28,6 +28,8 @@ class _NotificacionesScreenState extends State<NotificacionesScreen>
   @override
   void initState() {
     super.initState();
+    cargarLocaleYTranslations();
+    translationService.addListener(this);
     notificaciones =
         ApiService().obtenerTodasLasNotificaciones(widget.idJugador!);
   }
@@ -78,12 +80,12 @@ class _NotificacionesScreenState extends State<NotificacionesScreen>
         future: notificaciones,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.orangeAccent));
           } else if (snapshot.hasError) {
-            return const Center(child: Text("Error al cargar notificaciones"));
+            return  Center(child: Text(traducir('noData')));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-                child: Text("No hay notificaciones disponibles"));
+            return Center(
+                child: Text(traducir('noData')));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,

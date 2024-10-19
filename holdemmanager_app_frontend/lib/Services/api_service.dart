@@ -8,8 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiService {
   final String baseUrl = 'http://10.0.2.2:5183';
 
-  
-
   static Future<Result> agregarFavorito(
       int? jugadorId, int torneoId, context) async {
     try {
@@ -132,7 +130,7 @@ class ApiService {
     }
   }
 
-  Future<void> toggleNotificacionesNoticias(int idJugador) async {
+   Future<void> toggleNotificacionesNoticias(int idJugador) async {
     final response = await http.post(
       Uri.parse('$baseUrl/JugadorApp/activar-desactivar-noticias/$idJugador'),
     );

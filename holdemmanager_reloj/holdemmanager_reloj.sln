@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holdemmanager_reloj", "holdemmanager_reloj\holdemmanager_reloj.csproj", "{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "holdemmanager_reloj", "holdemmanager_reloj\holdemmanager_reloj.csproj", "{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{906748A8-6F27-46C2-81E4-DC070D91DC11}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256} = {7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B839DFD-E14F-44EC-A2AB-5DDDBEAB0256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906748A8-6F27-46C2-81E4-DC070D91DC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906748A8-6F27-46C2-81E4-DC070D91DC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906748A8-6F27-46C2-81E4-DC070D91DC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906748A8-6F27-46C2-81E4-DC070D91DC11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

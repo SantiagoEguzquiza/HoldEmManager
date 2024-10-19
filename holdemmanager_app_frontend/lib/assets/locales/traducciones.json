@@ -83,7 +83,9 @@
     "ticket": "Ticket",
     "favorite": "Favorite",
     "notifications": "Notificacions",
-    "toggleNotifications": "Get notifications"
+    "toggleNotifications": "Get notifications",
+    "estado_activado": "activated",
+    "estado_desactivado": "disabled"
   },
   "es_ES": {
     "login": "Iniciar Sesión",
@@ -169,7 +171,9 @@
     "ticket": "Entrada",
     "favorite": "Favorito",
     "notifications": "Notificaciones",
-    "toggleNotifications": "Recibir notificaciones"
+    "toggleNotifications": "Recibir notificaciones",
+    "estado_activado": "activadas",
+    "estado_desactivado": "desactivadas"
   },
   "pt_BR": {
     "login": "Iniciar sessão",
@@ -255,6 +259,8 @@
     "ticket": "Bilhete",
     "favorite": "Favorito",
     "notifications": "Notificações",
-    "toggleNotifications": "Receber notificações"
+    "toggleNotifications": "Receber notificações",
+    "estado_activado": "ativado",
+    "estado_desactivado": "desabilitado"
   }
 }

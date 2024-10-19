@@ -1,9 +1,12 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { EditPlayerComponent } from './edit-player.component';
+import { PlayersService } from 'src/app/service/players.service';
 
 describe('EditPlayerComponent', () => {
   let component: EditPlayerComponent;
@@ -11,9 +14,17 @@ describe('EditPlayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditPlayerComponent ]
-    })
-    .compileComponents();
+      declarations: [EditPlayerComponent],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+      providers: [
+        PlayersService,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

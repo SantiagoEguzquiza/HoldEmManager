@@ -1,23 +1,34 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { CreateNoticiaComponent } from './create-edit-noticia.component';
+import { CreateEditNoticiaComponent } from './create-edit-noticia.component';
+import { NoticiasService } from 'src/app/service/noticias.service';
 
-describe('CreateNoticiaComponent', () => {
-  let component: CreateNoticiaComponent;
-  let fixture: ComponentFixture<CreateNoticiaComponent>;
+describe('CreateEditNoticiaComponent', () => {
+  let component: CreateEditNoticiaComponent;
+  let fixture: ComponentFixture<CreateEditNoticiaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateNoticiaComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateEditNoticiaComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
+      providers: [
+        NoticiasService
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateNoticiaComponent);
+    fixture = TestBed.createComponent(CreateEditNoticiaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
