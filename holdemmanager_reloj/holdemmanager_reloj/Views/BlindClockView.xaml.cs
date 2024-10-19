@@ -19,23 +19,26 @@ namespace holdemmanager_reloj.Views
             InitializeComponent();
             this.PreviewKeyDown += new KeyEventHandler(HandleKeyPress);
 
-            this.DataContext = new BlindClockViewModel(tournament);
+            this.DataContext =  BlindClockViewModel.Instance(tournament);
+
         }
 
         // Método estático público para obtener la instancia única
         public static BlindClockView ObtenerInstancia(Tournament tournament)
         {
             // Doble verificación de bloqueo para asegurar que solo una instancia sea creada
-            if (instanciaUnica == null)
-            {
-                lock (bloqueo)
-                {
-                    if (instanciaUnica == null)
-                    {
-                        instanciaUnica = new BlindClockView(tournament);
-                    }
-                }
-            }
+           // if (instanciaUnica == null)
+           //{
+           //     lock (bloqueo)
+           //     {
+           //         if (instanciaUnica == null)
+           //         {
+           //             instanciaUnica = new BlindClockView(tournament);
+           //         }
+           //     }
+           // }
+
+            instanciaUnica = new BlindClockView(tournament);
             return instanciaUnica;
         }
 
@@ -71,7 +74,6 @@ namespace holdemmanager_reloj.Views
             this.WindowState = WindowState.Normal;
             this.WindowState = WindowState.Maximized;
             this.ResizeMode = ResizeMode.NoResize;
-            this.Topmost = true;
         }
 
         private void ReaundarStopTiming()
@@ -86,7 +88,15 @@ namespace holdemmanager_reloj.Views
         {
             if (this.DataContext is BlindClockViewModel viewModel)
             {
-                viewModel.ToSubtractPlayer.Execute(null);
+                viewModel.ToSubtractPlayer.Execute(null);             
+            }
+        }
+
+        private void calculateAverageChips()
+        {
+            if (this.DataContext is BlindClockViewModel viewModel)
+            {
+               viewModel.CalculateAverageChips.Execute(null);
             }
         }
     }

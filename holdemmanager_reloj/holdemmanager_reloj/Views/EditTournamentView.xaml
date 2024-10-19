@@ -35,7 +35,7 @@
             <Grid>
 
 
-                <Grid x:Name="LoadingGrid" Visibility="{Binding IsLoadingVisible}" Background="#80000000" Panel.ZIndex="1">
+                <Grid x:Name="LoadingGrid" Visibility="{Binding IsLoadingVisible}" Background="#80000000" Panel.ZIndex="1" Margin="875,0,-875,0">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Guardando..." Foreground="White" FontSize="16" Margin="5" HorizontalAlignment="Center"/>
                         <ProgressBar IsIndeterminate="True" Width="200" Height="20" Style="{StaticResource OrangeProgressBarStyle}"/>
@@ -161,7 +161,7 @@
                                         <TextBlock Text="Value Rebuys" Grid.Row="4" Grid.Column="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
                                         <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource TBstyle}" Margin="0,10,0,0" Text="{Binding Tournament.CountRebuys, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
 
-                                        <TextBlock Text="Value Inscriptions" Grid.Row="2" Grid.Column="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Value Inscription" Grid.Row="2" Grid.Column="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
                                         <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource TBstyle}" Margin="0,10,0,0" Text="{Binding Tournament.CountInscriptions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
 
                                         <TextBlock Text="Prize Pool" Grid.Row="10" Grid.Column="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
@@ -172,6 +172,16 @@
 
                                         <TextBlock Text="Fecha de Inicio" Grid.Column="1" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
                                         <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,15,0,5" Style="{StaticResource CustomDatePickerStyle}" SelectedDate="{Binding Tournament.FechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+
+                                        <TextBlock Text="Chips per inscription" Grid.Row="2" Grid.Column="1" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
+                                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TBstyle}" Margin="0,10,0,0" Text="{Binding Tournament.ChipsInscriptions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+
+                                        <TextBlock Text="Chips per Rebuy" Grid.Row="4" Grid.Column="1" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
+                                        <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource TBstyle}" Margin="0,10,0,0" Text="{Binding Tournament.ChipsRebuys, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+
+                                        <TextBlock Text="Chips per Addon" Grid.Row="8" Grid.Column="1" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
+                                        <TextBox Grid.Row="9" Grid.Column="1" Style="{StaticResource TBstyle}" Margin="0,10,0,0" Text="{Binding Tournament.ChipsAddon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="12" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="5">
                                             <Button Content="Guardar" 

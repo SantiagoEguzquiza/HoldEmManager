@@ -22,7 +22,7 @@ namespace holdemmanager_reloj.ViewModels
             set
             {
                 _tournament = value;
-                OnPropertyChanged(nameof(Tournament));
+                OnPropertyChanged(nameof(Tournament));              
             }
         }
 
@@ -86,6 +86,11 @@ namespace holdemmanager_reloj.ViewModels
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            if (propertyName == nameof(Tournament))
+            {
+                Tournament_PropertyChanged();
+            }
         }
 
         public bool ValidateTournamentName()
@@ -236,6 +241,12 @@ namespace holdemmanager_reloj.ViewModels
                     lvl.Level = levelCounter++;
                 }
             }
+        }
+
+        private void Tournament_PropertyChanged()
+        {
+            BlindClockViewModel blindClockViewModel = BlindClockViewModel.Instance(_tournament);
+            
         }
     }
 }

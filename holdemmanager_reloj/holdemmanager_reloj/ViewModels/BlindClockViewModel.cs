@@ -12,6 +12,9 @@ namespace holdemmanager_reloj.ViewModels
 {
     public class BlindClockViewModel : INotifyPropertyChanged
     {
+        private static BlindClockViewModel _instance;
+        private static readonly object _lock = new object();
+
         private readonly BlindClockService _blindService;
         private NotificationHelper notificationHelper = new NotificationHelper();
 
@@ -136,10 +139,13 @@ namespace holdemmanager_reloj.ViewModels
         public ICommand PauseCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand ToSubtractPlayer { get; }
+        public ICommand CalculateAverageChips { get; }
 
-        public BlindClockViewModel(Tournament tournament)
+        private BlindClockViewModel(Tournament tournament)
         {
             Tournament = tournament ?? throw new ArgumentNullException(nameof(tournament));
+            configureParticipants();
+            
             _blindService = new BlindClockService();
 
             if (Tournament.Levels != null && Tournament.Levels.Any())
@@ -159,17 +165,29 @@ namespace holdemmanager_reloj.ViewModels
             StartCommand = new RelayCommand(StartTournament);
             PauseCommand = new RelayCommand(ToggleTimer);
             ToSubtractPlayer = new RelayCommand(RestarPlayer);
+            
+        }
+
+        public static BlindClockViewModel Instance(Tournament tournament)
+        {
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = new BlindClockViewModel(tournament);
+                }
+                return _instance;
+            }
         }
 
         private void StartTournament()
         {
-
             IsConfiguring = false;
             _isTimingPaused = false;
             IsPaused = false;
             EndGameMessage = string.Empty;
 
-            calculateAverageChips();
+            
             _timer.Start();
             StartBreakTimer();
         }
@@ -187,7 +205,7 @@ namespace holdemmanager_reloj.ViewModels
                 {
                     CurrentLevel.Duration = TimeSpan.Zero;
                     OnPropertyChanged(nameof(CurrentLevel));
-                    MoveToNextLevel(); 
+                    MoveToNextLevel();
                 }
                 else
                 {
@@ -239,7 +257,7 @@ namespace holdemmanager_reloj.ViewModels
         private void RestarPlayer()
         {
             Tournament.ParticipantsRemaining--;
-            calculateAverageChips();
+           
             OnPropertyChanged(nameof(Tournament));
         }
 
@@ -271,15 +289,12 @@ namespace holdemmanager_reloj.ViewModels
             }
         }
 
-        private void calculateAverageChips() {
+       
 
-            var chips = Tournament.ChipsInscriptions + Tournament.ChipsRebuys + Tournament.ChipsAddon;
-
-            if (Tournament.ParticipantsRemaining > 0)
-            {
-                Tournament.AverageChips = chips / Tournament.ParticipantsRemaining;
-                OnPropertyChanged(nameof(Tournament));
-            }
+        private void configureParticipants()
+        {
+            Tournament.ParticipantsRemaining = Tournament.TotalInscriptions;
+            OnPropertyChanged(nameof(Tournament));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
