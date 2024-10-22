@@ -8,10 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = holdemmanager_backend_web
-<<<<<<< HEAD
-build_property.ProjectDir = D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\
-=======
-build_property.ProjectDir = C:\Users\pipi2\OneDrive\Escritorio\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\
->>>>>>> 9d1a6621bc8f62cdc9d735cb3d944cee40a7c1be
+build_property.ProjectDir = C:\Users\santi\Desktop\Carrera\HoldEmManager\holdemmanager_backend\holdemmanager_backend_web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

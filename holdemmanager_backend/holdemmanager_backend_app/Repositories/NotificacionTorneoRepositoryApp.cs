@@ -26,11 +26,7 @@ namespace holdemmanager_backend_app.Repositories
         {
             try
             {
-                var torneo = await _contextWeb.Torneos.FindAsync(torneoId);
-                if (torneo == null)
-                {
-                    throw new Exception("Torneo no encontrado");
-                }
+                var torneo = await _contextWeb.Torneos.FindAsync(torneoId);             
 
                 var evento = tipoEvento == "ELIMINADO" ? NotificacionTorneoEnum.ELIMINADO : NotificacionTorneoEnum.EDITADO;
 
