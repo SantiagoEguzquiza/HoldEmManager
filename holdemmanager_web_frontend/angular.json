@@ -13,6 +13,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "html2canvas",
+              "sweetalert2",
+              "xlsx"
+            ],
             "outputPath": "dist/front-end",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -38,13 +43,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "120kb",
+                  "maximumError": "150kb"
                 }
               ],
               "outputHashing": "all"

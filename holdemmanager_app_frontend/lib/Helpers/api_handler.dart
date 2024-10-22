@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class ApiHandler {
   static http.Client client = http.Client();
 
-  static final baseUrl = Uri.parse('http://10.0.2.2:5183');
+  static final baseUrl = Uri.parse('https://www.holdemmanager.somee.com');
 
   static Future<Result> login(Usuario usuario) async { 
     try {

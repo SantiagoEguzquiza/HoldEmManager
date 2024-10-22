@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  final String baseUrl = 'http://10.0.2.2:5183';
+  final Uri baseUrl = ApiHandler.baseUrl;
 
   static Future<Result> agregarFavorito(
       int? jugadorId, int torneoId, context) async {

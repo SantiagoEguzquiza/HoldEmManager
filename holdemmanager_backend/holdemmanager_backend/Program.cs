@@ -106,6 +106,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())

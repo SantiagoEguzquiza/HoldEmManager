@@ -13,3 +13,6 @@ D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Release\
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Release\net8.0\holdemmanager_backend_app.pdb
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Release\net8.0\holdemmanager_backend_app.genruntimeconfig.cache
 D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Release\net8.0\ref\holdemmanager_backend_app.dll
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Release\net8.0\holdemmanager_backend_web.dll
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\bin\Release\net8.0\holdemmanager_backend_web.pdb
+D:\WS\HoldEmManager\holdemmanager_backend\holdemmanager_backend_app\obj\Release\net8.0\holdemma.CD84079C.Up2Date
