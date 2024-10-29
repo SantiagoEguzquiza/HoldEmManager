@@ -1,145 +1,139 @@
-<div class="loading" style="width: 100%; display: flex; justify-content: center;">
-    <app-loading *ngIf="loading"></app-loading>
-</div>
-
-<div class="dark-background" *ngIf="isCreate || isEdit"></div>
-
-<div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
-
-    <div *ngIf="isCreate" class="centered-container">
-        <app-create-ranking (guardar)="guardarNuevoRanking($event)"
-            (cancelar)="cancelarNuevoRanking()"></app-create-ranking>
+<app-loading *ngIf="loading"
+    style="position: absolute; display: flex; width: 100%; min-height: 100vh; justify-content: center; z-index: 10;"></app-loading>
+<div class="dark-background" *ngIf="loading || isCreate || isEdit"></div>
+<div class="container fade-in-top">
+    <div class="titulo">
+        <h3 class="tituloRanking">{{titulo}}</h3>
     </div>
-
-    <div *ngIf="isEdit" class="centered-container">
-        <app-edit-ranking [ranking]="rankingEditado" (guardar)="guardarJugadorEditado($event)"
-            (cancelar)="cancelarEditarRanking()"></app-edit-ranking>
-    </div>
-
-    <div class="buttons-container" style="padding-bottom: 20px; display: flex;">
-        <a class="agregar" href="javascript:void(0)" (click)="agregarRanking()" style="margin-right: 10px;">
-            <i class="bi bi-plus-square"></i> Agregar
-        </a>
-        <a class="importar" href="javascript:void(0)" (click)="fileInput.click()">
-            <i class="bi bi-file-earmark-arrow-up"></i> Importar
-        </a>
-        <input type="file" #fileInput (change)="importarRanking($event)" accept=".xlsx" style="display:none" />
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="card text-center" style="padding: 20px;">
-                <h2>{{ titulo }}</h2>
-                <div class="button-group" style="padding-top: 20px;">
-                    <button class="ranking-btn poker-btn" [ngClass]="{'active': rankingActual === RankingEnum.POKER}"
-                        (click)="filtrarPorRankingEnum(RankingEnum.POKER)">Poker</button>
-                    <button class="ranking-btn fullhouse-btn"
-                        [ngClass]="{'active': rankingActual === RankingEnum.FULLHOUSE}"
-                        (click)="filtrarPorRankingEnum(RankingEnum.FULLHOUSE)">Full House</button>
-                    <button class="ranking-btn escalera-btn"
-                        [ngClass]="{'active': rankingActual === RankingEnum.ESCALERAREAL}"
-                        (click)="filtrarPorRankingEnum(RankingEnum.ESCALERAREAL)">Escalera Real</button>
-                </div>
-                <br>
-
-                <!-- Poker Rankings Table -->
-                <table class="table table-striped"
-                    *ngIf="!loading && rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0">
-                    <thead>
-                        <tr>
-                            <th>Número Jugador</th>
-                            <th>Nombre</th>
-                            <th>Puntuación</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ranking of filteredPokerRankings">
-                            <td>{{ ranking.playerNumber }}</td>
-                            <td>{{ ranking.playerName }}</td>
-                            <td>{{ ranking.puntuacion }}</td>
-                            <td>
-                                <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Full House Rankings Table -->
-                <table class="table table-striped"
-                    *ngIf="!loading && rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0">
-                    <thead>
-                        <tr>
-                            <th>Número Jugador</th>
-                            <th>Nombre</th>
-                            <th>Puntuación</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ranking of filteredFullHouseRankings">
-                            <td>{{ ranking.playerNumber }}</td>
-                            <td>{{ ranking.playerName }}</td>
-                            <td>{{ ranking.puntuacion }}</td>
-                            <td>
-                                <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Escalera Real Rankings Table -->
-                <table class="table table-striped"
-                    *ngIf="!loading && rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0">
-                    <thead>
-                        <tr>
-                            <th>Número Jugador</th>
-                            <th>Nombre</th>
-                            <th>Puntuación</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ranking of filteredEscaleraRealRankings">
-                            <td>{{ ranking.playerNumber }}</td>
-                            <td>{{ ranking.playerName }}</td>
-                            <td>{{ ranking.puntuacion }}</td>
-                            <td>
-                                <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div *ngIf="!loading && (rankingActual === RankingEnum.POKER && filteredPokerRankings.length === 0) ||
-                          (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length === 0) ||
-                          (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length === 0)">
-                    <p>No hay jugadores registrados.</p>
-                </div>
-
-                <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && (
-              (rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0) ||
-              (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0) ||
-              (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0)
-            )">
-                    <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
-                    <span style="margin-right: 20px; cursor:default">Página {{ page }}</span>
-                    <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>
+    <hr class="animated-line"
+        style="background-color: rgb(255, 102, 0); height: 1px; width: 15rem; margin-left: 30px; border: none;">
+    <br>
+    <div class="tabla" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
+        <div *ngIf="isCreate" class="centered-container">
+            <app-create-ranking (guardar)="guardarNuevoRanking($event)"
+                (cancelar)="cancelarNuevoRanking()"></app-create-ranking>
+        </div>
+        <div *ngIf="isEdit" class="centered-container">
+            <app-edit-ranking [ranking]="rankingEditado" (guardar)="guardarJugadorEditado($event)"
+                (cancelar)="cancelarEditarRanking()"></app-edit-ranking>
+        </div>
+        <div class="buttons-container" style="padding-bottom: 20px; display: flex;">
+            <a class="agregar" href="javascript:void(0)" (click)="agregarRanking()" style="margin-right: 10px;">
+                <i class="bi bi-plus-square"></i> Agregar
+            </a>
+            <a class="importar" href="javascript:void(0)" (click)="fileInput.click()">
+                <i class="bi bi-file-earmark-arrow-up"></i> Importar
+            </a>
+            <input type="file" #fileInput (change)="importarRanking($event)" accept=".xlsx" style="display:none" />
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card text-center" style="padding: 20px;">
+                    <div class="button-group" style="padding-top: 20px;">
+                        <button class="ranking-btn poker-btn"
+                            [ngClass]="{'active': rankingActual === RankingEnum.POKER}"
+                            (click)="filtrarPorRankingEnum(RankingEnum.POKER)">Poker</button>
+                        <button class="ranking-btn fullhouse-btn"
+                            [ngClass]="{'active': rankingActual === RankingEnum.FULLHOUSE}"
+                            (click)="filtrarPorRankingEnum(RankingEnum.FULLHOUSE)">Full House</button>
+                        <button class="ranking-btn escalera-btn"
+                            [ngClass]="{'active': rankingActual === RankingEnum.ESCALERAREAL}"
+                            (click)="filtrarPorRankingEnum(RankingEnum.ESCALERAREAL)">Escalera Real</button>
+                    </div>
+                    <br>
+                    <table class="table table-striped"
+                        *ngIf="!loading && rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Número Jugador</th>
+                                <th>Nombre</th>
+                                <th>Puntuación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ranking of filteredPokerRankings">
+                                <td>{{ ranking.playerNumber }}</td>
+                                <td>{{ ranking.playerName }}</td>
+                                <td>{{ ranking.puntuacion }}</td>
+                                <td>
+                                    <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped"
+                        *ngIf="!loading && rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Número Jugador</th>
+                                <th>Nombre</th>
+                                <th>Puntuación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ranking of filteredFullHouseRankings">
+                                <td>{{ ranking.playerNumber }}</td>
+                                <td>{{ ranking.playerName }}</td>
+                                <td>{{ ranking.puntuacion }}</td>
+                                <td>
+                                    <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped"
+                        *ngIf="!loading && rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Número Jugador</th>
+                                <th>Nombre</th>
+                                <th>Puntuación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ranking of filteredEscaleraRealRankings">
+                                <td>{{ ranking.playerNumber }}</td>
+                                <td>{{ ranking.playerName }}</td>
+                                <td>{{ ranking.puntuacion }}</td>
+                                <td>
+                                    <a class="custom-btn btn-sm" (click)="editarRanking(ranking)">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a class="custom-btn btn-sm" (click)="eliminarRanking(ranking.id!)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div
+                        *ngIf="!loading && (rankingActual === RankingEnum.POKER && filteredPokerRankings.length === 0) ||
+                              (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length === 0) ||
+                              (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length === 0)">
+                        <p style="color: grey;">No hay jugadores registrados.</p>
+                    </div>
+                    <div style="margin-top: 20px;" class="pagination-controls" *ngIf="!loading && (
+                  (rankingActual === RankingEnum.POKER && filteredPokerRankings.length > 0) ||
+                  (rankingActual === RankingEnum.FULLHOUSE && filteredFullHouseRankings.length > 0) ||
+                  (rankingActual === RankingEnum.ESCALERAREAL && filteredEscaleraRealRankings.length > 0)
+                )">
+                        <a class="btn-pagination" (click)="onPageChange(page - 1)" *ngIf="page != 1">Anterior</a>
+                        <span style="margin-right: 20px; cursor:default; color: rgb(224, 224, 224);">Página {{ page }}</span>
+                        <a class="btn-pagination" (click)="onPageChange(page + 1)" *ngIf="hasNextPage">Siguiente</a>
+                    </div>
                 </div>
             </div>
         </div>

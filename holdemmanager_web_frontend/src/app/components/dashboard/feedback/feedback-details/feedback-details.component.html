@@ -2,15 +2,14 @@
   <div class="popup-content" (click)="stopPropagation($event)">
     <a class="close-button" (click)="cerrarPopup()">X</a>
     <h2>Detalles de la devolución</h2>
-    <br>
-    <p><strong>Mensaje:</strong> {{ feedback?.mensaje }}</p>
-    <p><strong>Fecha:</strong> {{ feedback?.fecha | date:'dd/MM/yyyy' }}</p>
+    <p id="mensaje"><strong>Mensaje:</strong> {{ feedback?.mensaje }}</p>
+    <p id="fecha"><strong>Fecha:</strong> {{ feedback?.fecha | date:'dd/MM/yyyy' }}</p>
     <br>
     <div *ngIf="!feedback?.isAnonimo">
       <h3>Información del usuario</h3>
-      <p><strong>Nombre:</strong> {{ jugador?.name }}</p>
-      <p><strong>Número de jugador:</strong> {{ jugador?.numberPlayer }}</p>
-      <p><strong>Email:</strong> {{ jugador?.email }}</p>
+      <p id="nombre"><strong>Nombre:</strong> {{ jugador?.name }}</p>
+      <p id="numero"><strong>Número de jugador:</strong> {{ jugador?.numberPlayer }}</p>
+      <p id="email"><strong>Email:</strong> {{ jugador?.email }}</p>
     </div>
   </div>
 </div>

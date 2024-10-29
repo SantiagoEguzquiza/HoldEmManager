@@ -1,3 +1,3 @@
 export const environment = {
-    endpoint: "http://localhost:5183"
+    endpoint: "https://www.holdemmanager.somee.com"
 };

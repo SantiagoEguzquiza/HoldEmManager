@@ -4,7 +4,7 @@
 <div class="create-torneo-container">
   <h3>{{ nuevoTorneo.id ? 'Editar torneo' : 'Agregar nuevo torneo' }}</h3>
   <br>
-  <form (ngSubmit)="guardarTorneo()" #torneoForm="ngForm" style="width: 100%;">
+  <form (ngSubmit)="guardarTorneo()" #torneoForm="ngForm" class="form-grid">
     <div class="form-group">
       <label for="numeroRef">Número de referencia</label>
       <input type="text" id="numeroRef" [(ngModel)]="nuevoTorneo.numeroRef" name="numeroRef" required class="input"
@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
       <label for="inicio">Hora de inicio</label>
-      <input type="text" id="inicio" [(ngModel)]="nuevoTorneo.inicio" name="inicio" required class="input"
+      <input type="time" id="inicio" [(ngModel)]="nuevoTorneo.inicio" name="inicio" required class="input"
         #inicio="ngModel">
       <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)" class="invalid">
         El horario de inicio <strong>es requerido</strong>
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <label for="cierre">Hora de cierre</label>
-      <input type="text" id="cierre" [(ngModel)]="nuevoTorneo.cierre" name="cierre" required class="input"
+      <input type="time" id="cierre" [(ngModel)]="nuevoTorneo.cierre" name="cierre" required class="input"
         #cierre="ngModel">
       <div *ngIf="cierre.invalid && (cierre.dirty || cierre.touched)" class="invalid">
         El horario de cierre <strong>es requerido</strong>
@@ -46,24 +46,24 @@
     </div>
     <div class="form-group">
       <label for="stack">Stack</label>
-      <textarea id="stack" [(ngModel)]="nuevoTorneo.stack" name="stack" required class="input"
-        #stack="ngModel"></textarea>
+      <input type="text" id="stack" [(ngModel)]="nuevoTorneo.stack" name="stack" required class="input"
+        #stack="ngModel">
       <div *ngIf="stack.invalid && (stack.dirty || stack.touched)" class="invalid">
         El stack <strong>es requerido</strong>
       </div>
     </div>
     <div class="form-group">
       <label for="niveles">Niveles</label>
-      <textarea id="niveles" [(ngModel)]="nuevoTorneo.niveles" name="niveles" required class="input"
-        #niveles="ngModel"></textarea>
+      <input type="text" id="niveles" [(ngModel)]="nuevoTorneo.niveles" name="niveles" required class="input"
+        #niveles="ngModel">
       <div *ngIf="niveles.invalid && (niveles.dirty || niveles.touched)" class="invalid">
         Los niveles <strong>son requeridos</strong>
       </div>
     </div>
     <div class="form-group">
       <label for="entrada">Entrada</label>
-      <textarea id="entrada" [(ngModel)]="nuevoTorneo.entrada" name="entrada" required class="input"
-        #entrada="ngModel"></textarea>
+      <input type="text" id="entrada" [(ngModel)]="nuevoTorneo.entrada" name="entrada" required class="input"
+        #entrada="ngModel">
       <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)" class="invalid">
         El costo de la entrada <strong>es requerida</strong>
       </div>

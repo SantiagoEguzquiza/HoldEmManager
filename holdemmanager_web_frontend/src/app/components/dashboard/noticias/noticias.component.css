@@ -1,6 +1,16 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+  padding-bottom: 20px;
+}
+
 .dark-background {
   position: fixed;
   top: 0;
@@ -38,14 +48,19 @@
 }
 
 .tabla {
-  margin-top: 30px;
   margin-left: 2%;
   margin-right: 2%;
   padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 }
 
 .custom-btn {
   margin: 0 5px;
+}
+
+.custom-btn i {
+  color: white;
 }
 
 .img-noticia {
@@ -63,6 +78,11 @@
 
 i {
   font-size: 1.2rem;
+  color: white;
+}
+
+i:hover {
+  color: #a0a0a0;
 }
 
 .agregar {
@@ -70,21 +90,23 @@ i {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #008f39;
+  background-color: rgb(180, 84, 15);
   border: none;
   color: #fff;
   padding: 8px;
   border-radius: 5px;
   text-decoration: none;
+  transition: 0.5s;
 }
 
 .agregar:hover {
-  background-color: #006400;
+  background-color: rgb(218, 136, 77);
 }
 
 .centered-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   right: 0;
@@ -108,6 +130,7 @@ i {
   background-color: rgb(180, 84, 15);
   border-radius: 15px;
   margin-right: 20px;
+  transition: 0.5s;
 }
 
 .btn-pagination:hover {
@@ -124,10 +147,201 @@ i {
   padding: 5px;
   border: rgb(182, 182, 182) solid 1px;
   border-radius: 4px;
-  color: #575757;
+  color: #bebebe;
   padding-left: 10px;
 }
 
 .input:focus {
   border: #575757 solid 1px;
+}
+
+.date {
+  outline: none;
+  width: 100%;
+  padding: 5px;
+  border: rgb(182, 182, 182) solid 1px;
+  border-radius: 4px;
+  color: #bebebe;
+  padding-left: 10px;
+}
+
+.date:focus {
+  border: #575757 solid 1px;
+}
+
+.card {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.table {
+  background-color: transparent;
+}
+
+.table th,
+.table td {
+  background-color: rgb(0, 0, 0, 0.5);
+  color: white;
+}
+
+.table tr:nth-child(even) th,
+.table tr:nth-child(even) td {
+  background-color: rgba(19, 19, 19, 0.5);
+}
+
+.input {
+  width: calc(100% - 29px);
+  height: 100%;
+  border: 0;
+  border-color: rgb(0, 0, 0, 0.7);
+  font-size: 1rem;
+  padding-right: 0px;
+  color: white ;
+  background: rgb(0, 0, 0, 0.7);
+  border-right: 2px solid var(--input-border-color);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #525252 !important;
+  opacity: 1;
+}
+
+.input::-webkit-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.input::-moz-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.input::-ms-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.input:focus::-webkit-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+.input:focus::-moz-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+.input:focus::-ms-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+.date {
+  width: calc(100% - 29px);
+  height: 100%;
+  border: 0;
+  border-color: rgb(0, 0, 0, 0.7);
+  font-size: 1rem;
+  padding-right: 0px;
+  color: var(--input-line);
+  background: rgb(0, 0, 0, 0.7);
+  border-right: 2px solid var(--input-border-color);
+  outline: none;
+}
+
+.date::-webkit-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.date::-moz-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.date::-ms-input-placeholder {
+  color: var(--input-text-color);
+}
+
+.date:focus::-webkit-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+.date:focus::-moz-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+.date:focus::-ms-input-placeholder {
+  color: var(--input-text-hover-color);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+  padding-right: 10px;
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fade-in-top {
+  animation: fadeInFromTop 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.table-no-border td,
+.table-no-border th {
+  border: none;
+}
+
+.animated-line {
+  animation: slideIn 1s forwards;
+  transform: translateX(100%);
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.titulo {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.tituloNoticias {
+  font-size: 2rem;
+  color: rgb(224, 224, 224);
+  letter-spacing: 5px;
+  border-right: 5px solid;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation:
+    typing 2s steps(16),
+    cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
 }

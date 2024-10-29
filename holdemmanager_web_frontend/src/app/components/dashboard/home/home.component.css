@@ -1,14 +1,15 @@
 .container {
     display: flex;
     flex-wrap: wrap;
+    min-height: 100vh;
     height: auto;
     width: 100%;
     align-items: center;
     justify-content: center;
     gap: 20px;
     padding: 20px;
-    margin-top: 70px;
-    margin-bottom: 70px;
+    padding-top: 220px;
+    padding-bottom: 60px;
 }
 
 .card-torneo {

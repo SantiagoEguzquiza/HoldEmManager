@@ -5,13 +5,13 @@
     flex-direction: column;
     margin: auto;
     padding: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: rgb(0, 0, 0, 0.9);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h3 {
+    color: rgb(238, 238, 238);
     display: flex;
     justify-content: center;
 }
@@ -23,6 +23,7 @@ h3 {
 }
 
 a{
+    color: white !important;
     width: 10%;
     display: flex;
     justify-content: center;
@@ -31,9 +32,14 @@ a{
     border-radius: 10px;
     cursor: pointer;
     border: rgb(218, 127, 63);
+    transition: 0.6s;
 }
 
 a:hover{
     background-color: rgb(214, 147, 100);
     border: rgb(218, 127, 63);
+}
+
+li{
+    color: rgb(223, 223, 223);
 }

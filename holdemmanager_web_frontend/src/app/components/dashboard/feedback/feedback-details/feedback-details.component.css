@@ -4,15 +4,25 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 4;
+}
+
+h3, h2 {
+  color: rgb(219, 219, 219);
+  margin-bottom: 30px;
+}
+
+
+p{
+  color: rgb(194, 194, 194);
 }
 
 .popup-content {
-  background: white;
+  background: linear-gradient(to bottom, rgb(22, 22, 22), rgb(37, 37, 37));
   padding: 20px;
   border-radius: 8px;
   width: 80%;
@@ -29,7 +39,7 @@
   background: transparent;
   font-size: 18px;
   cursor: pointer;
-  color: #333; 
+  color: #ffffff; 
   text-decoration: none;
   padding: 1px 10px;
 }
@@ -38,4 +48,59 @@
   background-color: rgb(180, 84, 15);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
+}
+
+#mensaje {
+  animation: bounce 0.5s;
+  -webkit-appearance: none;
+}
+
+#fecha {
+  animation: bounce2 0.7s;
+}
+
+#nombre {
+  animation: bounce1 1s;
+}
+
+#numero {
+  animation: bounce2 1.3s;
+}
+
+#email {
+  animation: bounce2 1.6s;
+}
+
+.aceptar,
+.cancelar {
+  animation: bounce2 1.6s;
+}
+
+@keyframes bounce {
+  0% {
+      transform: translateY(-250px);
+      opacity: 0;
+  }
+}
+
+@keyframes bounce1 {
+  0% {
+      opacity: 0;
+  }
+
+  40% {
+      transform: translateY(-100px);
+      opacity: 0;
+  }
+}
+
+@keyframes bounce2 {
+  0% {
+      opacity: 0;
+  }
+
+  70% {
+      transform: translateY(-20px);
+      opacity: 0;
+  }
 }

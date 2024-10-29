@@ -6,21 +6,24 @@
     <br>
     <form (ngSubmit)="guardarContacto()" #contactoForm="ngForm" style="width: 100%;">
         <div class="form-group">
-            <textarea id="infoCasino" placeholder="Información del casino" [(ngModel)]="nuevoContacto.infoCasino"
+            <label for="fecha">Información del casino</label>
+            <textarea id="infoCasino" [(ngModel)]="nuevoContacto.infoCasino"
                 name="infoCasino" required class="input" #infoCasino="ngModel" rows="5"></textarea>
             <div *ngIf="infoCasino.invalid && (infoCasino.dirty || infoCasino.touched)" class="invalid">
                 La información del torneo <strong>es requerida</strong>
             </div>
         </div>
         <div class="form-group">
-            <input type="text" id="direccion" placeholder="Dirección" [(ngModel)]="nuevoContacto.direccion"
+            <label for="fecha">Dirección</label>
+            <input type="text" id="direccion" [(ngModel)]="nuevoContacto.direccion"
                 name="direccion" required class="input" #direccion="ngModel">
             <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="invalid">
                 La dirección del torneo <strong>es requerida</strong>
             </div>
         </div>
         <div class="form-group">
-            <input type="text" id="numeroTelefono" placeholder="Teléfono" [(ngModel)]="nuevoContacto.numeroTelefono"
+            <label for="fecha">Teléfono</label>
+            <input type="text" id="numeroTelefono" [(ngModel)]="nuevoContacto.numeroTelefono"
                 name="numeroTelefono" required class="input" #numeroTelefono="ngModel" pattern="^(\+?[0-9]*)$">
             <div *ngIf="numeroTelefono.invalid && (numeroTelefono.dirty || numeroTelefono.touched)" class="invalid">
                 <div *ngIf="numeroTelefono.errors?.['required']">
@@ -32,7 +35,8 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="text" id="email" placeholder="Email" [(ngModel)]="nuevoContacto.email" name="email" required
+            <label for="fecha">Email</label>
+            <input type="text" id="email" [(ngModel)]="nuevoContacto.email" name="email" required
                 class="input" #email="ngModel" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid">
                 <div *ngIf="email.errors?.['required']">

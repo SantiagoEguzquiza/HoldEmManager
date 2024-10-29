@@ -51,18 +51,17 @@ export class MapaInteractivoComponent implements AfterViewInit {
   ];
 
   itemsOriginales: PlanoItem[] = [
-    { type: 'banio', label: 'Bathrooms', x: 70, y: 15, rotation: 0, plano: 1, width: 65, height: 40 },
-    { type: 'caja', label: 'Cashier', x: 38.5, y: 88, rotation: -90, plano: 1, width: 60, height: 35 },
-    { type: 'marketing', label: 'Marketing', x: 37.4, y: 70, rotation: -90, plano: 1, width: 80, height: 35 },
-    { type: 'infotorneos', label: 'Tournament Information', x: 90, y: 88.3, rotation: 0, plano: 2, width: 80, height: 50 },
+    { type: 'banio', label: 'Bathrooms', x: 70, y: 21, rotation: 0, plano: 1, width: 65, height: 40 },
+    { type: 'caja', label: 'Cashier', x: 37.7, y: 77, rotation: -90, plano: 1, width: 60, height: 35 },
+    { type: 'marketing', label: 'Marketing', x: 36.6, y: 60, rotation: -90, plano: 1, width: 80, height: 35 },
+    { type: 'infotorneos', label: 'Tournament Information', x: 90, y: 89.4, rotation: 0, plano: 2, width: 80, height: 50 },
     { type: 'prensa', label: 'Press', x: 92.8, y: 20, rotation: 90, plano: 2, width: 70, height: 40 },
-    { type: 'agua', label: '', x: 31, y: 2, rotation: 0, plano: 2, width: 20, height: 20 },
-    { type: 'agua', label: '', x: 61, y: 2, rotation: 0, plano: 2, width: 20, height: 20 },
-    { type: 'agua', label: '', x: 31, y: 93.5, rotation: 0, plano: 2, width: 20, height: 20 },
-    { type: 'agua', label: '', x: 61, y: 93.5, rotation: 0, plano: 2, width: 20, height: 20 },
-    { type: 'salatorneo', label: 'Tournament Room', x: 68, y: 65, rotation: 90, plano: 1, width: 200, height: 100 },
-    { type: 'barbero', label: 'Barber', x: 55.7, y: 65, rotation: 90, plano: 1, width: 50, height: 30 },
-    { type: 'entretenimiento', label: 'Entertainment', x: 54.5, y: 73.5, rotation: 90, plano: 1, width: 60, height: 45 },
+    { type: 'agua', label: '', x: 31, y: 1.7, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 61, y: 1.7, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 31, y: 95, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'agua', label: '', x: 61, y: 95, rotation: 0, plano: 2, width: 20, height: 20 },
+    { type: 'barbero', label: 'Barber', x: 56.8, y: 65, rotation: 90, plano: 1, width: 50, height: 30 },
+    { type: 'entretenimiento', label: 'Entertainment', x: 55.4, y: 73.5, rotation: 90, plano: 1, width: 60, height: 45 },
     ...this.crearMesasManuales()
   ];
 

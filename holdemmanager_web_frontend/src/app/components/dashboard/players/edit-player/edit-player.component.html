@@ -5,24 +5,24 @@
   <h3 class="titulo">Editar jugador</h3>
   <form [formGroup]="jugadorForm" (ngSubmit)="guardarJugador()">
     <div class="form-group">
-      <label for="numberPlayer">Número de Jugador</label>
+      <label for="fecha">Número de Jugador</label>
       <input type="text" id="numberPlayer" formControlName="numberPlayer" class="input">
-      <div class="text-danger ml-2" *ngIf="numberPlayer?.invalid && (numberPlayer?.dirty || numberPlayer?.touched)">
+      <div class="text-danger ml-2 invalid" *ngIf="numberPlayer?.invalid && (numberPlayer?.dirty || numberPlayer?.touched)">
         <span *ngIf="numberPlayer?.errors?.['required']">Número de jugador es <strong>requerido.</strong></span>
         <span *ngIf="numberPlayer?.errors?.['pattern']">Número de jugador debe ser un número <strong>válido.</strong></span>
       </div>
     </div>
     <div class="form-group">
-      <label for="name">Nombre</label>
+      <label for="fecha">Nombre</label>
       <input type="text" id="name" formControlName="name" class="input">
-      <div class="text-danger ml-2" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+      <div class="text-danger ml-2 invalid" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
         <span *ngIf="name?.errors?.['required']">El nombre es <strong>requerido.</strong></span>
       </div>
     </div>
     <div class="form-group">
-      <label for="email">Email</label>
+      <label for="fecha">Email</label>
       <input type="email" id="email" formControlName="email" class="input">
-      <span class="text-danger ml-2" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <span class="text-danger ml-2 invalid" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
         <span *ngIf="email?.errors?.['required']">El email es <strong>requerido</strong> </span>
         <span *ngIf="email?.errors?.['email']">El email debe ser <strong>válido.</strong></span>
       </span>

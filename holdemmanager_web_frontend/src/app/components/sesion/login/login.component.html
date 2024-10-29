@@ -1,29 +1,28 @@
 <div class="container">
-    <div class="row" style="width: 100%;">
-        <div class="col-lg-6 offset-lg-3">
-            <app-loading *ngIf="loading" style="display: flex;justify-content: center;"></app-loading>
-            <div class="card text-center" style="padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
-                <h3>Iniciar Sesión</h3>
-                <br>
-                <form [formGroup]="login" (ngSubmit)="log()" style="padding-top: 10px;">
-                    <div class="form-group" style="text-align: start;">
-                        <input type="text" class="input" placeholder="Nombre de Usuario"
-                            formControlName="nombreUsuario">
-                        <span class="text-danger ml-2"
-                            *ngIf="login.get('nombreUsuario')?.hasError('required') && login.get('nombreUsuario')?.touched">El
-                            nombre del usuario <strong>es requerido</strong></span>
-                    </div>
-                    <div class="form-group" style="text-align: start;">
-                        <input type="password" class="input" placeholder="Contraseña" formControlName="password">
-                        <span class="text-danger ml-2"
-                            *ngIf="login.get('password')?.hasError('required') && login.get('password')?.touched">La
-                            contraseña <strong>es requerida</strong></span>
-                    </div>
-
-                    <button class="btn mr-2 btn-login" [disabled]="login.invalid"
-                        type="submit">Ingresar</button>
-                </form>
+    <app-loading *ngIf="loading" style="display: flex;justify-content: center; position: absolute; z-index: 10;" ></app-loading>
+    <div class="dark-background" *ngIf="loading"></div>
+    <div class="login wrap">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <h2>Inicio de Sesión</h2>
+        <form [formGroup]="login" (ngSubmit)="log()" style="padding-top: 10px;">
+            <div class="form-group">
+                <input type="text" id="email" placeholder="Nombre de Usuario" formControlName="nombreUsuario">
+                <div class="text-danger ml-2" *ngIf="login.get('nombreUsuario')?.hasError('required') && login.get('nombreUsuario')?.touched">
+                    El nombre del usuario <strong>es requerido</strong>
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Contraseña" formControlName="password">
+                <div class="text-danger ml-2" *ngIf="login.get('password')?.hasError('required') && login.get('password')?.touched">
+                    La contraseña <strong>es requerida</strong>
+                </div>
+            </div>
+            <input class="btn" [disabled]="login.invalid" type="submit" value="Ingresar">
+        </form>
+        
     </div>
 </div>
+

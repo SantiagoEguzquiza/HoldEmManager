@@ -1,10 +1,10 @@
-<div class="container" style="display: flex; justify-content: center; align-items: center;">
+<div class="container">
   <div class="dark-background" *ngIf="isCreateItem || isHelp"></div>
   <app-create-item *ngIf="isCreateItem" (guardar)="guardarNuevoItem($event)" (cancelar)="cancelarNuevoItem()"
     style="position: absolute; z-index: 2;"></app-create-item>
   <app-help style="position: absolute; z-index: 3;" (atras)="atrasItem()" *ngIf="isHelp"></app-help>
 
-  <div class="plano-container" id="plano-container">
+  <div class="plano-container fade-in-top" id="plano-container">
     <div class="background-layer">
       <div *ngFor="let item of itemsFiltrados" [ngClass]="item.type" [ngStyle]="{
         'left.%': item.x,
@@ -21,13 +21,13 @@
     <img [src]="currentPlano.imagen" alt="Plano" class="plano" />
   </div>
 
-  <div class="buttons">
-    <a href="javascript:void(0)" (click)="exportarImagen()"><i class="bi bi-save"></i>Guardar Mapa</a>
-    <a href="javascript:void(0)" (click)="reinicarItems()"><i class="bi bi-arrow-repeat"></i>Reiniciar</a>
-    <a href="javascript:void(0)" (click)="nuevoItem()"><i class="bi bi-plus-square-fill"></i>Agregar Nuevo</a>
+  <div class="buttons animated-line">
     <select class="planos" (change)="cambiarPlano($event)">
       <option *ngFor="let plano of planos" [value]="plano.id">{{ plano.nombre }}</option>
     </select>
+    <a href="javascript:void(0)" (click)="exportarImagen()"><i class="bi bi-save"></i>Guardar Mapa</a>
+    <a href="javascript:void(0)" (click)="reinicarItems()"><i class="bi bi-arrow-repeat"></i>Reiniciar</a>
+    <a href="javascript:void(0)" (click)="nuevoItem()"><i class="bi bi-plus-square-fill"></i>Agregar Nuevo</a>
     <a (click)="help()" href="javascript:void(0)"><i class="bi bi-info-circle"></i></a>
   </div>
 </div>

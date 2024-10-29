@@ -1,22 +1,23 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
-.loading-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+.container {
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+  padding-bottom: 20px;
 }
 
 .dark-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .container-fluid .dark-background {
@@ -47,10 +48,11 @@
 }
 
 .tabla {
-  margin-top: 30px;
   margin-left: 2%;
   margin-right: 2%;
   padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 }
 
 
@@ -74,13 +76,17 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #008f39;
+  background-color: rgb(180, 84, 15);
   border: none;
   color: #fff;
   padding: 8px;
   border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: 0.5s;
+}
+
+.agregar:hover {
+  background-color: rgb(218, 136, 77);
 }
 
 .importar {
@@ -88,24 +94,17 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #067aee;
+  background-color: rgb(65, 65, 65);
   border: none;
   color: #fff;
   padding: 8px;
   border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: 0.5s;
 }
 
 .importar:hover {
-  background-color: #0e6ac6;
-  transform: scale(1.05);
-
-}
-
-.agregar:hover {
-  background-color: #006400;
-  transform: scale(1.05);
+  background-color: rgb(114, 114, 114);
 }
 
 .centered-container {
@@ -117,26 +116,12 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  position: relative;
-}
-
-.header-container h3 {
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  z-index: 1;
 }
 
 i {
   font-size: 1.2rem;
+  color: white;
 }
 
 .button-group {
@@ -175,6 +160,7 @@ i {
   background-color: rgb(180, 84, 15);
   border-radius: 15px;
   margin-right: 20px;
+  transition: 0.5s;
 }
 
 .btn-pagination:hover {
@@ -183,4 +169,93 @@ i {
 
 .btn-pagination:disabled {
   background-color: rgb(97, 96, 95);
+}
+
+.card {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.table {
+  background-color: transparent;
+  border-radius: 20px;
+}
+
+.table th,
+.table td {
+  background-color: rgb(0, 0, 0, 0.5);
+  color: white;
+}
+
+.table tr:nth-child(even) th,
+.table tr:nth-child(even) td {
+  background-color: rgba(19, 19, 19, 0.5);
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-top {
+  animation: fadeInFromTop 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.table-no-border td,
+.table-no-border th {
+  border: none;
+}
+
+.animated-line {
+  animation: slideIn 1s forwards;
+  transform: translateX(100%);
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.titulo {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.tituloRanking {
+  font-size: 2rem;
+  color: rgb(224, 224, 224);
+  letter-spacing: 5px;
+  border-right: 5px solid;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation:
+    typing 2s steps(7),
+    cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
 }
