@@ -12,6 +12,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card text-center" style="padding: 20px;">
+          <div class="table-responsive">
           <table class="table table-striped" *ngIf="!loading && feedbacks && feedbacks.length > 0">
             <thead>
               <tr>
@@ -36,6 +37,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
           <div *ngIf="!loading && (!feedbacks || feedbacks.length === 0)">
             <p style="color: grey;">No hay comentarios disponibles.</p>
           </div>

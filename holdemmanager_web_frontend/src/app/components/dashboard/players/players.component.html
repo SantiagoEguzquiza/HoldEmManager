@@ -20,7 +20,7 @@
     <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
       <div>
         <a class="agregar" href="javascript:void(0)" (click)="agregarJugador()">
-          <i class="bi bi-plus-square-fill"></i> Agregar Jugador
+          <i class="bi bi-plus-square"></i> Agregar Jugador
         </a>
       </div>
       <div style="display: flex; align-items: center; gap: 10px;">
@@ -34,31 +34,33 @@
     <div class="row">
       <div class="col-12">
         <div class="card text-center" style="padding: 20px;">
-          <table class="table table-striped" *ngIf="!loading && jugadores && jugadores.length > 0">
-            <thead>
-              <tr>
-                <th>Número Jugador</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let jugador of jugadores">
-                <td>{{ jugador.numberPlayer }}</td>
-                <td>{{ jugador.name }}</td>
-                <td>{{ jugador.email }}</td>
-                <td>
-                  <a class="custom-btn btn-sm" (click)="editarJugador(jugador)">
-                    <i class="fas fa-pen"></i>
-                  </a>
-                  <a class="custom-btn btn-sm" (click)="eliminarJugador(jugador.numberPlayer)">
-                    <i class="fas fa-trash-alt"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-striped" *ngIf="!loading && jugadores && jugadores.length > 0">
+              <thead>
+                <tr>
+                  <th>Número Jugador</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let jugador of jugadores">
+                  <td>{{ jugador.numberPlayer }}</td>
+                  <td>{{ jugador.name }}</td>
+                  <td>{{ jugador.email }}</td>
+                  <td>
+                    <a class="custom-btn btn-sm" (click)="editarJugador(jugador)">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                    <a class="custom-btn btn-sm" (click)="eliminarJugador(jugador.numberPlayer)">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div *ngIf="!loading && (!jugadores || jugadores.length === 0)">
             <p style="color: grey;">No hay jugadores registrados.</p>
           </div>

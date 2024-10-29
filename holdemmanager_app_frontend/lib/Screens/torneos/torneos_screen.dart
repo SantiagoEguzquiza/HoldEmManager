@@ -321,7 +321,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                         const Divider(),
                                         Row(
                                           children: [
-                                            Icon(Icons.calendar_today, color: Colors.orangeAccent),
+                                            const Icon(Icons.calendar_today, color: Colors.orangeAccent),
                                             const SizedBox(width: 8),
                                             Text('${traducir('start')}: ${torneo.inicio}'),
                                           ],
@@ -329,7 +329,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                         const SizedBox(height: 8),
                                         Row(
                                           children: [
-                                            Icon(Icons.event, color: Colors.orangeAccent),
+                                            const Icon(Icons.event, color: Colors.orangeAccent),
                                             const SizedBox(width: 8),
                                             Text('${traducir('end')}: ${torneo.cierre}'),
                                           ],
@@ -337,7 +337,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                         const SizedBox(height: 8),
                                         Row(
                                           children: [
-                                            Icon(Icons.layers, color: Colors.orangeAccent),
+                                            const Icon(Icons.layers, color: Colors.orangeAccent),
                                             const SizedBox(width: 8),
                                             Text('${traducir('stack')}: ${torneo.stack}'),
                                           ],
@@ -345,7 +345,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                         const SizedBox(height: 8),
                                         Row(
                                           children: [
-                                            Icon(Icons.timeline, color: Colors.orangeAccent),
+                                            const Icon(Icons.timeline, color: Colors.orangeAccent),
                                             const SizedBox(width: 8),
                                             Text('${traducir('levels')}: ${torneo.niveles}'),
                                           ],
@@ -353,7 +353,7 @@ class _TorneosPage extends State<TorneosPage> implements LanguageHelper {
                                         const SizedBox(height: 8),
                                         Row(
                                           children: [
-                                            Icon(Icons.attach_money, color: Colors.orangeAccent),
+                                            const Icon(Icons.attach_money, color: Colors.orangeAccent),
                                             const SizedBox(width: 8),
                                             Text('${traducir('ticket')}: ${torneo.entrada}'),
                                           ],

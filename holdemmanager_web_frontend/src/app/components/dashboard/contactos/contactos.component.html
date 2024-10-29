@@ -16,12 +16,13 @@
     </div>
     <div class="buttons" style="padding-bottom: 20px;">
       <a class="agregar" href="javascript:void(0)" (click)="agregarContacto()">
-        <i class="bi bi-plus-square-fill"></i>Agregar Contacto
+        <i class="bi bi-plus-square"></i>Agregar Contacto
       </a>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="card text-center" style="padding: 20px;">
+          <div class="table-responsive">
           <table class="table table-striped" *ngIf="!loading && contactos && contactos.length > 0">
             <thead>
               <tr>
@@ -49,6 +50,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
           <div *ngIf="!loading && (!contactos || contactos.length === 0)">
             <p style="color: grey;">No hay contactos disponibles.</p>
           </div>

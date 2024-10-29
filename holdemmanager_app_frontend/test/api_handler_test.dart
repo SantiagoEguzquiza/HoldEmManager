@@ -18,7 +18,7 @@ void main() {
 
     testWidgets('checkTokenAndFetchData devuelve false cuando el token ha expirado', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({
-        'tokenExpiry': DateTime.now().subtract(Duration(days: 1)).toIso8601String(),
+        'tokenExpiry': DateTime.now().subtract(const Duration(days: 1)).toIso8601String(),
       });
 
       await tester.pumpWidget(MaterialApp(
@@ -38,7 +38,7 @@ void main() {
 
     testWidgets('checkTokenAndFetchData devuelve true cuando el token es válido', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({
-        'tokenExpiry': DateTime.now().add(Duration(days: 1)).toIso8601String(),
+        'tokenExpiry': DateTime.now().add(const Duration(days: 1)).toIso8601String(),
       });
 
       await tester.pumpWidget(MaterialApp(

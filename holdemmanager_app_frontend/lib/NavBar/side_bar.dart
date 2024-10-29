@@ -6,7 +6,6 @@ import 'package:holdemmanager_app/Helpers/login-register-helper.dart';
 import 'package:holdemmanager_app/Helpers/perfilHelper.dart';
 import 'package:holdemmanager_app/Screens/contacto_screen.dart';
 import 'package:holdemmanager_app/Screens/feedback_screen.dart';
-import 'package:holdemmanager_app/Screens/forum_screen.dart';
 import 'package:holdemmanager_app/Screens/login_screen.dart';
 import 'package:holdemmanager_app/Screens/map_screen.dart';
 import 'package:holdemmanager_app/Screens/rankings/rankings_screen.dart';

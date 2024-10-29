@@ -18,14 +18,14 @@
     <div class="buttons" style="padding-bottom: 20px; display: flex; justify-content: space-between;">
       <div>
         <a class="agregar" href="javascript:void(0)" (click)="agregarTorneo()">
-          <i class="bi bi-plus-square-fill"></i>Agregar torneo
+          <i class="bi bi-plus-square"></i>Agregar torneo
         </a>
       </div>
       <div style="display: flex; gap: 20px;">
         <div style="display: flex; gap: 20px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <input type="text" [(ngModel)]="filtro" (keyup.enter)="aplicarFiltro()" placeholder="Buscar torneos..."
-              class="input" style="width: 300px;">
+              class="input" style="max-width: 300px; min-width: 100px;">
             <button (click)="aplicarFiltro()" style="background: none; border: none; cursor: pointer;">
               <i class="bi bi-search"></i>
             </button>
@@ -33,13 +33,13 @@
           <input type="date" [(ngModel)]="filtroFecha" (change)="aplicarFiltroFecha()" class="date"
             style="width: 150px;">
         </div>
-
       </div>
     </div>
 
     <div class="row">
       <div class="col-12">
         <div class="card text-center" style="padding: 20px;">
+          <div class="table-responsive">
           <table class="table table-striped table-no-border" [ngClass]="{ 'hidden': loading }"
             *ngIf="!loading && torneos && torneos.length > 0">
             <thead>
@@ -76,6 +76,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
           <div *ngIf="!loading && (!torneos || torneos.length === 0)">
             <p style="color: grey;">No hay torneos disponibles.</p>
           </div>
