@@ -1,38 +1,54 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\",
+  "WorkspaceRootPath": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43D8F808-42B4-4527-AD51-759DA5358462}|holdemmanager_backend\\holdemmanager_backend.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{43D8F808-42B4-4527-AD51-759DA5358462}|holdemmanager_backend\\holdemmanager_backend.csproj|solutionrelative:holdemmanager_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43D8F808-42B4-4527-AD51-759DA5358462}|holdemmanager_backend\\holdemmanager_backend.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43D8F808-42B4-4527-AD51-759DA5358462}|holdemmanager_backend\\holdemmanager_backend.csproj|solutionrelative:holdemmanager_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\holdemmanager_backend.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\mapaappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\mapaappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\JugadorAppController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_app\\Controllers\\JugadorAppController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\jugadorappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\jugadorappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\TorneosWebController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_web\\Controllers\\TorneosWebController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\loginappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\loginappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\notificaciontorneoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\notificaciontorneoappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Utils\\JwtConfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_app\\Utils\\JwtConfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_app\\controllers\\notificacionnoticiaappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E125FFB6-4663-4B99-9C09-D3DC6BD64FD5}|holdemmanager_backend_app\\holdemmanager_backend_app.csproj|solutionrelative:holdemmanager_backend_app\\controllers\\notificacionnoticiaappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|d:\\ws\\holdemmanager\\holdemmanager_backend\\holdemmanager_backend_web\\controllers\\loginwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A17E3671-5B2D-4D1F-B3A5-CF2F028B1063}|holdemmanager_backend_web\\holdemmanager_backend_web.csproj|solutionrelative:holdemmanager_backend_web\\controllers\\loginwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\credentials.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\credentials.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend\\holdemmanager_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,104 +58,168 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Program.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend\\Program.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Program.cs",
-              "RelativeToolTip": "holdemmanager_backend\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvxwAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T17:56:13.525Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json",
-              "RelativeDocumentMoniker": "holdemmanager_backend\\appsettings.json",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json",
-              "RelativeToolTip": "holdemmanager_backend\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-09T17:16:19.222Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginAppController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\LoginAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\LoginAppController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\LoginAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\LoginAppController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T19:09:08.663Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "JugadorAppController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAuwCMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T19:08:44.963Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MapaAppController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\MapaAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\MapaAppController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\MapaAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\MapaAppController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB8AAABgAAAAAAAAAA==",
+              "Title": "JugadorAppController.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\JugadorAppController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T19:08:35.603Z"
+              "WhenOpened": "2025-04-09T20:45:12.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Program.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\Program.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Program.cs",
+              "RelativeToolTip": "holdemmanager_backend\\Program.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T03:24:21.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TorneosWebController.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "RelativeToolTip": "holdemmanager_backend_web\\Controllers\\TorneosWebController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T20:46:35.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FavoritoAppController.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\FavoritoAppController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T20:44:25.984Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "NotificacionTorneoAppController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\NotificacionTorneoAppController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAAAfAAAAAAAAAA==",
+              "Title": "JwtConfigurator.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Utils\\JwtConfigurator.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Utils\\JwtConfigurator.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Utils\\JwtConfigurator.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Utils\\JwtConfigurator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T19:07:33.65Z"
+              "WhenOpened": "2025-04-07T06:41:33.889Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "NotificacionNoticiaAppController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionNoticiaAppController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Controllers\\NotificacionNoticiaAppController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Controllers\\NotificacionNoticiaAppController.cs",
-              "RelativeToolTip": "holdemmanager_backend_app\\Controllers\\NotificacionNoticiaAppController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T19:07:28.434Z"
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "holdemmanager_backend\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-07T06:40:59.192Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "LoginWebController.cs",
-              "DocumentMoniker": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\LoginWebController.cs",
-              "RelativeDocumentMoniker": "holdemmanager_backend_web\\Controllers\\LoginWebController.cs",
-              "ToolTip": "D:\\WS\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_web\\Controllers\\LoginWebController.cs",
-              "RelativeToolTip": "holdemmanager_backend_web\\Controllers\\LoginWebController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\appsettings.json",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\appsettings.json",
+              "RelativeToolTip": "holdemmanager_backend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-01T03:28:17.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "credentials.json",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\credentials.json",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\credentials.json",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\credentials.json",
+              "RelativeToolTip": "holdemmanager_backend\\credentials.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-01T03:27:44.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "holdemmanager_backend.csproj.user",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj.user",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\holdemmanager_backend.csproj.user",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.csproj.user",
+              "RelativeToolTip": "holdemmanager_backend\\holdemmanager_backend.csproj.user",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003464|",
+              "WhenOpened": "2025-04-01T03:27:25.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "holdemmanager_backend.http",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.http",
+              "RelativeDocumentMoniker": "holdemmanager_backend\\holdemmanager_backend.http",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend\\holdemmanager_backend.http",
+              "RelativeToolTip": "holdemmanager_backend\\holdemmanager_backend.http",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-04-01T03:27:08.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ApplicationDbContextApp.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\Persistence\\ApplicationDbContextApp.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T18:21:09.106Z"
+              "WhenOpened": "2025-04-01T03:23:26.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CambiarPasswordDTO.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs",
+              "RelativeDocumentMoniker": "holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs",
+              "ToolTip": "C:\\Users\\santi\\Desktop\\Carrera\\HoldEmManager\\holdemmanager_backend\\holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs",
+              "RelativeToolTip": "holdemmanager_backend_app\\DTO\\CambiarPasswordDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-31T17:39:16.075Z"
             }
           ]
         }
